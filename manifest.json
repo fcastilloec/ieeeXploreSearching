@@ -3,5 +3,19 @@
   "name": "IEEE results to CSV",
   "version": "0.0.1",
   "description": "Download all IEEE results into a CSV file",
-  "author": "Felipe Castillo"
+  "author": "Felipe Castillo",
+  "page_action": {
+    "default_icon": {
+      "16": "images/ieee2csv16.png",
+      "32": "images/ieee2csv32.png",
+      "48": "images/ieee2csv48.png",
+      "128": "images/ieee2csv128.png"
+    }
+  },
+  "icons": {
+    "16": "images/ieee2csv16.png",
+    "32": "images/ieee2csv32.png",
+    "48": "images/ieee2csv48.png",
+    "128": "images/ieee2csv128.png"
+  }
 }
