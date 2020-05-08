@@ -4,6 +4,13 @@
   "version": "0.0.1",
   "description": "Download all IEEE results into a CSV file",
   "author": "Felipe Castillo",
+  "externally_connectable": {
+    "matches": ["https://ieeexplore.ieee.org/*"]
+  },
+  "content_scripts": [{
+    "matches": ["https://ieeexplore.ieee.org/search/searchresult.jsp*"],
+    "js": ["pageResults.js"]
+  }],
   "page_action": {
     "default_icon": {
       "16": "images/ieee2csv16.png",
