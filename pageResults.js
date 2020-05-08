@@ -54,8 +54,12 @@ function createCSV () {
     authors = authors ? el.querySelector(AUTHORS).innerText : ''
 
     // appends each results to the csv as a new row
-    csv += `${year},"${title}","${abstract}","${authors}","${journal}","${sciHub}"\n`
+    csv += `${year},"${title}","${abstract}","${authors}","${journal}",${hyperlink(sciHub)}\n`
   })
 
   return csv
+}
+
+function hyperlink (url) {
+  return `=HYPERLINK("${url}")`
 }
