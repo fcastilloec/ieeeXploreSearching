@@ -1,11 +1,15 @@
 {
   "manifest_version": 2,
   "name": "IEEE results to CSV",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Download all IEEE results into a CSV file",
   "author": "Felipe Castillo",
   "externally_connectable": {
     "matches": ["https://ieeexplore.ieee.org/*"]
+  },
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
   },
   "content_scripts": [{
     "matches": ["https://ieeexplore.ieee.org/search/searchresult.jsp*"],
@@ -24,5 +28,6 @@
     "32": "images/ieee2csv32.png",
     "48": "images/ieee2csv48.png",
     "128": "images/ieee2csv128.png"
-  }
+  },
+  "permissions": ["activeTab", "declarativeContent"]
 }
