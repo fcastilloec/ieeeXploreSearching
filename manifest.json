@@ -1,0 +1,7 @@
+{
+  "manifest_version": 2,
+  "name": "IEEE results to CSV",
+  "version": "0.0.1",
+  "description": "Download all IEEE results into a CSV file",
+  "author": "Felipe Castillo"
+}
