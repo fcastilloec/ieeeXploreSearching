@@ -7,6 +7,14 @@
 // Initializing CSV content received from pageResults.js
 let csv
 
+// Ask user where to save the CSV file
+function saveToFile (data) {
+  const link = document.createElement('a')
+  link.setAttribute('href', 'data:text/plaincharset=utf-8,' + encodeURIComponent(data)) // sets the data to download
+  link.setAttribute('download', 'results.csv') // default filename 'results.csv'
+  link.click() // shows the download dialog
+}
+
 // Rule for enabling the extension icon only on IEEE Xplore
 const rule = {
   conditions: [
@@ -28,6 +36,9 @@ chrome.runtime.onInstalled.addListener(function (details) {
     chrome.declarativeContent.onPageChanged.addRules([ rule ])
   })
 })
+
+// Call saveToFile when the extension button is clicked
+chrome.pageAction.onClicked.addListener(tab => saveToFile(csv))
 
 // Listen for any messages received by the content-script "pageResults.js"
 chrome.runtime.onConnect.addListener(port => {
