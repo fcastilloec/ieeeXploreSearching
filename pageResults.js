@@ -15,6 +15,18 @@ const JOURNAL = 'div.description > a'
 const YEAR = 'div.description > div.publisher-info-container > span[xplhighlight]'
 const ABSTRACT = 'div.js-displayer-content.u-mt-1.stats-SearchResults_DocResult_ViewMore > span'
 
+// Creates a port to communicate with background.js
+const port = chrome.runtime.connect({ name: "csvResults" })
+
+// Check for any changes on the "main section" of the page and sends them to the background if any changes
+const target = document.querySelector(MAIN_SECTION)
+const Observer = new MutationObserver(function (mutations, observer) {
+  port.postMessage(createCSV()) // sends the csv results everytime there's a change (could sometimes be empty)
+})
+
+// Tell it to observe for any child additions or removals
+Observer.observe(target, { childList: true })
+
 // Generates CSV data based on all the results
 function createCSV () {
   // Retrieves the list of results
