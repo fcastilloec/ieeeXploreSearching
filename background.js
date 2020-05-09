@@ -37,14 +37,6 @@ chrome.runtime.onInstalled.addListener(function (details) {
   })
 })
 
-// Call saveToFile when the extension button is clicked
-chrome.pageAction.onClicked.addListener(tab => saveToFile(csv))
-
-// Listen for any messages received by the content-script "pageResults.js"
-chrome.runtime.onConnect.addListener(port => {
-  if (port.name == "csvResults") { // make sures it's the right port
-    port.onMessage.addListener(msg => {
-      csv = msg // overwrites content of csv
-    })
-  }
+chrome.pageAction.onClicked.addListener(tab => {
+  chrome.tabs.executeScript({ file: 'pageResults.js' }, csv => saveToFile(csv))
 })

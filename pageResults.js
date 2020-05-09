@@ -4,31 +4,19 @@
  * Once all the "mutations" (a.k.a. changes to the DOM) have been seen, we send them via a port to the background
  */
 
-const SCI_HUB_URL = 'https://sci-hub.tw/https://ieeexplore.ieee.org'
-
-// LIST OF ELEMENTSS:
-const MAIN_SECTION = '#xplMainContent > div.ng-SearchResults.row > div.main-section'
-const ELEMENTS = 'div.row.result-item.hide-mobile > div.col.result-item-align'
-const TITLE = 'h2 > a'
-const AUTHORS = 'p.author'
-const JOURNAL = 'div.description > a'
-const YEAR = 'div.description > div.publisher-info-container > span[xplhighlight]'
-const ABSTRACT = 'div.js-displayer-content.u-mt-1.stats-SearchResults_DocResult_ViewMore > span'
-
-// Creates a port to communicate with background.js
-const port = chrome.runtime.connect({ name: "csvResults" })
-
-// Check for any changes on the "main section" of the page and sends them to the background if any changes
-const target = document.querySelector(MAIN_SECTION)
-const Observer = new MutationObserver(function (mutations, observer) {
-  port.postMessage(createCSV()) // sends the csv results everytime there's a change (could sometimes be empty)
-})
-
-// Tell it to observe for any child additions or removals
-Observer.observe(target, { childList: true })
-
 // Generates CSV data based on all the results
 function createCSV () {
+  const SCI_HUB_URL = 'https://sci-hub.tw/https://ieeexplore.ieee.org'
+
+  // LIST OF ELEMENTSS:
+  const MAIN_SECTION = '#xplMainContent > div.ng-SearchResults.row > div.main-section'
+  const ELEMENTS = 'div.row.result-item.hide-mobile > div.col.result-item-align'
+  const TITLE = 'h2 > a'
+  const AUTHORS = 'p.author'
+  const JOURNAL = 'div.description > a'
+  const YEAR = 'div.description > div.publisher-info-container > span[xplhighlight]'
+  const ABSTRACT = 'div.js-displayer-content.u-mt-1.stats-SearchResults_DocResult_ViewMore > span'
+
   // Retrieves the list of results
   const results = document.querySelectorAll(ELEMENTS)
 
@@ -39,7 +27,7 @@ function createCSV () {
   results.forEach(el => {
     const year = el.querySelector(YEAR).innerText.slice(6) // Only the actual year, no need for the string "YEAR: "
 
-    const titleElement = el.querySelector(TITLE)
+    const titleElement = el.querySelector(TITLE) || el.querySelector('h2 > span')
     const title = titleElement.innerText
     const sciHub = SCI_HUB_URL + titleElement.getAttribute('href')
 
@@ -63,3 +51,5 @@ function createCSV () {
 function hyperlink (url) {
   return `=HYPERLINK("${url}")`
 }
+
+createCSV()
