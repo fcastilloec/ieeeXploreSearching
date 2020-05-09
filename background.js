@@ -10,8 +10,11 @@ let csv
 // Ask user where to save the CSV file
 function saveToFile (data) {
   const link = document.createElement('a')
-  link.setAttribute('href', 'data:text/plaincharset=utf-8,' + encodeURIComponent(data)) // sets the data to download
-  link.setAttribute('download', 'results.csv') // default filename 'results.csv'
+  link.setAttribute(
+    'href',
+    'data:text/plaincharset=utf-8,' + encodeURIComponent(JSON.stringify(data, null, 2)) // sets the data to download
+  )
+  link.setAttribute('download', 'results.json') // default filename 'results.csv'
   link.click() // shows the download dialog
 }
 
@@ -38,5 +41,5 @@ chrome.runtime.onInstalled.addListener(function (details) {
 })
 
 chrome.pageAction.onClicked.addListener(tab => {
-  chrome.tabs.executeScript({ file: 'pageResults.js' }, csv => saveToFile(csv))
+  chrome.tabs.executeScript({ file: 'pageResults.js' }, response => saveToFile(response[0]))
 })

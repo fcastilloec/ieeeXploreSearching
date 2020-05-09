@@ -5,9 +5,7 @@
  */
 
 // Generates CSV data based on all the results
-function createCSV () {
-  const SCI_HUB_URL = 'https://sci-hub.tw/https://ieeexplore.ieee.org'
-
+function createJSON () {
   // LIST OF ELEMENTSS:
   const MAIN_SECTION = '#xplMainContent > div.ng-SearchResults.row > div.main-section'
   const ELEMENTS = 'div.row.result-item.hide-mobile > div.col.result-item-align'
@@ -18,38 +16,23 @@ function createCSV () {
   const ABSTRACT = 'div.js-displayer-content.u-mt-1.stats-SearchResults_DocResult_ViewMore > span'
 
   // Retrieves the list of results
-  const results = document.querySelectorAll(ELEMENTS)
-
-  // Sets the header of the CSV file
-  let csv = 'YEAR,TITLE,ABSTRACT,AUTHORS,JOURNAL,"SCI-HUB URL"\n'
-
-  // Creates the rows for CSV files with each result
-  results.forEach(el => {
-    const year = el.querySelector(YEAR).innerText.slice(6) // Only the actual year, no need for the string "YEAR: "
-
-    const titleElement = el.querySelector(TITLE) || el.querySelector('h2 > span')
-    const title = titleElement.innerText
-    const sciHub = SCI_HUB_URL + titleElement.getAttribute('href')
-
-    const journal = el.querySelector(JOURNAL).innerText
-
-    // Check that there's an abstract. Not all have one
-    let abstract = el.querySelector(ABSTRACT)
-    abstract = abstract ? abstract.innerText : ''
-
-    // Check that it has authors. Not all have one
-    let authors = el.querySelector(AUTHORS)
-    authors = authors ? el.querySelector(AUTHORS).innerText : ''
-
-    // appends each results to the csv as a new row
-    csv += `${year},"${title}","${abstract}","${authors}","${journal}",${hyperlink(sciHub)}\n`
-  })
-
-  return csv
+  return Array.from(document.querySelectorAll(ELEMENTS)).reduce((obj, result, index) => {
+    const authors = result.querySelector(AUTHORS)
+    const titleElement = result.querySelector(TITLE) || result.querySelector('h2 > span')
+    const document = titleElement.getAttribute('href')
+    const abstract = result.querySelector(ABSTRACT)
+    return {
+      ...obj,
+      [index]: {
+        title: titleElement.innerText,
+        year: result.querySelector(YEAR).innerText.slice(6),
+        abstract: abstract ? abstract.innerText : '',
+        authors: authors ? Array.prototype.map.call(authors.querySelectorAll('a > span'), author => author.innerText) : '',
+        journal: result.querySelector(JOURNAL).innerText,
+        document: document ? document.slice(10, -1) : '' // removes '/document/ and the trailing '/'
+      }
+    }
+  }, {})
 }
 
-function hyperlink (url) {
-  return `=HYPERLINK("${url}")`
-}
-
-createCSV()
+createJSON()
