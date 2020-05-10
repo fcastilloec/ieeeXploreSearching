@@ -7,7 +7,6 @@
 // Generates CSV data based on all the results
 function createJSON () {
   // LIST OF ELEMENTSS:
-  const MAIN_SECTION = '#xplMainContent > div.ng-SearchResults.row > div.main-section'
   const ELEMENTS = 'div.row.result-item.hide-mobile > div.col.result-item-align'
   const TITLE = 'h2 > a'
   const AUTHORS = 'p.author'
@@ -16,23 +15,21 @@ function createJSON () {
   const ABSTRACT = 'div.js-displayer-content.u-mt-1.stats-SearchResults_DocResult_ViewMore > span'
 
   // Retrieves the list of results
-  return Array.from(document.querySelectorAll(ELEMENTS)).reduce((obj, result, index) => {
+  // return Array.from(document.querySelectorAll(ELEMENTS)).reduce((obj, result, index) => {
+  return Array.from(document.querySelectorAll(ELEMENTS)).map(result => {
     const authors = result.querySelector(AUTHORS)
     const titleElement = result.querySelector(TITLE) || result.querySelector('h2 > span')
     const document = titleElement.getAttribute('href')
     const abstract = result.querySelector(ABSTRACT)
     return {
-      ...obj,
-      [index]: {
-        title: titleElement.innerText,
-        year: result.querySelector(YEAR).innerText.slice(6),
-        abstract: abstract ? abstract.innerText : '',
-        authors: authors ? Array.prototype.map.call(authors.querySelectorAll('a > span'), author => author.innerText) : '',
-        journal: result.querySelector(JOURNAL).innerText,
-        document: document ? document.slice(10, -1) : '' // removes '/document/ and the trailing '/'
-      }
+      title: titleElement.innerText,
+      year: result.querySelector(YEAR).innerText.slice(6),
+      abstract: abstract ? abstract.innerText : '',
+      authors: authors ? Array.prototype.map.call(authors.querySelectorAll('a > span'), author => author.innerText) : '',
+      journal: result.querySelector(JOURNAL).innerText,
+      document: document ? document.slice(10, -1) : '' // removes '/document/ and the trailing '/'
     }
-  }, {})
+  })
 }
 
 createJSON()

@@ -4,9 +4,6 @@
  * The messages contain the CSV data, which is download into a file when the user presses the extension button.
  */
 
-// Initializing CSV content received from pageResults.js
-let csv
-
 // Ask user where to save the CSV file
 function saveToFile (data) {
   const link = document.createElement('a')
@@ -26,17 +23,17 @@ const rule = {
         // urlPrefix: 'ieeexplore.ieee.org/search/searchresult.jsp',
         hostEquals: 'ieeexplore.ieee.org',
         pathContains: 'search/searchresult.jsp',
-        schemes: [ 'https' ]
+        schemes: ['https']
       }
     })
   ],
-  actions: [ new chrome.declarativeContent.ShowPageAction() ]
+  actions: [new chrome.declarativeContent.ShowPageAction()]
 }
 
 // Set the extension rule (copy/paste from Chrome docs)
 chrome.runtime.onInstalled.addListener(function (details) {
   chrome.declarativeContent.onPageChanged.removeRules(undefined, function () {
-    chrome.declarativeContent.onPageChanged.addRules([ rule ])
+    chrome.declarativeContent.onPageChanged.addRules([rule])
   })
 })
 
