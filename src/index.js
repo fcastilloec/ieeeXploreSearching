@@ -1,5 +1,6 @@
 const _ = require('lodash')
 const fs = require('fs-extra')
+const json2xls = require('./lib/json2xls')
 
 function main (options) {
   let result
@@ -23,6 +24,7 @@ function main (options) {
   }
 
   fs.writeJsonSync(options.output, result, { spaces: 1 })
+  json2xls(result, options.output)
 }
 
 module.exports = main
