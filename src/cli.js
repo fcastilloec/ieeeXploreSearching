@@ -18,15 +18,18 @@ const argv = yargs
   .option('merge', {
     alias: 'm',
     describe: 'Combines different files into a single one',
+    conflicts: ['and', 'or', 'not'],
     type: 'array'
   })
   .option('and', {
     alias: 'A',
+    conflicts: ['or'],
     describe: 'Logical AND operator',
     type: 'array'
   })
   .option('or', {
     alias: 'O',
+    conflicts: ['and'],
     describe: 'Logical OR operator',
     type: 'array'
   })
@@ -36,13 +39,16 @@ const argv = yargs
     nargs: 1,
     type: 'string'
   })
+  .option('excel', {
+    alias: 'e',
+    describe: 'Whether to also save results as excel file',
+    default: false,
+    type: 'boolean'
+  })
   .parserConfiguration({
     'duplicate-arguments-array': false
   })
   .check(argv => {
-    if (argv.merge && (argv.and || argv.and || argv.not)) {
-      throw new Error("Error: 'merge' can't be combine with other commands")
-    }
     if (argv.merge && argv.merge.length < 2) {
       throw new Error("Error: 'merge' needs at least two files to operate on")
     }
@@ -54,9 +60,6 @@ const argv = yargs
     }
     if (argv.not && (!(argv.merge || argv.and || argv.or) && argv._.length !== 1)) {
       throw new Error("Error: 'not' needs any operator (except for merge) or a single input file")
-    }
-    if (argv.or && argv.and) {
-      throw new Error("Error: can't combine 'and' with 'or' operator")
     }
     if (!(argv.merge || argv.and || argv.or || argv.not)) {
       throw new Error('Error: at least one command is needed')

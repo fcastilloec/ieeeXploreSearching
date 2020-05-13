@@ -24,7 +24,7 @@ function main (options) {
   }
 
   fs.writeJsonSync(options.output, result, { spaces: 1 })
-  json2xls(result, options.output)
+  if (options.excel) json2xls(result, options.output)
 }
 
 module.exports = main
