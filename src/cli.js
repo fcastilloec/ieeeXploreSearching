@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-
 const yargs = require('yargs')
+const logic = require('./index')
 
 const argv = yargs
   .version(require('../package').version)
@@ -12,6 +12,7 @@ const argv = yargs
     alias: 'o',
     describe: 'Output file of the operation',
     nargs: 1,
+    type: 'string',
     demandOption: true
   })
   .option('merge', {
@@ -33,7 +34,10 @@ const argv = yargs
     alias: 'N',
     describe: 'Logical OR operator',
     nargs: 1,
-    type: 'array'
+    type: 'string'
+  })
+  .parserConfiguration({
+    'duplicate-arguments-array': false
   })
   .check(argv => {
     if (argv.merge && (argv.and || argv.and || argv.not)) {
@@ -51,8 +55,8 @@ const argv = yargs
     if (argv.not && (!(argv.merge || argv.and || argv.or) && argv._.length !== 1)) {
       throw new Error("Error: 'not' needs any operator (except for merge) or a single input file")
     }
-    if (argv.or && argv.or.length < 2) {
-      throw new Error("Error: 'or' needs at least two files to operate on")
+    if (argv.or && argv.and) {
+      throw new Error("Error: can't combine 'and' with 'or' operator")
     }
     if (!(argv.merge || argv.and || argv.or || argv.not)) {
       throw new Error('Error: at least one command is needed')
@@ -64,4 +68,4 @@ const argv = yargs
   .example('$0 --or file1.json file2.json -not file3.json --output output.json', '(file1.json OR file2.json) NOT file3.json -> output.json')
   .argv
 
-console.log(argv)
+logic(argv)
