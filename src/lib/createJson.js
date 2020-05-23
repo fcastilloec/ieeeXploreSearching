@@ -1,10 +1,4 @@
 /**
- * Watch for changes in the DOM before retrieving IEEE results and sends them to 'background.js'
- * The MutationObserver is the only way to see if the results have been loaded, since IEEE loads them via script.
- * Once all the "mutations" (a.k.a. changes to the DOM) have been seen, we send them via a port to the background
- */
-
-/**
  * Queries the document/page for IEEE results.
  *
  * @returns {object[]}  Each IEEE result is an Object, which are part of the returned Array
@@ -31,11 +25,10 @@ function createJSON () {
       year: result.querySelector(YEAR).innerText.slice(6),
       abstract: abstract ? abstract.innerText : '',
       authors: authors ? Array.prototype.map.call(authors.querySelectorAll('a > span'), author => author.innerText) : [],
-      journal: journal ? journal.innerText : '',
-      document: ieeeUrl + (titleElement.getAttribute('href') || '')
+      journal: result.querySelector(JOURNAL).innerText,
+      document: document ? document.slice(10, -1) : '' // removes '/document/ and the trailing '/'
     }
   })
 }
 
-// Call the function when executing this script file from background
-createJSON()
+module.exports = createJSON
