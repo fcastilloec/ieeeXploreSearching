@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 const yargs = require('yargs')
-const logic = require('./index')
+const logic = require('./logic')
 
 const argv = yargs
   .version(require('../package').version)
-  .usage('Usage: ieee <options> <files>')
+  .usage('Usage: $0 <options> <files>')
   .strict()
   .alias('v', 'version')
   .alias('h', 'help')

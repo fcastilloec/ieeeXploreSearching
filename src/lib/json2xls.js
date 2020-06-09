@@ -1,5 +1,4 @@
 const xl = require('excel4node')
-const path = require('path')
 
 const IEEEURL = 'https://ieeexplore.ieee.org/document/'
 
@@ -9,7 +8,7 @@ const IEEEURL = 'https://ieeexplore.ieee.org/document/'
  * @param  {object[]]}  results      The results from scrapping IEEE, each result is an Object inside this array.
  * @param  {string}     xlsFilename  The path and filename where to save the Excel file.
  */
-function excel (results, xlsFilename) {
+function json2xls (results, xlsFilename) {
   const wb = new xl.Workbook()
   const ws = wb.addWorksheet('Sheet 1')
 
@@ -29,8 +28,8 @@ function excel (results, xlsFilename) {
     ws.cell(i + 2, 5).string(results[i].abstract)
     if (results[i].document !== '') ws.cell(i + 2, 6).link(IEEEURL + results[i].document)
   }
-  xlsFilename = path.parse(xlsFilename)
-  wb.write(path.join(xlsFilename.dir, xlsFilename.name + '.xls'))
+
+  wb.write(xlsFilename)
 }
 
-module.exports = excel
+module.exports = json2xls
