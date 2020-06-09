@@ -9,10 +9,18 @@ const json2xls = require('./lib/json2xls')
 const argv = yargs
   .wrap(null)
   .version(require('../package').version)
-  .usage('Usage: $0 <query> <filename[.json]>')
+  .usage('Usage: $0 <query> [options] [IEEE Data Fields]')
   .strict()
   .alias('v', 'version')
   .alias('h', 'help')
+  .demandCommand(1, 1, 'No search query specified')
+  .option('output', {
+    alias: 'o',
+    describe: 'Filename where to save results as JSON',
+    nargs: 1,
+    type: 'string',
+    demandOption: true
+  })
   .option('full-text-and-metadata', {
     alias: 'f',
     conflicts: ['text-only', 'publication-title', 'metadata', 'ieee-terms'],
@@ -57,15 +65,23 @@ const argv = yargs
     type: 'number'
   })
   .check(argv => {
-    if (argv._.length !== 2) throw new Error('The program needs a query and a filename to work.')
-    if (argv.year.length > 2) throw new Error('Only start and/or finish year range is accepted.')
-    for (let i = 0; i < argv.year.length; i++) {
-      if (isNaN(argv.year[i])) throw new Error('Year has to be a integer.')
+    if (argv.year.length > 2) throw new Error('Only start and/or finish year are accepted')
+    if (Array.isArray(argv.year)) {
+      for (let i = 0; i < 2; i++) {
+        if (!Number.isInteger(argv.year[i])) throw new Error('Year has to be a integer')
+        if (argv.year[i].toString().length !== 4) throw new Error('Year has to be a 4 digit integer')
+        if (argv.year[i] < 1900 || argv.year[i] > new Date().getFullYear()) throw new Error('Year has to be after 1900 and before current one')
+      }
+    } else {
+      if (!Number.isInteger(argv.year)) throw new Error('Year has to be a integer')
+      if (argv.year.toString().length !== 4) throw new Error('Year has to be a 4 digit integer')
+      if (argv.year < 1900 || argv.year > new Date().getFullYear()) throw new Error('Year has to be after 1900 and before current one')
     }
     return true
   })
-  .example('$0 "optics AND nano" search1 -y 1990 -y 2000', 'searches for "optics AND nano" between 1990-2000 and save the results in search1.json and search1.xls')
-  .example('$0 "h264 NEAR/3 cellular" -y 2005 search2 ', 'searches for "h264 NEAR/3 cellular" from 2005 to date, and save the results in search2.json and search2.xls')
+  .group(['full-text-and-metadata', 'text-only', 'publication-title', 'metadata', 'ieee-terms'], 'IEEE Data Fields')
+  .example('$0 "optics AND nano" -o search1 -y 1990 -y 2000 -e', 'searches for "optics AND nano" between 1990-2000 and save the results in search1.json and search1.xls')
+  .example('$0 "h264 NEAR/3 cellular" -y 2005 -o search2.json', 'searches for "h264 NEAR/3 cellular" from 2005 to date, and save the results in search2.json')
   .argv
 
 let query // The search query
@@ -73,15 +89,15 @@ let field // The field used
 
 // Appends the required data field based on the user option.
 switch (true) {
-  case argv['full-text-and-metadata']:
+  case argv.fullTextAndMetadata:
     query = dataFields.fullTextAndMetadata(argv._[0])
     field = '"Full Text .AND. Metadata"'
     break
-  case argv['text-only']:
+  case argv.textOnly:
     query = dataFields.textOnly(argv._[0])
     field = '"Full Text Only"'
     break
-  case argv['publication-title']:
+  case argv.publicationTitle:
     query = dataFields.publication(argv._[0])
     field = '"Publication Title"'
     break
@@ -89,13 +105,13 @@ switch (true) {
     query = dataFields.metadata(argv._[0])
     field = '"All Metadata"'
     break
-  case argv['ieee-terms']:
+  case argv.ieeeTerms:
     query = dataFields.ieeeTerms(argv._[0])
     field = '"IEEE Terms"'
     break
   default:
     query = argv._[0]
-    field = ''
+    field = 'No data fields'
     break
 }
 
@@ -119,11 +135,11 @@ Array.isArray(argv.year)
  */
 async function search (queryText) {
   try {
-    const results = await ieee.scrapResults(query)
+    const results = await ieee(query)
     console.log('Found %s results.', results.length)
 
-    await fs.writeJson(filename(argv._[1], '.json'), results, { spaces: 1 })
-    if (argv.excel) json2xls(results, filename(argv._[1], '.xls'))
+    await fs.writeJson(filename(argv.output, '.json'), results, { spaces: 1 })
+    if (argv.excel) json2xls(results, filename(argv.output, '.xls'))
   } catch (error) {
     console.error(error)
     process.exit(1)
