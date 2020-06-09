@@ -23,6 +23,7 @@ async function scrapResults (query) {
   try {
     browser = await puppeteer.launch({ headless: true })
     const page = await browser.newPage()
+    page.setDefaultTimeout(10000) // only wait 10 secs, any longer and it means there's no results
     await page.goto(URL + query)
     await page.waitForSelector(ELEMENTS) // Wait until javascript loads all results
     const results = await page.evaluate(createJSON) // create JSON with results of first page
@@ -40,7 +41,11 @@ async function scrapResults (query) {
     return results
   } catch (error) {
     await browser.close()
-    console.error(error)
+    if (error instanceof puppeteer.errors.TimeoutError) {
+      return []
+    } else {
+      throw error
+    }
   }
 }
 
