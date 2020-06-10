@@ -25,8 +25,8 @@ function createJSON () {
       year: result.querySelector(YEAR).innerText.slice(6),
       abstract: abstract ? abstract.innerText : '',
       authors: authors ? Array.prototype.map.call(authors.querySelectorAll('a > span'), author => author.innerText) : [],
-      journal: result.querySelector(JOURNAL).innerText,
-      document: document ? document.slice(10, -1) : '' // removes '/document/ and the trailing '/'
+      journal: journal ? journal.innerText : '',
+      document: titleElement.getAttribute('href') || ''
     }
   })
 }
