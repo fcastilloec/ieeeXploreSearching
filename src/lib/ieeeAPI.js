@@ -1,30 +1,27 @@
-/**
- * IEEE url to use for testing, it retrieves 52 results, in 3 pages
- * https://ieeexplore.ieee.org/search/searchresult.jsp?queryText=optics%20AND%20nano&ranges=1990_2000_Year
- */
+const axios = require('axios').default
+const https = require('https')
 const puppeteer = require('puppeteer')
 const createJSON = require('./createJson')
 
-// const query = 'optics%20AND%20nano&ranges=1990_2000_Year'
-const URL = 'https://ieeexplore.ieee.org/search/searchresult.jsp?queryText='
-const ELEMENTS = 'div.row.result-item.hide-mobile > div.col.result-item-align'
-const NEXT = 'div.ng-SearchResults.row > div.main-section > xpl-paginator > div.pagination-bar.hide-mobile > ul > li.next-btn > a'
-const PAGES = 'div.ng-SearchResults.row > div.main-section > xpl-paginator > div.pagination-bar.hide-mobile > ul > li:not(.prev-btn):not(.next-btn):not(.next-page-set)'// .next-btn .next-page-set)'
-
 /**
- * Loads a IEEE search page and scraps the results from all the pages.
+ * Search by scrapping the results from the IEEE search page.
  *
  * @param   {string}  query  The search terms. See querytext from https://developer.ieee.org/docs/read/Metadata_API_details
  *
  * @return  {object[]}       All the IEEE results from each page, from 'createJson' function.
  */
-async function scrapResults (query) {
+async function scrap (query) {
+  const ieeeUrl = 'https://ieeexplore.ieee.org/search/searchresult.jsp?queryText='
+  const ELEMENTS = 'div.row.result-item.hide-mobile > div.col.result-item-align'
+  const NEXT = 'div.ng-SearchResults.row > div.main-section > xpl-paginator > div.pagination-bar.hide-mobile > ul > li.next-btn > a'
+  const PAGES = 'div.ng-SearchResults.row > div.main-section > xpl-paginator > div.pagination-bar.hide-mobile > ul > li:not(.prev-btn):not(.next-btn):not(.next-page-set)'// .next-btn .next-page-set)'
+
   let browser
   try {
     browser = await puppeteer.launch({ headless: true })
     const page = await browser.newPage()
     page.setDefaultTimeout(10000) // only wait 10 secs, any longer and it means there's no results
-    await page.goto(URL + query)
+    await page.goto(ieeeUrl + query)
     await page.waitForSelector(ELEMENTS) // Wait until javascript loads all results
     const results = await page.evaluate(createJSON) // create JSON with results of first page
 
@@ -49,4 +46,51 @@ async function scrapResults (query) {
   }
 }
 
-module.exports = scrapResults
+/**
+ * Search using the IEEE API
+ *
+ * @param   {string}  apiKey     The API key
+ * @param   {string}  querytext  The query string
+ * @param   {number}  startYear  Start year of publication to restrict results by.
+ * @param   {number}  endYear    End year of publication to restrict results by.
+ *
+ * @return  {object}             The results, it has three keys: total_records, total_searched, articles
+ */
+async function api (apiKey, querytext, startYear, endYear) {
+  const APIURL = 'https://ieeexploreapi.ieee.org/api/v1/search/articles'
+
+  const config = {
+    method: 'get',
+    baseURL: APIURL,
+    responseType: 'json',
+    httpsAgent: new https.Agent({
+      rejectUnauthorized: false
+    }),
+    paramsSerializer: params => {
+      let result = ''
+      Object.keys(params).forEach(key => {
+        result += `${key}=${encodeURIComponent(params[key])}&`
+      })
+      return result.substr(0, result.length - 1)
+    },
+    params: {
+      querytext: `${querytext}`,
+      max_records: 200,
+      apikey: apiKey
+    }
+  }
+  if (startYear) config.params.start_year = startYear
+  if (endYear) config.params.end_year = endYear
+
+  try {
+    const response = await axios(config)
+    return response.data
+  } catch (error) {
+    console.error(error.message, error.stack)
+  }
+}
+
+module.exports = {
+  scrap,
+  api
+}
