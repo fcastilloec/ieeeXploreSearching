@@ -115,6 +115,8 @@ async function searchScrap () {
     const results = await ieee.scrap(query)
     console.log('Found %s results.', results.length)
 
+    if (results.length === 0) process.exit(0) // Exit if there's no results
+
     await fs.writeJson(filename(argv.output, '.json'), results, { spaces: 1 })
     if (argv.excel) json2xls.fromScrapping(results, filename(argv.output, '.xls'))
   } catch (error) {
@@ -128,10 +130,13 @@ async function searchScrap () {
  */
 async function searchApi () {
   try {
-    const resultsApi = await ieee.api(APIKEY, addDataField(argv._[0], dataField), rangeYear[0], rangeYear[1])
-    console.log('Found %s results.', resultsApi.total_records)
-    await fs.writeJson(filename(argv.output + 'API', '.json'), resultsApi.articles, { spaces: 1 })
-    if (argv.excel) json2xls.fromAPI(resultsApi.articles, filename(argv.output + 'API', '.xls'))
+    const results = await ieee.api(APIKEY, addDataField(argv._[0], dataField), rangeYear[0], rangeYear[1])
+    console.log('Found %s results.', results.total_records)
+
+    if (results.total_records === 0) process.exit(0) // Exit if there's no results
+
+    await fs.writeJson(filename(argv.output + 'API', '.json'), results.articles, { spaces: 1 })
+    if (argv.excel) json2xls.fromAPI(results.articles, filename(argv.output + 'API', '.xls'))
   } catch (error) {
     console.error(error)
     process.exit(1)
