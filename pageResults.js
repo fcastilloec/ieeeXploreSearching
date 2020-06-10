@@ -10,6 +10,8 @@
  * @returns {object[]}  Each IEEE result is an Object, which are part of the returned Array
  */
 function createJSON () {
+  const ieeeUrl = 'https://ieeexplore.ieee.org'
+
   // LIST OF ELEMENTSS:
   const ELEMENTS = 'div.row.result-item.hide-mobile > div.col.result-item-align'
   const TITLE = 'h2 > a'
@@ -30,7 +32,7 @@ function createJSON () {
       abstract: abstract ? abstract.innerText : '',
       authors: authors ? Array.prototype.map.call(authors.querySelectorAll('a > span'), author => author.innerText) : [],
       journal: journal ? journal.innerText : '',
-      document: titleElement.getAttribute('href') || ''
+      document: ieeeUrl + (titleElement.getAttribute('href') || '')
     }
   })
 }
