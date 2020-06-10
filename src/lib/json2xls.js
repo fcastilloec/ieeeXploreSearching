@@ -1,9 +1,6 @@
 const xl = require('excel4node')
 const path = require('path')
 
-const IEEEUrl = 'https://ieeexplore.ieee.org'
-const sciHubUrl = 'https://sci-hub.tw/'
-
 function authorsString (authors) {
   if (authors.length === 0) return ''
 
@@ -19,6 +16,8 @@ function authorsString (authors) {
  * @param  {string}     xlsFilename  The path and filename where to save the Excel file.
  */
 function fromScrapping (results, xlsFilename) {
+  const ieeeUrl = 'https://ieeexplore.ieee.org'
+
   const wb = new xl.Workbook()
   const ws = wb.addWorksheet('Sheet 1')
 
@@ -36,13 +35,15 @@ function fromScrapping (results, xlsFilename) {
     ws.cell(i + 2, 3).string(results[i].authors.join('; '))
     ws.cell(i + 2, 4).string(results[i].journal)
     ws.cell(i + 2, 5).string(results[i].abstract)
-    if (results[i].document !== '') ws.cell(i + 2, 6).link(IEEEUrl + results[i].document)
+    if (results[i].document !== '') ws.cell(i + 2, 6).link(ieeeUrl + results[i].document)
   }
   xlsFilename = path.parse(xlsFilename)
   wb.write(path.join(xlsFilename.dir, xlsFilename.name + '.xls'))
 }
 
 function fromAPI (results, xlsFilename) {
+  const sciHubUrl = 'https://sci-hub.tw/'
+
   const wb = new xl.Workbook()
   const ws = wb.addWorksheet('Sheet 1')
 
