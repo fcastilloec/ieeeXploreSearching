@@ -86,7 +86,7 @@ const argv = yargs
       if (argv.year.toString().length !== 4) throw new Error('Year has to be a 4 digit integer')
       if (argv.year < 1900 || argv.year > new Date().getFullYear()) throw new Error('Year has to be after 1900 and before current one')
     }
-    if (argv.api && !APIKEY) throw new Error('No API key provided. Provide one by setting APIKEY enviroment variable')
+    if (argv.api && !APIKEY) throw new Error('No APIKEY key provided. Set APIKEY enviroment variable')
     return true
   })
   .group(['full-text-and-metadata', 'text-only', 'publication-title', 'metadata', 'ieee-terms'], 'IEEE Data Fields')
@@ -102,7 +102,7 @@ console.log('Between %s and %s', rangeYear[0], rangeYear[1])
 console.log('Using: %s', FIELDS[dataField] || 'No data fields')
 
 /**
- * Start searching with scrapping and save the results into JSON (and excel if required)
+ * Start searching with scrapping and save them
  */
 async function searchScrap () {
   const query = queryForScrap(argv._[0], rangeYear, FIELDS[dataField])
@@ -113,23 +113,37 @@ async function searchScrap () {
 }
 
 /**
- * Start searching with API and save the results into JSON (and excel if required)
+ * Start searching with API and save them
  */
 async function searchApi () {
-  const results = await ieee.api(APIKEY, addDataField(argv._[0], dataField), rangeYear[0], rangeYear[1])
+  // const results = await ieee.api(APIKEY, addDataField(argv._[0], dataField), rangeYear[0], rangeYear[1])
+  if (dataField) console.warn('\n\x1b[33m%s\x1b[0m\n', "Using API search currently doesn't work with data fields")
+
+  const results = await ieee.api(APIKEY, argv._[0], rangeYear[0], rangeYear[1])
   console.log('Found %s results.', results.total_records)
 
   if (results.total_records > 0) await save(results.articles) // Exit if there's no results
 }
 
+/**
+ * Save results into JSON and excel if required
+ *
+ * @param   {[type]}  results  [results description]
+ *
+ * @return  {[type]}           [return description]
+ */
 async function save (results) {
   try {
     await fs.ensureFile(filename(argv.output, '.json')) // create the parent directory if they don't exist
-    await fs.writeJson(filename(argv.output + 'API', '.json'), results.articles, { spaces: 1 })
-    if (argv.excel) json2xls.fromAPI(results.articles, filename(argv.output, '.xls'))
+    await fs.writeJson(filename(argv.output, '.json'), results, { spaces: 1 })
+    if (argv.excel) {
+      argv.api
+        ? json2xls.fromAPI(results, filename(argv.output, '.xls'))
+        : json2xls.fromScrapping(results, filename(argv.output, '.xls'))
+    }
   } catch (error) {
-    console.error('\n' + error.message)
-    process.exit(1)
+    console.error('\n' + error)
+    process.exit(10)
   }
 }
 
