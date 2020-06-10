@@ -4,7 +4,11 @@
  * Once all the "mutations" (a.k.a. changes to the DOM) have been seen, we send them via a port to the background
  */
 
-// Generates CSV data based on all the results
+/**
+ * Queries the document/page for IEEE results.
+ *
+ * @returns {object[]}  Each IEEE result is an Object, which are part of the returned Array
+ */
 function createJSON () {
   // LIST OF ELEMENTSS:
   const ELEMENTS = 'div.row.result-item.hide-mobile > div.col.result-item-align'
@@ -15,21 +19,21 @@ function createJSON () {
   const ABSTRACT = 'div.js-displayer-content.u-mt-1.stats-SearchResults_DocResult_ViewMore > span'
 
   // Retrieves the list of results
-  // return Array.from(document.querySelectorAll(ELEMENTS)).reduce((obj, result, index) => {
   return Array.from(document.querySelectorAll(ELEMENTS)).map(result => {
     const authors = result.querySelector(AUTHORS)
     const titleElement = result.querySelector(TITLE) || result.querySelector('h2 > span')
-    const document = titleElement.getAttribute('href')
     const abstract = result.querySelector(ABSTRACT)
+    const journal = result.querySelector(JOURNAL)
     return {
       title: titleElement.innerText,
       year: result.querySelector(YEAR).innerText.slice(6),
       abstract: abstract ? abstract.innerText : '',
-      authors: authors ? Array.prototype.map.call(authors.querySelectorAll('a > span'), author => author.innerText) : '',
-      journal: result.querySelector(JOURNAL).innerText,
-      document: document ? document.slice(10, -1) : '' // removes '/document/ and the trailing '/'
+      authors: authors ? Array.prototype.map.call(authors.querySelectorAll('a > span'), author => author.innerText) : [],
+      journal: journal ? journal.innerText : '',
+      document: titleElement.getAttribute('href') || ''
     }
   })
 }
 
+// Call the function when executing this script file from background
 createJSON()
