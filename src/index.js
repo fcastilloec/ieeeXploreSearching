@@ -1,10 +1,13 @@
 #!/usr/bin/env node
+const _ = require('lodash')
 const fs = require('fs-extra')
 const yargs = require('yargs')
-const dataFields = require('./lib/dataFields')
-const { filename } = require('./lib/utils')
+const { filename, queryForScrap, yearRange } = require('./lib/utils')
+const { FIELDS, addDataField } = require('./lib/dataFields')
 const ieee = require('./lib/ieeeAPI')
 const json2xls = require('./lib/json2xls')
+
+const { APIKEY } = process.env
 
 const argv = yargs
   .wrap(null)
@@ -64,6 +67,12 @@ const argv = yargs
     describe: 'Year range to search. A single value will search from "year" to date',
     type: 'number'
   })
+  .option('api', {
+    alias: 'a',
+    describe: 'Whether to use the IEEE API or scrapping',
+    default: false,
+    type: 'boolean'
+  })
   .check(argv => {
     if (argv.year.length > 2) throw new Error('Only start and/or finish year are accepted')
     if (Array.isArray(argv.year)) {
@@ -84,66 +93,49 @@ const argv = yargs
   .example('$0 "h264 NEAR/3 cellular" -y 2005 -o search2.json', 'searches for "h264 NEAR/3 cellular" from 2005 to date, and save the results in search2.json')
   .argv
 
-let query // The search query
-let field // The field used
-
-// Appends the required data field based on the user option.
-switch (true) {
-  case argv.fullTextAndMetadata:
-    query = dataFields.fullTextAndMetadata(argv._[0])
-    field = '"Full Text .AND. Metadata"'
-    break
-  case argv.textOnly:
-    query = dataFields.textOnly(argv._[0])
-    field = '"Full Text Only"'
-    break
-  case argv.publicationTitle:
-    query = dataFields.publication(argv._[0])
-    field = '"Publication Title"'
-    break
-  case argv.metadata:
-    query = dataFields.metadata(argv._[0])
-    field = '"All Metadata"'
-    break
-  case argv.ieeeTerms:
-    query = dataFields.ieeeTerms(argv._[0])
-    field = '"IEEE Terms"'
-    break
-  default:
-    query = argv._[0]
-    field = 'No data fields'
-    break
+if (argv.api && !APIKEY) {
+  console.error('No API key provided. Provide one by setting APIKEY enviroment variable')
+  process.exit(1)
 }
 
-// Outputs the search query and any data fields being used
-console.log('Searching for:\n%s', argv._[0])
-console.log('Using: %s', field)
+const dataField = Object.keys(_.pick(argv, Object.keys(FIELDS)))[0]
+const rangeYear = yearRange(argv.year)
 
-// Encodes the URL so it can be used by a browser
-query = encodeURI(query).replace(/\?/g, '%3F').replace(/\//g, '%2F')
-query = `(${query})` // needed when multiple search terms are used
-
-// Check if start and end year where supplied. Otherwise search until current year.
-Array.isArray(argv.year)
-  ? query += `&ranges=${argv.year[0]}_${argv.year[1]}_Year`
-  : query += `&ranges=${argv.year}_${new Date().getFullYear()}_Year`
+console.log('Searching for: %s', argv._[0])
+console.log('Between %s and %s', rangeYear[0], rangeYear[1])
+console.log('Using: %s', FIELDS[dataField] || 'No data fields')
 
 /**
- * Call the search function (either scrapping or API) and save the results into JSON (and excel if required)
- *
- * @param   {string}  queryText  The query text to search
+ * Start searching with scrapping and save the results into JSON (and excel if required)
  */
-async function search (queryText) {
+async function searchScrap () {
+  const query = queryForScrap(argv._[0], rangeYear, FIELDS[dataField])
+
   try {
-    const results = await ieee(query)
+    const results = await ieee.scrap(query)
     console.log('Found %s results.', results.length)
 
     await fs.writeJson(filename(argv.output, '.json'), results, { spaces: 1 })
-    if (argv.excel) json2xls(results, filename(argv.output, '.xls'))
+    if (argv.excel) json2xls.fromScrapping(results, filename(argv.output, '.xls'))
   } catch (error) {
     console.error(error)
     process.exit(1)
   }
 }
 
-search(query)
+/**
+ * Start searching with API and save the results into JSON (and excel if required)
+ */
+async function searchApi () {
+  try {
+    const resultsApi = await ieee.api(APIKEY, addDataField(argv._[0], dataField), rangeYear[0], rangeYear[1])
+    console.log('Found %s results.', resultsApi.total_records)
+    await fs.writeJson(filename(argv.output + 'API', '.json'), resultsApi.articles, { spaces: 1 })
+    if (argv.excel) json2xls.fromAPI(resultsApi.articles, filename(argv.output + 'API', '.xls'))
+  } catch (error) {
+    console.error(error)
+    process.exit(1)
+  }
+}
+
+argv.api ? searchApi() : searchScrap()
