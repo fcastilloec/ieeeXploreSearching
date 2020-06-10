@@ -86,17 +86,13 @@ const argv = yargs
       if (argv.year.toString().length !== 4) throw new Error('Year has to be a 4 digit integer')
       if (argv.year < 1900 || argv.year > new Date().getFullYear()) throw new Error('Year has to be after 1900 and before current one')
     }
+    if (argv.api && !APIKEY) throw new Error('No API key provided. Provide one by setting APIKEY enviroment variable')
     return true
   })
   .group(['full-text-and-metadata', 'text-only', 'publication-title', 'metadata', 'ieee-terms'], 'IEEE Data Fields')
   .example('$0 "optics AND nano" -o search1 -y 1990 -y 2000 -e', 'searches for "optics AND nano" between 1990-2000 and save the results in search1.json and search1.xls')
   .example('$0 "h264 NEAR/3 cellular" -y 2005 -o search2.json', 'searches for "h264 NEAR/3 cellular" from 2005 to date, and save the results in search2.json')
   .argv
-
-if (argv.api && !APIKEY) {
-  console.error('No API key provided. Provide one by setting APIKEY enviroment variable')
-  process.exit(1)
-}
 
 const dataField = Object.keys(_.pick(argv, Object.keys(FIELDS)))[0]
 const rangeYear = yearRange(argv.year)
@@ -110,35 +106,29 @@ console.log('Using: %s', FIELDS[dataField] || 'No data fields')
  */
 async function searchScrap () {
   const query = queryForScrap(argv._[0], rangeYear, FIELDS[dataField])
+  const results = await ieee.scrap(query)
+  console.log('Found %s results.', results.length)
 
-  try {
-    const results = await ieee.scrap(query)
-    console.log('Found %s results.', results.length)
-
-    if (results.length === 0) process.exit(0) // Exit if there's no results
-
-    await fs.writeJson(filename(argv.output, '.json'), results, { spaces: 1 })
-    if (argv.excel) json2xls.fromScrapping(results, filename(argv.output, '.xls'))
-  } catch (error) {
-    console.error(error)
-    process.exit(1)
-  }
+  if (results.length > 0) await save(results) // Exit if there's no results
 }
 
 /**
  * Start searching with API and save the results into JSON (and excel if required)
  */
 async function searchApi () {
+  const results = await ieee.api(APIKEY, addDataField(argv._[0], dataField), rangeYear[0], rangeYear[1])
+  console.log('Found %s results.', results.total_records)
+
+  if (results.total_records > 0) await save(results.articles) // Exit if there's no results
+}
+
+async function save (results) {
   try {
-    const results = await ieee.api(APIKEY, addDataField(argv._[0], dataField), rangeYear[0], rangeYear[1])
-    console.log('Found %s results.', results.total_records)
-
-    if (results.total_records === 0) process.exit(0) // Exit if there's no results
-
+    await fs.ensureFile(filename(argv.output, '.json')) // create the parent directory if they don't exist
     await fs.writeJson(filename(argv.output + 'API', '.json'), results.articles, { spaces: 1 })
-    if (argv.excel) json2xls.fromAPI(results.articles, filename(argv.output + 'API', '.xls'))
+    if (argv.excel) json2xls.fromAPI(results.articles, filename(argv.output, '.xls'))
   } catch (error) {
-    console.error(error)
+    console.error('\n' + error.message)
     process.exit(1)
   }
 }
