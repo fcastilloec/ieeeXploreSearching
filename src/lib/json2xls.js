@@ -1,6 +1,13 @@
 const xl = require('excel4node')
 const path = require('path')
 
+/**
+ * Converts an array of authors (from API results) into a string.
+ *
+ * @param   {object[]}  authors  The authors return from an API search
+ *
+ * @return  {string}             Author's names
+ */
 function authorsString (authors) {
   if (authors.length === 0) return ''
 
