@@ -41,7 +41,7 @@ async function scrap (query) {
     if (error instanceof puppeteer.errors.TimeoutError) {
       return []
     } else {
-      console.error('\n' + error.message)
+      console.error('\n' + error)
       process.exit(2)
     }
   }
@@ -87,7 +87,7 @@ async function api (apiKey, querytext, startYear, endYear) {
     const response = await axios(config)
     return response.data
   } catch (error) {
-    console.error('\n' + error.message)
+    console.error('\n' + error)
     process.exit(2)
   }
 }
