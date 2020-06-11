@@ -3,7 +3,7 @@ const _ = require('lodash')
 const fs = require('fs-extra')
 const yargs = require('yargs')
 const { filename, queryForScrap, yearRange } = require('./lib/utils')
-const { FIELDS } = require('./lib/dataFields')
+const { FIELDS, addDataField } = require('./lib/dataFields')
 const ieee = require('./lib/ieeeAPI')
 const json2xls = require('./lib/json2xls')
 
@@ -126,10 +126,7 @@ async function searchScrap () {
  * Start searching with API and save them
  */
 async function searchApi () {
-  // const results = await ieee.api(APIKEY, addDataField(argv._[0], dataField), rangeYear[0], rangeYear[1])
-  if (dataField) console.warn('\n\x1b[33m%s\x1b[0m\n', "Using API search currently doesn't work with data fields")
-
-  const results = await ieee.api(APIKEY, argv._[0], rangeYear[0], rangeYear[1])
+  const results = await ieee.api(APIKEY, addDataField(argv._[0], FIELDS[dataField]), rangeYear[0], rangeYear[1])
   console.log('Found %s results.', results.total_records)
 
   if (results.total_records > 0) await save(results.articles) // Exit if there's no results
