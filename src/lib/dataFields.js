@@ -25,8 +25,12 @@ function addDataField (querytext, field) {
 
   const terms = querytext.split(' ').map(term => {
     if (operators.includes(term) || term.match(near)) return term
-    if (term.startsWith('(')) return `(${field}:${term.slice(1)}`
-    return `${field}:${term}`
+
+    // By spliting the term on '(', we can find opening parenthesis as empty array elements.
+    return term.split('(').reduce((outputString, elem) => {
+      // Re-adds a parenthesis for empty elements, and appends the field to non-empty ones.
+      return !elem ? outputString + '(' : outputString + field + ':' + elem
+    }, '') // Initial value for outputString is empty string ''
   })
   return terms.join(' ')
 }
