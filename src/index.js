@@ -3,7 +3,7 @@ const _ = require('lodash')
 const fs = require('fs-extra')
 const yargs = require('yargs')
 const { filename, queryForScrap, yearRange } = require('./lib/utils')
-const { FIELDS, addDataField } = require('./lib/dataFields')
+const { FIELDS } = require('./lib/dataFields')
 const ieee = require('./lib/ieeeAPI')
 const json2xls = require('./lib/json2xls')
 
@@ -14,8 +14,7 @@ const argv = yargs
   .version(require('../package').version)
   .usage('Usage: $0 <query> [options] [IEEE Data Fields]')
   .strict()
-  .alias('v', 'version')
-  .alias('h', 'help')
+  .alias('help', 'h')
   .demandCommand(1, 1, 'No search query specified')
   .option('output', {
     alias: 'o',
@@ -73,6 +72,15 @@ const argv = yargs
     default: false,
     type: 'boolean'
   })
+  .option('verbose', {
+    alias: 'v',
+    describe: 'Show extra info',
+    type: 'boolean'
+  })
+  .parserConfiguration({
+    'strip-aliased': true,
+    'strip-dashed': true
+  })
   .check(argv => {
     if (argv.year.length > 2) throw new Error('Only start and/or finish year are accepted')
     if (Array.isArray(argv.year)) {
@@ -94,7 +102,9 @@ const argv = yargs
   .example('$0 "h264 NEAR/3 cellular" -y 2005 -o search2.json', 'searches for "h264 NEAR/3 cellular" from 2005 to date, and save the results in search2.json')
   .argv
 
+// Selects the enabled key of the specified data field. _.pick is faster than _.omit
 const dataField = Object.keys(_.pick(argv, Object.keys(FIELDS)))[0]
+// Transform the year into an array if only one was specified
 const rangeYear = yearRange(argv.year)
 
 console.log('Searching for: %s', argv._[0])
@@ -105,7 +115,7 @@ console.log('Using: %s', FIELDS[dataField] || 'No data fields')
  * Start searching with scrapping and save them
  */
 async function searchScrap () {
-  const query = queryForScrap(argv._[0], rangeYear, FIELDS[dataField])
+  const query = queryForScrap(argv._[0], rangeYear, FIELDS[dataField], argv.verbose)
   const results = await ieee.scrap(query)
   console.log('Found %s results.', results.length)
 
@@ -136,14 +146,14 @@ async function save (results) {
   try {
     await fs.ensureFile(filename(argv.output, '.json')) // create the parent directory if they don't exist
     await fs.writeJson(filename(argv.output, '.json'), results, { spaces: 1 })
-    if (argv.excel) {
-      argv.api
-        ? json2xls.fromAPI(results, filename(argv.output, '.xls'))
-        : json2xls.fromScrapping(results, filename(argv.output, '.xls'))
-    }
   } catch (error) {
-    console.error('\n' + error)
-    process.exit(10)
+    console.error('Error writing JSON file:\n' + error)
+    process.exit(6)
+  }
+  if (argv.excel) {
+    argv.api
+      ? json2xls.fromAPI(results, filename(argv.output, '.xls'))
+      : json2xls.fromScrapping(results, filename(argv.output, '.xls'))
   }
 }
 
