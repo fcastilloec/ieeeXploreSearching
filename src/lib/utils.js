@@ -23,7 +23,7 @@ function filename (filepath, ext) {
  * @return  {number[]}        The range of years
  */
 function yearRange (year) {
-  return Array.isArray(year) ? year : [year, new Date()]
+  return Array.isArray(year) ? year : [year, new Date().getFullYear()]
 }
 
 /**
