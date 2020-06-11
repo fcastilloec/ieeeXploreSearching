@@ -35,13 +35,17 @@ function yearRange (year) {
  *
  * @return  {[type]}             [return description]
  */
-function queryForScrap (querytext, rangeYear, field) {
+function queryForScrap (querytext, rangeYear, field, verbose) {
   // Appends the required data field based on the user option.
   let query = addDataField(querytext, field)
+
+  if (verbose) console.log('\nQuery with fields:\n%s\n', query)
 
   // Encodes the URL so it can be used by a browser, and adds parenthesis
   query = `(${encodeURI(query).replace(/\?/g, '%3F').replace(/\//g, '%2F')})`
   query += `&ranges=${rangeYear[0]}_${rangeYear[1]}_Year`
+
+  if (verbose) console.log('\nURI query:\n%s\n', query)
 
   return query
 }

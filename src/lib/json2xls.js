@@ -69,8 +69,8 @@ function fromScrapping (results, xlsFilename) {
     ws.cell(i + 2, 5).string(results[i].abstract + '\n').style(myStyle)
     if (results[i].document !== '') ws.cell(i + 2, 6).link(ieeeUrl + results[i].document).style(linkStyle)
   }
-  wb.write(xlsFilename, (err, stats) => {
-    if (err) console.error('Error writing xls file to disk\n' + err.message)
+  wb.write(xlsFilename, (error, stats) => {
+    if (error) console.error('Error writing xls file to disk\n' + error.message)
     process.exit(4)
   })
 }
@@ -107,8 +107,8 @@ function fromAPI (results, xlsFilename) {
     ws.cell(i + 2, 7).link(results[i].pdf_url || results[i].abstract_url)
     if (results[i].doi) ws.cell(i + 2, 8).link(sciHubUrl + results[i].doi)
   }
-  wb.write(xlsFilename, (err, stats) => {
-    if (err) console.error('Error writing xls file to disk\n' + err.message)
+  wb.write(xlsFilename, (error, stats) => {
+    if (error) console.error('Error writing xls file to disk\n' + error.message)
     process.exit(4)
   })
 }
