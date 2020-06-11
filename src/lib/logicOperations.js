@@ -8,9 +8,8 @@ const json2xls = require('./json2xls')
  * The supported operations are AND, OR, NOT, MERGE
  *
  * @param   {object}  options  The options passed from command-line
- * @param   {boolean}  api      Whether the files where saved from an API search
  */
-function operations (options, api) {
+function operations (options) {
   let result
 
   try {
@@ -44,7 +43,7 @@ function operations (options, api) {
     process.exit(6)
   }
   const outputfile = filename(options.output, '.xls')
-  if (options.excel) api ? json2xls.fromAPI(result, outputfile) : json2xls.fromScrapping(result, outputfile)
+  if (options.excel) options.api ? json2xls.fromAPI(result, outputfile) : json2xls.fromScrapping(result, outputfile)
 }
 
 module.exports = operations
