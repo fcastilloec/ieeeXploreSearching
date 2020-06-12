@@ -2,7 +2,6 @@ const axios = require('axios').default
 const https = require('https')
 const puppeteer = require('puppeteer')
 const createJSON = require('./createJson')
-const { queryForScrap } = require('./utils')
 
 /**
  * Search by scrapping the results from the IEEE search page.
@@ -17,7 +16,7 @@ async function scrap (querytext, rangeYear) {
   const NEXT = 'div.ng-SearchResults.row > div.main-section > xpl-paginator > div.pagination-bar.hide-mobile > ul > li.next-btn > a'
   const PAGES = 'div.ng-SearchResults.row > div.main-section > xpl-paginator > div.pagination-bar.hide-mobile > ul > li:not(.prev-btn):not(.next-btn):not(.next-page-set)'// .next-btn .next-page-set)'
 
-  const query = queryForScrap(querytext, rangeYear)
+  const query = `(${encodeURI(querytext).replace(/\?/g, '%3F').replace(/\//g, '%2F')})&ranges=${rangeYear[0]}_${rangeYear[1]}_Year`
   let browser
   try {
     browser = await puppeteer.launch({ headless: true })
