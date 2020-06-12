@@ -2,10 +2,10 @@
 const _ = require('lodash')
 const fs = require('fs-extra')
 const yargs = require('yargs')
-const { filename, queryForScrap, yearRange } = require('./lib/utils')
+const { filename, yearRange } = require('./lib/utils')
 const { FIELDS, addDataField } = require('./lib/dataFields')
 const ieee = require('./lib/ieeeAPI')
-const json2xls = require('./lib/json2xls')
+const { fromResults: json2xls } = require('./lib/json2xls')
 
 const { APIKEY } = process.env
 
@@ -111,47 +111,21 @@ console.log('Searching for: %s', argv._[0])
 console.log('Between %s and %s', rangeYear[0], rangeYear[1])
 console.log('Using: %s', FIELDS[dataField] || 'No data fields')
 
-/**
- * Start searching with scrapping and save them
- */
-async function searchScrap () {
-  const query = queryForScrap(argv._[0], rangeYear, FIELDS[dataField], argv.verbose)
-  const results = await ieee.scrap(query)
-  console.log('Found %s results.', results.length)
+async function search () {
+  const results = argv.api
+    ? await ieee.api(APIKEY, addDataField(argv._[0], FIELDS[dataField]), rangeYear)
+    : await ieee.scrap(addDataField(argv._[0], FIELDS[dataField]), rangeYear)
 
-  if (results.length > 0) await save(results) // Exit if there's no results
-}
-
-/**
- * Start searching with API and save them
- */
-async function searchApi () {
-  const results = await ieee.api(APIKEY, addDataField(argv._[0], FIELDS[dataField]), rangeYear[0], rangeYear[1])
   console.log('Found %s results.', results.total_records)
-
-  if (results.total_records > 0) await save(results.articles) // Exit if there's no results
-}
-
-/**
- * Save results into JSON and excel if required
- *
- * @param   {[type]}  results  [results description]
- *
- * @return  {[type]}           [return description]
- */
-async function save (results) {
-  try {
-    await fs.ensureFile(filename(argv.output, '.json')) // create the parent directory if they don't exist
-    await fs.writeJson(filename(argv.output, '.json'), results, { spaces: 1 })
-  } catch (error) {
-    console.error('Error writing JSON file:\n' + error)
-    process.exit(6)
-  }
-  if (argv.excel) {
-    argv.api
-      ? json2xls.fromAPI(results, filename(argv.output, '.xls'))
-      : json2xls.fromScrapping(results, filename(argv.output, '.xls'))
+  if (results.total_records > 0) {
+    try {
+      await fs.ensureFile(filename(argv.output, '.json')) // create the parent directory if they don't exist
+      await fs.writeJson(filename(argv.output, '.json'), results.articles, { spaces: 1 })
+    } catch (error) {
+      console.error('Error writing JSON file:\n' + error)
+      process.exit(6)
+    }
+    if (argv.excel) json2xls(results.articles, filename(argv.output, '.xls'))
   }
 }
-
-argv.api ? searchApi() : searchScrap()
+search()
