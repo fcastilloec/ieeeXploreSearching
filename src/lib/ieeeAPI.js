@@ -2,6 +2,7 @@ const axios = require('axios').default
 const https = require('https')
 const puppeteer = require('puppeteer')
 const createJSON = require('./createJson')
+const { queryForScrap } = require('./utils')
 
 /**
  * Search by scrapping the results from the IEEE search page.
@@ -10,12 +11,13 @@ const createJSON = require('./createJson')
  *
  * @return  {object[]}       All the IEEE results from each page, from 'createJson' function.
  */
-async function scrap (query) {
+async function scrap (querytext, rangeYear) {
   const ieeeUrl = 'https://ieeexplore.ieee.org/search/searchresult.jsp?queryText='
   const ELEMENTS = 'div.row.result-item.hide-mobile > div.col.result-item-align'
   const NEXT = 'div.ng-SearchResults.row > div.main-section > xpl-paginator > div.pagination-bar.hide-mobile > ul > li.next-btn > a'
   const PAGES = 'div.ng-SearchResults.row > div.main-section > xpl-paginator > div.pagination-bar.hide-mobile > ul > li:not(.prev-btn):not(.next-btn):not(.next-page-set)'// .next-btn .next-page-set)'
 
+  const query = queryForScrap(querytext, rangeYear)
   let browser
   try {
     browser = await puppeteer.launch({ headless: true })
@@ -35,7 +37,7 @@ async function scrap (query) {
     }
     await browser.close() // close browser
 
-    return results
+    return { total_records: results.length, articles: results }
   } catch (error) {
     await browser.close()
     if (error instanceof puppeteer.errors.TimeoutError) {
@@ -57,7 +59,7 @@ async function scrap (query) {
  *
  * @return  {object}             The results, it has three keys: total_records, total_searched, articles
  */
-async function api (apiKey, querytext, startYear, endYear) {
+async function api (apiKey, querytext, rangeYear) {
   const APIURL = 'https://ieeexploreapi.ieee.org/api/v1/search/articles'
 
   const config = {
@@ -77,11 +79,11 @@ async function api (apiKey, querytext, startYear, endYear) {
     params: {
       querytext: `${querytext}`,
       max_records: 200,
-      apikey: apiKey
+      apikey: apiKey,
+      start_year: rangeYear[0],
+      end_year: rangeYear[1]
     }
   }
-  if (startYear) config.params.start_year = startYear
-  if (endYear) config.params.end_year = endYear
 
   try {
     const response = await axios(config)
