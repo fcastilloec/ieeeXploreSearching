@@ -86,7 +86,7 @@ function createJSON () {
     }
     if (pdf_url) {
       result.pdf_url = ieeeUrl + pdf_url.getAttribute('href')
-      result.article_number = result.publication_number
+      result.article_number = pdf_url.getAttribute('href').match(/\d+/)[0]
     }
 
     return result
