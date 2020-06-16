@@ -113,10 +113,14 @@ console.log('Using: %s', FIELDS[dataField] || 'No data fields')
 
 async function search () {
   const results = argv.api
-    ? await ieee.api(APIKEY, addDataField(argv._[0], FIELDS[dataField]), rangeYear)
-    : await ieee.scrap(addDataField(argv._[0], FIELDS[dataField]), rangeYear)
+    ? await ieee.api(APIKEY, addDataField(argv._[0], FIELDS[dataField]), rangeYear, argv.verbose)
+    : await ieee.scrap(addDataField(argv._[0], FIELDS[dataField]), rangeYear, argv.verbose)
 
-  console.log('Found %s results.', results.total_records)
+  console.log('Found %s results', results.total_records)
+  if (argv.api && results.total_records > 200) {
+    console.warn('WARNING: API searches are limited to fetching 200 results')
+    console.warn('\t Consider using scraping or narrowing your search')
+  }
   if (results.total_records > 0) {
     try {
       await fs.ensureFile(filename(argv.output, '.json')) // create the parent directory if they don't exist

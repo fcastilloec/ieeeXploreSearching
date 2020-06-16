@@ -10,13 +10,15 @@ const createJSON = require('./createJson')
  *
  * @return  {object[]}       All the IEEE results from each page, from 'createJson' function.
  */
-async function scrap (querytext, rangeYear) {
+async function scrap (querytext, rangeYear, verbose) {
   const ieeeUrl = 'https://ieeexplore.ieee.org/search/searchresult.jsp?queryText='
   const ELEMENTS = 'div.row.result-item.hide-mobile > div.col.result-item-align'
   const NEXT = 'div.ng-SearchResults.row > div.main-section > xpl-paginator > div.pagination-bar.hide-mobile > ul > li.next-btn > a'
   const PAGES = 'div.ng-SearchResults.row > div.main-section > xpl-paginator > div.pagination-bar.hide-mobile > ul > li:not(.prev-btn):not(.next-btn):not(.next-page-set)'// .next-btn .next-page-set)'
 
   const query = `(${encodeURI(querytext).replace(/\?/g, '%3F').replace(/\//g, '%2F')})&ranges=${rangeYear[0]}_${rangeYear[1]}_Year`
+  if (verbose) console.log('QUERY:\t%s\n', query)
+
   let browser
   try {
     browser = await puppeteer.launch({ headless: true })
@@ -28,6 +30,8 @@ async function scrap (querytext, rangeYear) {
 
     // TODO: check what happens when a single page of results or no results happen
     const totalPages = (await page.$$(PAGES)).length // check how many result pages exist
+    if (verbose) console.log('Total number of pages: %s\n', totalPages)
+
     for (let i = 0; i < totalPages - 1; i++) {
       await page.click(NEXT) // go to next page of results
       await page.waitForSelector(ELEMENTS) // wait for results to load
@@ -40,7 +44,7 @@ async function scrap (querytext, rangeYear) {
   } catch (error) {
     await browser.close()
     if (error instanceof puppeteer.errors.TimeoutError) {
-      return []
+      return { total_records: 0, articles: [] }
     } else {
       console.error('Error scrapping results:\n' + error.message)
       process.exit(2)
@@ -58,7 +62,7 @@ async function scrap (querytext, rangeYear) {
  *
  * @return  {object}             The results, it has three keys: total_records, total_searched, articles
  */
-async function api (apiKey, querytext, rangeYear) {
+async function api (apiKey, querytext, rangeYear, verbose) {
   const APIURL = 'https://ieeexploreapi.ieee.org/api/v1/search/articles'
 
   const config = {
@@ -86,6 +90,7 @@ async function api (apiKey, querytext, rangeYear) {
 
   try {
     const response = await axios(config)
+    if (verbose) console.log('REQUEST PATH:\t%s\n', response.request.path)
     return response.data
   } catch (error) {
     console.error('Error with IEEE API:\n' + error.message)
