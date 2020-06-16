@@ -8,13 +8,15 @@ const argv = yargs
   .usage('Usage: $0 <filename>')
   .strict()
   .alias('help', 'h')
-  .demandCommand(1, 1, 'No JSON file specified', 'Specify only one JSON file')
+  .demandCommand(1, 'No JSON file specified')
   .argv
 
-try {
-  const file = fs.readJsonSync(argv._[0])
-  console.log('Records inside file: %s', file.length)
-} catch (error) {
-  console.error('Error reading JSON file:\n' + error.message)
-  process.exit(5)
+for (const filename of argv._) {
+  try {
+    const file = fs.readJsonSync(filename)
+    console.log('Records inside %s: %s', filename, file.length)
+  } catch (error) {
+    console.error('Error reading %s:\t' + error.message, filename)
+    process.exit(5)
+  }
 }
