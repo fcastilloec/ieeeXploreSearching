@@ -3,9 +3,9 @@ const fs = require('fs-extra')
 const { filename } = require('./utils')
 
 /**
- * Converts an array of authors (from API results) into a string.
+ * Converts an array of authors into a string.
  *
- * @param   {object[]}  authors  The authors return from an API search
+ * @param   {object[]}  authors  The authors
  *
  * @return  {string}             Author's names
  */
@@ -18,7 +18,7 @@ function authorsString (authors) {
 }
 
 /**
- * Creates an excel file on disk based on an array of results return from API search.
+ * Creates an excel file based on an array of results.
  *
  * @param  {object[]]}  results      The results from scrapping IEEE, each result is an Object inside this array.
  * @param  {string}     xlsFilename  The path and filename where to save the Excel file.
@@ -119,12 +119,11 @@ function fromResults (results, xlsFilename) {
 }
 
 /**
- * Creates an excel file from a JSON file, either API or scrap based.
+ * Creates an excel file from a JSON file.
  *
- * @param  {object[]]}  results      The results from scrapping IEEE, each result is an Object inside this array.
- * @param  {string}     xlsFilename  The path and filename where to save the Excel file.
+ * @param  {string}  file      The JSON file to convert.
  */
-function fromFile (file, api) {
+function fromFile (file) {
   const output = filename(file, 'xls')
   try {
     const results = fs.readJsonSync(file)

@@ -14,12 +14,6 @@ const argv = yargs
     'strip-aliased': true
   })
   .usage('Usage: $0 [command] <options>')
-  .option('api', {
-    alias: 'a',
-    describe: 'Whether the JSON was saved using API searching (instead of scrapping)',
-    default: false,
-    type: 'boolean'
-  })
   .command({
     command: '$0',
     desc: 'Perfom logic operations between JSON files',
@@ -100,4 +94,4 @@ const argv = yargs
   })
   .argv
 
-argv.jsonFile ? fromFile(argv.jsonFile, argv.api) : logic(argv)
+argv.jsonFile ? fromFile(argv.jsonFile) : logic(argv)
