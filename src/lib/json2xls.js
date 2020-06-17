@@ -32,8 +32,8 @@ function fromResults (results, xlsFilename) {
     authors: 5,
     publication_title: 6,
     abstract: 7,
-    pdf_url: 8,
-    doi: 9
+    pdf_url: 9,
+    doi: 8
   }
 
   const sciHubUrl = 'https://sci-hub.tw/'
@@ -64,9 +64,10 @@ function fromResults (results, xlsFilename) {
   })
 
   ws.row(1).freeze()
-  ws.column(COLUMNS.publication_year).setWidth(6)
-  ws.column(COLUMNS.article_number).setWidth(10)
-  ws.column(COLUMNS.publication_date).setWidth(15)
+  ws.row(1).filter()
+  ws.column(COLUMNS.publication_year).setWidth(8)
+  ws.column(COLUMNS.article_number).setWidth(11)
+  ws.column(COLUMNS.publication_date).setWidth(20)
   ws.column(COLUMNS.title).setWidth(47)
   ws.column(COLUMNS.authors).setWidth(18)
   ws.column(COLUMNS.publication_title).setWidth(34)
@@ -80,7 +81,7 @@ function fromResults (results, xlsFilename) {
 
   // ws.cell(row, col)
   ws.cell(1, COLUMNS.publication_year).string('YEAR').style({ font: { bold: true } })
-  ws.cell(1, COLUMNS.article_number).string('ARTICLE #').style({ font: { bold: true } })
+  ws.cell(1, COLUMNS.article_number).string('ARTICLE').style({ font: { bold: true } })
   ws.cell(1, COLUMNS.publication_date).string('DATE').style({ font: { bold: true } })
   ws.cell(1, COLUMNS.title).string('TITLE').style({ font: { bold: true } })
   ws.cell(1, COLUMNS.authors).string('AUTHORS').style({ font: { bold: true } })
