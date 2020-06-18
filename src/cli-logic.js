@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-const yargs = require('yargs')
-const { fromFile } = require('./lib/json2xls')
-const logic = require('./lib/logicOperations')
+const yargs = require('yargs');
+const { fromFile } = require('./lib/json2xls');
+const logic = require('./lib/logicOperations');
 
-const argv = yargs
+const { argv } = yargs
   .version(require('../package').version)
   .wrap(null)
   .strict()
@@ -11,7 +11,7 @@ const argv = yargs
   .group(['help', 'version', 'api'], 'Global options')
   .parserConfiguration({
     'duplicate-arguments-array': false,
-    'strip-aliased': true
+    'strip-aliased': true,
   })
   .usage('Usage: $0 [command] <options>')
   .command({
@@ -24,60 +24,66 @@ const argv = yargs
           describe: 'Output file of the operation',
           nargs: 1,
           type: 'string',
-          demandOption: true
+          demandOption: true,
         })
         .option('merge', {
           alias: 'm',
           describe: 'Combines different files into a single one',
           conflicts: ['and', 'or', 'not'],
-          type: 'array'
+          type: 'array',
         })
         .option('and', {
           alias: 'A',
           conflicts: ['or'],
           describe: 'Logical AND operator',
-          type: 'array'
+          type: 'array',
         })
         .option('or', {
           alias: 'O',
           conflicts: ['and'],
           describe: 'Logical OR operator',
-          type: 'array'
+          type: 'array',
         })
         .option('not', {
           alias: 'N',
           describe: 'Logical OR operator',
           nargs: 1,
-          type: 'string'
+          type: 'string',
         })
         .option('excel', {
           alias: 'e',
           describe: 'Whether to also save results as excel file',
           default: false,
-          type: 'boolean'
+          type: 'boolean',
         })
-        .check(argv => {
-          if (argv.merge && argv.merge.length < 2) {
-            throw new Error("Error: 'merge' needs at least two files to operate on")
+        .check((arg) => {
+          if (arg.merge && arg.merge.length < 2) {
+            throw new Error("Error: 'merge' needs at least two files to operate on");
           }
-          if (argv.and && argv.and.length < 2) {
-            throw new Error("Error: 'and' needs at least two files to operate on")
+          if (arg.and && arg.and.length < 2) {
+            throw new Error("Error: 'and' needs at least two files to operate on");
           }
-          if (argv.or && argv.or.length < 2) {
-            throw new Error("Error: 'or' needs at least two files to operate on")
+          if (arg.or && arg.or.length < 2) {
+            throw new Error("Error: 'or' needs at least two files to operate on");
           }
-          if (argv.not && (!(argv.merge || argv.and || argv.or) && argv._.length !== 1)) {
-            throw new Error("Error: 'not' needs any operator (except for merge) or a single input file")
+          if (arg.not && (!(arg.merge || arg.and || arg.or) && arg._.length !== 1)) {
+            throw new Error("Error: 'not' needs any operator (except for merge) or a single input file");
           }
-          if (!(argv.merge || argv.and || argv.or || argv.not)) {
-            throw new Error('Error: at least one command is needed')
+          if (!(arg.merge || arg.and || arg.or || arg.not)) {
+            throw new Error('Error: at least one command is needed');
           }
-          return true
+          return true;
         })
-        .example('$0 --merge file1.json file2.json file3.json --output output.json', 'merge file1.json, file2.json, file3.json and save into output.json')
+        .example(
+          '$0 --merge file1.json file2.json file3.json --output output.json',
+          'merge file1.json, file2.json, file3.json and save into output.json',
+        )
         .example('$0 --and file1.json file2.json --output output.json', 'file1.json AND file2.json -> output.json')
-        .example('$0 --or file1.json file2.json -not file3.json --output output.json', '(file1.json OR file2.json) NOT file3.json -> output.json')
-    }
+        .example(
+          '$0 --or file1.json file2.json -not file3.json --output output.json',
+          '(file1.json OR file2.json) NOT file3.json -> output.json',
+        );
+    },
   })
   .command({
     command: 'json2xls <jsonFile> [options]',
@@ -87,11 +93,10 @@ const argv = yargs
       args
         .positional('jsonFile', {
           describe: 'The JSON file to convert',
-          type: 'string'
+          type: 'string',
         })
-        .example('$0 json2xls file.json', 'Converts file.json into file.xls')
-    }
-  })
-  .argv
+        .example('$0 json2xls file.json', 'Converts file.json into file.xls');
+    },
+  });
 
-argv.jsonFile ? fromFile(argv.jsonFile) : logic(argv)
+argv.jsonFile ? fromFile(argv.jsonFile) : logic(argv);
