@@ -1,22 +1,21 @@
 #!/usr/bin/env node
-const yargs = require('yargs')
-const fs = require('fs-extra')
+const yargs = require('yargs');
+const fs = require('fs-extra');
 
-const argv = yargs
+const { argv } = yargs
   .wrap(null)
   .version(require('../package').version)
   .usage('Usage: $0 <filename>')
   .strict()
   .alias('help', 'h')
-  .demandCommand(1, 'No JSON file specified')
-  .argv
+  .demandCommand(1, 'No JSON file specified');
 
-for (const filename of argv._) {
+argv._.forEach((filename) => {
   try {
-    const file = fs.readJsonSync(filename)
-    console.log('Records inside %s: %s', filename, file.length)
+    const file = fs.readJsonSync(filename);
+    console.log('Records inside %s: %s', filename, file.length);
   } catch (error) {
-    console.error('Error reading %s:\t' + error.message, filename)
-    process.exit(5)
+    console.error(`Error reading %s:\t${error.message}`, filename);
+    process.exit(5);
   }
-}
+});
