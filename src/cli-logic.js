@@ -8,7 +8,7 @@ const { argv } = yargs
   .wrap(null)
   .strict()
   .alias('help', 'h')
-  .group(['help', 'version', 'api'], 'Global options')
+  .group(['help', 'version'], 'Global options')
   .parserConfiguration({
     'duplicate-arguments-array': false,
     'strip-aliased': true,
