@@ -1,7 +1,7 @@
 const _ = require('lodash');
 const fs = require('fs-extra');
 const { changeFileExtension } = require('./utils');
-const { fromResults: json2xls } = require('./json2xls');
+const { fromResults } = require('./json2xls');
 
 /**
  * Compares if array elements (results) are equal. Scrapping ONLY
@@ -52,14 +52,18 @@ function operations(options) {
     process.exit(5);
   }
 
-  try {
-    fs.writeJsonSync(changeFileExtension(options.output, '.json'), result, { spaces: 1 });
-  } catch (error) {
-    console.error(`Error writing JSON file:\n${error.message}`);
-    process.exit(6);
+  if (result.length > 0) {
+    console.log('Operation returned %s results', result.length);
+    try {
+      fs.writeJsonSync(changeFileExtension(options.output, '.json'), result, { spaces: 1 });
+    } catch (error) {
+      console.error(`Error writing JSON file:\n${error.message}`);
+      process.exit(6);
+    }
+    if (options.excel) fromResults(result, changeFileExtension(options.output, '.xls'));
+  } else {
+    console.log('Logic operation returned zero results. No files will be saved.');
   }
-  const outputfile = changeFileExtension(options.output, '.xls');
-  if (options.excel) json2xls(result, outputfile);
 }
 
 module.exports = operations;
