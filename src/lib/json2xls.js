@@ -110,9 +110,11 @@ function fromResults(results, xlsFilename) {
   if (pubDate) ws.column(COLUMNS.publication_date).hide();
   if (doi) ws.column(COLUMNS.doi).hide();
 
-  wb.write(xlsFilename, (error) => {
-    if (error) console.error(`Error writing xls file to disk\n${error.message}`);
-    process.exit(4);
+  return new Promise((resolve, reject) => {
+    wb.write(xlsFilename, (error) => {
+      if (error) return reject(new Error(`Error writing xls file to disk\n${error.message}`));
+      return resolve();
+    });
   });
 }
 
@@ -121,15 +123,15 @@ function fromResults(results, xlsFilename) {
  *
  * @param  {string}  file      The JSON file to convert.
  */
-function fromFile(file) {
+async function fromFile(file) {
+  let results;
   const output = changeFileExtension(file, 'xls');
   try {
-    const results = fs.readJsonSync(file);
-    fromResults(results, output);
+    results = fs.readJsonSync(file);
   } catch (error) {
-    console.error(`Error reading JSON file:\n${error.message}`);
-    process.exit(5);
+    throw new Error(`Error reading JSON file:\n${error.message}`);
   }
+  await fromResults(results, output);
 }
 
 module.exports = {
