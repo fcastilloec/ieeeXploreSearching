@@ -11,6 +11,9 @@ node_modules/
 .env
 .env.test
 
+# nyc
+.nyc_output
+
 # TODO files
 TODO
 WORKFLOW
