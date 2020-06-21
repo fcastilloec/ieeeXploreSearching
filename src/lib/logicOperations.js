@@ -30,26 +30,25 @@ function operations(options) {
 
   try {
     // MERGE or OR
-    if (Object.prototype.hasOwnProperty.call(options, 'merge') || Object.prototype.hasOwnProperty.call(options, 'or')) {
+    if ('merge' in options || 'or' in options) {
       const files = (options.merge || options.or).map((file) => fs.readJsonSync(file));
       result = _.unionWith(...files, isEqual);
     }
 
     // AND
-    if (Object.prototype.hasOwnProperty.call(options, 'and')) {
+    if ('and' in options) {
       const files = options.and.map((file) => fs.readJsonSync(file));
       result = _.intersectionWith(...files, isEqual);
     }
 
     // NOT
-    if (Object.prototype.hasOwnProperty.call(options, 'not')) {
+    if ('not' in options) {
       const file = fs.readJsonSync(options.not);
       if (options._[0]) result = fs.readJsonSync(options._[0]);
       result = _.differenceWith(result, file, isEqual);
     }
   } catch (error) {
-    console.error(`Error reading JSON file:\n${error.message}`);
-    process.exit(5);
+    throw new Error(`Error reading JSON file:\n${error.message}`);
   }
 
   if (result.length > 0) {
@@ -57,8 +56,7 @@ function operations(options) {
     try {
       fs.writeJsonSync(changeFileExtension(options.output, '.json'), result, { spaces: 1 });
     } catch (error) {
-      console.error(`Error writing JSON file:\n${error.message}`);
-      process.exit(6);
+      throw new Error(`Error writing JSON file:\n${error.message}`);
     }
     if (options.excel) fromResults(result, changeFileExtension(options.output, '.xls'));
   } else {

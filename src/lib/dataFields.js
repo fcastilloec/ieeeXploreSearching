@@ -34,7 +34,6 @@ function addDataField(querytext, field) {
   });
   return terms.join(' ');
 }
-// Re-adds a parenthesis for empty elements, and appends the field to non-empty ones.
 
 module.exports = {
   FIELDS,

@@ -54,8 +54,7 @@ async function scrap(querytext, rangeYear, verbose) {
     if (error instanceof puppeteer.errors.TimeoutError) {
       return { total_records: 0, articles: [] };
     }
-    console.error(`Error scrapping results:\n${error.message}`);
-    process.exit(2);
+    throw new Error(`Error scrapping results:\n${error.message}`);
   }
 }
 
@@ -98,12 +97,11 @@ async function api(apiKey, querytext, rangeYear, verbose) {
   let response;
   try {
     response = await axios(config);
-    if (verbose) console.log('REQUEST PATH:\t%s\n', response.request.path);
-    return response.data;
   } catch (error) {
-    console.error(`Error with IEEE API:\n${error.message}`);
-    process.exit(3);
+    throw new Error(`Error with IEEE API:\n${error.message}`);
   }
+  if (verbose) console.log('REQUEST PATH:\t%s\n', response.request.path);
+  return response.data;
 }
 
 module.exports = {
