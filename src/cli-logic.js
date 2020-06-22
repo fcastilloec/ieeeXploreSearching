@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 const yargs = require('yargs');
-const { fromFile } = require('./lib/json2xls');
-const logic = require('./lib/logicOperations');
+const fs = require('fs-extra');
+const { fromResults } = require('./lib/json2xls');
+const { logicOperations } = require('./lib/logicOperations');
+const { changeFileExtension } = require('./lib/utils');
 
 const { argv } = yargs
   .version(require('../package').version)
@@ -99,4 +101,20 @@ const { argv } = yargs
     },
   });
 
-argv.jsonFile ? fromFile(argv.jsonFile) : logic(argv);
+async function logic() {
+  const result = logicOperations(argv);
+  if (result.length > 0) {
+    console.log('Operation returned %s results', result);
+    await fs.writeJson(changeFileExtension(argv.output, '.json'), result, { spaces: 1 });
+    if (argv.excel) await fromResults(result, changeFileExtension(argv.output, '.xls'));
+  } else {
+    console.log('Logic operation returned zero results. No files will be saved.');
+  }
+}
+
+argv.jsonFile
+  ? fromResults(
+    fs.readJsonSync(argv.jsonFile),
+    changeFileExtension(argv.jsonFile, '.xls'),
+  )
+  : logic();
