@@ -21,7 +21,7 @@
   "scripts": {
     "lint": "eslint .",
     "start": "node src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "nyc ava"
   },
   "dependencies": {
     "axios": "^0.19.2",
@@ -32,11 +32,14 @@
     "yargs": "^15.3.1"
   },
   "devDependencies": {
+    "ava": "^3.9.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.1.0",
+    "eslint-plugin-ava": "^10.3.1",
     "eslint-plugin-import": "^2.21.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.20.0",
-    "eslint-plugin-react-hooks": "^2.5.0"
+    "eslint-plugin-react-hooks": "^2.5.0",
+    "nyc": "^15.1.0"
   }
 }
