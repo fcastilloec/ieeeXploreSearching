@@ -1,0 +1,61 @@
+[
+  {
+    "doi": "10.1109/TCE.2005.1405702",
+    "title": "PF 41-packet forwarding for seamless use of IPv6 devices behind IPv4-only NAT gateways",
+    "publisher": "IEEE",
+    "issue": "1",
+    "issn": "1558-4127",
+    "rank": 1,
+    "volume": "51",
+    "authors": {
+      "authors": [
+        {
+          "affiliation": "Philips Res. Lab., Eindhoven, Netherlands",
+          "authorUrl": "https://ieeexplore.ieee.org/author/38270038500",
+          "id": 38270038500,
+          "full_name": "M. Simons-Nikolova",
+          "author_order": 1
+        },
+        {
+          "affiliation": "Philips Res. Lab., Eindhoven, Netherlands",
+          "authorUrl": "https://ieeexplore.ieee.org/author/38275850600",
+          "id": 38275850600,
+          "full_name": "X. Bodlaender-Pu",
+          "author_order": 2
+        }
+      ]
+    },
+    "access_type": "LOCKED",
+    "content_type": "Journals",
+    "abstract": "This paper describes a PF (protocol field) 41-packet forwarding mechanism for seamless use of IPv6 devices behind IPv4-only NAT (network address translation) gateways. The PF 41-packet forwarding enables IPv6 nodes to set-up symmetric end-to-end connections with other IPv6 nodes located behind an IPv4-only NAT gateway. The symmetry, meaning both outgoing as well as incoming connections are possible, is one of the most important requirements for proper functioning of peer-to-peer applications like A/V conferencing, IP telephony and multi-user gaming.",
+    "article_number": "1405702",
+    "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1405702",
+    "html_url": "https://ieeexplore.ieee.org/document/1405702/",
+    "abstract_url": "https://ieeexplore.ieee.org/document/1405702/",
+    "publication_title": "IEEE Transactions on Consumer Electronics",
+    "publication_number": 30,
+    "is_number": 30482,
+    "publication_year": 2005,
+    "publication_date": "Feb. 2005",
+    "start_page": "76",
+    "end_page": "79",
+    "citing_paper_count": 1,
+    "citing_patent_count": 1,
+    "index_terms": {
+      "ieee_terms": {
+        "terms": [
+          "Network address translation",
+          "TCPIP",
+          "Internet",
+          "Protocols",
+          "Peer to peer computing",
+          "Tunneling",
+          "Relays",
+          "Costs",
+          "Telephony",
+          "IP networks"
+        ]
+      }
+    }
+  }
+]
