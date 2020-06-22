@@ -1,0 +1,27 @@
+const test = require('ava');
+const fs = require('fs-extra');
+const path = require('path');
+const { authorsString, fromResults } = require('../src/lib/json2xls');
+const { changeFileExtension } = require('../src/lib/utils');
+
+test('authorsString: empty', (t) => {
+  t.is(authorsString([]), '');
+});
+
+test('authorsString: array', (t) => {
+  t.is(
+    authorsString([
+      { full_name: 'John Smith' },
+      { full_name: 'Jane Doe' },
+    ]),
+    'John Smith; Jane Doe',
+  );
+});
+
+test('fromResults', async (t) => {
+  const file = path.join(__dirname, 'fixtures', 'result2.json');
+  const output = changeFileExtension(file, '.xls');
+  await fromResults(fs.readJsonSync(file), output);
+  await t.notThrowsAsync(fs.access(output));
+  await fs.remove(output);
+});

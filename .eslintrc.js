@@ -5,6 +5,7 @@ module.exports = {
   },
   extends: [
     'airbnb',
+    'plugin:ava/recommended',
   ],
   rules: {
     'max-len': ['error', 120],
