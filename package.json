@@ -1,6 +1,6 @@
 {
   "name": "ieeexplore-search",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "IEEE results as workfiles",
   "main": "src/cli-search.js",
   "bin": "src/cli-search.js",
