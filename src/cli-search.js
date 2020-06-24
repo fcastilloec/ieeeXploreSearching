@@ -2,7 +2,7 @@
 const _ = require('lodash');
 const fs = require('fs-extra');
 const yargs = require('yargs');
-const { changeFileExtension, yearRange } = require('./lib/utils');
+const { changeFileExtension, testYear } = require('./lib/utils');
 const { FIELDS, addDataField } = require('./lib/dataFields');
 const ieee = require('./lib/ieeeAPI');
 const { fromResults: json2xls } = require('./lib/json2xls');
@@ -22,6 +22,7 @@ const { argv } = yargs
     nargs: 1,
     type: 'string',
     demandOption: true,
+    normalize: true,
   })
   .option('full-text-and-metadata', {
     alias: 'f',
@@ -64,6 +65,7 @@ const { argv } = yargs
     nargs: 1,
     demandOption: true,
     describe: 'Year range to search. A single value will search from "year" to date',
+    // array will consume all arguments after -y, including the query. No way to make array nargs variable
     type: 'number',
   })
   .option('api', {
@@ -81,23 +83,13 @@ const { argv } = yargs
     'strip-aliased': true,
     'strip-dashed': true,
   })
+  .coerce({
+    // Transform the year into an array if only one was specified
+    year: (year) => (Array.isArray(year) ? year : [year, year]),
+  })
   .check((args) => {
     if (args.year.length > 2) throw new Error('Only start and/or finish year are accepted');
-    if (Array.isArray(args.year)) {
-      args.year.forEach((year) => {
-        if (!Number.isInteger(year)) throw new Error('Year has to be a integer');
-        if (year.toString().length !== 4) throw new Error('Year has to be a 4 digit integer');
-        if (year < 1900 || year > new Date().getFullYear()) {
-          throw new Error('Year has to be after 1900 and before current one');
-        }
-      });
-    } else {
-      if (!Number.isInteger(args.year)) throw new Error('Year has to be a integer');
-      if (args.year.toString().length !== 4) throw new Error('Year has to be a 4 digit integer');
-      if (args.year < 1900 || args.year > new Date().getFullYear()) {
-        throw new Error('Year has to be after 1900 and before current one');
-      }
-    }
+    args.year.forEach(testYear);
     if (args.api && !APIKEY) throw new Error('No APIKEY key provided. Set APIKEY enviroment variable');
     return true;
   })
@@ -108,22 +100,20 @@ const { argv } = yargs
   )
   .example(
     '$0 "h264 NEAR/3 cellular" -y 2005 -o search2.json',
-    'searches for "h264 NEAR/3 cellular" from 2005 to date, and save the results in search2.json',
+    'searches for "h264 NEAR/3 cellular" only on 2005, and save the results in search2.json',
   );
 
 // Selects the enabled key of the specified data field. _.pick is faster than _.omit
 const dataField = Object.keys(_.pick(argv, Object.keys(FIELDS)))[0];
-// Transform the year into an array if only one was specified
-const rangeYear = yearRange(argv.year);
 
 console.log('Searching for: %s', argv._[0]);
-console.log('Between %s and %s', rangeYear[0], rangeYear[1]);
+console.log('Between %s and %s', argv.year[0], argv.year[1]);
 console.log('Using: %s', FIELDS[dataField] || 'No data fields');
 
 async function search() {
   const results = argv.api
-    ? await ieee.api(APIKEY, addDataField(argv._[0], FIELDS[dataField]), rangeYear, argv.verbose)
-    : await ieee.scrap(addDataField(argv._[0], FIELDS[dataField]), rangeYear, argv.verbose);
+    ? await ieee.api(APIKEY, addDataField(argv._[0], FIELDS[dataField]), argv.year, argv.verbose)
+    : await ieee.scrap(addDataField(argv._[0], FIELDS[dataField]), argv.year, argv.verbose);
 
   console.log('Found %s results', results.total_records);
   if (argv.api && results.total_records > 200) {
