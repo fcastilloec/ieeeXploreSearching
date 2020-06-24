@@ -1,5 +1,5 @@
 const test = require('ava');
-const { changeFileExtension, yearRange } = require('../src/lib/utils');
+const { changeFileExtension, testYear } = require('../src/lib/utils');
 
 const path = 'this/file.ext';
 const out = 'this/file.new';
@@ -12,11 +12,27 @@ test('changeFileExtension without period', (t) => {
   t.is(changeFileExtension(path, 'new'), out);
 });
 
-test('yearRange is number', (t) => {
-  const today = new Date().getFullYear();
-  t.deepEqual(yearRange(1990), [1990, today]);
+test('testYear not throws for valid year', (t) => {
+  t.notThrows(() => testYear(1990));
 });
 
-test('yearRange is array', (t) => {
-  t.deepEqual(yearRange([1990, 1991]), [1990, 1991]);
+test('testYear throws if not an integer', (t) => {
+  t.throws(() => testYear(15.4), {
+    instanceOf: TypeError,
+    message: 'Year has to be an integer',
+  });
+});
+
+test('testYear throws before 1900', (t) => {
+  t.throws(() => testYear(0), {
+    instanceOf: RangeError,
+    message: 'Year option has to be after 1900',
+  });
+});
+
+test('testYear throws after current year', (t) => {
+  t.throws(() => testYear(1e14), {
+    instanceOf: RangeError,
+    message: 'Year option has to be before current year',
+  });
 });
