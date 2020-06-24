@@ -24,7 +24,7 @@ function isEqual(value, other) {
  * @param   {object}  options  The options passed from command-line
  */
 /* istanbul ignore next */
-async function logicOperations(options) {
+function logicOperations(options) {
   let result = [];
 
   // MERGE or OR

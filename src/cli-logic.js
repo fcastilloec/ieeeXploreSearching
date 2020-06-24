@@ -104,7 +104,7 @@ const { argv } = yargs
 async function logic() {
   const result = logicOperations(argv);
   if (result.length > 0) {
-    console.log('Operation returned %s results', result);
+    console.log('Operation returned %s results', result.length);
     await fs.writeJson(changeFileExtension(argv.output, '.json'), result, { spaces: 1 });
     if (argv.excel) await fromResults(result, changeFileExtension(argv.output, '.xls'));
   } else {
