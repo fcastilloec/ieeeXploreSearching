@@ -4,11 +4,11 @@ const path = require('path');
 const { authorsString, fromResults } = require('../src/lib/json2xls');
 const { changeFileExtension } = require('../src/lib/utils');
 
-test('authorsString: empty', (t) => {
+test('authorsString with empty array', (t) => {
   t.is(authorsString([]), '');
 });
 
-test('authorsString: array', (t) => {
+test('authorsString with valid array', (t) => {
   t.is(
     authorsString([
       { full_name: 'John Smith' },
