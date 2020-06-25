@@ -53,7 +53,7 @@ function fromResults(results, xlsFilename) {
   });
   const linkStyle = wb.createStyle({
     alignment: {
-      wrapText: true,
+      wrapText: false,
       horizontal: 'left',
       vertical: 'center',
     },
