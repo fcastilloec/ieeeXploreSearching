@@ -13,11 +13,11 @@ const { argv } = yargs
   .group(['help', 'version'], 'Global options')
   .parserConfiguration({
     'duplicate-arguments-array': false,
-    'strip-aliased': true,
+    'boolean-negation': false,
   })
   .usage('Usage: $0 [command] <options>')
   .command({
-    command: '$0',
+    command: '$0 [Options]',
     desc: 'Perfom logic operations between JSON files',
     builder: (args) => {
       args
@@ -31,20 +31,20 @@ const { argv } = yargs
         .option('merge', {
           alias: 'm',
           describe: 'Combines different files into a single one',
-          conflicts: ['and', 'or', 'not'],
-          type: 'array',
+          conflicts: ['and', 'or'],
+          type: 'boolean',
         })
         .option('and', {
           alias: 'A',
-          conflicts: ['or'],
+          conflicts: ['or', 'merge'],
           describe: 'Logical AND operator',
-          type: 'array',
+          type: 'boolean',
         })
         .option('or', {
           alias: 'O',
-          conflicts: ['and'],
+          conflicts: ['and', 'merge'],
           describe: 'Logical OR operator',
-          type: 'array',
+          type: 'boolean',
         })
         .option('not', {
           alias: 'N',
@@ -59,20 +59,14 @@ const { argv } = yargs
           type: 'boolean',
         })
         .check((arg) => {
-          if (arg.merge && arg.merge.length < 2) {
-            throw new Error("Error: 'merge' needs at least two files to operate on");
-          }
-          if (arg.and && arg.and.length < 2) {
-            throw new Error("Error: 'and' needs at least two files to operate on");
-          }
-          if (arg.or && arg.or.length < 2) {
-            throw new Error("Error: 'or' needs at least two files to operate on");
-          }
-          if (arg.not && (!(arg.merge || arg.and || arg.or) && arg._.length !== 1)) {
-            throw new Error("Error: 'not' needs any operator (except for merge) or a single input file");
-          }
           if (!(arg.merge || arg.and || arg.or || arg.not)) {
-            throw new Error('Error: at least one command is needed');
+            throw new Error('At least one command is needed');
+          }
+          if ((arg.merge || arg.and || arg.or) && arg._.length < 2) {
+            throw new Error('Command needs at least two files to operate on');
+          }
+          if (arg.not && !(arg.merge || arg.and || arg.or) && arg._.length !== 1) {
+            throw new Error('Operator NOT by itself requires only one additional file to operate on');
           }
           return true;
         })
@@ -88,7 +82,7 @@ const { argv } = yargs
     },
   })
   .command({
-    command: 'json2xls <jsonFile> [options]',
+    command: 'json2xls <jsonFile>',
     aliases: 'j2x',
     desc: 'Converts a JSON into xls',
     builder: (args) => {
