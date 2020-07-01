@@ -17,7 +17,7 @@ const { argv } = yargs
   })
   .usage('Usage: $0 [command] <options>')
   .command({
-    command: '$0 [Options]',
+    command: '$0',
     desc: 'Perfom logic operations between JSON files',
     builder: (args) => {
       args
