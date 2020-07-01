@@ -28,7 +28,7 @@
     "excel4node": "^1.7.2",
     "fs-extra": "^9.0.1",
     "lodash": "^4.17.15",
-    "puppeteer": "^3.3.0",
+    "puppeteer": "^4.0.1",
     "yargs": "^15.3.1"
   },
   "devDependencies": {
