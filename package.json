@@ -27,19 +27,19 @@
     "axios": "^0.19.2",
     "excel4node": "^1.7.2",
     "fs-extra": "^9.0.1",
-    "lodash": "^4.17.15",
-    "puppeteer": "^4.0.1",
-    "yargs": "^15.3.1"
+    "lodash": "^4.17.19",
+    "puppeteer": "^5.1.0",
+    "yargs": "^15.4.1"
   },
   "devDependencies": {
-    "ava": "^3.9.0",
-    "eslint": "^7.3.1",
+    "ava": "^3.10.1",
+    "eslint": "^7.4.0",
     "eslint-config-airbnb": "^18.2.0",
-    "eslint-plugin-ava": "^10.3.1",
+    "eslint-plugin-ava": "^10.4.0",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-react": "^7.20.3",
-    "eslint-plugin-react-hooks": "^4.0.5",
+    "eslint-plugin-react-hooks": "^4.0.7",
     "nyc": "^15.1.0"
   }
 }
