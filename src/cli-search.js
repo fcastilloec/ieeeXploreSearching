@@ -77,7 +77,7 @@ const { argv } = yargs
   .option('verbose', {
     alias: 'v',
     describe: 'Show extra info',
-    type: 'boolean',
+    type: 'count',
   })
   .parserConfiguration({
     'strip-aliased': true,
