@@ -71,6 +71,8 @@ async function scrap(querytext, rangeYear, verbose) {
 async function api(apiKey, querytext, rangeYear, verbose) {
   const APIURL = 'https://ieeexploreapi.ieee.org/api/v1/search/articles';
 
+  if (verbose >= 2) console.log('ApiKey:\t%s', apiKey);
+
   const config = {
     method: 'get',
     baseURL: APIURL,
@@ -86,7 +88,7 @@ async function api(apiKey, querytext, rangeYear, verbose) {
       return result.substr(0, result.length - 1);
     },
     params: {
-      querytext: `${querytext}`,
+      querytext: `(${querytext})`,
       max_records: 200,
       apikey: apiKey,
       start_year: rangeYear[0],
@@ -101,6 +103,7 @@ async function api(apiKey, querytext, rangeYear, verbose) {
     throw new Error(`Error with IEEE API:\n${error.message}`);
   }
   if (verbose) console.log('REQUEST PATH:\t%s\n', response.request.path);
+  if (verbose >= 2) console.log('RESPONSE:\t%o', response);
   return response.data;
 }
 
