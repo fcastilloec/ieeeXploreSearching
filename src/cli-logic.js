@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 const yargs = require('yargs');
 const fs = require('fs-extra');
+const _ = require('lodash');
 const { fromResults } = require('./lib/json2xls');
 const { logicOperations } = require('./lib/logicOperations');
 const { changeFileExtension } = require('./lib/utils');
@@ -8,12 +9,12 @@ const { changeFileExtension } = require('./lib/utils');
 const { argv } = yargs
   .version(require('../package').version)
   .wrap(null)
-  .strict()
   .alias('help', 'h')
   .group(['help', 'version'], 'Global options')
   .parserConfiguration({
     'duplicate-arguments-array': false,
     'boolean-negation': false,
+    'strip-aliased': true,
   })
   .usage('Usage: $0 [command] <options>')
   .command({
@@ -58,7 +59,11 @@ const { argv } = yargs
           default: false,
           type: 'boolean',
         })
-        .check((arg) => {
+        .check((arg, options) => {
+          const unknownOptions = _.difference(Object.keys(arg), Object.keys(options).concat(['_', '$0']));
+          if (unknownOptions.length) {
+            throw new Error(`Unrecognized ${unknownOptions.join(', ')} option`);
+          }
           if (!(arg.merge || arg.and || arg.or || arg.not)) {
             throw new Error('At least one command is needed');
           }
@@ -87,6 +92,7 @@ const { argv } = yargs
     desc: 'Converts a JSON into xls',
     builder: (args) => {
       args
+        .strict()
         .positional('jsonFile', {
           describe: 'The JSON file to convert',
           type: 'string',
