@@ -14,6 +14,7 @@ function createJSON() {
     'Conference Paper': 'Conferences',
     'Journal Article': 'Journals',
     'Book Chapter': 'Books',
+    Book: 'Books',
     'Magazine Article': 'Magazines',
     Standard: 'Standards',
   };
