@@ -12,6 +12,10 @@ test('changeFileExtension without period', (t) => {
   t.is(changeFileExtension(path, 'new'), out);
 });
 
+test('changeFileExtension with extension being an integer', (t) => {
+  t.is(changeFileExtension('this/file1.1', '.new'), 'this/file1.1.new');
+});
+
 test('testYear not throws for valid year', (t) => {
   t.notThrows(() => testYear(1990));
 });
