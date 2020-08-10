@@ -28,8 +28,9 @@ function fromResults(results, xlsFilename) {
     authors: 5,
     publication_title: 6,
     abstract: 7,
-    pdf_url: 9,
     sci_hub: 8,
+    pdf_url: 9,
+    content_type: 10,
   };
 
   const sciHubUrl = 'https://sci-hub.tw/';
@@ -70,6 +71,7 @@ function fromResults(results, xlsFilename) {
   ws.column(COLUMNS.abstract).setWidth(50);
   ws.column(COLUMNS.sci_hub).setWidth(44);
   ws.column(COLUMNS.pdf_url).setWidth(60);
+  ws.column(COLUMNS.content_type).setWidth(15);
 
   // Which colums should be hidden
   let pubDateHide = true;
@@ -85,6 +87,7 @@ function fromResults(results, xlsFilename) {
   ws.cell(1, COLUMNS.abstract).string('ABSTRACT').style({ font: { bold: true } });
   ws.cell(1, COLUMNS.sci_hub).string('SCI-HUB URL').style({ font: { bold: true } });
   ws.cell(1, COLUMNS.pdf_url).string('IEEE URL').style({ font: { bold: true } });
+  ws.cell(1, COLUMNS.content_type).string('TYPE').style({ font: { bold: true } });
 
   results.forEach((result, i) => {
     ws.row(i + 2).setHeight(97);
@@ -103,6 +106,7 @@ function fromResults(results, xlsFilename) {
       doiHide = false;
       ws.cell(i + 2, COLUMNS.sci_hub).link(sciHubUrl + result.doi).style(linkStyle);
     }
+    ws.cell(i + 2, COLUMNS.content_type).string(result.content_type);
   });
 
   /* istanbul ignore next */
