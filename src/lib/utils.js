@@ -9,8 +9,12 @@ const path = require('path');
  * @return  {string}            The new path with the proper extension.
  */
 function changeFileExtension(filename, ext) {
+  const orgFilename = path.parse(filename);
+
   return path.format({
-    ...path.parse(filename),
+    ...orgFilename,
+    // filename can contain periods followed by a integer without using the integer as an extension
+    name: /^\.[0-9]+/.test(orgFilename.ext) ? orgFilename.base : orgFilename.name,
     ext: ext.startsWith('.') ? ext : `.${ext}`,
     base: undefined,
   });
