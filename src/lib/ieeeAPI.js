@@ -18,12 +18,12 @@ async function scrap(querytext, rangeYear, verbose) {
   const ELEMENTS = 'div.row.result-item.hide-mobile > div.col.result-item-align';
   const NEXT = 'div.ng-SearchResults.row > div.main-section > xpl-paginator > div.pagination-bar.hide-mobile > ul '
     + '> li.next-btn > a';
-  const PAGES = 'div.ng-SearchResults.row > div.main-section > xpl-paginator > div.pagination-bar.hide-mobile > ul '
-    + '> li:not(.prev-btn):not(.next-btn):not(.next-page-set)';// .next-btn .next-page-set)'
 
   const query = `(${encodeURI(querytext).replace(/\?/g, '%3F').replace(/\//g, '%2F')})`
               + `&ranges=${rangeYear[0]}_${rangeYear[1]}_Year`;
   if (verbose) console.log('QUERY:\t%s\n', query);
+
+  let totalPages = 1; // counter for total number of pages
 
   let browser;
   try {
@@ -35,18 +35,19 @@ async function scrap(querytext, rangeYear, verbose) {
     const results = await page.evaluate(createJSON); // create JSON with results of first page
 
     // TODO: check what happens when a single page of results or no results happen
-    const totalPages = (await page.$$(PAGES)).length; // check how many result pages exist
-    if (verbose) console.log('Total number of pages: %s\n', totalPages);
-
     /* eslint-disable no-await-in-loop */
-    for (let i = 0; i < totalPages - 1; i++) {
+    while (await page.$(NEXT)) {
       await page.click(NEXT); // go to next page of results
       await page.waitForSelector(ELEMENTS); // wait for results to load
       const pageResult = await page.evaluate(createJSON);
       results.push(...pageResult); // add page results to original object
+
+      totalPages += 1;
     }
     /* eslint-enable */
     await browser.close(); // close browser
+
+    if (verbose) console.log('Total number of pages: %s\n', totalPages);
 
     return { total_records: results.length, articles: results };
   } catch (error) {
