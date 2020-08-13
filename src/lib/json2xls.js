@@ -19,7 +19,7 @@ function authorsString(authors) {
  * @param  {object[]]}  results      The results from scrapping IEEE, each result is an Object inside this array.
  * @param  {string}     xlsFilename  The path and filename where to save the Excel file.
  */
-function fromResults(results, xlsFilename) {
+async function fromResults(results, xlsFilename) {
   const COLUMNS = {
     publication_year: 1,
     article_number: 2,
