@@ -128,7 +128,7 @@ async function search() {
       console.error(`Error writing JSON file:\n${error}`);
       process.exit(6);
     }
-    if (argv.excel) json2xls(results.articles, changeFileExtension(argv.output, '.xls'));
+    if (argv.excel) await json2xls(results.articles, changeFileExtension(argv.output, '.xls'));
   }
 }
 search();
