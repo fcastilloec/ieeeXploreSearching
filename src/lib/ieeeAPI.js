@@ -16,6 +16,7 @@ const createJSON = require('./createJson');
 async function scrap(querytext, rangeYear, verbose) {
   const ieeeUrl = 'https://ieeexplore.ieee.org/search/searchresult.jsp?queryText=';
   const ELEMENTS = 'div.row.result-item.hide-mobile > div.col.result-item-align';
+  const NORESULTS = 'div.List-results-message.List-results-none';
   const NEXT = 'div.ng-SearchResults.row > div.main-section > xpl-paginator > div.pagination-bar.hide-mobile > ul '
     + '> li.next-btn > a';
 
@@ -26,11 +27,19 @@ async function scrap(querytext, rangeYear, verbose) {
   let totalPages = 1; // counter for total number of pages
 
   let browser;
+  let page;
   try {
     browser = await puppeteer.launch({ headless: true });
-    const page = await browser.newPage();
+    page = await browser.newPage();
     page.setDefaultTimeout(10000); // only wait 10 secs, any longer and it means there's no results
     await page.goto(ieeeUrl + query);
+
+    // Check if there are no results
+    if (await page.$(NORESULTS)) {
+      await browser.close();
+      return { total_records: 0, articles: [] };
+    }
+
     await page.waitForSelector(ELEMENTS); // Wait until javascript loads all results
     const results = await page.evaluate(createJSON); // create JSON with results of first page
 
@@ -52,9 +61,6 @@ async function scrap(querytext, rangeYear, verbose) {
     return { total_records: results.length, articles: results };
   } catch (error) {
     await browser.close();
-    if (error instanceof puppeteer.errors.TimeoutError) {
-      return { total_records: 0, articles: [] };
-    }
     throw new Error(`Error scrapping results:\n${error.message}`);
   }
 }
@@ -101,6 +107,10 @@ async function api(apiKey, querytext, rangeYear, verbose) {
   try {
     response = await axios(config);
   } catch (error) {
+    if (error.response) {
+      console.error(`Error code: ${error.response.status}`);
+      console.error(`Error data: ${error.response.data}`);
+    }
     throw new Error(`Error with IEEE API:\n${error.message}`);
   }
   if (verbose) console.log('REQUEST PATH:\t%s\n', response.request.path);
