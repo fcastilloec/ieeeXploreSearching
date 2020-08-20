@@ -107,7 +107,7 @@ async function logic() {
     console.log('Operation returned %s results', result.length);
     await fs.writeJson(changeFileExtension(argv.output, '.json'), result, { spaces: 1 });
     if (argv.excel) await fromResults(result, changeFileExtension(argv.output, '.xls'));
-  } else {
+  } else if (result.length === 0) {
     console.log('Logic operation returned zero results. No files will be saved.');
   }
 }
