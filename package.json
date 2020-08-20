@@ -20,6 +20,7 @@
   },
   "scripts": {
     "lint": "eslint .",
+    "release": "standard-version --sign",
     "start": "node src/index.js",
     "test": "nyc ava"
   },
@@ -40,6 +41,7 @@
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-react": "^7.20.6",
     "eslint-plugin-react-hooks": "^4.1.0",
-    "nyc": "^15.1.0"
+    "nyc": "^15.1.0",
+    "standard-version": "^9.0.0"
   }
 }
