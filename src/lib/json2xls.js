@@ -106,7 +106,7 @@ async function fromResults(results, xlsFilename) {
       doiHide = false;
       ws.cell(i + 2, COLUMNS.sci_hub).link(sciHubUrl + result.doi).style(linkStyle);
     }
-    ws.cell(i + 2, COLUMNS.content_type).string(result.content_type);
+    ws.cell(i + 2, COLUMNS.content_type).string(result.content_type).style(noWrapStyle);
   });
 
   /* istanbul ignore next */
