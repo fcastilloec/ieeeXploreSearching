@@ -26,8 +26,17 @@ function isEqual(value, other) {
 /* istanbul ignore next */
 function logicOperations(options) {
   let result = [];
+  let files;
 
-  const files = options._.map((file) => fs.readJsonSync(file));
+  try {
+    files = options._.map((file) => fs.readJsonSync(file));
+  } catch (error) {
+    if (error.code === 'ENOENT') {
+      console.error(`Error: ${error.path}: no such file or directory`);
+      return -1;
+    }
+    throw error;
+  }
 
   // MERGE or OR
   if (options.merge || options.or) result = _.unionWith(...files, isEqual);
