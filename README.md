@@ -1,7 +1,7 @@
 # IEEE Xplore searching
 
 ## Usage
-There are three command-line utilities. They all are implemented using [`yargs`](https://github.com/yargs/yargs) and include help descriptions.
+There are three command-line utilities. They all are implemented using [`yargs`](https://github.com/yargs/yargs) and include help descriptions by passing the `-h` or `--help` argument.
 
 ### cli-search.js
 Use to search inside IEEE Xplorer and saves the results into a JSON file.
@@ -13,7 +13,7 @@ The output is an array of articles, where each article is an object containing t
 searches for "optics AND nano" between 1990 and 2000, and save the results in search1.json, and also search1.xls
 
 `cli-search.js "h264 NEAR/3 cellular" -y 2005 -o search2.json`\
-searches for "h264 NEAR/3 cellular" from 2005 to the current year, and save the results in search2.json
+searches for "h264 NEAR/3 cellular" only on 2005, and save the results in search2.json
 
 ### cli-logic.js
 The main use is for logic operations among JSON files returned by the [search script](###cli-search.js).
