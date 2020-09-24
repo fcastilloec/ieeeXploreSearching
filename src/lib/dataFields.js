@@ -23,7 +23,7 @@ function addDataField(querytext, field) {
   const operators = ['AND', 'OR', 'NOT'];
   const near = new RegExp('O?NEAR/[0-9]*');
 
-  const terms = querytext.split(' ').map((term) => {
+  const terms = querytext.toString().split(' ').map((term) => {
     if (operators.includes(term) || term.match(near)) return term;
 
     // By spliting the term on '(', we can find opening parenthesis as empty array elements.
