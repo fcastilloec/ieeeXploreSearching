@@ -31,9 +31,10 @@ async function fromResults(results, xlsFilename) {
     sci_hub: 8,
     pdf_url: 9,
     content_type: 10,
+    sciHubBaseUrl: 11,
   };
 
-  const sciHubUrl = 'https://sci-hub.tw/';
+  const sciHubUrl = 'https://sci-hub.st/';
 
   const wb = new xl.Workbook();
   const ws = wb.addWorksheet('Sheet 1');
@@ -57,6 +58,10 @@ async function fromResults(results, xlsFilename) {
       wrapText: false,
       horizontal: 'left',
       vertical: 'center',
+    },
+    font: {
+      underline: true,
+      color: '1A73E8',
     },
   });
 
@@ -88,6 +93,7 @@ async function fromResults(results, xlsFilename) {
   ws.cell(1, COLUMNS.sci_hub).string('SCI-HUB URL').style({ font: { bold: true } });
   ws.cell(1, COLUMNS.pdf_url).string('IEEE URL').style({ font: { bold: true } });
   ws.cell(1, COLUMNS.content_type).string('TYPE').style({ font: { bold: true } });
+  ws.cell(1, COLUMNS.sciHubBaseUrl).string(sciHubUrl); // baseUrl that can be modified is Sci-Hub domain moves
 
   results.forEach((result, i) => {
     ws.row(i + 2).setHeight(97);
@@ -104,7 +110,7 @@ async function fromResults(results, xlsFilename) {
     ws.cell(i + 2, COLUMNS.pdf_url).link(result.pdf_url || result.abstract_url || '').style(linkStyle);
     if (result.doi) {
       doiHide = false;
-      ws.cell(i + 2, COLUMNS.sci_hub).link(sciHubUrl + result.doi).style(linkStyle);
+      ws.cell(i + 2, COLUMNS.sci_hub).formula(`HYPERLINK(CONCATENATE($K$1,"${result.doi}"))`).style(linkStyle);
     }
     ws.cell(i + 2, COLUMNS.content_type).string(result.content_type).style(noWrapStyle);
   });
@@ -113,6 +119,9 @@ async function fromResults(results, xlsFilename) {
   if (pubDateHide) ws.column(COLUMNS.publication_date).hide();
   /* istanbul ignore next */
   if (doiHide) ws.column(COLUMNS.sci_hub).hide();
+
+  // Hides it to prevent cluttering the sheet
+  ws.column(COLUMNS.sciHubBaseUrl).hide();
 
   return new Promise((resolve, reject) => {
     wb.write(xlsFilename, (error) => {
