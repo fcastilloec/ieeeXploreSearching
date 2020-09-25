@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 const yargs = require('yargs');
 const fs = require('fs-extra');
-const _ = require('lodash');
 const { fromResults } = require('./lib/json2xls');
 const { logicOperations } = require('./lib/logicOperations');
 const { changeFileExtension } = require('./lib/utils');
@@ -16,6 +15,7 @@ const { argv } = yargs
     'boolean-negation': false,
     'strip-aliased': true,
   })
+  .strictOptions()
   .usage('Usage: $0 [command] <options>')
   .command({
     command: '$0',
@@ -59,11 +59,7 @@ const { argv } = yargs
           default: false,
           type: 'boolean',
         })
-        .check((arg, options) => {
-          const unknownOptions = _.difference(Object.keys(arg), Object.keys(options).concat(['_', '$0']));
-          if (unknownOptions.length) {
-            throw new Error(`Unrecognized ${unknownOptions.join(', ')} option`);
-          }
+        .check((arg) => {
           if (!(arg.merge || arg.and || arg.or || arg.not)) {
             throw new Error('At least one command is needed');
           }
