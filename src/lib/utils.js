@@ -1,23 +1,16 @@
 const path = require('path');
 
 /**
- * Changes the extension of a filename
+ * Checks if filename has a proper extension, otherwise adds it (doesn't change it)
  *
  * @param   {string}  filename  The path to the file.
- * @param   {string}  ext       The extension to use.
+ * @param   {string}  ext       The extension to compare.
  *
  * @return  {string}            The new path with the proper extension.
  */
 function changeFileExtension(filename, ext) {
-  const orgFilename = path.parse(filename);
-
-  return path.format({
-    ...orgFilename,
-    // filename can contain periods followed by a integer without using the integer as an extension
-    name: /^\.[0-9]+/.test(orgFilename.ext) ? orgFilename.base : orgFilename.name,
-    ext: ext.startsWith('.') ? ext : `.${ext}`,
-    base: undefined,
-  });
+  const tmpExt = ext.startsWith('.') ? ext : `.${ext}`;
+  return path.parse(filename).ext === tmpExt ? filename : filename + tmpExt;
 }
 
 /**
