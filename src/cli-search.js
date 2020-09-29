@@ -6,7 +6,7 @@ const { testYear } = require('./lib/utils');
 const { FIELDS, addDataField } = require('./lib/dataFields');
 const ieee = require('./lib/ieeeAPI');
 const { fromResults: json2xls } = require('./lib/json2xls');
-const { changeFileExtension } = require('./lib/utils');
+const { testFileExtension } = require('./lib/utils');
 
 const { APIKEY } = process.env;
 
@@ -123,13 +123,13 @@ async function search() {
   }
   if (results.total_records > 0) {
     try {
-      await fs.ensureFile(changeFileExtension(argv.output, '.json')); // create the parent directory if it doesn't exist
-      await fs.writeJson(changeFileExtension(argv.output, '.json'), results.articles, { spaces: 1 });
+      await fs.ensureFile(testFileExtension(argv.output, '.json')); // create the parent directory if it doesn't exist
+      await fs.writeJson(testFileExtension(argv.output, '.json'), results.articles, { spaces: 1 });
     } catch (error) {
       console.error(`Error writing JSON file:\n${error}`);
       process.exit(6);
     }
-    if (argv.excel) await json2xls(results.articles, changeFileExtension(argv.output, '.xls'));
+    if (argv.excel) await json2xls(results.articles, testFileExtension(argv.output, '.xls'));
   }
 }
 search();
