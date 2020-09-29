@@ -1,15 +1,24 @@
 const test = require('ava');
-const { changeFileExtension, testYear } = require('../src/lib/utils');
+const { changeFileExtension, testFileExtension, testYear } = require('../src/lib/utils');
 
 const path = 'this/file.ext';
-const out = 'this/file.ext.new';
+const out1 = 'this/file.new';
+const out2 = 'this/file.ext.new';
 
 test('changeFileExtension without period', (t) => {
-  t.is(changeFileExtension(path, 'new'), out);
+  t.is(changeFileExtension(path, 'new'), out1);
 });
 
-test('changeFileExtension with same extension', (t) => {
-  t.is(changeFileExtension(path, '.ext'), path);
+test('changeFileExtension with period', (t) => {
+  t.is(changeFileExtension(path, '.new'), out1);
+});
+
+test('testFileExtension without period', (t) => {
+  t.is(testFileExtension(path, 'new'), out2);
+});
+
+test('testFileExtension with same extension', (t) => {
+  t.is(testFileExtension(path, '.ext'), path);
 });
 
 test('testYear not throws for valid year', (t) => {

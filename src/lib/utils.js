@@ -1,6 +1,26 @@
 const path = require('path');
 
 /**
+ * Changes the extension of a filename
+ *
+ *
+ * @param   {string}  filename  The path to the file.
+ * @param   {string}  ext       The extension to use.
+ *
+ * @return  {string}            The new path with the proper extension.
+ */
+function changeFileExtension(filename, ext) {
+  const orgFilename = path.parse(filename);
+
+  return path.format({
+    ...orgFilename,
+    name: path.basename(orgFilename.base, orgFilename.ext),
+    ext: ext.startsWith('.') ? ext : `.${ext}`,
+    base: undefined,
+  });
+}
+
+/**
  * Checks if filename has a proper extension, otherwise adds it (doesn't change it)
  *
  * @param   {string}  filename  The path to the file.
@@ -8,7 +28,7 @@ const path = require('path');
  *
  * @return  {string}            The new path with the proper extension.
  */
-function changeFileExtension(filename, ext) {
+function testFileExtension(filename, ext) {
   const tmpExt = ext.startsWith('.') ? ext : `.${ext}`;
   return path.parse(filename).ext === tmpExt ? filename : filename + tmpExt;
 }
@@ -29,5 +49,6 @@ function testYear(year) {
 
 module.exports = {
   changeFileExtension,
+  testFileExtension,
   testYear,
 };
