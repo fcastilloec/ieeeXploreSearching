@@ -20,19 +20,25 @@ const FIELDS = {
 function addDataField(querytext, field) {
   if (!field) return querytext;
 
-  const operators = ['AND', 'OR', 'NOT'];
-  const near = new RegExp('O?NEAR/[0-9]*');
+  // test for multiple parentheses followed by any chars. The name of the captured group is specified in '?<name>'
+  const parenthesis = /(?<paren>\(+)(?<term>.+)/;
+  const operators = /O?NEAR(\/[0-9])*|AND|OR|NOT/; // IEEE search operators
+  let phrase = false; // for checking if we're inside a multi-word phrase (a phrase is surrounded by double quotes)
 
-  const terms = querytext.toString().split(' ').map((term) => {
-    if (operators.includes(term) || term.match(near)) return term;
+  return querytext.toString().split(' ').map((term) => {
+    if (term.match(operators)) return term; // checks if it's an IEEE operator
+    if (phrase) { // check if we're in the middle of a multi-word phrase
+      if (term.endsWith('"')) phrase = false; // record the end of a phrase. Nested phrases aren't checked for
+      return term;
+    }
+    // Check for the start of a multi-word phrase, single double-quoted words are managed like any other term
+    if (term.startsWith('"') && !term.endsWith('"')) phrase = true;
 
-    // By spliting the term on '(', we can find opening parenthesis as empty array elements.
-    return term.split('(').reduce(
-      (outputString, elem) => (!elem ? `${outputString}(` : `${outputString + field}:${elem}`),
-      '',
-    ); // Initial value for outputString is empty string ''
-  });
-  return terms.join(' ');
+    // Test for matching search groups (terms starting with parentheses)
+    // If test returns null, the default group with and empty 'paren' will be used
+    const { groups } = term.match(parenthesis) || { groups: { paren: '', term } };
+    return `${groups.paren}${field}:${groups.term}`;
+  }).join(' ');
 }
 
 module.exports = {
