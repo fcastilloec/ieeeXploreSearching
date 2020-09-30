@@ -20,9 +20,10 @@ async function scrap(querytext, rangeYear, verbose) {
   const NEXT = 'div.ng-SearchResults.row > div.main-section > xpl-paginator > div.pagination-bar.hide-mobile > ul '
     + '> li.next-btn > a';
 
+  if (verbose) console.log('Query: \t%s\n', querytext);
   const query = `(${encodeURI(querytext).replace(/\?/g, '%3F').replace(/\//g, '%2F')})`
               + `&ranges=${rangeYear[0]}_${rangeYear[1]}_Year`;
-  if (verbose) console.log('QUERY:\t%s\n', query);
+  if (verbose) console.log('Encoded Query:\t%s\n', query);
 
   let totalPages = 1; // counter for total number of pages
 
@@ -78,6 +79,7 @@ async function scrap(querytext, rangeYear, verbose) {
 async function api(apiKey, querytext, rangeYear, verbose) {
   const APIURL = 'https://ieeexploreapi.ieee.org/api/v1/search/articles';
 
+  if (verbose) console.log('Query: \t%s\n', querytext);
   if (verbose >= 2) console.log('ApiKey:\t%s', apiKey);
 
   const config = {
