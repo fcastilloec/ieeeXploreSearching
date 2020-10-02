@@ -29,18 +29,18 @@
     "excel4node": "^1.7.2",
     "fs-extra": "^9.0.1",
     "lodash": "^4.17.20",
-    "puppeteer": "^5.2.1",
+    "puppeteer": "^5.3.1",
     "yargs": "^16.0.3"
   },
   "devDependencies": {
-    "ava": "^3.12.1",
-    "eslint": "^7.8.0",
+    "ava": "^3.13.0",
+    "eslint": "^7.10.0",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-plugin-ava": "^11.0.0",
-    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "^6.3.1",
-    "eslint-plugin-react": "^7.20.6",
-    "eslint-plugin-react-hooks": "^4.1.0",
+    "eslint-plugin-react": "^7.21.2",
+    "eslint-plugin-react-hooks": "^4.1.2",
     "nyc": "^15.1.0",
     "standard-version": "^9.0.0"
   }
