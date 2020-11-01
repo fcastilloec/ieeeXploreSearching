@@ -25,7 +25,7 @@
     "test": "nyc ava"
   },
   "dependencies": {
-    "axios": "^0.20.0",
+    "axios": "^0.21.0",
     "excel4node": "^1.7.2",
     "fs-extra": "^9.0.1",
     "lodash": "^4.17.20",
