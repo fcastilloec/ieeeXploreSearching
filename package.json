@@ -43,6 +43,6 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "husky": "^4.3.0",
     "nyc": "^15.1.0",
-    "standard-version": "^9.0.0"
+    "standard-version": "^9.1.0"
   }
 }
