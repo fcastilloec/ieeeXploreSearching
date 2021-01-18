@@ -78,7 +78,7 @@ async function fromResults(results, xlsFilename) {
   ws.column(COLUMNS.pdf_url).setWidth(60);
   ws.column(COLUMNS.content_type).setWidth(15);
 
-  // Which colums should be hidden
+  // Which columns should be hidden
   let pubDateHide = true;
   let doiHide = true;
 
@@ -103,10 +103,10 @@ async function fromResults(results, xlsFilename) {
       pubDateHide = false;
       ws.cell(i + 2, COLUMNS.publication_date).string(result.publication_date).style(noWrapStyle);
     }
-    ws.cell(i + 2, COLUMNS.title).string(`${result.title}\n`).style(wrapStyle).style(wrapStyle);
-    ws.cell(i + 2, COLUMNS.authors).string(`${authorsString(result.authors.authors)}\n`).style(wrapStyle);
-    ws.cell(i + 2, COLUMNS.publication_title).string(`${result.publication_title || ''}\n`).style(wrapStyle);
-    ws.cell(i + 2, COLUMNS.abstract).string(`${result.abstract || ''}\n`).style(wrapStyle);
+    ws.cell(i + 2, COLUMNS.title).string(result.title).style(wrapStyle).style(wrapStyle);
+    ws.cell(i + 2, COLUMNS.authors).string(authorsString(result.authors.authors)).style(wrapStyle);
+    ws.cell(i + 2, COLUMNS.publication_title).string(result.publication_title || '').style(wrapStyle);
+    ws.cell(i + 2, COLUMNS.abstract).string(result.abstract || '').style(wrapStyle);
     ws.cell(i + 2, COLUMNS.pdf_url).link(result.pdf_url || result.abstract_url || '').style(linkStyle);
     if (result.doi) {
       doiHide = false;
