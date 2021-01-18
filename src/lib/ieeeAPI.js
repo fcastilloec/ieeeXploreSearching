@@ -8,20 +8,21 @@ const createJSON = require('./createJson');
 /**
  * Search by scrapping the results from the IEEE search page.
  *
- * @param   {string}  query  The search terms.
- *                           See querytext from https://developer.ieee.org/docs/read/Metadata_API_details
+ * @param   {string}   queryText  The search terms.
+ *                                See queryText from https://developer.ieee.org/docs/read/Metadata_API_details
+ * @param   {number[]} rangeYear  A two-element array containing the range of years to filter results
  *
- * @return  {object[]}       All the IEEE results from each page, from 'createJson' function.
+ * @return  {object[]}            All the IEEE results from each page, from 'createJson' function.
  */
-async function scrap(querytext, rangeYear, verbose) {
+async function scrap(queryText, rangeYear, verbose) {
   const ieeeUrl = 'https://ieeexplore.ieee.org/search/searchresult.jsp?queryText=';
-  const ELEMENTS = 'div.row.result-item.hide-mobile > div.col.result-item-align';
-  const NORESULTS = 'div.List-results-message.List-results-none';
+  const ELEMENTS = 'xpl-results-item > div.hide-mobile > div.row.result-item > div.col.result-item-align';
+  const NO_RESULTS = 'div.List-results-message.List-results-none';
   const NEXT = 'div.ng-SearchResults.row > div.main-section > xpl-paginator > div.pagination-bar.hide-mobile > ul '
     + '> li.next-btn > a';
 
-  if (verbose) console.log('Query: \t%s\n', querytext);
-  const query = `(${encodeURI(querytext).replace(/\?/g, '%3F').replace(/\//g, '%2F')})`
+  if (verbose) console.log('Query: \t%s\n', queryText);
+  const query = `(${encodeURI(queryText).replace(/\?/g, '%3F').replace(/\//g, '%2F')})`
               + `&ranges=${rangeYear[0]}_${rangeYear[1]}_Year`;
   if (verbose) console.log('Encoded Query:\t%s\n', query);
 
@@ -36,7 +37,7 @@ async function scrap(querytext, rangeYear, verbose) {
     await page.goto(ieeeUrl + query);
 
     // Check if there are no results
-    if (await page.$(NORESULTS)) {
+    if (await page.$(NO_RESULTS)) {
       await browser.close();
       return { total_records: 0, articles: [] };
     }
@@ -69,22 +70,21 @@ async function scrap(querytext, rangeYear, verbose) {
 /**
  * Search using the IEEE API
  *
- * @param   {string}  apiKey     The API key
- * @param   {string}  querytext  The query string
- * @param   {number}  startYear  Start year of publication to restrict results by.
- * @param   {number}  endYear    End year of publication to restrict results by.
+ * @param   {string}   apiKey     The API key
+ * @param   {string}   queryText  The query string
+ * @param   {number[]} rangeYear  A two-element array containing the range of years to filter results
  *
- * @return  {object}             The results, it has three keys: total_records, total_searched, articles
+ * @return  {object}              The results, it has three keys: total_records, total_searched, articles
  */
-async function api(apiKey, querytext, rangeYear, verbose) {
-  const APIURL = 'https://ieeexploreapi.ieee.org/api/v1/search/articles';
+async function api(apiKey, queryText, rangeYear, verbose) {
+  const API_URL = 'https://ieeexploreapi.ieee.org/api/v1/search/articles';
 
-  if (verbose) console.log('Query: \t%s\n', querytext);
+  if (verbose) console.log('Query: \t%s\n', queryText);
   if (verbose >= 2) console.log('ApiKey:\t%s', apiKey);
 
   const config = {
     method: 'get',
-    baseURL: APIURL,
+    baseURL: API_URL,
     responseType: 'json',
     httpsAgent: new https.Agent({
       rejectUnauthorized: false,
@@ -97,7 +97,7 @@ async function api(apiKey, querytext, rangeYear, verbose) {
       return result.substr(0, result.length - 1);
     },
     params: {
-      querytext: `(${querytext})`,
+      querytext: `(${queryText})`,
       max_records: 200,
       apikey: apiKey,
       start_year: rangeYear[0],
