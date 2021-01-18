@@ -2,6 +2,45 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/fcastilloec/ieeexplore2csv/compare/v1.0.0...v2.0.0) (2021-01-18)
+
+
+### ⚠ BREAKING CHANGES
+
+* The provided output filename is taken as the name itself. Any use of periods will
+  be treated as part of the name, disregarding any provided extension.
+* The logic CLI no longer accepts files as part of their options. They are pass
+  as part of the arguments.
+
+  See ./src/cli-logic.js --help for more details
+* When passing a single year argument, searching will no longer be done from
+  YEAR to date. Instead search will be perform from YEAR to YEAR (only on the passed year)
+
+### Features
+
+* ability to change sci-hub based domain on excel sheet ([#64](https://github.com/fcastilloec/ieeexplore2csv/issues/64)) ([9d9ca2d](https://github.com/fcastilloec/ieeexplore2csv/commit/9d9ca2dfeaed6cdbcf265393c35d89f67edb7683))
+* add multiple level of verbose ([a6d280d](https://github.com/fcastilloec/ieeexplore2csv/commit/a6d280df01e9430d3d9b6aa192cadfcd1bab5de1))
+* better handling of year option ([0558788](https://github.com/fcastilloec/ieeexplore2csv/commit/0558788d8125232e9801e9897e565788d4ea9349))
+* cli logic operators are boolean instead of array ([8c508e9](https://github.com/fcastilloec/ieeexplore2csv/commit/8c508e9efc4bc3037fb9caa49859cb00666bebb8))
+* ignore extension if it's an integer ([#46](https://github.com/fcastilloec/ieeexplore2csv/issues/46)) ([075f0d8](https://github.com/fcastilloec/ieeexplore2csv/commit/075f0d84b3644ec03d3c9cb34bb15dc80615ab90))
+* remove use of changeFileExtension on output ([fd89a67](https://github.com/fcastilloec/ieeexplore2csv/commit/fd89a67492670f334138f61390992a5cba3acf58))
+
+
+### Bug Fixes
+
+* add missing 'Book' content_type ([#47](https://github.com/fcastilloec/ieeexplore2csv/issues/47)) ([6202270](https://github.com/fcastilloec/ieeexplore2csv/commit/62022704130d5e0a7cf9baba16e8e8cd3be2559d))
+* change filename extension (not just test) when using json2xls ([02655bc](https://github.com/fcastilloec/ieeexplore2csv/commit/02655bcf2ab93d2305a75531f368731131eea7b4))
+* convert to string any querytext ([#66](https://github.com/fcastilloec/ieeexplore2csv/issues/66)) ([123d6f9](https://github.com/fcastilloec/ieeexplore2csv/commit/123d6f9f6b40ac90ebb97f921eb508fcabc16cd8))
+* correctly add a data field to multi-word phrases ([#68](https://github.com/fcastilloec/ieeexplore2csv/issues/68)) ([f8b329b](https://github.com/fcastilloec/ieeexplore2csv/commit/f8b329b48d77feec98ef0435a70bed3e8b693e90))
+* don't add extension to output if it's already the correct one ([#65](https://github.com/fcastilloec/ieeexplore2csv/issues/65)) ([b9a47d7](https://github.com/fcastilloec/ieeexplore2csv/commit/b9a47d76007317d98fef95e8579e7f74670f79db))
+* update selector according to IEEE changes ([#103](https://github.com/fcastilloec/ieeexplore2csv/issues/103)) ([ff6d1c4](https://github.com/fcastilloec/ieeexplore2csv/commit/ff6d1c49e37fb24ec93b29c9bf0d7beb13b3eae5))
+* **cli:** remove positional argument in logic command ([94ec47c](https://github.com/fcastilloec/ieeexplore2csv/commit/94ec47ce128f7cfabeb3ed3d318e8c235232a9d5))
+* **cli:** yargs strict no longer works as expected ([05bff66](https://github.com/fcastilloec/ieeexplore2csv/commit/05bff66efe98377f6fa1fd8409b37a44c53167c6))
+* **excel:** set style for content_type cells ([#54](https://github.com/fcastilloec/ieeexplore2csv/issues/54)) ([bb431c0](https://github.com/fcastilloec/ieeexplore2csv/commit/bb431c025c2755931c05c5bddfc0bf36d848792d))
+* **logic:** better error checking when files don't exist ([#53](https://github.com/fcastilloec/ieeexplore2csv/issues/53)) ([cd2ebfa](https://github.com/fcastilloec/ieeexplore2csv/commit/cd2ebfab2a83266891dc7b84e0f1cadb20941dba))
+* **search:** check if no results before anything else ([#48](https://github.com/fcastilloec/ieeexplore2csv/issues/48)) ([8040212](https://github.com/fcastilloec/ieeexplore2csv/commit/8040212b982975bfc52b49d0b92449d29732ba3b))
+* **search:** incorrectly calculating number of pages ([#45](https://github.com/fcastilloec/ieeexplore2csv/issues/45)) ([ef01973](https://github.com/fcastilloec/ieeexplore2csv/commit/ef019732095b96d701f944d7bdecfce8d7e838d0))
+
 ## 1.0.0 (2020-08-19)
 
 
