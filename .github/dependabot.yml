@@ -4,5 +4,14 @@ updates:
   directory: "/"
   schedule:
     interval: monthly
-    time: "13:00"
+    time: "17:00"
   open-pull-requests-limit: 10
+  # Maintain dependencies for GitHub Actions
+- package-ecosystem: github-actions
+  directory: "/"
+  commit-message:
+    prefix: chore
+    include: scope
+  schedule:
+    interval: monthly
+    time: "15:45"
