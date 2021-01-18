@@ -19,17 +19,17 @@ function createJSON() {
     Standard: 'Standards',
   };
 
-  // LIST OF ELEMENTSS:
-  const ELEMENTS = 'div.row.result-item.hide-mobile > div.col.result-item-align';
+  // LIST OF ELEMENTS:
+  const ELEMENTS = 'xpl-results-item > div.hide-mobile > div.row.result-item > div.col.result-item-align';
   const TITLE = 'h2 > a';
   const AUTHORS = 'p.author';
   const JOURNAL = 'div.description > a';
   const DESCRIPTION = 'div.description > div.publisher-info-container';
   const ABSTRACT = 'div.js-displayer-content.u-mt-1.stats-SearchResults_DocResult_ViewMore > span';
-  const PDFURL = 'ul > li a.icon-pdf';
-  const COURSEURL = 'ul > li .icon-access_course';
-  const ABSTRACTURL = 'div.js-displayer-content.u-mt-1.stats-SearchResults_DocResult_ViewMore > a';
-  const HTMLURL = 'ul > li a.icon-html';
+  const PDF_URL = 'ul > li a.icon-pdf';
+  const COURSE_URL = 'ul > li .icon-access_course';
+  const ABSTRACT_URL = 'div.js-displayer-content.u-mt-1.stats-SearchResults_DocResult_ViewMore > a';
+  const HTML_URL = 'ul > li a.icon-html';
 
   // Retrieves the list of results
   return Array.from(document.querySelectorAll(ELEMENTS)).map((item) => {
@@ -41,10 +41,10 @@ function createJSON() {
     const title = (item.querySelector(TITLE) || item.querySelector('h2 > span')).innerText;
     const abstract = item.querySelector(ABSTRACT);
     const journal = item.querySelector(JOURNAL);
-    const pdf_url = item.querySelector(PDFURL);
-    const abstract_url = item.querySelector(ABSTRACTURL);
-    const course_url = item.querySelector(COURSEURL);
-    const html_url = item.querySelector(HTMLURL);
+    const pdf_url = item.querySelector(PDF_URL);
+    const abstract_url = item.querySelector(ABSTRACT_URL);
+    const course_url = item.querySelector(COURSE_URL);
+    const html_url = item.querySelector(HTML_URL);
 
     // 'description' is the field that contains publication_year, publisher, content_type and/or volume, and issue
     const description = item.querySelector(DESCRIPTION).innerText.split('|').map((el) => el.trim());
