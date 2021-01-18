@@ -91,7 +91,7 @@ const { argv } = yargs
   .check((args) => {
     if (args.year.length > 2) throw new Error('Only start and/or finish year are accepted');
     args.year.forEach(testYear);
-    if (args.api && !APIKEY) throw new Error('No APIKEY key provided. Set APIKEY enviroment variable');
+    if (args.api && !APIKEY) throw new Error('No APIKEY key provided. Set APIKEY environment variable');
     return true;
   })
   .group(['full-text-and-metadata', 'text-only', 'publication-title', 'metadata', 'ieee-terms'], 'IEEE Data Fields')

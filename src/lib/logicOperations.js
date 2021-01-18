@@ -18,7 +18,7 @@ function isEqual(value, other) {
 }
 
 /**
- * Perfom any of the logic operations among JSON files and saves them
+ * Perform any of the logic operations among JSON files and saves them
  * The supported operations are AND, OR, NOT, MERGE
  *
  * @param   {object}  options  The options passed from command-line

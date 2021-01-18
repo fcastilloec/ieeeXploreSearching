@@ -12,20 +12,20 @@ const FIELDS = {
 /**
  * Appends an specific data field to each search term.
  *
- * @param   {string}  querytext  the search string.
+ * @param   {string}  queryText  the search string.
  * @param   {string}  field      the data field to append.
  *
  * @return  {string}             the new search string with the data field appended.
  */
-function addDataField(querytext, field) {
-  if (!field) return querytext;
+function addDataField(queryText, field) {
+  if (!field) return queryText;
 
   // test for multiple parentheses followed by any chars. The name of the captured group is specified in '?<name>'
   const parenthesis = /(?<paren>\(+)(?<term>.+)/;
   const operators = /O?NEAR(\/[0-9])*|AND|OR|NOT/; // IEEE search operators
   let phrase = false; // for checking if we're inside a multi-word phrase (a phrase is surrounded by double quotes)
 
-  return querytext.toString().split(' ').map((term) => {
+  return queryText.toString().split(' ').map((term) => {
     if (term.match(operators)) return term; // checks if it's an IEEE operator
     if (phrase) { // check if we're in the middle of a multi-word phrase
       if (term.endsWith('"')) phrase = false; // record the end of a phrase. Nested phrases aren't checked for
