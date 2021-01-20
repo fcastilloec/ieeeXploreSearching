@@ -15,7 +15,7 @@ argv._.forEach((filename) => {
     const file = fs.readJsonSync(filename);
     console.log('Records inside %s: %s', filename, file.length);
   } catch (error) {
-    console.error(`Error reading %s:\t${error.message}`, filename);
-    process.exit(5);
+    console.error(`Error reading JSON file:\n${error.message}`);
+    process.exit(4);
   }
 });
