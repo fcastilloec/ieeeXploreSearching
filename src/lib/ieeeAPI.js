@@ -1,5 +1,3 @@
-/* eslint consistent-return: 0 */
-
 const axios = require('axios').default;
 const https = require('https');
 const puppeteer = require('puppeteer');
@@ -29,10 +27,10 @@ async function scrap(queryText, rangeYear, verbose) {
   let totalPages = 1; // counter for total number of pages
 
   let browser;
-  let page;
+  let results;
   try {
     browser = await puppeteer.launch({ headless: true });
-    page = await browser.newPage();
+    const page = await browser.newPage();
     page.setDefaultTimeout(10000); // only wait 10 secs, any longer and it means there's no results
     await page.goto(ieeeUrl + query);
 
@@ -43,7 +41,7 @@ async function scrap(queryText, rangeYear, verbose) {
     }
 
     await page.waitForSelector(ELEMENTS); // Wait until javascript loads all results
-    const results = await page.evaluate(createJSON); // create JSON with results of first page
+    results = await page.evaluate(createJSON); // create JSON with results of first page
 
     // TODO: check what happens when a single page of results or no results happen
     /* eslint-disable no-await-in-loop */
@@ -55,16 +53,15 @@ async function scrap(queryText, rangeYear, verbose) {
 
       totalPages += 1;
     }
-    /* eslint-enable */
+    /* eslint-enable no-await-in-loop */
     await browser.close(); // close browser
-
-    if (verbose) console.log('Total number of pages: %s\n', totalPages);
-
-    return { total_records: results.length, articles: results };
   } catch (error) {
-    await browser.close();
-    throw new Error(`Error scrapping results:\n${error.message}`);
+    if (browser) await browser.close();
+    console.error(`Error scrapping results:\n${error.message}`);
+    process.exit(2);
   }
+  if (verbose) { console.log('Total number of pages: %s\n', totalPages); }
+  return { total_records: results.length, articles: results };
 }
 
 /**
@@ -109,11 +106,11 @@ async function api(apiKey, queryText, rangeYear, verbose) {
   try {
     response = await axios(config);
   } catch (error) {
-    if (error.response) {
-      console.error(`Error code: ${error.response.status}`);
-      console.error(`Error data: ${error.response.data}`);
-    }
-    throw new Error(`Error with IEEE API:\n${error.message}`);
+    console.error('Error with IEEE API:');
+    error.response
+      ? console.error(`Error code: ${error.response.status}\nError data: ${error.response.data}`)
+      : console.error(error.message);
+    process.exit(3);
   }
   if (verbose) console.log('REQUEST PATH:\t%s\n', response.request.path);
   if (verbose >= 2) console.log('RESPONSE:\t%o', response);
