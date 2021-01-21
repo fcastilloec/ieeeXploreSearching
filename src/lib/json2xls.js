@@ -1,4 +1,5 @@
 const xl = require('excel4node');
+const { promisify } = require('util');
 
 /**
  * Converts an array of authors into a string.
@@ -123,13 +124,9 @@ async function fromResults(results, xlsFilename) {
   // Hides it to prevent cluttering the sheet
   ws.column(COLUMNS.sciHubBaseUrl).hide();
 
-  return new Promise((resolve, reject) => {
-    wb.write(xlsFilename, (error) => {
-      /* istanbul ignore next */
-      if (error) return reject(new Error(`Error writing xls file to disk\n${error.message}`));
-      return resolve();
-    });
-  });
+  // see https://github.com/nodejs/node/issues/30344#issuecomment-552120747
+  const write = promisify(wb.write.bind(wb));
+  return write(xlsFilename);
 }
 
 module.exports = {
