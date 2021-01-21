@@ -31,11 +31,8 @@ function logicOperations(options) {
   try {
     files = options._.map((file) => fs.readJsonSync(file));
   } catch (error) {
-    if (error.code === 'ENOENT') {
-      console.error(`Error: ${error.path}: no such file or directory`);
-      return -1;
-    }
-    throw error;
+    console.error(`Error reading JSON file:\n${error.message}`);
+    process.exit(4);
   }
 
   // MERGE or OR
@@ -46,7 +43,13 @@ function logicOperations(options) {
 
   // NOT
   if (options.not) {
-    const notFile = fs.readJsonSync(options.not);
+    let notFile;
+    try {
+      notFile = fs.readJsonSync(options.not);
+    } catch (error) {
+      console.error(`Error reading JSON file:\n${error.message}`);
+      process.exit(4);
+    }
     result = options.merge || options.or || options.and
       ? _.differenceWith(result, notFile, isEqual) // use previous results
       : _.differenceWith(...files, notFile, isEqual); // only use provided files

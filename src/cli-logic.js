@@ -97,17 +97,34 @@ const { argv } = yargs
     },
   });
 
+async function convert() {
+  try {
+    const json = await fs.readJson(argv.jsonFile);
+    await fromResults(json, changeFileExtension(argv.jsonFile, '.xls'));
+  } catch (error) {
+    console.error(`Error converting JSON file:\n${error.message}`);
+    process.exit(4);
+  }
+}
+
 async function logic() {
   const result = logicOperations(argv);
-  if (result.length > 0) {
-    console.log('Operation returned %s results', result.length);
+  if (result.length === 0) {
+    console.log('Logic operation returned zero results. No files will be saved.');
+    process.exit(0);
+  }
+
+  console.log('Operation returned %s results', result.length);
+  try {
+    await fs.ensureFile(testFileExtension(argv.output, '.json')); // create the parent directory if it doesn't exist
     await fs.writeJson(testFileExtension(argv.output, '.json'), result, { spaces: 1 });
     if (argv.excel) await fromResults(result, testFileExtension(argv.output, '.xls'));
-  } else if (result.length === 0) {
-    console.log('Logic operation returned zero results. No files will be saved.');
+  } catch (error) {
+    console.error(`Error writing JSON or XLS file:\n${error.message}`);
+    process.exit(4);
   }
 }
 
 argv.jsonFile
-  ? fromResults(fs.readJsonSync(argv.jsonFile), changeFileExtension(argv.jsonFile, '.xls'))
-  : logic();
+  ? convert() // Converts JSON to XLS
+  : logic(); // Run logic operations on JSON files

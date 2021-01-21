@@ -125,11 +125,11 @@ async function search() {
     try {
       await fs.ensureFile(testFileExtension(argv.output, '.json')); // create the parent directory if it doesn't exist
       await fs.writeJson(testFileExtension(argv.output, '.json'), results.articles, { spaces: 1 });
+      if (argv.excel) await json2xls(results.articles, testFileExtension(argv.output, '.xls'));
     } catch (error) {
-      console.error(`Error writing JSON file:\n${error}`);
-      process.exit(6);
+      console.error(`Error writing JSON or XLS file:\n${error.message}`);
+      process.exit(4);
     }
-    if (argv.excel) await json2xls(results.articles, testFileExtension(argv.output, '.xls'));
   }
 }
 search();
