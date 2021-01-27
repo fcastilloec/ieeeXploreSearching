@@ -9,7 +9,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 * The provided output filename is taken as the name itself. Any use of periods will
   be treated as part of the name, disregarding any provided extension.
-* The logic CLI no longer accepts files as part of their options. They are pass
+* **cli:** The logic CLI no longer accepts files as part of their options. They are pass
   as part of the arguments.
 
   See ./src/cli-logic.js --help for more details
@@ -18,28 +18,27 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Features
 
-* ability to change sci-hub based domain on excel sheet ([#64](https://github.com/fcastilloec/ieeexplore2csv/issues/64)) ([9d9ca2d](https://github.com/fcastilloec/ieeexplore2csv/commit/9d9ca2dfeaed6cdbcf265393c35d89f67edb7683))
-* add multiple level of verbose ([a6d280d](https://github.com/fcastilloec/ieeexplore2csv/commit/a6d280df01e9430d3d9b6aa192cadfcd1bab5de1))
-* better handling of year option ([0558788](https://github.com/fcastilloec/ieeexplore2csv/commit/0558788d8125232e9801e9897e565788d4ea9349))
-* cli logic operators are boolean instead of array ([8c508e9](https://github.com/fcastilloec/ieeexplore2csv/commit/8c508e9efc4bc3037fb9caa49859cb00666bebb8))
-* ignore extension if it's an integer ([#46](https://github.com/fcastilloec/ieeexplore2csv/issues/46)) ([075f0d8](https://github.com/fcastilloec/ieeexplore2csv/commit/075f0d84b3644ec03d3c9cb34bb15dc80615ab90))
-* remove use of changeFileExtension on output ([fd89a67](https://github.com/fcastilloec/ieeexplore2csv/commit/fd89a67492670f334138f61390992a5cba3acf58))
+* **excel:** ability to change sci-hub based domain on excel sheet ([#64](https://github.com/fcastilloec/ieeexplore2csv/issues/64)) ([761fc8a](https://github.com/fcastilloec/ieeexplore2csv/commit/761fc8a1443567601d856575ba1840279901ced8))
+* add multiple level of verbose ([c44f864](https://github.com/fcastilloec/ieeexplore2csv/commit/c44f864c94f41df11fdc42115e98ed60dab7b5a6))
+* better handling of year option ([e914d6a](https://github.com/fcastilloec/ieeexplore2csv/commit/e914d6a9708d063b642403fd5e6473bbf9f483bb))
+* **cli:** logic operators are boolean instead of array ([d154561](https://github.com/fcastilloec/ieeexplore2csv/commit/d154561d22cb56300d756d851e873a1ae6e8be29))
+* ignore extension if it's an integer ([#46](https://github.com/fcastilloec/ieeexplore2csv/issues/46)) ([7872d7b](https://github.com/fcastilloec/ieeexplore2csv/commit/7872d7b77a0337dac612423ee40664a8332caa7c))
+* remove use of changeFileExtension on output ([42a9221](https://github.com/fcastilloec/ieeexplore2csv/commit/42a92219877713e9f471ee2b6f436b4ef2dfac7e))
 
 
 ### Bug Fixes
-
-* add missing 'Book' content_type ([#47](https://github.com/fcastilloec/ieeexplore2csv/issues/47)) ([6202270](https://github.com/fcastilloec/ieeexplore2csv/commit/62022704130d5e0a7cf9baba16e8e8cd3be2559d))
-* change filename extension (not just test) when using json2xls ([02655bc](https://github.com/fcastilloec/ieeexplore2csv/commit/02655bcf2ab93d2305a75531f368731131eea7b4))
-* convert to string any querytext ([#66](https://github.com/fcastilloec/ieeexplore2csv/issues/66)) ([123d6f9](https://github.com/fcastilloec/ieeexplore2csv/commit/123d6f9f6b40ac90ebb97f921eb508fcabc16cd8))
-* correctly add a data field to multi-word phrases ([#68](https://github.com/fcastilloec/ieeexplore2csv/issues/68)) ([f8b329b](https://github.com/fcastilloec/ieeexplore2csv/commit/f8b329b48d77feec98ef0435a70bed3e8b693e90))
-* don't add extension to output if it's already the correct one ([#65](https://github.com/fcastilloec/ieeexplore2csv/issues/65)) ([b9a47d7](https://github.com/fcastilloec/ieeexplore2csv/commit/b9a47d76007317d98fef95e8579e7f74670f79db))
-* update selector according to IEEE changes ([#103](https://github.com/fcastilloec/ieeexplore2csv/issues/103)) ([ff6d1c4](https://github.com/fcastilloec/ieeexplore2csv/commit/ff6d1c49e37fb24ec93b29c9bf0d7beb13b3eae5))
-* **cli:** remove positional argument in logic command ([94ec47c](https://github.com/fcastilloec/ieeexplore2csv/commit/94ec47ce128f7cfabeb3ed3d318e8c235232a9d5))
-* **cli:** yargs strict no longer works as expected ([05bff66](https://github.com/fcastilloec/ieeexplore2csv/commit/05bff66efe98377f6fa1fd8409b37a44c53167c6))
-* **excel:** set style for content_type cells ([#54](https://github.com/fcastilloec/ieeexplore2csv/issues/54)) ([bb431c0](https://github.com/fcastilloec/ieeexplore2csv/commit/bb431c025c2755931c05c5bddfc0bf36d848792d))
-* **logic:** better error checking when files don't exist ([#53](https://github.com/fcastilloec/ieeexplore2csv/issues/53)) ([cd2ebfa](https://github.com/fcastilloec/ieeexplore2csv/commit/cd2ebfab2a83266891dc7b84e0f1cadb20941dba))
-* **search:** check if no results before anything else ([#48](https://github.com/fcastilloec/ieeexplore2csv/issues/48)) ([8040212](https://github.com/fcastilloec/ieeexplore2csv/commit/8040212b982975bfc52b49d0b92449d29732ba3b))
-* **search:** incorrectly calculating number of pages ([#45](https://github.com/fcastilloec/ieeexplore2csv/issues/45)) ([ef01973](https://github.com/fcastilloec/ieeexplore2csv/commit/ef019732095b96d701f944d7bdecfce8d7e838d0))
+* **search-scrap:** add missing 'Book' content_type ([#47](https://github.com/fcastilloec/ieeexplore2csv/issues/47)) ([8080222](https://github.com/fcastilloec/ieeexplore2csv/commit/80802221066f3be54d7c2bab11c8121c01bb0555))
+* change filename extension ([0cc8a8b](https://github.com/fcastilloec/ieeexplore2csv/commit/0cc8a8bf60b3580f1f5b053e280167fb2cd61500))
+* convert to string any 'querytext' ([#66](https://github.com/fcastilloec/ieeexplore2csv/issues/66)) ([97834d0](https://github.com/fcastilloec/ieeexplore2csv/commit/97834d092049ec0983888966674e2a2e85a2f716))
+* correctly add a data field to multi-word phrases ([#68](https://github.com/fcastilloec/ieeexplore2csv/issues/68)) ([03b11c2](https://github.com/fcastilloec/ieeexplore2csv/commit/03b11c25e531d08c4d1db768c535962c020ed122))
+* don't add extension to output if it's already the correct one ([#65](https://github.com/fcastilloec/ieeexplore2csv/issues/65)) ([9c6e362](https://github.com/fcastilloec/ieeexplore2csv/commit/9c6e3626d1137d32298d6440b91a6688aa2227c3))
+* **search-scrap:** update selector according to IEEE changes ([#103](https://github.com/fcastilloec/ieeexplore2csv/issues/103)) ([baaae44](https://github.com/fcastilloec/ieeexplore2csv/commit/baaae44ce1965e123ef202895e438082ee5b0d87))
+* **cli:** remove positional argument in logic command ([fd822b1](https://github.com/fcastilloec/ieeexplore2csv/commit/fd822b168a279856c08a418cecde71f257e6727c))
+* **cli:** yargs strict no longer works as expected ([b274519](https://github.com/fcastilloec/ieeexplore2csv/commit/b27451991f7aefad87d2f3fa5fa98b57c3595e43))
+* **excel:** set style for content_type cells ([#54](https://github.com/fcastilloec/ieeexplore2csv/issues/54)) ([6bb6339](https://github.com/fcastilloec/ieeexplore2csv/commit/6bb6339d0013a3b6e746bc4cec84477b43482d3a))
+* **logic:** better error checking when files don't exist ([#53](https://github.com/fcastilloec/ieeexplore2csv/issues/53)) ([70969dd](https://github.com/fcastilloec/ieeexplore2csv/commit/70969dd608c0c04bd4b1d886dab06bf880fb28c3))
+* **search-scrap:** check if there's no results before anything else ([#48](https://github.com/fcastilloec/ieeexplore2csv/issues/48)) ([c95302d](https://github.com/fcastilloec/ieeexplore2csv/commit/c95302deadcba273d1694220b8e1f6beaf607d57))
+* **search-scrap:** correctly calculate the number of pages ([#45](https://github.com/fcastilloec/ieeexplore2csv/issues/45)) ([075b76c](https://github.com/fcastilloec/ieeexplore2csv/commit/075b76c74fde3d59c260a3290e81b05b6e5f6642))
 
 ## 1.0.0 (2020-08-19)
 
@@ -48,7 +47,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 * **logic:** Search results from both API and Scrap can now be mixed when performing logic
   operations.
-* Scrap results will no longer have their own data fields. Previous work that
+* **search:** Scrap results will no longer have their own data fields. Previous work that
   introduced a standard for saving data is now the default.
 * stopping developing the chrome extension for the moment and moving the project to
   use puppeteer and scrapping results
@@ -57,46 +56,45 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Features
 
-* count multiple JSON files at once ([ea5a232](https://github.com/fcastilloec/ieeexplore2csv/commit/ea5a232a391aa80dcc4b3252e8676c00e571dafe))
-* standardize how results are saved for both API and Scrap searching ([1ad0d1b](https://github.com/fcastilloec/ieeexplore2csv/commit/1ad0d1bebe99789274d91d28a1078b5b06ef0cd6))
-* use new standardized results when searching ([f8537ed](https://github.com/fcastilloec/ieeexplore2csv/commit/f8537ed11d83c5f906cafe0a822fa4320cd5ae43))
-* use verbose option to display encoded query ([969805e](https://github.com/fcastilloec/ieeexplore2csv/commit/969805ec852aeeea762b8656d9b87cafb684b8be))
-* **cli:** add both API and Scrap searching ([aec1205](https://github.com/fcastilloec/ieeexplore2csv/commit/aec1205041081c4ec4739ca93a2e79d5a15d3c27))
-* **cli:** add command to transform json files to xls ([86e6a49](https://github.com/fcastilloec/ieeexplore2csv/commit/86e6a49b4bf27206f667648811c6fc8341088303))
-* **cli:** add counting command for JSON files ([b9ef436](https://github.com/fcastilloec/ieeexplore2csv/commit/b9ef43699cde85a9375e3e4cfc4ee42af9536352))
-* **cli:** add verbose option for searching ([e92aec2](https://github.com/fcastilloec/ieeexplore2csv/commit/e92aec285854c6f1a4d16b819b80ceb5eed5b37c))
-* **excel:** add styling and convert json-files to xls ([e189f6f](https://github.com/fcastilloec/ieeexplore2csv/commit/e189f6f98fdff25277beaba275ce99a4a5cc1359))
-* **logic:** use standardized json for logic operators ([3384655](https://github.com/fcastilloec/ieeexplore2csv/commit/338465509c3e56b67cf6dab19c30e1fb06f76054))
+* count multiple JSON files at once ([705f51b](https://github.com/fcastilloec/ieeexplore2csv/commit/705f51bf187491fdfd0afd3e36db456d6fd0332a))
+* standardize how results are saved for both API and Scrap searching ([7017e3a](https://github.com/fcastilloec/ieeexplore2csv/commit/7017e3a5e28a7a3a82949e1857aa0221059fb4d8))
+* **search:** use new standardize results when searching ([eb1a26d](https://github.com/fcastilloec/ieeexplore2csv/commit/eb1a26d399632a15e986d6a75905715b606d8cbf))
+* **cli:** use verbose option to display encoded query ([e4bcfdd](https://github.com/fcastilloec/ieeexplore2csv/commit/e4bcfdd868bb287dacb2d51cacf6fc58e75ddf73))
+* **cli:** add both API and Scrap searching ([83bcb36](https://github.com/fcastilloec/ieeexplore2csv/commit/83bcb3695aa1ca2d8154bdcd5324ac355b44bfa5))
+* **cli:** add command to transform json files to xls ([a1de6cb](https://github.com/fcastilloec/ieeexplore2csv/commit/a1de6cb27084e2aefeb2dd2b1ba7588ec6f44dc6))
+* **cli:** add counting command for JSON files ([bb209ce](https://github.com/fcastilloec/ieeexplore2csv/commit/bb209cec6c138fd71f8844963a8cf90710c54cf9))
+* **cli:** add verbose option for searching ([e002b49](https://github.com/fcastilloec/ieeexplore2csv/commit/e002b496279e58c6742bffaa5af46f81c4cc2005))
+* **excel:** add styling and convert json-files to xls ([54c64c4](https://github.com/fcastilloec/ieeexplore2csv/commit/
+* **logic:** use standardize json for logic operators ([7bb744e](https://github.com/fcastilloec/ieeexplore2csv/commit/7bb744e3d1649782e85f03547cda8325512f6770))
 * add background script ([b561317](https://github.com/fcastilloec/ieeexplore2csv/commit/b56131784a079481d43a9c9f7447495b0bf07f4c))
 * add chrome extension icons ([b615423](https://github.com/fcastilloec/ieeexplore2csv/commit/b6154230c09b2c0239723906d188a2e57eb842fe))
 * add cli commands for searching ([3fd4ad1](https://github.com/fcastilloec/ieeexplore2csv/commit/3fd4ad1eb64a4f5ce7167c1778bc495a3cc4bd4c))
 * add content script to retrieve the list of results ([3be223b](https://github.com/fcastilloec/ieeexplore2csv/commit/3be223b39c2c5f62907c3d3d55ef16262b04df1c))
 * add headless scrapping and saving to excel ([409de8d](https://github.com/fcastilloec/ieeexplore2csv/commit/409de8db7ad02796a42b63505eefc1e900f2485f))
-* add IEEE API searching ([fd84acd](https://github.com/fcastilloec/ieeexplore2csv/commit/fd84acd2cc5787fc42d9eb1da166d800154b643a))
-* add support to export to excel from API results ([1e2b981](https://github.com/fcastilloec/ieeexplore2csv/commit/1e2b981d3c7a3394b53248cc8be30a7e8f293e53))
+* **search:** add IEEE API searching ([5103555](https://github.com/fcastilloec/ieeexplore2csv/commit/51035552ef3379a1d7d430f5b2a86b34546f0087))
+* add support to export to excel from API results ([4ce3572](https://github.com/fcastilloec/ieeexplore2csv/commit/4ce3572fb2ffad10ca3a6885324ff0f7680d2259))
 * create initial chrome manifest ([5ec99cd](https://github.com/fcastilloec/ieeexplore2csv/commit/5ec99cd911be9750eda4e6edbadce1f2c428d8bf))
 * export data as an array of objects ([b9b1451](https://github.com/fcastilloec/ieeexplore2csv/commit/b9b14513930f1a87a05b11c27d85b66fba5be254))
 * export data as JSON ([ca52866](https://github.com/fcastilloec/ieeexplore2csv/commit/ca52866d13403a4ef90a3003bbfd13ee9174c4f3))
 * save CSV data to file when clicked ([5aa128b](https://github.com/fcastilloec/ieeexplore2csv/commit/5aa128b5131c66dc783d309196f493a8eb29e347))
 * sets the sci-hub url as clickable on excel ([9f6f67d](https://github.com/fcastilloec/ieeexplore2csv/commit/9f6f67de561cf527171e02f95bff65b8a8118fda))
 
-
 ### Bug Fixes
 
-* better handling of errors and readability ([4d6e1b3](https://github.com/fcastilloec/ieeexplore2csv/commit/4d6e1b386aadbc36e1b027dab6e51f48b0a9890d))
-* only save to disk if logic operation return any results ([e3f951e](https://github.com/fcastilloec/ieeexplore2csv/commit/e3f951e192453aff5fc3b842d3d193152cf6dae3))
-* **cli:** better naming for cli scripts ([a91ad50](https://github.com/fcastilloec/ieeexplore2csv/commit/a91ad500fe87d0e2c13ad437b95088a4d7f92934))
-* **createJSON:** add defaults for articleNumber and journal ([da2e6d0](https://github.com/fcastilloec/ieeexplore2csv/commit/da2e6d07632555ab5781be950dcc14a0023bec37))
-* **excel:** add filtering to the header row ([47de98d](https://github.com/fcastilloec/ieeexplore2csv/commit/47de98d3292f39a266c2dafac445db38fbd90856))
-* **excel:** fixes styling and adds some properties ([397acd4](https://github.com/fcastilloec/ieeexplore2csv/commit/397acd49ce14785752bd77453d9187f800959f7a))
-* **json:** get actual article_number from pdf_url ([2322f39](https://github.com/fcastilloec/ieeexplore2csv/commit/2322f3961bc0f12fb17d8e9b08e1438b5033e44a))
-* **search:** uses the correct data field for API searching ([71c6dff](https://github.com/fcastilloec/ieeexplore2csv/commit/71c6dff0dffdceec1e2fc6dd9f99673cd31280f2))
-* better error and xls filename handling ([fee67f7](https://github.com/fcastilloec/ieeexplore2csv/commit/fee67f738acd27d6baf306f2904ad52a6d06d669))
-* better handling of nested parenthesis on queries ([9e56605](https://github.com/fcastilloec/ieeexplore2csv/commit/9e56605bcc904165b64f16363b0ae308da0e3b3b))
-* checks for cli options ([c390c30](https://github.com/fcastilloec/ieeexplore2csv/commit/c390c30e1d948b2592cf259a39927c8ae29e693e))
-* only save if there are any results ([d28040c](https://github.com/fcastilloec/ieeexplore2csv/commit/d28040c1f399dd921b2f5f9b71873f5e6eb0cd4a))
+* better handling of errors and readability ([79379ef](https://github.com/fcastilloec/ieeexplore2csv/commit/79379effa7f1a4ffc18f9634837bec3d24dd2802))
+* only save to disk if logic operation return any results ([cb7fa9f](https://github.com/fcastilloec/ieeexplore2csv/commit/cb7fa9fcc78e5613d4e8763ae79af9d1d81aaaa4))
+* **cli:** better naming for cli scripts ([ff9df73](https://github.com/fcastilloec/ieeexplore2csv/commit/ff9df73cf7281eee56d126103930071e6dad9c38))
+* **search-scrap:** add defaults for articleNumber and journal ([48cba91](https://github.com/fcastilloec/ieeexplore2csv/commit/48cba91ded7b2127b3328d074d89635158bc5b12))
+* **excel:** add filtering to the header row ([1581051](https://github.com/fcastilloec/ieeexplore2csv/commit/1581051ece23ea564ced709c0aa989fccf926506))
+* **excel:** fixes styling and adds some properties ([a94dab5](https://github.com/fcastilloec/ieeexplore2csv/commit/a94dab5f9e511f88b94da2e1dac1fbbe6b0b10b1))
+* **search-scrap:** get actual article_number from pdf_url ([f7fe4eb](https://github.com/fcastilloec/ieeexplore2csv/commit/f7fe4eb47389b465994f59524b6ee00fff1ebf3f))
+* **search-api:** uses the correct data field ([237aa19](https://github.com/fcastilloec/ieeexplore2csv/commit/237aa19df401976874965ac104f0d358c7d1d5c9))
+* **excel:** better error and filename handling ([0ffe151](https://github.com/fcastilloec/ieeexplore2csv/commit/0ffe15122e2996c1c753dfdd527b13bf8965d605))
+* **search-scrap:** better handling of nested parenthesis on queries ([c65cb59](https://github.com/fcastilloec/ieeexplore2csv/commit/c65cb5984240dd851e6c240fbde3a5b70bf425ef))
+* **cli:** checks for options ([f14af2a](https://github.com/fcastilloec/ieeexplore2csv/commit/f14af2ad2bf328ec7f52231497856034d82a8363))
+* only save if there are any results ([4bb13a1](https://github.com/fcastilloec/ieeexplore2csv/commit/4bb13a188056e8cfffeb5d53c4218cf351612c01))
 * output the whole document IEEE url ([ad016d7](https://github.com/fcastilloec/ieeexplore2csv/commit/ad016d7223b42b422ce357fa14449e8d9b3ded06))
 * result properties have a default when they don't exist ([e96dba9](https://github.com/fcastilloec/ieeexplore2csv/commit/e96dba96961d4d82473b62c279c7c2149a6295de))
-* saving data from either API or scrapping when using data fields ([50cd360](https://github.com/fcastilloec/ieeexplore2csv/commit/50cd36036a22c70c08873d25c94ab547554b5f44))
-* use the current year and not whole date ([3de982a](https://github.com/fcastilloec/ieeexplore2csv/commit/3de982a423f6667875b7e6f8380aed53ed2d777b))
-* **search:** exit if unknown errors are thrown ([a3f4253](https://github.com/fcastilloec/ieeexplore2csv/commit/a3f4253bd3f75cf676fa517a54da53ae1566a83f))
+* saving data from either API or scrapping when using data fields ([e431d6c](https://github.com/fcastilloec/ieeexplore2csv/commit/e431d6c4589e90bfdd4629ae1e508dcdd6313a67))
+* use the current year and not whole date ([3f1e710](https://github.com/fcastilloec/ieeexplore2csv/commit/3f1e7109fcdbde6f180097d4015f402a9771a509))
+* **search:** exit if unknown errors are thrown when searching ([d333929](https://github.com/fcastilloec/ieeexplore2csv/commit/d333929601df6a126e40ae8ae5c9194141e1bca8))
