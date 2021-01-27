@@ -1,6 +1,7 @@
 const axios = require('axios').default;
 const https = require('https');
-const puppeteer = require('puppeteer');
+const locateChrome = require('locate-chrome');
+const puppeteer = require('puppeteer-core');
 const createJSON = require('./createJson');
 
 /**
@@ -24,12 +25,20 @@ async function scrap(queryText, rangeYear, verbose) {
               + `&ranges=${rangeYear[0]}_${rangeYear[1]}_Year`;
   if (verbose) console.log('Encoded Query:\t%s\n', query);
 
-  let totalPages = 1; // counter for total number of pages
+  const browserPath = await locateChrome();
+  if (!browserPath) {
+    console.error('Can\'t find a valid installation of Chrome');
+    process.exit(2);
+  }
 
+  let totalPages = 1; // counter for total number of pages
   let browser;
   let results;
   try {
-    browser = await puppeteer.launch({ headless: true });
+    browser = await puppeteer.launch({
+      executablePath: browserPath,
+      headless: true,
+    });
     const page = await browser.newPage();
     page.setDefaultTimeout(10000); // only wait 10 secs, any longer and it means there's no results
     await page.goto(ieeeUrl + query);
