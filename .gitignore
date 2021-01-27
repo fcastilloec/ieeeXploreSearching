@@ -18,6 +18,8 @@ node_modules/
 build
 
 # TODO files
+SCOPES.md
 TODO
 WORKFLOW
 results
+ACM DL scrapping

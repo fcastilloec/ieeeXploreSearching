@@ -28,8 +28,9 @@
     "axios": "^0.21.1",
     "excel4node": "^1.7.2",
     "fs-extra": "^9.0.1",
+    "locate-chrome": "^0.1.1",
     "lodash": "^4.17.20",
-    "puppeteer": "^5.5.0",
+    "puppeteer-core": "^5.5.0",
     "yargs": "^16.2.0"
   },
   "devDependencies": {
