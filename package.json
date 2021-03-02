@@ -22,7 +22,10 @@
     "lint": "eslint .",
     "release": "standard-version --sign",
     "start": "node src/index.js",
-    "test": "nyc ava"
+    "test": "nyc ava",
+    "postinstall": "husky install",
+    "prepublishOnly": "pinst --disable",
+    "postpublish": "pinst --enable"
   },
   "dependencies": {
     "axios": "^0.21.1",
@@ -42,8 +45,9 @@
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "husky": "^4.3.8",
+    "husky": "^5.1.2",
     "nyc": "^15.1.0",
+    "pinst": "^2.1.6",
     "standard-version": "^9.1.1"
   }
 }
