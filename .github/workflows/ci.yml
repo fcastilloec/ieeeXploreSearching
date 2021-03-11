@@ -1,6 +1,6 @@
 name: CI
 env:
-  node-version: 12
+  node-version: 14
 
 on:
   push:
@@ -15,12 +15,20 @@ jobs:
     name: Testing
     runs-on: 'ubuntu-latest'
     steps:
+    - uses: actions/cache@v2
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
     - name: Get source
       uses: actions/checkout@v2
     - name: Use Node.js ${{ env.node-version }}
       uses: actions/setup-node@v2.1.5
       with:
         node-version: ${{ env.node-version }}
+    - name: Update npm
+      run: npm i -g npm@latest
     - name: Install npm dependencies
       run: npm ci
     - name: Linting
@@ -44,21 +52,29 @@ jobs:
       id: vars
       run: |
         [[ "${{ matrix.os }}" == "ubuntu-latest" ]] && DIST=linux || DIST=$(cut -d'-' -f 1 <<< ${{ matrix.os }})
-        echo "set-output name=DIST::$DIST"
+        echo "::set-output name=DIST::$DIST"
+        echo "::set-output name=dir::$(npm config get cache)"
+    - uses: actions/cache@v2
+      with:
+        path: ${{ steps.vars.outputs.dir }}
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
     - name: Get source
       uses: actions/checkout@v2
     - name: Use Node.js ${{ env.node-version }}
       uses: actions/setup-node@v2.1.5
       with:
         node-version: ${{ env.node-version }}
+    - name: Update npm
+      run: npm i -g npm@latest
     - name: Install npm dependencies
       run: npm ci
     - name: Build
       run: |
-        npx pkg -t node${{ env.node-version }}-${{ steps.vars.outputs.DIST }}-x64 src/cli-search.js --output build/ieeeSearch
-        npx pkg -t node${{ env.node-version }}-${{ steps.vars.outputs.DIST }}-x64 src/cli-logic.js --output build/ieeeLogic
-        npx pkg -t node${{ env.node-version }}-${{ steps.vars.outputs.DIST }}-x64 src/cli-count.js --output build/ieeeCount
-        cp -r node_modules/puppeteer/.local-chromium build/puppeteer
+        npx pkg --public -t node${{ env.node-version }}-${{ steps.vars.outputs.DIST }}-x64 src/cli-search.js --output build/ieeeSearch
+        npx pkg --public -t node${{ env.node-version }}-${{ steps.vars.outputs.DIST }}-x64 src/cli-logic.js --output build/ieeeLogic
+        npx pkg --public -t node${{ env.node-version }}-${{ steps.vars.outputs.DIST }}-x64 src/cli-count.js --output build/ieeeCount
     - name: Tar files
       working-directory: ./build
       run: |
