@@ -19,17 +19,25 @@ function createJSON() {
     Standard: 'Standards',
   };
 
-  // LIST OF ELEMENTS:
-  const ELEMENTS = 'xpl-results-item > div.hide-mobile > div.row.result-item > div.col.result-item-align';
-  const TITLE = 'h2 > a';
-  const AUTHORS = 'p.author';
-  const JOURNAL = 'div.description > a';
-  const DESCRIPTION = 'div.description > div.publisher-info-container';
-  const ABSTRACT = 'div.js-displayer-content.u-mt-1.stats-SearchResults_DocResult_ViewMore > span';
-  const PDF_URL = 'ul > li a.icon-pdf';
-  const COURSE_URL = 'ul > li .icon-access_course';
-  const ABSTRACT_URL = 'div.js-displayer-content.u-mt-1.stats-SearchResults_DocResult_ViewMore > a';
-  const HTML_URL = 'ul > li a.icon-html';
+  // List of elements
+  const ELEMENTS = 'xpl-results-item > div.hide-mobile';
+  // Holds the main information
+  const MAIN = 'div.row.result-item > div.col.result-item-align';
+  // Holds the abstract and various urls
+  const ICONS = 'div.row.doc-access-tools-container';
+
+  // Elements inside MAIN
+  const AUTHORS = `${MAIN} > xpl-authors-name-list > p.author`;
+  const TITLE = `${MAIN} > h2 > a`;
+  const JOURNAL = `${MAIN} > div.description > a`;
+  const DESCRIPTION = `${MAIN} > div.description > div.publisher-info-container`;
+
+  // Elements inside ICONS
+  const ABSTRACT = `${ICONS} > div.js-displayer-content.u-mt-1.stats-SearchResults_DocResult_ViewMore > span`;
+  const ABSTRACT_URL = `${ICONS} > div.js-displayer-content.u-mt-1.stats-SearchResults_DocResult_ViewMore > a`;
+  const PDF_URL = `${ICONS} > ul > li > xpl-view-pdf a.icon-pdf`;
+  const COURSE_URL = `${ICONS} > ul > li .icon-access_course`;
+  const HTML_URL = `${ICONS} > ul > li a.icon-html`;
 
   // Retrieves the list of results
   return Array.from(document.querySelectorAll(ELEMENTS)).map((item) => {
@@ -39,15 +47,15 @@ function createJSON() {
     // Retrieve elements
     const authors = item.querySelector(AUTHORS);
     const title = (item.querySelector(TITLE) || item.querySelector('h2 > span')).innerText;
-    const abstract = item.querySelector(ABSTRACT);
     const journal = item.querySelector(JOURNAL);
-    const pdf_url = item.querySelector(PDF_URL);
+    // 'description' is the field that contains publication_year, publisher, content_type and/or volume, and issue
+    const description = item.querySelector(DESCRIPTION).innerText.split('|').map((el) => el.trim());
+    const abstract = item.querySelector(ABSTRACT);
     const abstract_url = item.querySelector(ABSTRACT_URL);
+    const pdf_url = item.querySelector(PDF_URL);
     const course_url = item.querySelector(COURSE_URL);
     const html_url = item.querySelector(HTML_URL);
 
-    // 'description' is the field that contains publication_year, publisher, content_type and/or volume, and issue
-    const description = item.querySelector(DESCRIPTION).innerText.split('|').map((el) => el.trim());
     const publication_year = description.shift().slice(6);
     const publisher = description.pop().slice(11);
     const content_type = contentType[description.length === 1 ? description.shift() : description.pop()];
