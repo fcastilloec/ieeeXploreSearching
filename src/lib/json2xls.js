@@ -1,6 +1,8 @@
 const xl = require('excel4node');
 const { promisify } = require('util');
 
+const fontType = process.env.IEEE_font;
+
 /**
  * Converts an array of authors into a string.
  *
@@ -37,7 +39,12 @@ async function fromResults(results, xlsFilename) {
 
   const sciHubUrl = 'https://sci-hub.st/';
 
-  const wb = new xl.Workbook();
+  const wb = new xl.Workbook({
+    defaultFont: {
+      name: fontType || 'Liberation Serif',
+      size: 12,
+    },
+  });
   const ws = wb.addWorksheet('Sheet 1');
 
   const wrapStyle = wb.createStyle({
@@ -61,6 +68,8 @@ async function fromResults(results, xlsFilename) {
       vertical: 'center',
     },
     font: {
+      name: fontType || 'Liberation Sans',
+      size: 11,
       underline: true,
       color: '1A73E8',
     },
