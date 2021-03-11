@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0](https://github.com/fcastilloec/ieeexplore2csv/compare/v2.0.0...v3.0.0) (2021-03-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* **search-scrap:** A local Chrome installation is required for scrapping
+
+Please make sure that a valid installation of Chrome exists
+
+### Features
+
+* **excel:** add environment variable to set a font type ([#120](https://github.com/fcastilloec/ieeexplore2csv/issues/120)) ([00b33ec](https://github.com/fcastilloec/ieeexplore2csv/commit/00b33ec30e8814aff88d0481bbe528496012396c))
+* **search-scrap:** use local Chrome installation ([#108](https://github.com/fcastilloec/ieeexplore2csv/issues/108)) ([0011168](https://github.com/fcastilloec/ieeexplore2csv/commit/00111687fd26138a2b021ad3d4ad9cf13a84ec1f))
+
+
+### Bug Fixes
+
+* **search-scrap:** update to new IEEE website design ([#119](https://github.com/fcastilloec/ieeexplore2csv/issues/119)) ([3e68e37](https://github.com/fcastilloec/ieeexplore2csv/commit/3e68e37317f97950b82b9e848521ac4ad0af2089))
+* handle all errors ([#107](https://github.com/fcastilloec/ieeexplore2csv/issues/107)) ([242e5c6](https://github.com/fcastilloec/ieeexplore2csv/commit/242e5c6266610f252375744587958cc63571e8e4))
+
 ## [2.0.0](https://github.com/fcastilloec/ieeexplore2csv/compare/v1.0.0...v2.0.0) (2021-01-18)
 
 
