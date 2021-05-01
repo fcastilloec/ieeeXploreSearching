@@ -15,7 +15,7 @@ jobs:
     name: Testing
     runs-on: 'ubuntu-latest'
     steps:
-    - uses: actions/cache@v2.1.4
+    - uses: actions/cache@v2.1.5
       with:
         path: ~/.npm
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
@@ -54,7 +54,7 @@ jobs:
         [[ "${{ matrix.os }}" == "ubuntu-latest" ]] && DIST=linux || DIST=$(cut -d'-' -f 1 <<< ${{ matrix.os }})
         echo "::set-output name=DIST::$DIST"
         echo "::set-output name=dir::$(npm config get cache)"
-    - uses: actions/cache@v2.1.4
+    - uses: actions/cache@v2.1.5
       with:
         path: ${{ steps.vars.outputs.dir }}
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
