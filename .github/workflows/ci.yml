@@ -72,9 +72,9 @@ jobs:
       run: npm ci
     - name: Build
       run: |
-        npx pkg --public -t node${{ env.node-version }}-${{ steps.vars.outputs.DIST }}-x64 src/cli-search.js --output build/ieeeSearch
-        npx pkg --public -t node${{ env.node-version }}-${{ steps.vars.outputs.DIST }}-x64 src/cli-logic.js --output build/ieeeLogic
-        npx pkg --public -t node${{ env.node-version }}-${{ steps.vars.outputs.DIST }}-x64 src/cli-count.js --output build/ieeeCount
+        npx -y pkg --public -t node${{ env.node-version }}-${{ steps.vars.outputs.DIST }}-x64 src/cli-search.js --output build/ieeeSearch
+        npx -y pkg --public -t node${{ env.node-version }}-${{ steps.vars.outputs.DIST }}-x64 src/cli-logic.js --output build/ieeeLogic
+        npx -y pkg --public -t node${{ env.node-version }}-${{ steps.vars.outputs.DIST }}-x64 src/cli-count.js --output build/ieeeCount
     - name: Tar files
       working-directory: ./build
       run: |
