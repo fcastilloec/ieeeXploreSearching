@@ -31,20 +31,20 @@
     "fs-extra": "^9.1.0",
     "locate-chrome": "^0.1.1",
     "lodash": "^4.17.21",
-    "puppeteer-core": "^9.0.0",
+    "puppeteer-core": "^9.1.1",
     "yargs": "^16.2.0"
   },
   "devDependencies": {
     "ava": "^3.15.0",
-    "eslint": "^7.25.0",
+    "eslint": "^7.26.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-plugin-ava": "^12.0.0",
-    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-import": "^2.23.2",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.23.2",
     "eslint-plugin-react-hooks": "^4.2.0",
     "husky": "^6.0.0",
     "nyc": "^15.1.0",
-    "standard-version": "^9.2.0"
+    "standard-version": "^9.3.0"
   }
 }

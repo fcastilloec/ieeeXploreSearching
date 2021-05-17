@@ -6,7 +6,7 @@ const { logicOperations } = require('./lib/logicOperations');
 const { changeFileExtension, testFileExtension } = require('./lib/utils');
 
 const { argv } = yargs
-  .version(require('../package').version)
+  .version(require('../package.json').version)
   .wrap(null)
   .alias('help', 'h')
   .group(['help', 'version'], 'Global options')

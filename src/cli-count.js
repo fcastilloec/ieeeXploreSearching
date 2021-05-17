@@ -4,7 +4,7 @@ const fs = require('fs-extra');
 
 const { argv } = yargs
   .wrap(null)
-  .version(require('../package').version)
+  .version(require('../package.json').version)
   .usage('Usage: $0 <filename>')
   .strict()
   .alias('help', 'h')
