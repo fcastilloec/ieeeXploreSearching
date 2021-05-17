@@ -12,7 +12,7 @@ const { APIKEY } = process.env;
 
 const { argv } = yargs
   .wrap(null)
-  .version(require('../package').version)
+  .version(require('../package.json').version)
   .usage('Usage: $0 <query> [options] [IEEE Data Fields]')
   .strict()
   .alias('help', 'h')
