@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.0.1](https://github.com/fcastilloec/ieeeXploreSearching/compare/v3.0.0...v3.0.1) (2021-05-18)
+
+
+### Bug Fixes
+
+* **cli:** better help description ([#134](https://github.com/fcastilloec/ieeeXploreSearching/issues/134)) ([fba4c1e](https://github.com/fcastilloec/ieeeXploreSearching/commit/fba4c1e5e4deab80a69c85fcb5ede676d808560f))
+
 ## [3.0.0](https://github.com/fcastilloec/ieeexplore2csv/compare/v2.0.0...v3.0.0) (2021-03-11)
 
 
