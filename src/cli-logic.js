@@ -73,7 +73,7 @@ const { argv } = yargs
         })
         .example(
           '$0 --merge file1.json file2.json file3.json --output output.json',
-          'merge file1.json, file2.json, file3.json and save into output.json',
+          'file1.json OR file2.json OR file3.json -> output.json',
         )
         .example('$0 --and file1.json file2.json --output output.json', 'file1.json AND file2.json -> output.json')
         .example(
