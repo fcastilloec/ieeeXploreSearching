@@ -28,30 +28,30 @@ const { argv } = yargs
   .option('full-text-and-metadata', {
     alias: 'f',
     conflicts: ['text-only', 'publication-title', 'metadata', 'ieee-terms'],
-    describe: 'Searches for "Full Text & Metadata"',
+    describe: '"Full Text & Metadata"',
     type: 'boolean',
   })
   .option('text-only', {
     alias: 't',
     conflicts: ['full-text-and-metadata', 'publication-title', 'metadata', 'ieee-terms'],
-    describe: 'Searches for "Full Text Only"',
+    describe: '"Full Text Only"',
     type: 'boolean',
   })
   .option('publication-title', {
     alias: 'p',
     conflicts: ['text-only', 'full-text-and-metadata', 'metadata', 'ieee-terms'],
-    describe: 'Searches for "Publication Title"',
+    describe: '"Publication Title"',
     type: 'boolean',
   })
   .option('metadata', {
     alias: 'm',
-    describe: 'Searches for "All Metadata"',
+    describe: '"All Metadata"',
     conflicts: ['text-only', 'full-text-and-metadata', 'publication-title', 'ieee-terms'],
     type: 'boolean',
   })
   .option('ieee-terms', {
     alias: 'i',
-    describe: 'Searches for "IEEE Terms"',
+    describe: '"IEEE Terms"',
     conflicts: ['text-only', 'full-text-and-metadata', 'publication-title', 'metadata'],
     type: 'boolean',
   })
@@ -65,7 +65,7 @@ const { argv } = yargs
     alias: 'y',
     nargs: 1,
     demandOption: true,
-    describe: 'Year range to search. A single value will search from "year" to date',
+    describe: 'Calling it once will search only on that year. Calling twice will search on the range',
     // array will consume all arguments after -y, including the query. No way to make array nargs variable
     type: 'number',
   })
@@ -96,11 +96,11 @@ const { argv } = yargs
   })
   .group(['full-text-and-metadata', 'text-only', 'publication-title', 'metadata', 'ieee-terms'], 'IEEE Data Fields')
   .example(
-    '$0 "optics AND nano" -o search1 -y 1990 -y 2000 -e',
+    "$0 'optics AND nano' -o search1 -y 1990 -y 2000 -e",
     'searches for "optics AND nano" between 1990-2000 and save the results in search1.json and search1.xls',
   )
   .example(
-    '$0 "h264 NEAR/3 cellular" -y 2005 -o search2.json',
+    "$0 'h264 NEAR/3 cellular' -y 2005 -o search2.json",
     'searches for "h264 NEAR/3 cellular" only on 2005, and save the results in search2.json',
   );
 
