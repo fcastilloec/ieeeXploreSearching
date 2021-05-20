@@ -23,6 +23,7 @@
     "release": "standard-version --sign",
     "start": "node src/index.js",
     "test": "nyc ava",
+    "pkg": "pkg --compress GZip --public",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -45,6 +46,7 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "husky": "^6.0.0",
     "nyc": "^15.1.0",
+    "pkg": "^5.2.0",
     "standard-version": "^9.3.0"
   }
 }

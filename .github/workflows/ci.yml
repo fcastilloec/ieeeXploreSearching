@@ -43,14 +43,18 @@ jobs:
         shell: bash
     strategy:
       matrix:
-        os: ['ubuntu', 'macos', 'windows']
-    runs-on: ${{ matrix.os }}-latest
+        include:
+          - platform: linux
+            runner: ubuntu-latest
+          - platform: win
+            runner: windows-latest
+          - platform: macos
+            runner: macos-latest
+    runs-on: ${{ matrix.runner }}
     steps:
     - name: Set variables
       id: vars
       run: |
-        [[ "${{ matrix.os }}" == "ubuntu" ]] && DIST=linux || DIST=${{ matrix.os }})
-        echo "::set-output name=DIST::${DIST}"
         echo "::set-output name=dir::$(npm config get cache)"
     - uses: actions/cache@v2.1.5
       with:
@@ -68,21 +72,22 @@ jobs:
       run: npm i -g npm@latest
     - name: Install npm dependencies
       run: npm ci
-    - name: Build
+    - name: Create executables
       run: |
-        npx -y pkg --public -t node${{ env.node-version }}-${{ steps.vars.outputs.DIST }}-x64 src/cli-search.js --output build/ieeeSearch
-        npx -y pkg --public -t node${{ env.node-version }}-${{ steps.vars.outputs.DIST }}-x64 src/cli-logic.js --output build/ieeeLogic
-        npx -y pkg --public -t node${{ env.node-version }}-${{ steps.vars.outputs.DIST }}-x64 src/cli-count.js --output build/ieeeCount
+        TARGET=node${{ env.node-version }}-${{ matrix.platform }}-x64
+        npm run pkg -- -t ${TARGET} src/cli-search.js --output build/ieeeSearch
+        npm run pkg -- -t ${TARGET} src/cli-logic.js --output build/ieeeLogic
+        npm run pkg -- -t ${TARGET} src/cli-count.js --output build/ieeeCount
     - name: Tar files
       working-directory: ./build
       run: |
-        [[ "${{ matrix.os }}" == "macos" ]] && TAR=gtar || TAR=tar
-        XZ_OPT=-0 ${TAR} -cJvf ../${{ steps.vars.outputs.DIST }}-x64.tar.xz *
+        [[ "${{ matrix.platform }}" == "macos" ]] && TAR=gtar || TAR=tar
+        XZ_OPT=-0 ${TAR} -cJvf ../${{ runner.os }}-x64.tar.xz *
     - name: Upload artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: ${{ matrix.os }}
-        path: ${{ steps.vars.outputs.DIST }}-x64.tar.xz
+        name: ${{ runner.os }}
+        path: ${{ runner.os }}-x64.tar.xz
 
   publish:
     name: Publish to Github Releases
