@@ -8,6 +8,11 @@ const ieee = require('./lib/ieeeAPI');
 const { fromResults: json2xls } = require('./lib/json2xls');
 const { testFileExtension } = require('./lib/utils');
 
+if (process.platform === 'win32') {
+  console.warn("You're running on a Windows system");
+  console.warn('\x1b[4m%s\x1b[0m\x1b[31;1m%s\x1b[0m\n\n', 'Make sure you escape double quotes using:', ' \\"');
+}
+
 const { APIKEY } = process.env;
 
 const { argv } = yargs
