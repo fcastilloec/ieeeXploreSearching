@@ -9,11 +9,21 @@ The output is an array of articles, where each article is an object containing t
 
 #### Examples:
 
-`cli-search.js "optics AND nano" -o search1 -y 1990 -y 2000 -e`\
+`cli-search.js 'optics AND nano' -o search1 -y 1990 -y 2000 -e`\
 searches for "optics AND nano" between 1990 and 2000, and save the results in search1.json, and also search1.xls
 
-`cli-search.js "h264 NEAR/3 cellular" -y 2005 -o search2.json`\
+`cli-search.js 'h264 NEAR/3 cellular' -y 2005 -o search2.json`\
 searches for "h264 NEAR/3 cellular" only on 2005, and save the results in search2.json
+
+#### Windows issues:
+
+The scripts only work on **PowerShell**, it won't work properly on **Command Prompt**.
+This is because **Command Prompt** doesn't handle single and double quotes together properly.
+
+In fact, under **PowerShell**, if you want to use double quotes as part of the `query`, they have to be escaped with a backwards slash (`\`).
+
+For example: `cli-search.js 'optics AND \"nano\"' -o search1 -y 1990 -y 2000`
+
 
 ### cli-logic.js
 The main use is for logic operations among JSON files returned by the [search script](###cli-search.js).
