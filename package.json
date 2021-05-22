@@ -2,8 +2,6 @@
   "name": "ieeexplore-search",
   "version": "3.0.1",
   "description": "IEEE results as workfiles",
-  "main": "src/cli-search.js",
-  "bin": "src/cli-search.js",
   "homepage": "https://github.com/fcastilloec/ieeeXploreSearching#readme",
   "author": "Felipe Castillo",
   "license": "GPL-3.0-or-later",
@@ -21,7 +19,6 @@
   "scripts": {
     "lint": "eslint .",
     "release": "standard-version --sign",
-    "start": "node src/index.js",
     "test": "nyc ava",
     "pkg": "pkg --compress GZip --public",
     "prepare": "husky install"
