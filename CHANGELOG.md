@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.0.2](https://github.com/fcastilloec/ieeeXploreSearching/compare/v3.0.1...v3.0.2) (2021-05-22)
+
+
+### Bug Fixes
+
+* warn the user when escaping double quotes on windows ([#138](https://github.com/fcastilloec/ieeeXploreSearching/issues/138)) ([6064585](https://github.com/fcastilloec/ieeeXploreSearching/commit/6064585b4dbde658a81eeeb2d4ca47ad774b0d3b))
+
 ### [3.0.1](https://github.com/fcastilloec/ieeeXploreSearching/compare/v3.0.0...v3.0.1) (2021-05-18)
 
 
