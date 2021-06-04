@@ -56,7 +56,7 @@ function createJSON() {
     const course_url = item.querySelector(COURSE_URL);
     const html_url = item.querySelector(HTML_URL);
 
-    const publication_year = description.shift().slice(6);
+    const publication_year = parseInt(description.shift().slice(6), 10);
     const publisher = description.pop().slice(11);
     const content_type = contentType[description.length === 1 ? description.shift() : description.pop()];
     if (description.length === 1) [volume, issue] = description.shift().split(',').map((el) => el.trim());
