@@ -35,7 +35,7 @@ function createJSON() {
   // Elements inside ICONS
   const ABSTRACT = `${ICONS} > div.js-displayer-content.u-mt-1.stats-SearchResults_DocResult_ViewMore > span`;
   const ABSTRACT_URL = `${ICONS} > div.js-displayer-content.u-mt-1.stats-SearchResults_DocResult_ViewMore > a`;
-  const PDF_URL = `${ICONS} > ul > li > xpl-view-pdf a.icon-pdf`;
+  const PDF_URL = `${ICONS} > ul > li > xpl-view-pdf a[aria-label=PDF]]`;
   const COURSE_URL = `${ICONS} > ul > li .icon-access_course`;
   const HTML_URL = `${ICONS} > ul > li a.icon-html`;
 
