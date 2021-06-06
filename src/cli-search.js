@@ -1,7 +1,10 @@
 #!/usr/bin/env node
 const _ = require('lodash');
 const fs = require('fs-extra');
+const path = require('path');
 const yargs = require('yargs');
+const checkAPIKey = require('./lib/apiKey');
+const configDir = require('./lib/configDirectory');
 const { testYear } = require('./lib/utils');
 const { FIELDS, addDataField } = require('./lib/dataFields');
 const ieee = require('./lib/ieeeAPI');
@@ -12,8 +15,6 @@ if (process.platform === 'win32') {
   console.warn("You're running on a Windows system");
   console.warn('\x1b[4m%s\x1b[0m\x1b[31;1m%s\x1b[0m\n\n', 'Make sure you escape double quotes using:', ' \\"');
 }
-
-const { APIKEY } = process.env;
 
 const { argv } = yargs
   .wrap(null)
@@ -96,7 +97,6 @@ const { argv } = yargs
   .check((args) => {
     if (args.year.length > 2) throw new Error('Only start and/or finish year are accepted');
     args.year.forEach(testYear);
-    if (args.api && !APIKEY) throw new Error('No APIKEY key provided. Set APIKEY environment variable');
     return true;
   })
   .group(['full-text-and-metadata', 'text-only', 'publication-title', 'metadata', 'ieee-terms'], 'IEEE Data Fields')
@@ -117,9 +117,20 @@ console.log('Between %s and %s', argv.year[0], argv.year[1]);
 console.log('Using: %s', FIELDS[dataField] || 'No data fields');
 
 async function search() {
-  const results = argv.api
-    ? await ieee.api(APIKEY, addDataField(argv._[0], FIELDS[dataField]), argv.year, argv.verbose)
-    : await ieee.scrap(addDataField(argv._[0], FIELDS[dataField]), argv.year, argv.verbose);
+  let results;
+  if (argv.api) {
+    const configFile = path.join(configDir(), 'config.json');
+    checkAPIKey(configFile);
+    try {
+      const config = fs.readJSONSync(configFile); // Read the APIKEY
+      results = await ieee.api(config.APIKEY, addDataField(argv._[0], FIELDS[dataField]), argv.year, argv.verbose);
+    } catch (error) {
+      console.error('Error reading the APIKEY: ', error.message);
+      process.exit(1);
+    }
+  } else {
+    results = await ieee.scrap(addDataField(argv._[0], FIELDS[dataField]), argv.year, argv.verbose);
+  }
 
   console.log('Found %s results', results.total_records);
   if (argv.api && results.total_records > 200) {
