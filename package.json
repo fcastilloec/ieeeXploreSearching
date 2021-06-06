@@ -19,7 +19,7 @@
   "scripts": {
     "lint": "eslint .",
     "release": "standard-version --sign",
-    "test": "nyc ava",
+    "test": "jest",
     "pkg": "pkg --compress GZip --public",
     "prepare": "husky install"
   },
@@ -36,16 +36,15 @@
   "devDependencies": {
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
-    "ava": "^3.15.0",
     "eslint": "^7.27.0",
     "eslint-config-airbnb": "^18.2.1",
-    "eslint-plugin-ava": "^12.0.0",
     "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-jest": "^24.3.6",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "husky": "^6.0.0",
-    "nyc": "^15.1.0",
+    "jest": "^27.0.4",
     "pkg": "^5.2.1",
     "standard-version": "^9.3.0"
   }
