@@ -2,10 +2,13 @@ module.exports = {
   env: {
     node: true,
     browser: true,
+    'jest/globals': true,
   },
   extends: [
     'airbnb',
-    'plugin:ava/recommended',
+  ],
+  plugins: [
+    'jest',
   ],
   rules: {
     'max-len': ['error', 120],
