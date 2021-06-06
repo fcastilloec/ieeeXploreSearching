@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+/* global DATA */
 
 /**
  * Queries the document/page for IEEE results.
@@ -19,25 +20,19 @@ function createJSON() {
     Standard: 'Standards',
   };
 
-  // List of elements
-  const ELEMENTS = 'xpl-results-item > div.hide-mobile';
-  // Holds the main information
-  const MAIN = 'div.row.result-item > div.col.result-item-align';
-  // Holds the abstract and various urls
-  const ICONS = 'div.row.doc-access-tools-container';
-
-  // Elements inside MAIN
-  const AUTHORS = `${MAIN} > xpl-authors-name-list > p.author`;
-  const TITLE = `${MAIN} > h2 > a`;
-  const JOURNAL = `${MAIN} > div.description > a`;
-  const DESCRIPTION = `${MAIN} > div.description > div.publisher-info-container`;
-
-  // Elements inside ICONS
-  const ABSTRACT = `${ICONS} > div.js-displayer-content.u-mt-1.stats-SearchResults_DocResult_ViewMore > span`;
-  const ABSTRACT_URL = `${ICONS} > div.js-displayer-content.u-mt-1.stats-SearchResults_DocResult_ViewMore > a`;
-  const PDF_URL = `${ICONS} > ul > li > xpl-view-pdf a[aria-label=PDF]]`;
-  const COURSE_URL = `${ICONS} > ul > li .icon-access_course`;
-  const HTML_URL = `${ICONS} > ul > li a.icon-html`;
+  // Selectors
+  const {
+    ELEMENTS,
+    AUTHORS,
+    TITLE,
+    JOURNAL,
+    DESCRIPTION,
+    ABSTRACT,
+    ABSTRACT_URL,
+    PDF_URL,
+    COURSE_URL,
+    HTML_URL,
+  } = DATA;
 
   // Retrieves the list of results
   return Array.from(document.querySelectorAll(ELEMENTS)).map((item) => {
