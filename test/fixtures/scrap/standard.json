@@ -1,0 +1,58 @@
+[
+ {
+  "doi": "10.1109/IEEESTD.2004.94441",
+  "title": "IEEE Guide to the Installation of Overhead Transmission Line Conductors",
+  "publisher": "IEEE",
+  "isbn": "978-0-7381-3815-2",
+  "partnum": "STDSU95170",
+  "rank": 1,
+  "authors": {
+   "authors": []
+  },
+  "access_type": "LOCKED",
+  "content_type": "Standards",
+  "abstract": "Revision of IEEE Std 524-1992. SUMMARY: This guide provides general recommendations for the selection of methods, equipment, and tools that have been found to be practical for the stringing of overhead transmission line conductors and overhead groundwires. The guide also includes a comprehensive list of definitions for equipment and tools used in stringing and for stringing terms commonly employed. This guide does not address special conductors such as those used for river and canyon crossing. These conductors may be custom designed and often may require special considerations.",
+  "article_number": "1278833",
+  "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1278833",
+  "html_url": "https://ieeexplore.ieee.org/document/1278833/",
+  "abstract_url": "https://ieeexplore.ieee.org/document/1278833/",
+  "publication_title": "IEEE Std 524-2003 (Revision of IEEE Std 524-1992)",
+  "standard_number": "524-2003",
+  "standard_status": "Superseded",
+  "publication_number": 9007,
+  "is_number": 28594,
+  "publication_year": 2004,
+  "publication_date": "11 March 2004",
+  "start_page": "1",
+  "end_page": "152",
+  "citing_paper_count": 1,
+  "citing_patent_count": 2,
+  "index_terms": {
+   "ieee_terms": {
+    "terms": [
+     "IEEE Standards",
+     "Conductors",
+     "Power transmission lines",
+     "Patents",
+     "Power engineering",
+     "Tools"
+    ]
+   },
+   "author_terms": {
+    "terms": [
+     "overhead transmission line conductors",
+     "overhead groundwires"
+    ]
+   }
+  },
+  "isbn_formats": {
+   "isbns": [
+    {
+     "format": "Electronic ISBN",
+     "value": "978-0-7381-3815-2",
+     "isbnType": "New-2005"
+    }
+   ]
+  }
+ }
+]

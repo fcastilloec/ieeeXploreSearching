@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+/* global DATA */
 
 /**
  * Queries the document/page for IEEE results.
@@ -19,25 +20,17 @@ function createJSON() {
     Standard: 'Standards',
   };
 
-  // List of elements
-  const ELEMENTS = 'xpl-results-item > div.hide-mobile';
-  // Holds the main information
-  const MAIN = 'div.row.result-item > div.col.result-item-align';
-  // Holds the abstract and various urls
-  const ICONS = 'div.row.doc-access-tools-container';
-
-  // Elements inside MAIN
-  const AUTHORS = `${MAIN} > xpl-authors-name-list > p.author`;
-  const TITLE = `${MAIN} > h2 > a`;
-  const JOURNAL = `${MAIN} > div.description > a`;
-  const DESCRIPTION = `${MAIN} > div.description > div.publisher-info-container`;
-
-  // Elements inside ICONS
-  const ABSTRACT = `${ICONS} > div.js-displayer-content.u-mt-1.stats-SearchResults_DocResult_ViewMore > span`;
-  const ABSTRACT_URL = `${ICONS} > div.js-displayer-content.u-mt-1.stats-SearchResults_DocResult_ViewMore > a`;
-  const PDF_URL = `${ICONS} > ul > li > xpl-view-pdf a[aria-label=PDF]]`;
-  const COURSE_URL = `${ICONS} > ul > li .icon-access_course`;
-  const HTML_URL = `${ICONS} > ul > li a.icon-html`;
+  // Selectors
+  const {
+    ELEMENTS,
+    ICONS,
+    AUTHORS,
+    TITLE,
+    JOURNAL,
+    DESCRIPTION,
+    ABSTRACT,
+    ABSTRACT_URL,
+  } = DATA;
 
   // Retrieves the list of results
   return Array.from(document.querySelectorAll(ELEMENTS)).map((item) => {
@@ -52,14 +45,28 @@ function createJSON() {
     const description = item.querySelector(DESCRIPTION).innerText.split('|').map((el) => el.trim());
     const abstract = item.querySelector(ABSTRACT);
     const abstract_url = item.querySelector(ABSTRACT_URL);
-    const pdf_url = item.querySelector(PDF_URL);
-    const course_url = item.querySelector(COURSE_URL);
-    const html_url = item.querySelector(HTML_URL);
 
     const publication_year = parseInt(description.shift().slice(6), 10);
     const publisher = description.pop().slice(11);
-    const content_type = contentType[description.length === 1 ? description.shift() : description.pop()];
+    const type = description.length === 1 ? description.shift() : description.pop();
+    const content_type = contentType[type];
     if (description.length === 1) [volume, issue] = description.shift().split(',').map((el) => el.trim());
+
+    /* ICONS related fields */
+    let html_url;
+    let pdf_url;
+    let course_url;
+    // First icon is Abstract (whithout the actual content)
+    if (['Journals', 'Conferences', 'Magazines'].includes(content_type)) {
+      html_url = item.querySelector(`${ICONS} > li:nth-child(2) a`);
+      pdf_url = item.querySelector(`${ICONS} > li:nth-child(3) a`);
+    }
+    if (['Books', 'Standards'].includes(content_type)) {
+      pdf_url = item.querySelector(`${ICONS} > li:nth-child(2) a`);
+    }
+    if (content_type === 'Courses') {
+      course_url = item.querySelector(`${ICONS} > li:nth-child(2) a`);
+    }
 
     // The result object will all the must have fields
     const result = {
@@ -74,7 +81,7 @@ function createJSON() {
             const url = value.getAttribute('href');
             if (url) {
               author.authorUrl = ieeeUrl + url;
-              author.id = url.split('/').pop();
+              author.id = parseInt(url.split('/').pop(), 10);
             }
             return author;
           })
@@ -84,19 +91,30 @@ function createJSON() {
 
     // Optional fields of result object, except for article_number which is a must
     if (abstract) result.abstract = abstract.innerText;
-    if (course_url) result.article_number = course_url.getAttribute('href').split('/').pop();
+    if (item.querySelector(TITLE)) {
+      result.article_number = item.querySelector(TITLE).getAttribute('href').split('/').filter(Boolean)
+        .pop();
+    } else {
+      if (course_url) result.article_number = course_url.getAttribute('href').split('/').pop();
+      if (pdf_url) result.article_number = pdf_url.getAttribute('href').match(/\d+/).shift();
+    }
+    //
     if (abstract_url) result.abstract_url = ieeeUrl + abstract_url.getAttribute('href');
     if (html_url) result.html_url = ieeeUrl + html_url.getAttribute('href');
     if (volume) result.volume = volume.slice(8);
     if (issue) result.issue = issue.slice(7);
     if (journal) {
       result.publication_title = journal.innerText;
-      result.publication_number = journal.getAttribute('href').match(/\d+/).shift();
+      result.publication_number = parseInt(journal.getAttribute('href').match(/\d+/).shift(), 10);
     }
     if (pdf_url) {
       result.pdf_url = ieeeUrl + pdf_url.getAttribute('href');
-      result.article_number = pdf_url.getAttribute('href').match(/\d+/).shift();
     }
+    if (type === 'Book') {
+      result.publication_title = title;
+      result.publication_number = parseInt(result.article_number, 10);
+    }
+    if (type === 'Standard') delete result.publication_number;
 
     return result;
   });
