@@ -44,10 +44,14 @@ for (const query in queries) {
   );
 }
 
+function testIf() {
+  return process.env.CI ? test.skip : test;
+}
+
 describe.each(testArray)(
   'Scrapping',
   ({ label, query, expected }) => {
-    test(label, async () => {
+    testIf()(label, async () => {
       const result = (await scrap(query, rangeYear, false)).articles[0];
       delete result.abstract;
       expect(expected).toMatchObject(result);
