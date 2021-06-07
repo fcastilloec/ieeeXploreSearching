@@ -18,19 +18,14 @@ const DESCRIPTION = `${main} > div.description > div.publisher-info-container`;
 // Elements inside ICONS
 const ABSTRACT = `${icons} > div.js-displayer-content.u-mt-1.stats-SearchResults_DocResult_ViewMore > span`;
 const ABSTRACT_URL = `${icons} > div.js-displayer-content.u-mt-1.stats-SearchResults_DocResult_ViewMore > a`;
-const PDF_URL = `${icons} > ul > li > xpl-view-pdf a[aria-label=PDF]`;
-const COURSE_URL = `${icons} > ul > li .icon-access_course`;
-const HTML_URL = `${icons} > ul > li a.icon-html`;
 
 window.DATA = {
   ELEMENTS,
   AUTHORS,
   TITLE,
+  ICONS: `${icons} > ul`,
   JOURNAL,
   DESCRIPTION,
   ABSTRACT,
   ABSTRACT_URL,
-  PDF_URL,
-  COURSE_URL,
-  HTML_URL,
 };

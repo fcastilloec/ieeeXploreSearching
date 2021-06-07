@@ -1,0 +1,65 @@
+[
+ {
+  "title": "An Evolving and Developing Cellular Electronic Circuit",
+  "publisher": "MIT Press",
+  "isbn": "9780262291392",
+  "rank": 1,
+  "authors": {
+   "authors": [
+    {
+     "affiliation": "Brandeis University",
+     "full_name": "Jordan Pollack",
+     "author_order": 1
+    },
+    {
+     "affiliation": "Reed College",
+     "full_name": "Mark A. Bedau",
+     "author_order": 2
+    },
+    {
+     "affiliation": "University of Sussex",
+     "full_name": "Phil Husbands",
+     "author_order": 3
+    },
+    {
+     "full_name": "Richard A. Watson",
+     "author_order": 4
+    },
+    {
+     "affiliation": "University of Tokyo",
+     "full_name": "Takashi Ikegami",
+     "author_order": 5
+    }
+   ]
+  },
+  "access_type": "LOCKED",
+  "content_type": "Books",
+  "abstract": "A novel multi-cellular electronic circuit capable of evolution and development is described here. The circuit is composed of identical cells whose shape and location in the system is arbitrary. Cells all contain the complete genetic description of the final system, as in living organisms. Through a mechanism of development, cells connect to each other using a fully distributed hardware routing mechanism and differentiate by expressing a corresponding part of the genetic code thereby taking a specific functionality and connectivity in the system. The configuration of the system is found by using artificial evolution and intrinsic evolution at the schematic level is possible. Applications include the approximation of boolean functions and the evolution of a controller capable of navigating a Khepera robot while avoiding obstacles. The circuit is suited for a custom chip called POEtic, which is a generic platform to implement bio-inspired applications.",
+  "article_number": "6278817",
+  "pdf_url": "https://ieeexplore.ieee.org/xpl/ebooks/bookPdfWithBanner.jsp?fileName=6278817.pdf&bkn=6267522&pdfType=chapter",
+  "html_url": "https://ieeexplore.ieee.org/document/6278817/",
+  "abstract_url": "https://ieeexplore.ieee.org/document/6278817/",
+  "publication_title": "Artificial Life IX: Proceedings of the Ninth International Conference on the Simulation and Synthesis of Living Systems",
+  "publication_number": 6267522,
+  "publication_year": 2004,
+  "start_page": "33",
+  "end_page": "38",
+  "citing_paper_count": 0,
+  "citing_patent_count": 0,
+  "index_terms": {},
+  "isbn_formats": {
+   "isbns": [
+    {
+     "format": "Electronic ISBN",
+     "value": "9780262291392",
+     "isbnType": "New-2005"
+    },
+    {
+     "format": "Electronic ISBN",
+     "value": "0262291398",
+     "isbnType": "Historical"
+    }
+   ]
+  }
+ }
+]

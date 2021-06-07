@@ -1,0 +1,66 @@
+[
+ {
+  "doi": "10.1109/JCN.2004.6596633",
+  "title": "Characterization of adaptive modulators in fixed wireless ATM networks",
+  "publisher": "KICS",
+  "issue": "2",
+  "issn": "1976-5541",
+  "rank": 1,
+  "volume": "6",
+  "authors": {
+   "authors": [
+    {
+     "affiliation": "Microwave and Wireless Communications Research Lab., Electrical Engineering Department, Amirkabir University of Technology (Tehran Polytechnic), Tehran, Iran",
+     "authorUrl": "https://ieeexplore.ieee.org/author/37265914700",
+     "id": 37265914700,
+     "full_name": "Abbas Mohammadi",
+     "author_order": 1
+    },
+    {
+     "affiliation": "Microwave Research Lab., Vcom Inc., Victoria, Canada",
+     "authorUrl": "https://ieeexplore.ieee.org/author/37290705300",
+     "id": 37290705300,
+     "full_name": "Surinder Kumar",
+     "author_order": 2
+    }
+   ]
+  },
+  "access_type": "LOCKED",
+  "content_type": "Journals",
+  "abstract": "The various challenges to realize a fixed wireless ATM network are discussed and some solutions for these challenges are presented. In this paper, the capacity allocation in wireless ATM, the wireless link impact on ATM traffic, and the optimum utilization of the wireless network resources for a line of sight (LOS) wireless ATM link are studied. An adaptive MQAM modulator is introduced to provide a suitable solution to these issues. The modulator level is adjusted using a unique QoS metric in a wireless network. The metric, termed modified effective bandwidth, takes into account the bandwidth demand, QoS requirements, and outage conditions of the wireless ATM link. A performance study using VBR MPEG-1 video traffic in a fixed wireless channel (Ricean channel) demonstrates the advantages of the proposed system.",
+  "article_number": "6596633",
+  "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=6596633",
+  "html_url": "https://ieeexplore.ieee.org/document/6596633/",
+  "abstract_url": "https://ieeexplore.ieee.org/document/6596633/",
+  "publication_title": "Journal of Communications and Networks",
+  "publication_number": 5449605,
+  "is_number": 6596630,
+  "publication_year": 2004,
+  "publication_date": "June 2004",
+  "start_page": "123",
+  "end_page": "132",
+  "citing_paper_count": 13,
+  "citing_patent_count": 0,
+  "index_terms": {
+   "ieee_terms": {
+    "terms": [
+     "Bandwidth",
+     "Wireless communication",
+     "Modulation",
+     "Streaming media",
+     "Quality of service",
+     "Fading",
+     "Measurement"
+    ]
+   },
+   "author_terms": {
+    "terms": [
+     "Adaptive modulator",
+     "ATM networks",
+     "fixed wireless",
+     "MQAM"
+    ]
+   }
+  }
+ }
+]

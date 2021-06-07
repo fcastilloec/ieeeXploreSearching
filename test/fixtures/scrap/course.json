@@ -1,0 +1,54 @@
+[
+ {
+  "title": "Challenges Near the Limit of CMOS Scaling",
+  "publisher": "IEEE",
+  "isbn": "0-7803-9645-6",
+  "rank": 1,
+  "authors": {
+   "authors": [
+    {
+     "full_name": "Yuan Taur",
+     "author_order": 1
+    }
+   ]
+  },
+  "access_type": "LOCKED",
+  "content_type": "Courses",
+  "abstract": "Beginning with a brief review of CMOS scaling trends from 1 &#194;&#181;m to 0.1 &#194;&#181;m; this tutorial examines the fundamental factors that will ultimately limit CMOS scaling and considers the design issues near the limit of scaling. The fundamental limiting factors are electron thermal energy; tunneling leakage through gate oxide; and 2D electrostatic scale length. Both the standby power and the active power of a processor chip will increase precipitously below the 0.1-m or 100-nm technology generation. To extend CMOS scaling to the shortest channel length possible while still gaining significant performance benefit, an optimized, vertically and laterally nonuniform doping design (superhalo) is presented. It is projected that room-temperature CMOS will be scaled to 20-nm channel length with the superhalo profile. Low-temperature CMOS allows additional design space to further extend CMOS scaling to near 10 nm. ",
+  "article_number": "EDP006",
+  "html_url": "https://ieeexplore.ieee.org/courses/details/EDP006",
+  "abstract_url": "https://ieeexplore.ieee.org/courses/details/EDP006",
+  "publication_title": "Challenges Near the Limit of CMOS Scaling",
+  "publication_year": 2004,
+  "publication_date": "12/1/2004",
+  "citing_paper_count": 0,
+  "citing_patent_count": 0,
+  "index_terms": {
+   "ieee_terms": {
+    "terms": [
+     "CMOS technology",
+     "Scalability",
+     "Tutorials",
+     "Thermal energy",
+     "Logic gates",
+     "Tunneling",
+     "Gate leakage",
+     "MOSFET",
+     "Design methodology",
+     "Leakage currents",
+     "FinFETs",
+     "Subthreshold current",
+     "Volume measurement"
+    ]
+   }
+  },
+  "isbn_formats": {
+   "isbns": [
+    {
+     "format": "Electronic ISBN",
+     "value": "0-7803-9645-6"
+    }
+   ]
+  }
+ }
+]
