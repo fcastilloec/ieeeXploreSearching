@@ -1,13 +1,25 @@
+/* eslint-disable no-restricted-syntax, guard-for-in, global-require */
 const { scrap } = require('../src/lib/ieeeAPI');
-const book = require('./fixtures/scrap/book.json');
-const bookChapter = require('./fixtures/scrap/bookChapter.json');
-const conferencePaper = require('./fixtures/scrap/conferencePaper.json');
-const course = require('./fixtures/scrap/course.json');
-const magazineArticle = require('./fixtures/scrap/magazineArticle.json');
-const journalArticle = require('./fixtures/scrap/journalArticle.json');
-const standard = require('./fixtures/scrap/standard.json');
 
-const rangeYear = [2004, 2004];
+const expectedJson = {
+  book: require('./fixtures/scrap/book.json'),
+  bookChapter: require('./fixtures/scrap/bookChapter.json'),
+  conferencePaper: require('./fixtures/scrap/conferencePaper.json'),
+  course: require('./fixtures/scrap/course.json'),
+  magazineArticle: require('./fixtures/scrap/magazineArticle.json'),
+  journalArticle: require('./fixtures/scrap/journalArticle.json'),
+  standard: require('./fixtures/scrap/standard.json'),
+};
+
+const labels = {
+  book: 'Books',
+  bookChapter: 'Book Chapter',
+  conferencePaper: 'Conference Paper',
+  course: 'Course',
+  magazineArticle: 'Magazine Article',
+  journalArticle: 'Journal Article',
+  standard: 'Standards',
+};
 
 const queries = {
   book: '"3G CDMA2000 Wireless Engineering"',
@@ -19,44 +31,27 @@ const queries = {
   standard: '"IEEE Guide to the Installation of Overhead Transmission Line Conductors"',
 };
 
-test('Book', async () => {
-  const result = (await scrap(queries.book, rangeYear, false)).articles[0];
-  delete result.abstract;
-  expect(book[0]).toMatchObject(result);
-});
+const rangeYear = [2004, 2004];
 
-test('Book Chapter', async () => {
-  const result = (await scrap(queries.bookChapter, rangeYear, false)).articles[0];
-  delete result.abstract;
-  expect(bookChapter[0]).toMatchObject(result);
-});
+const testArray = [];
+for (const query in queries) {
+  testArray.push(
+    {
+      label: labels[query],
+      query: queries[query],
+      expected: expectedJson[query][0],
+    },
+  );
+}
 
-test('Conference Paper', async () => {
-  const result = (await scrap(queries.conferencePaper, rangeYear, false)).articles[0];
-  delete result.abstract;
-  expect(conferencePaper[0]).toMatchObject(result);
-});
-
-test('Course', async () => {
-  const result = (await scrap(queries.course, rangeYear, false)).articles[0];
-  delete result.abstract;
-  expect(course[0]).toMatchObject(result);
-});
-
-test('Magazine Article', async () => {
-  const result = (await scrap(queries.magazineArticle, rangeYear, false)).articles[0];
-  delete result.abstract;
-  expect(magazineArticle[0]).toMatchObject(result);
-});
-
-test('Journal Article', async () => {
-  const result = (await scrap(queries.journalArticle, rangeYear, false)).articles[0];
-  delete result.abstract;
-  expect(journalArticle[0]).toMatchObject(result);
-});
-
-test('Standard', async () => {
-  const result = (await scrap(queries.standard, rangeYear, false)).articles[0];
-  delete result.abstract;
-  expect(standard[0]).toMatchObject(result);
-});
+describe.each(testArray)(
+  'Scrapping',
+  ({ label, query, expected }) => {
+    test(label, async () => {
+      const result = (await scrap(query, rangeYear, false)).articles[0];
+      delete result.abstract;
+      expect(expected).toMatchObject(result);
+    });
+  },
+  20000,
+);
