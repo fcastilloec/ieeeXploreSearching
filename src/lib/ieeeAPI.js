@@ -14,8 +14,8 @@ const createJSON = require('./createJson');
  * @return  {object[]}            All the IEEE results from each page, from 'createJson' function.
  */
 async function scrap(queryText, rangeYear, verbose) {
-  const ieeeUrl = 'https://ieeexplore.ieee.org/search/searchresult.jsp?queryText=';
-  const ELEMENTS = 'xpl-results-item > div.hide-mobile > div.row.result-item > div.col.result-item-align';
+  const ieeeSearchUrl = 'https://ieeexplore.ieee.org/search/searchresult.jsp?queryText=';
+  const ELEMENTS = 'xpl-results-item > div.hide-mobile';
   const NO_RESULTS = 'div.List-results-message.List-results-none';
   const NEXT = 'div.ng-SearchResults.row > div.main-section > xpl-paginator > div.pagination-bar.hide-mobile > ul '
     + '> li.next-btn > a';
@@ -41,7 +41,7 @@ async function scrap(queryText, rangeYear, verbose) {
     });
     const page = await browser.newPage();
     page.setDefaultTimeout(10000); // only wait 10 secs, any longer and it means there's no results
-    await page.goto(ieeeUrl + query);
+    await page.goto(ieeeSearchUrl + query);
 
     // Check if there are no results
     if (await page.$(NO_RESULTS)) {
@@ -50,6 +50,7 @@ async function scrap(queryText, rangeYear, verbose) {
     }
 
     await page.waitForSelector(ELEMENTS); // Wait until javascript loads all results
+    await page.addScriptTag({ path: './src/lib/constants.js' }); // Add all selectors as variables to window
     results = await page.evaluate(createJSON); // create JSON with results of first page
 
     // TODO: check what happens when a single page of results or no results happen

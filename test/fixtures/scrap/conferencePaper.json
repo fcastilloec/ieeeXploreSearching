@@ -1,0 +1,79 @@
+[
+ {
+  "doi": "10.1109/ICASSP.2004.1326466",
+  "title": "Robust two-camera tracking using homography",
+  "publisher": "IEEE",
+  "isbn": "0-7803-8484-9",
+  "issn": "1520-6149",
+  "rank": 1,
+  "volume": "3",
+  "authors": {
+   "authors": [
+    {
+     "affiliation": "Dept. of Electr. & Comput. Eng., Maryland Univ., College Park, MD, USA",
+     "authorUrl": "https://ieeexplore.ieee.org/author/37272875300",
+     "id": 37272875300,
+     "full_name": "Zhanfeng Yue",
+     "author_order": 1
+    },
+    {
+     "affiliation": "Dept. of Electr. & Comput. Eng., Maryland Univ., College Park, MD, USA",
+     "authorUrl": "https://ieeexplore.ieee.org/author/37276853500",
+     "id": 37276853500,
+     "full_name": "S.K. Zhou",
+     "author_order": 2
+    },
+    {
+     "affiliation": "Dept. of Electr. & Comput. Eng., Maryland Univ., College Park, MD, USA",
+     "authorUrl": "https://ieeexplore.ieee.org/author/37274537000",
+     "id": 37274537000,
+     "full_name": "R. Chellappa",
+     "author_order": 3
+    }
+   ]
+  },
+  "access_type": "LOCKED",
+  "content_type": "Conferences",
+  "abstract": "The paper introduces a two view tracking method which uses the homography relation between the two views to handle occlusions. An adaptive appearance-based model is incorporated in a particle filter to realize robust visual tracking. Occlusion is detected using robust statistics. When there is occlusion in one view, the homography from this view to other views is estimated from previous tracking results and used to infer the correct transformation for the occluded view. Experimental results show the robustness of the two view tracker.",
+  "article_number": "1326466",
+  "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1326466",
+  "html_url": "https://ieeexplore.ieee.org/document/1326466/",
+  "abstract_url": "https://ieeexplore.ieee.org/document/1326466/",
+  "publication_title": "2004 IEEE International Conference on Acoustics, Speech, and Signal Processing",
+  "conference_location": "Montreal, QC, Canada",
+  "conference_dates": "17-21 May 2004",
+  "publication_number": 9248,
+  "is_number": 29345,
+  "publication_year": 2004,
+  "publication_date": "17-21 May 2004",
+  "start_page": "iii",
+  "end_page": "1",
+  "citing_paper_count": 9,
+  "citing_patent_count": 0,
+  "index_terms": {
+   "ieee_terms": {
+    "terms": [
+     "Robustness",
+     "Target tracking",
+     "Cameras",
+     "Statistics",
+     "Maximum likelihood detection",
+     "Bayesian methods",
+     "Collaboration",
+     "Government",
+     "Fuses",
+     "Motion estimation"
+    ]
+   }
+  },
+  "isbn_formats": {
+   "isbns": [
+    {
+     "format": "Print ISBN",
+     "value": "0-7803-8484-9",
+     "isbnType": "Historical"
+    }
+   ]
+  }
+ }
+]

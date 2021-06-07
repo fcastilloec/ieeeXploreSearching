@@ -8,6 +8,7 @@ const config = {
   coveragePathIgnorePatterns: [
     'src/lib/apiKey.js',
     'src/lib/configDirectory.js',
+    'src/lib/constants.js',
     'src/lib/createJson.js',
     'src/lib/ieeeAPI.js',
   ],
