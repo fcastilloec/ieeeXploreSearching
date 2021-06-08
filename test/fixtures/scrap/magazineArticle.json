@@ -1,16 +1,14 @@
 [
  {
-  "doi": "10.1109/MCOM.2004.1316535",
+  "article_number": "1316535",
   "title": "Applying the Web ontology language to management information definitions",
+  "publication_year": 2004,
   "publisher": "IEEE",
-  "issue": "7",
-  "issn": "1558-1896",
-  "rank": 1,
-  "volume": "42",
+  "content_type": "Magazines",
+  "publication_title": "IEEE Communications Magazine",
   "authors": {
    "authors": [
     {
-     "affiliation": "Univ. Autonoma de Madrid, Spain",
      "authorUrl": "https://ieeexplore.ieee.org/author/37272981700",
      "id": 37272981700,
      "full_name": "J.E.L. de Vergara",
@@ -30,37 +28,11 @@
     }
    ]
   },
-  "access_type": "LOCKED",
-  "content_type": "Magazines",
-  "abstract": "The extended markup language (XML) has emerged in the Internet world as a standard representation format, which can be useful to describe and transmit management information. However, XML formats alone do not give formal semantics to it. To solve this question, ontology languages based on the resource description framework can be used to improve the expressiveness of management information specifications. This article presents an approach that uses an XML-based ontology language to define network and system management information. For this, the structures of the Web ontology language known as OWL are analyzed and compared to those used in management definitions, also studying the advantages ontology languages can provide in this area.",
-  "article_number": "1316535",
-  "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1316535",
-  "html_url": "https://ieeexplore.ieee.org/document/1316535/",
   "abstract_url": "https://ieeexplore.ieee.org/document/1316535/",
-  "publication_title": "IEEE Communications Magazine",
   "publication_number": 35,
-  "is_number": 29172,
-  "publication_year": 2004,
-  "publication_date": "July 2004",
-  "start_page": "68",
-  "end_page": "74",
-  "citing_paper_count": 62,
-  "citing_patent_count": 1,
-  "index_terms": {
-   "ieee_terms": {
-    "terms": [
-     "OWL",
-     "Information management",
-     "Ontologies",
-     "XML",
-     "Resource description framework",
-     "Knowledge management",
-     "Markup languages",
-     "Internet",
-     "Aging",
-     "Engineering management"
-    ]
-   }
-  }
+  "html_url": "https://ieeexplore.ieee.org/document/1316535/",
+  "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1316535",
+  "volume": "42",
+  "issue": "7"
  }
 ]

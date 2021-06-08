@@ -12,7 +12,7 @@ const icons = 'div.row.doc-access-tools-container';
 // Elements inside MAIN
 const AUTHORS = `${main} > xpl-authors-name-list > p.author`;
 const TITLE = `${main} > h2 > a`;
-const JOURNAL = `${main} > div.description > a`;
+const PUBLICATION = `${main} > div.description > a`;
 const DESCRIPTION = `${main} > div.description > div.publisher-info-container`;
 
 // Elements inside ICONS
@@ -23,8 +23,8 @@ window.DATA = {
   ELEMENTS,
   AUTHORS,
   TITLE,
-  ICONS: `${icons} > ul`,
-  JOURNAL,
+  ICONS: `${icons} > ul > li`,
+  PUBLICATION,
   DESCRIPTION,
   ABSTRACT,
   ABSTRACT_URL,
