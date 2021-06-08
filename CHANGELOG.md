@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.0](https://github.com/fcastilloec/ieeeXploreSearching/compare/v3.0.2...v4.0.0) (2021-06-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* **cli:** The API key is no longer set using environment variables.
+The script will ask and save the key for all future uses.
+
+### Features
+
+* **cli:** ask for API key on the first run ([#148](https://github.com/fcastilloec/ieeeXploreSearching/issues/148)) ([7346d9b](https://github.com/fcastilloec/ieeeXploreSearching/commit/7346d9bdfe2fcd104a1f0a8ef6f8a8384a4c17ea))
+
+
+### Bug Fixes
+
+* make sure publication year is an integer ([16be7fd](https://github.com/fcastilloec/ieeeXploreSearching/commit/16be7fd359ec4d82bf4ee7267315db0eecdcd9c2))
+* selector for pdf_url ([006f4e4](https://github.com/fcastilloec/ieeeXploreSearching/commit/006f4e4577e18e62b71b4a0fc6c72c3ce6880026))
+
 ### [3.0.2](https://github.com/fcastilloec/ieeeXploreSearching/compare/v3.0.1...v3.0.2) (2021-05-22)
 
 
