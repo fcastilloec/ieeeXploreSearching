@@ -1,9 +1,10 @@
 [
  {
+  "article_number": "9100678",
   "title": "3G CDMA2000 Wireless Engineering",
+  "publication_year": 2004,
   "publisher": "Artech",
-  "isbn": "9781580537582",
-  "rank": 1,
+  "content_type": "Books",
   "authors": {
    "authors": [
     {
@@ -12,32 +13,10 @@
     }
    ]
   },
-  "access_type": "LOCKED",
-  "content_type": "Books",
-  "abstract": "Breaking down complex technology into easy-to-understand concepts, this hands-on, system-level resource offers expert guidance in designing, optimizing, and managing a CDMA2000 wireless network. The book focuses on the development of practical knowledge that can be readily applied in the field, and also provides the theoretical background needed to effectively engineer a 3G network. Offering a deeper, richer treatment of critical topics than other books in this area, this unique reference concentrates on howù and whyù the technology works in addition to providing descriptions of technology. You learn the key requirements of a 3G network and the relevant CDMA2000 features that satisfy these requirements. The book thoroughly explains the protocol layer framework and provides an in-depth discussion of power control and handoff functionalities. Additionally, it delivers an extensive treatment of system performance and design, addressing the important tradeoff between system coverage and capacity. A chapter on network architecture clearly explains how the CDMA2000 interface works and interacts with other elements in the network as a whole. Moreover, the book includes a detailed presentation of 1xEV-DO, explaining the differences between 1xEV-DO and CDMA2000, the ways both technologies operate in tandem, and how 1xEV-DO delivers high-rate packet data services.",
-  "article_number": "9100678",
-  "pdf_url": "https://ieeexplore.ieee.org/xpl/ebooks/bookPdfWithBanner.jsp?fileName=9100679.pdf&bkn=9100678&pdfType=book",
-  "html_url": "https://ieeexplore.ieee.org/document/9100678/",
-  "abstract_url": "https://ieeexplore.ieee.org/document/9100678/",
   "publication_title": "3G CDMA2000 Wireless Engineering",
+  "abstract_url": "https://ieeexplore.ieee.org/document/9100678/",
   "publication_number": 9100678,
-  "publication_year": 2004,
-  "citing_paper_count": 0,
-  "citing_patent_count": 0,
-  "index_terms": {},
-  "isbn_formats": {
-   "isbns": [
-    {
-     "format": "Electronic ISBN",
-     "value": "9781580537582",
-     "isbnType": "New-2005"
-    },
-    {
-     "format": "Electronic ISBN",
-     "value": "1580537588",
-     "isbnType": "Historical"
-    }
-   ]
-  }
+  "html_url": "https://ieeexplore.ieee.org/document/9100678/",
+  "pdf_url": "https://ieeexplore.ieee.org/xpl/ebooks/bookPdfWithBanner.jsp?fileName=9100679.pdf&bkn=9100678&pdfType=book"
  }
 ]

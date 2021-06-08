@@ -1,5 +1,6 @@
 /* eslint-disable no-restricted-syntax, guard-for-in, global-require */
 const { scrap } = require('../src/lib/ieeeAPI');
+const untitled = require('./fixtures/scrap/untitled.json');
 
 const expectedJson = {
   book: require('./fixtures/scrap/book.json'),
@@ -54,8 +55,17 @@ describe.each(testArray)(
     testIf()(label, async () => {
       const result = (await scrap(query, rangeYear, false)).articles[0];
       delete result.abstract;
-      expect(expected).toMatchObject(result);
+      expect(result).toMatchObject(expected);
     });
   },
   20000,
 );
+
+describe('Scrapping', () => {
+  testIf()('Title without link', async () => {
+    const result = (await scrap('optics AND nano AND QELS', [2000, 2000], false)).articles[1];
+    delete result.abstract;
+    expect(result).toMatchObject(untitled[1]);
+  },
+  20000);
+});
