@@ -1,6 +1,7 @@
 const axios = require('axios').default;
 const https = require('https');
 const locateChrome = require('locate-chrome');
+const path = require('path');
 const puppeteer = require('puppeteer-core');
 const createJSON = require('./createJson');
 
@@ -50,7 +51,9 @@ async function scrap(queryText, rangeYear, verbose) {
     }
 
     await page.waitForSelector(ELEMENTS); // Wait until javascript loads all results
-    await page.addScriptTag({ path: './src/lib/constants.js' }); // Add all selectors as variables to window
+    await page.addScriptTag({
+      path: path.join(__dirname, 'constants.js'),
+    }); // Add all selectors as variables to window
     results = await page.evaluate(createJSON); // create JSON with results of first page
 
     // TODO: check what happens when a single page of results or no results happen
