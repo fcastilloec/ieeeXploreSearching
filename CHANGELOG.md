@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.1](https://github.com/fcastilloec/ieeeXploreSearching/compare/v4.0.0...v4.0.1) (2021-06-18)
+
+
+### Bug Fixes
+
+* use absolute path for constants.js ([f1fd981](https://github.com/fcastilloec/ieeeXploreSearching/commit/f1fd981d37dceee90f366b246005283779fa2bf1))
+
 ## [4.0.0](https://github.com/fcastilloec/ieeeXploreSearching/compare/v3.0.2...v4.0.0) (2021-06-08)
 
 
