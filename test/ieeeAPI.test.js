@@ -2,6 +2,8 @@
 const { scrap } = require('../src/lib/ieeeAPI');
 const untitled = require('./fixtures/scrap/untitled.json');
 
+const timeout = 20000;
+
 const expectedJson = {
   book: require('./fixtures/scrap/book.json'),
   bookChapter: require('./fixtures/scrap/bookChapter.json'),
@@ -58,7 +60,7 @@ describe.each(testArray)(
       expect(result).toMatchObject(expected);
     });
   },
-  20000,
+  timeout,
 );
 
 describe('Scrapping', () => {
@@ -67,5 +69,5 @@ describe('Scrapping', () => {
     delete result.abstract;
     expect(result).toMatchObject(untitled[1]);
   },
-  20000);
+  timeout);
 });
