@@ -43,6 +43,7 @@ async function scrap(queryText, rangeYear, verbose) {
     const page = await browser.newPage();
     page.setDefaultTimeout(10000); // only wait 10 secs, any longer and it means there's no results
     await page.goto(ieeeSearchUrl + query);
+    if (page.url() !== ieeeSearchUrl + query) throw new Error('IEEE redirected, probably maintenance is happening');
 
     // Check if there are no results
     if (await page.$(NO_RESULTS)) {
@@ -71,7 +72,7 @@ async function scrap(queryText, rangeYear, verbose) {
   } catch (error) {
     if (browser) await browser.close();
     console.error(`Error scrapping results:\n${error.message}`);
-    process.exit(2);
+    if (process.env.NODE_ENV !== 'test') process.exit(2);
   }
   if (verbose) { console.log('Total number of pages: %s\n', totalPages); }
   return { total_records: results.length, articles: results };
@@ -123,7 +124,7 @@ async function api(apiKey, queryText, rangeYear, verbose) {
     error.response
       ? console.error(`Error code: ${error.response.status}\nError data: ${error.response.data}`)
       : console.error(error.message);
-    process.exit(3);
+    if (process.env.NODE_ENV !== 'test') process.exit(3);
   }
   if (verbose) console.log('REQUEST PATH:\t%s\n', response.request.path);
   if (verbose >= 2) console.log('RESPONSE:\t%o', response);
