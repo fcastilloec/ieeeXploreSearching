@@ -29,7 +29,7 @@
     "fs-extra": "^10.0.0",
     "locate-chrome": "^0.1.1",
     "lodash": "^4.17.21",
-    "puppeteer-core": "^10.1.0",
+    "puppeteer-core": "^10.2.0",
     "readline-sync": "^1.4.10",
     "yargs": "^17.1.0"
   },
