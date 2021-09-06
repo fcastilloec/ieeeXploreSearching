@@ -24,7 +24,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "axios": "^0.21.1",
+    "axios": "^0.21.4",
     "excel4node": "^1.7.2",
     "fs-extra": "^10.0.0",
     "locate-chrome": "^0.1.1",
