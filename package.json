@@ -37,7 +37,7 @@
     "@commitlint/cli": "^14.1.0",
     "@commitlint/config-conventional": "^14.1.0",
     "eslint": "^8.2.0",
-    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-airbnb": "^19.0.0",
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-jest": "^25.2.4",
     "eslint-plugin-jsx-a11y": "^6.4.1",
