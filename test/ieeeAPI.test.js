@@ -64,10 +64,13 @@ describe.each(testArray)(
 );
 
 describe('Scrapping', () => {
-  testIf()('Title without link', async () => {
-    const result = (await scrap('optics AND nano AND QELS', [2000, 2000], false)).articles[1];
-    delete result.abstract;
-    expect(result).toMatchObject(untitled[1]);
-  },
-  timeout);
+  testIf()(
+    'Title without link',
+    async () => {
+      const result = (await scrap('optics AND nano AND QELS', [2000, 2000], false)).articles[1];
+      delete result.abstract;
+      expect(result).toMatchObject(untitled[1]);
+    },
+    timeout,
+  );
 });
