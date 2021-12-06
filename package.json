@@ -31,20 +31,20 @@
     "lodash": "^4.17.21",
     "puppeteer-core": "^12.0.1",
     "readline-sync": "^1.4.10",
-    "yargs": "^17.2.1"
+    "yargs": "^17.3.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^15.0.0",
     "@commitlint/config-conventional": "^15.0.0",
-    "eslint": "^8.3.0",
-    "eslint-config-airbnb": "^19.0.1",
+    "eslint": "^8.4.0",
+    "eslint-config-airbnb": "^19.0.2",
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-jest": "^25.3.0",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.27.1",
     "eslint-plugin-react-hooks": "^4.3.0",
     "husky": "^7.0.4",
-    "jest": "^27.4.0",
+    "jest": "^27.4.3",
     "pkg": "^5.5.1",
     "standard-version": "^9.3.2"
   }
