@@ -1,22 +1,22 @@
 [
- {
-  "article_number": "9100678",
-  "title": "3G CDMA2000 Wireless Engineering",
-  "publication_year": 2004,
-  "publisher": "Artech",
-  "content_type": "Books",
-  "authors": {
-   "authors": [
-    {
-     "full_name": "Samuel Yang",
-     "author_order": 1
-    }
-   ]
-  },
-  "publication_title": "3G CDMA2000 Wireless Engineering",
-  "abstract_url": "https://ieeexplore.ieee.org/document/9100678/",
-  "publication_number": 9100678,
-  "html_url": "https://ieeexplore.ieee.org/document/9100678/",
-  "pdf_url": "https://ieeexplore.ieee.org/xpl/ebooks/bookPdfWithBanner.jsp?fileName=9100679.pdf&bkn=9100678&pdfType=book"
- }
+  {
+    "article_number": "9100678",
+    "title": "3G CDMA2000 Wireless Engineering",
+    "publication_year": 2004,
+    "publisher": "Artech",
+    "content_type": "Books",
+    "authors": {
+      "authors": [
+        {
+          "full_name": "Samuel Yang",
+          "author_order": 1
+        }
+      ]
+    },
+    "publication_title": "3G CDMA2000 Wireless Engineering",
+    "abstract_url": "https://ieeexplore.ieee.org/document/9100678/",
+    "publication_number": 9100678,
+    "html_url": "https://ieeexplore.ieee.org/document/9100678/",
+    "pdf_url": "https://ieeexplore.ieee.org/xpl/ebooks/bookPdfWithBanner.jsp?fileName=9100679.pdf&bkn=9100678&pdfType=book"
+  }
 ]
