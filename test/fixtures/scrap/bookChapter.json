@@ -1,38 +1,38 @@
 [
- {
-  "article_number": "6278817",
-  "title": "An Evolving and Developing Cellular Electronic Circuit",
-  "publication_year": 2004,
-  "publisher": "MIT Press",
-  "content_type": "Books",
-  "publication_title": "Artificial Life IX: Proceedings of the Ninth International Conference on the Simulation and Synthesis of Living Systems",
-  "authors": {
-   "authors": [
-    {
-     "full_name": "Jordan Pollack",
-     "author_order": 1
+  {
+    "article_number": "6278817",
+    "title": "An Evolving and Developing Cellular Electronic Circuit",
+    "publication_year": 2004,
+    "publisher": "MIT Press",
+    "content_type": "Books",
+    "publication_title": "Artificial Life IX: Proceedings of the Ninth International Conference on the Simulation and Synthesis of Living Systems",
+    "authors": {
+      "authors": [
+        {
+          "full_name": "Jordan Pollack",
+          "author_order": 1
+        },
+        {
+          "full_name": "Mark A. Bedau",
+          "author_order": 2
+        },
+        {
+          "full_name": "Phil Husbands",
+          "author_order": 3
+        },
+        {
+          "full_name": "Richard A. Watson",
+          "author_order": 4
+        },
+        {
+          "full_name": "Takashi Ikegami",
+          "author_order": 5
+        }
+      ]
     },
-    {
-     "full_name": "Mark A. Bedau",
-     "author_order": 2
-    },
-    {
-     "full_name": "Phil Husbands",
-     "author_order": 3
-    },
-    {
-     "full_name": "Richard A. Watson",
-     "author_order": 4
-    },
-    {
-     "full_name": "Takashi Ikegami",
-     "author_order": 5
-    }
-   ]
-  },
-  "abstract_url": "https://ieeexplore.ieee.org/document/6278817/",
-  "publication_number": 6267522,
-  "html_url": "https://ieeexplore.ieee.org/document/6278817/",
-  "pdf_url": "https://ieeexplore.ieee.org/xpl/ebooks/bookPdfWithBanner.jsp?fileName=6278817.pdf&bkn=6267522&pdfType=chapter"
- }
+    "abstract_url": "https://ieeexplore.ieee.org/document/6278817/",
+    "publication_number": 6267522,
+    "html_url": "https://ieeexplore.ieee.org/document/6278817/",
+    "pdf_url": "https://ieeexplore.ieee.org/xpl/ebooks/bookPdfWithBanner.jsp?fileName=6278817.pdf&bkn=6267522&pdfType=chapter"
+  }
 ]
