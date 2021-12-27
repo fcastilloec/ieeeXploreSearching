@@ -1,37 +1,37 @@
 [
- {
-  "article_number": "1326466",
-  "title": "Robust two-camera tracking using homography",
-  "publication_year": 2004,
-  "publisher": "IEEE",
-  "content_type": "Conferences",
-  "publication_title": "2004 IEEE International Conference on Acoustics, Speech, and Signal Processing",
-  "authors": {
-   "authors": [
-    {
-     "authorUrl": "https://ieeexplore.ieee.org/author/37272875300",
-     "id": 37272875300,
-     "full_name": "Zhanfeng Yue",
-     "author_order": 1
+  {
+    "article_number": "1326466",
+    "title": "Robust two-camera tracking using homography",
+    "publication_year": 2004,
+    "publisher": "IEEE",
+    "content_type": "Conferences",
+    "publication_title": "2004 IEEE International Conference on Acoustics, Speech, and Signal Processing",
+    "authors": {
+      "authors": [
+        {
+          "authorUrl": "https://ieeexplore.ieee.org/author/37087254484",
+          "id": 37087254484,
+          "full_name": "Zhanfeng Yue",
+          "author_order": 1
+        },
+        {
+          "authorUrl": "https://ieeexplore.ieee.org/author/37276853500",
+          "id": 37276853500,
+          "full_name": "S.K. Zhou",
+          "author_order": 2
+        },
+        {
+          "authorUrl": "https://ieeexplore.ieee.org/author/37274537000",
+          "id": 37274537000,
+          "full_name": "R. Chellappa",
+          "author_order": 3
+        }
+      ]
     },
-    {
-     "authorUrl": "https://ieeexplore.ieee.org/author/37276853500",
-     "id": 37276853500,
-     "full_name": "S.K. Zhou",
-     "author_order": 2
-    },
-    {
-     "authorUrl": "https://ieeexplore.ieee.org/author/37274537000",
-     "id": 37274537000,
-     "full_name": "R. Chellappa",
-     "author_order": 3
-    }
-   ]
-  },
-  "abstract_url": "https://ieeexplore.ieee.org/document/1326466/",
-  "publication_number": 9248,
-  "html_url": "https://ieeexplore.ieee.org/document/1326466/",
-  "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1326466",
-  "volume": "3"
- }
+    "abstract_url": "https://ieeexplore.ieee.org/document/1326466/",
+    "publication_number": 9248,
+    "html_url": "https://ieeexplore.ieee.org/document/1326466/",
+    "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1326466",
+    "volume": "3"
+  }
 ]
