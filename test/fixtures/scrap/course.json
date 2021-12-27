@@ -1,20 +1,20 @@
 [
- {
-  "article_number": "EDP006",
-  "title": "Challenges Near the Limit of CMOS Scaling",
-  "publication_year": 2004,
-  "publisher": "IEEE",
-  "content_type": "Courses",
-  "publication_title": "Challenges Near the Limit of CMOS Scaling",
-  "authors": {
-   "authors": [
-    {
-     "full_name": "Yuan Taur",
-     "author_order": 1
-    }
-   ]
-  },
-  "abstract_url": "https://ieeexplore.ieee.org/courses/details/EDP006",
-  "html_url": "https://ieeexplore.ieee.org/courses/details/EDP006"
- }
+  {
+    "article_number": "EDP006",
+    "title": "Challenges Near the Limit of CMOS Scaling",
+    "publication_year": 2004,
+    "publisher": "IEEE",
+    "content_type": "Courses",
+    "publication_title": "Challenges Near the Limit of CMOS Scaling",
+    "authors": {
+      "authors": [
+        {
+          "full_name": "Yuan Taur",
+          "author_order": 1
+        }
+      ]
+    },
+    "abstract_url": "https://ieeexplore.ieee.org/courses/details/EDP006",
+    "html_url": "https://ieeexplore.ieee.org/courses/details/EDP006"
+  }
 ]
