@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.2](https://github.com/fcastilloec/ieeeXploreSearching/compare/v4.0.1...v4.0.2) (2022-01-04)
+
+
+### Bug Fixes
+
+* use working sci-hub URL ([94d7a0c](https://github.com/fcastilloec/ieeeXploreSearching/commit/94d7a0ca379ef8de846c0908a1bad27bd3d82770))
+* **excel:** change sci-hub url ([425e0c4](https://github.com/fcastilloec/ieeeXploreSearching/commit/425e0c48b461fecc9f2ddb529574ec48f67e957a))
+* **scrap:** check for redirections ([93d6ed0](https://github.com/fcastilloec/ieeeXploreSearching/commit/93d6ed0f49ef0affc592164a316e6f144d1e507f))
+
+
+### Dependencies
+
+* bump `axios` to `0.24.0`
+* bump `puppeteer-core` to `13.0.1`
+* bump `yargs` to `17.3.1`
+
 ### [4.0.1](https://github.com/fcastilloec/ieeeXploreSearching/compare/v4.0.0...v4.0.1) (2021-06-18)
 
 
