@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-syntax, guard-for-in, global-require */
-const { scrap } = require('../src/lib/ieeeAPI');
+const { api, scrap } = require('../src/lib/ieeeAPI');
 const untitled = require('./fixtures/scrap/untitled.json');
 
 const timeout = 20000;
@@ -74,3 +74,15 @@ describe('Scrapping', () => {
     timeout,
   );
 });
+
+describe.each(testArray)(
+  'Official API',
+  ({ label, query, expected }) => {
+    testIf()(label, async () => {
+      const result = (await api(process.env.APIKEY, query, rangeYear, false)).articles[0];
+      delete result.abstract;
+      expect(result).toMatchObject(expected);
+    });
+  },
+  timeout,
+);
