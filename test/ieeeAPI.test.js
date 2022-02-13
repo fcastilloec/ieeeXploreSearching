@@ -1,4 +1,4 @@
-/* eslint-disable no-restricted-syntax, guard-for-in, global-require */
+/* eslint-disable global-require */
 const { api, scrap } = require('../src/lib/ieeeAPI');
 const untitled = require('./fixtures/scrap/untitled.json');
 
@@ -37,7 +37,7 @@ const queries = {
 const rangeYear = [2004, 2004];
 
 const testArray = [];
-for (const query in queries) {
+Object.keys(queries).forEach((query) => {
   testArray.push(
     {
       label: labels[query],
@@ -45,7 +45,7 @@ for (const query in queries) {
       expected: expectedJson[query][0],
     },
   );
-}
+});
 
 function testIf() {
   return process.env.CI ? test.skip : test;
