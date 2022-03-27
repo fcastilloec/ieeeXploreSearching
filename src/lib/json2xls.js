@@ -37,7 +37,7 @@ async function fromResults(results, xlsFilename) {
     sciHubBaseUrl: 11,
   };
 
-  const sciHubUrl = 'https://sci-hub.se/';
+  const sciHubUrl = 'https://sci-hub.ee/';
 
   const wb = new xl.Workbook({
     defaultFont: {
