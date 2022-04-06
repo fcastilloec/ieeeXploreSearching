@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.4](https://github.com/fcastilloec/ieeeXploreSearching/compare/v4.0.3...v4.0.4) (2022-04-06)
+
+
+### Bug Fixes
+
+* use new SciHub url ([d1d87c2](https://github.com/fcastilloec/ieeeXploreSearching/commit/d1d87c21108333dec907082110f0847aa6d94c3a))
+
+
+### Dependencies
+
+* bump `axios` to `0.26.1`
+* bump `fs-extra` to `10.0.1`
+* bump `puppeteer-core` to `13.5.2`
+* bump `yargs` to `17.4.0`
+
 ### [4.0.3](https://github.com/fcastilloec/ieeeXploreSearching/compare/v4.0.2...v4.0.3) (2022-03-07)
 
 
