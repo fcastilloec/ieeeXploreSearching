@@ -24,27 +24,27 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "axios": "^0.27.1",
+    "axios": "^0.27.2",
     "excel4node": "^1.7.2",
     "fs-extra": "^10.1.0",
     "locate-chrome": "^0.1.1",
     "lodash": "^4.17.21",
-    "puppeteer-core": "^13.6.0",
+    "puppeteer-core": "^13.7.0",
     "readline-sync": "^1.4.10",
     "yargs": "^17.4.1"
   },
   "devDependencies": {
-    "@commitlint/cli": "^16.2.3",
-    "@commitlint/config-conventional": "^16.2.1",
+    "@commitlint/cli": "^16.2.4",
+    "@commitlint/config-conventional": "^16.2.4",
     "eslint": "^8.14.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jest": "^26.1.5",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.29.4",
-    "eslint-plugin-react-hooks": "^4.4.0",
+    "eslint-plugin-react-hooks": "^4.5.0",
     "husky": "^7.0.4",
-    "jest": "^28.0.1",
+    "jest": "^28.0.3",
     "pkg": "^5.6.0",
     "standard-version": "^9.3.2"
   },
