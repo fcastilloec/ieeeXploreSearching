@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.5](https://github.com/fcastilloec/ieeeXploreSearching/compare/v4.0.4...v4.0.5) (2022-06-27)
+
+
+### Dependencies
+
+* bump `axios` to `0.27.2`
+* bump `fs-extra` to `10.1.0`
+* bump `puppeteer-core` to `15.1.1`
+* bump `yargs` to `17.5.1`
+
 ### [4.0.4](https://github.com/fcastilloec/ieeeXploreSearching/compare/v4.0.3...v4.0.4) (2022-04-06)
 
 
