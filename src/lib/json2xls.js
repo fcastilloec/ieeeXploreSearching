@@ -37,7 +37,7 @@ async function fromResults(results, xlsFilename) {
     sciHubBaseUrl: 11,
   };
 
-  const sciHubUrl = 'https://sci-hub.ee/';
+  const sciHubUrl = 'https://sci.bban.top/pdf/';
 
   const wb = new xl.Workbook({
     defaultFont: {
@@ -120,7 +120,7 @@ async function fromResults(results, xlsFilename) {
     ws.cell(i + 2, COLUMNS.pdf_url).link(result.pdf_url || result.abstract_url || '').style(linkStyle);
     if (result.doi) {
       doiHide = false;
-      ws.cell(i + 2, COLUMNS.sci_hub).formula(`HYPERLINK(CONCATENATE($K$1,"${result.doi}"))`).style(linkStyle);
+      ws.cell(i + 2, COLUMNS.sci_hub).formula(`HYPERLINK(CONCATENATE($K$1,"${result.doi}",".pdf"))`).style(linkStyle);
     }
     ws.cell(i + 2, COLUMNS.content_type).string(result.content_type).style(noWrapStyle);
   });
