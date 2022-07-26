@@ -23,12 +23,13 @@ function addDataField(queryText, field) {
   // test for multiple parentheses followed by any chars. The name of the captured group is specified in '?<name>'
   const parenthesis = /(?<paren>\(+)(?<term>.+)/;
   const operators = /O?NEAR(\/[0-9])*|AND|OR|NOT/; // IEEE search operators
+  const ending = /[a-z0-9]+"[)]*/;
   let phrase = false; // for checking if we're inside a multi-word phrase (a phrase is surrounded by double quotes)
 
   return queryText.toString().split(' ').map((term) => {
     if (term.match(operators)) return term; // checks if it's an IEEE operator
     if (phrase) { // check if we're in the middle of a multi-word phrase
-      if (term.endsWith('"')) phrase = false; // record the end of a phrase. Nested phrases aren't checked for
+      if (term.match(ending)) phrase = false; // record the end of a phrase. Nested phrases aren't checked for
       return term;
     }
     // Check for the start of a multi-word phrase, single double-quoted words are managed like any other term
