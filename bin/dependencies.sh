@@ -18,5 +18,9 @@ if [[ -n ${dependenciesJSON} ]]; then
   replaceText=$(echo "${dependenciesJSON}" | jq -r '.dependencies | to_entries[] | "* bump `\(.key)` to `\(.value)`" | @text')
 
   # Replace the latest Dependencies section in the Changelog
-  npx --no markdown-replace-section "${changelog}" Dependencies "${changelog}" --not-hungry <<< "${replaceText//[~^]/}"
+  line1=$(grep -n -m 1 "### Dependencies" "${changelog}" | cut -d: -f1)
+  line2=$(grep -n -m 2 "### \[" "${changelog}" | tail -1 | cut -d: -f1)
+  line1=$(( line1 + 2 ))
+  line2=$(( line2 - 2 ))
+  sed -i "${line1},${line2}c${replaceText//[~^]/}" "${changelog}"
 fi
