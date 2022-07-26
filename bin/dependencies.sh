@@ -15,12 +15,13 @@ dependenciesJSON=$(diff --changed-group-format='%>' --unchanged-group-format=''\
 
 if [[ -n ${dependenciesJSON} ]]; then
   # Format text for changelog
-  replaceText=$(echo "${dependenciesJSON}" | jq -r '.dependencies | to_entries[] | "* bump `\(.key)` to `\(.value)`" | @text')
+  # jq -j for no new line output because sed expects newlines to be preceded by a backslash
+  replaceText=$(echo "${dependenciesJSON}" | jq -j '.dependencies | to_entries[] | "* bump `\(.key)` to `\(.value)`\\n" | @text')
 
   # Replace the latest Dependencies section in the Changelog
   line1=$(grep -n -m 1 "### Dependencies" "${changelog}" | cut -d: -f1)
   line2=$(grep -n -m 2 "### \[" "${changelog}" | tail -1 | cut -d: -f1)
   line1=$(( line1 + 2 ))
-  line2=$(( line2 - 2 ))
+  line2=$(( line2 - 1 )) # sed already inserts a new line after the last replaceText
   sed -i "${line1},${line2}c${replaceText//[~^]/}" "${changelog}"
 fi
