@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.6](https://github.com/fcastilloec/ieeeXploreSearching/compare/v4.0.5...v4.0.6) (2022-07-26)
+
+
+### Bug Fixes
+
+* better check for ending of double-quoted phrases ([#374](https://github.com/fcastilloec/ieeeXploreSearching/issues/374)) ([fb3abe8](https://github.com/fcastilloec/ieeeXploreSearching/commit/fb3abe89e241cc40368a244e8f7621cd56c171ae))
+
+
+### Dependencies
+
+* bump `excel4node` to `1.8.0`
+* bump `puppeteer-core` to `15.5.0`
+
 ### [4.0.5](https://github.com/fcastilloec/ieeeXploreSearching/compare/v4.0.4...v4.0.5) (2022-06-27)
 
 
