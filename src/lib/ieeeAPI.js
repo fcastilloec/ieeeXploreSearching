@@ -1,4 +1,4 @@
-const axios = require('axios').default;
+const axios = require('axios');
 const https = require('https');
 const locateChrome = require('locate-chrome');
 const path = require('path');
@@ -105,7 +105,7 @@ async function api(apiKey, queryText, rangeYear, verbose) {
       Object.keys(params).forEach((key) => {
         result += `${key}=${encodeURIComponent(params[key])}&`;
       });
-      return result.substr(0, result.length - 1);
+      return result.slice(0, result.length - 1);
     },
     params: {
       querytext: `(${queryText})`,
