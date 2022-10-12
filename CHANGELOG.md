@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.7](https://github.com/fcastilloec/ieeeXploreSearching/compare/v4.0.6...v4.0.7) (2022-10-12)
+
+
+### Bug Fixes
+
+* better testing for redirects ([#412](https://github.com/fcastilloec/ieeeXploreSearching/issues/412)) ([26ff8f5](https://github.com/fcastilloec/ieeeXploreSearching/commit/26ff8f518150a7e7bfa4d296c0bfc2aa6019525d))
+
+
+### Dependencies
+
+* bump `axios` to `1.1.2`
+* bump `puppeteer-core` to `18.2.1`
+* bump `yargs` to `17.6.0`
+
 ### [4.0.6](https://github.com/fcastilloec/ieeeXploreSearching/compare/v4.0.5...v4.0.6) (2022-07-26)
 
 
