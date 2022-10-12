@@ -52,13 +52,9 @@ jobs:
             runner: macos-latest
     runs-on: ${{ matrix.runner }}
     steps:
-    - name: Set variables
-      id: vars
-      run: |
-        echo "::set-output name=dir::$(npm config get cache)"
     - uses: actions/cache@v3
       with:
-        path: ${{ steps.vars.outputs.dir }}
+        path: ~/.npm
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
         restore-keys: |
           ${{ runner.os }}-node-
