@@ -55,7 +55,9 @@ describe.each(testArray)(
   'Scrapping',
   ({ label, query, expected }) => {
     testIf()(label, async () => {
-      const result = (await scrap(query, rangeYear, false)).articles[0];
+      const results = await scrap(query, rangeYear, false);
+      expect(results.total_records).not.toBe(0);
+      const result = results.articles[0];
       delete result.abstract;
       expect(result).toMatchObject(expected);
     });
@@ -67,7 +69,9 @@ describe('Scrapping', () => {
   testIf()(
     'Title without link',
     async () => {
-      const result = (await scrap('optics AND nano AND QELS', [2000, 2000], false)).articles[1];
+      const results = await scrap('optics AND nano AND QELS', [2000, 2000], false);
+      expect(results.total_records).not.toBe(0);
+      const result = results.articles[1];
       delete result.abstract;
       expect(result).toMatchObject(untitled[1]);
     },
@@ -79,7 +83,9 @@ describe.each(testArray)(
   'Official API',
   ({ label, query, expected }) => {
     testIf()(label, async () => {
-      const result = (await api(process.env.APIKEY, query, rangeYear, false)).articles[0];
+      const results = await api(process.env.APIKEY, query, rangeYear, false);
+      expect(results.total_records).not.toBe(0);
+      const result = results.articles[0];
       delete result.abstract;
       expect(result).toMatchObject(expected);
     });
