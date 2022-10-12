@@ -47,8 +47,19 @@ function testYear(year) {
   if (year > new Date().getFullYear()) throw new RangeError('Year option has to be before current year');
 }
 
+/**
+ * Escapes a string to be used for regex
+ *
+ * @param    {string}  string  The string to escape.
+ * @returns  {string}          The escaped string
+ */
+function escapeRegExp(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 module.exports = {
   changeFileExtension,
+  escapeRegExp,
   testFileExtension,
   testYear,
 };
