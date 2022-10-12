@@ -1,4 +1,5 @@
 const config = {
+  testTimeout: 20000,
   verbose: true,
   collectCoverage: true,
   coverageReporters: ['text', 'text-summary'],
