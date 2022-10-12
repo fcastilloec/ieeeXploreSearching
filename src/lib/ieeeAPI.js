@@ -4,6 +4,7 @@ const locateChrome = require('locate-chrome');
 const path = require('path');
 const puppeteer = require('puppeteer-core');
 const createJSON = require('./createJson');
+const { escapeRegExp } = require('./utils');
 
 /**
  * Search by scrapping the results from the IEEE search page.
@@ -15,16 +16,22 @@ const createJSON = require('./createJson');
  * @return  {object[]}            All the IEEE results from each page, from 'createJson' function.
  */
 async function scrap(queryText, rangeYear, verbose) {
-  const ieeeSearchUrl = 'https://ieeexplore.ieee.org/search/searchresult.jsp?queryText=';
+  // only wait this amount of miliseconds, any longer and it means there's no results
+  const timeout = 20000;
+
+  const ieeeSearchUrl = 'https://ieeexplore.ieee.org/search/searchresult.jsp';
   const ELEMENTS = 'xpl-results-item > div.hide-mobile';
   const NO_RESULTS = 'div.List-results-message.List-results-none';
   const NEXT = 'div.ng-SearchResults.row > div.main-section > xpl-paginator > div.pagination-bar.hide-mobile > ul '
     + '> li.next-btn > a';
 
   if (verbose) console.log('Query: \t%s\n', queryText);
-  const query = `(${encodeURI(queryText).replace(/\?/g, '%3F').replace(/\//g, '%2F')})`
+  const query = `?queryText=(${encodeURI(queryText).replace(/\?/g, '%3F').replace(/\//g, '%2F')})`
               + `&ranges=${rangeYear[0]}_${rangeYear[1]}_Year`;
   if (verbose) console.log('Encoded Query:\t%s\n', query);
+
+  // Test for redirects
+  const regex = new RegExp(`${escapeRegExp(ieeeSearchUrl)}(;jsessionid=[a-zA-Z0-9!-_]*)?${escapeRegExp(query)}.*`);
 
   const browserPath = await locateChrome();
   if (!browserPath) {
@@ -41,9 +48,11 @@ async function scrap(queryText, rangeYear, verbose) {
       headless: true,
     });
     const page = await browser.newPage();
-    page.setDefaultTimeout(10000); // only wait 10 secs, any longer and it means there's no results
+    page.setDefaultTimeout(timeout);
     await page.goto(ieeeSearchUrl + query);
-    if (page.url() !== ieeeSearchUrl + query) throw new Error('IEEE redirected, probably maintenance is happening');
+    if (!regex.test(page.url())) {
+      throw new Error(`IEEE redirected, probably maintenance is happening.\n${page.url()}`);
+    }
 
     // Check if there are no results
     if (await page.$(NO_RESULTS)) {
@@ -73,6 +82,7 @@ async function scrap(queryText, rangeYear, verbose) {
     if (browser) await browser.close();
     console.error(`Error scrapping results:\n${error.message}`);
     if (process.env.NODE_ENV !== 'test') process.exit(2);
+    return { total_records: 0, articles: [] };
   }
   if (verbose) { console.log('Total number of pages: %s\n', totalPages); }
   return { total_records: results.length, articles: results };
@@ -125,6 +135,7 @@ async function api(apiKey, queryText, rangeYear, verbose) {
       ? console.error(`Error code: ${error.response.status}\nError data: ${error.response.data}`)
       : console.error(error.message);
     if (process.env.NODE_ENV !== 'test') process.exit(3);
+    return { total_records: 0, articles: [] };
   }
   if (verbose) console.log('REQUEST PATH:\t%s\n', response.request.path);
   if (verbose >= 2) console.log('RESPONSE:\t%o', response);
