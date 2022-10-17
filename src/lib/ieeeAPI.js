@@ -130,10 +130,8 @@ async function api(apiKey, queryText, rangeYear, verbose) {
   try {
     response = await axios(config);
   } catch (error) {
-    console.error('Error with IEEE API:');
-    error.response
-      ? console.error(`Error code: ${error.response.status}\nError data: ${error.response.data}`)
-      : console.error(error.message);
+    const msg = error.response ? `Error code: ${error.response.status}\nError data: ${error.response.data}` : error;
+    console.error(`Error with IEEE API: ${msg}`);
     if (process.env.NODE_ENV !== 'test') process.exit(3);
     return { total_records: 0, articles: [] };
   }
