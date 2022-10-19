@@ -54,7 +54,6 @@ describe.each(testArray)(
   ({ label, query, expected }) => {
     testIf()(label, async () => {
       const results = await scrap(query, rangeYear, false);
-      expect(results.total_records).not.toBe(0);
       const result = results.articles[0];
       delete result.abstract;
       expect(result).toMatchObject(expected);
@@ -67,7 +66,6 @@ describe('Scrapping', () => {
     'Title without link',
     async () => {
       const results = await scrap('optics AND nano AND QELS', [2000, 2000], false);
-      expect(results.total_records).not.toBe(0);
       const result = results.articles[1];
       delete result.abstract;
       expect(result).toMatchObject(untitled[1]);
@@ -80,7 +78,6 @@ describe.each(testArray)(
   ({ label, query, expected }) => {
     testIf()(label, async () => {
       const results = await api(process.env.APIKEY, query, rangeYear, false);
-      expect(results.total_records).not.toBe(0);
       const result = results.articles[0];
       delete result.abstract;
       expect(result).toMatchObject(expected);
