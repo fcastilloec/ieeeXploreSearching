@@ -117,13 +117,6 @@ async function api(apiKey, queryText, rangeYear, verbose) {
     httpsAgent: new https.Agent({
       rejectUnauthorized: false,
     }),
-    paramsSerializer: (params) => {
-      let result = '';
-      Object.keys(params).forEach((key) => {
-        result += `${key}=${encodeURIComponent(params[key])}&`;
-      });
-      return result.slice(0, result.length - 1);
-    },
     params: {
       querytext: `(${queryText})`,
       max_records: 200,
