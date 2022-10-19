@@ -48,18 +48,32 @@ function testYear(year) {
 }
 
 /**
- * Escapes a string to be used for regex
+ * Escapes a string to be used for regex.
  *
  * @param    {string}  string  The string to escape.
- * @returns  {string}          The escaped string
+ * @returns  {string}          The escaped string.
  */
 function escapeRegExp(string) {
   return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
+/**
+ * Get line and column numbers of errors without a proper stack.
+ *
+ * @param   {int}  column  The column where the error stack should point to.
+ * @returns {string}    A formatted line ready to be added to an error stack.
+ */
+function getLineStack(column = 0) {
+  let e = new Error();
+  e = e.stack.split('\n')[2].split(/[():]/);
+  e.pop(); e.shift(); // remove unneeded elements
+  return column === 0 ? `    at ${e.join(':')}` : `    at ${e[0]}:${e[1]}:${parseInt(e[2], 10) + column}`;
+}
+
 module.exports = {
   changeFileExtension,
   escapeRegExp,
+  getLineStack,
   testFileExtension,
   testYear,
 };

@@ -4,7 +4,7 @@ const locateChrome = require('locate-chrome');
 const path = require('path');
 const puppeteer = require('puppeteer-core');
 const createJSON = require('./createJson');
-const { escapeRegExp } = require('./utils');
+const { escapeRegExp, getLineStack } = require('./utils');
 
 /**
  * Search by scrapping the results from the IEEE search page.
@@ -16,10 +16,12 @@ const { escapeRegExp } = require('./utils');
  * @return  {object[]}            All the IEEE results from each page, from 'createJson' function.
  */
 async function scrap(queryText, rangeYear, verbose) {
-  // only wait this amount of miliseconds, any longer and it means there's no results
+  // only wait this amount of milliseconds, any longer and it means there's no results
   const timeout = 20000;
+  let lineStack; // stack message with line info
 
   const ieeeSearchUrl = 'https://ieeexplore.ieee.org/search/searchresult.jsp';
+  // TODO: use 'div.Dashboard-header.col-12 > span:nth-child(1)' text to check number of results or no results
   const ELEMENTS = 'xpl-results-item > div.hide-mobile';
   const NO_RESULTS = 'div.List-results-message.List-results-none';
   const NEXT = 'div.ng-SearchResults.row > div.main-section > xpl-paginator > div.pagination-bar.hide-mobile > ul '
@@ -60,7 +62,7 @@ async function scrap(queryText, rangeYear, verbose) {
       return { total_records: 0, articles: [] };
     }
 
-    await page.waitForSelector(ELEMENTS); // Wait until javascript loads all results
+    lineStack = getLineStack(18); await page.waitForSelector(ELEMENTS); // Wait until javascript loads all results
     await page.addScriptTag({
       path: path.join(__dirname, 'constants.js'),
     }); // Add all selectors as variables to window
@@ -70,7 +72,7 @@ async function scrap(queryText, rangeYear, verbose) {
     /* eslint-disable no-await-in-loop */
     while (await page.$(NEXT)) {
       await page.click(NEXT); // go to next page of results
-      await page.waitForSelector(ELEMENTS); // wait for results to load
+      lineStack = getLineStack(18); await page.waitForSelector(ELEMENTS); // wait for results to load
       const pageResult = await page.evaluate(createJSON);
       results.push(...pageResult); // add page results to original object
 
@@ -80,9 +82,14 @@ async function scrap(queryText, rangeYear, verbose) {
     await browser.close(); // close browser
   } catch (error) {
     if (browser) await browser.close();
-    console.error(`Error scrapping results:\n${error.message}`);
-    if (process.env.NODE_ENV !== 'test') process.exit(2);
-    return { total_records: 0, articles: [] };
+    if (error instanceof puppeteer.errors.TimeoutError && error.message.includes('Waiting for selector')) {
+      error.stack = `${error.message}\n${lineStack}\n${error.stack.split('\n').slice(1).join('\n')}`;
+    }
+    if (process.env.NODE_ENV !== 'test') {
+      console.error(`Error scrapping results:\n${error.message}`);
+      process.exit(2);
+    }
+    throw error;
   }
   if (verbose) { console.log('Total number of pages: %s\n', totalPages); }
   return { total_records: results.length, articles: results };
@@ -129,11 +136,15 @@ async function api(apiKey, queryText, rangeYear, verbose) {
   let response;
   try {
     response = await axios(config);
-  } catch (error) {
-    const msg = error.response ? `Error code: ${error.response.status}\nError data: ${error.response.data}` : error;
-    console.error(`Error with IEEE API: ${msg}`);
-    if (process.env.NODE_ENV !== 'test') process.exit(3);
-    return { total_records: 0, articles: [] };
+  } catch (cause) {
+    if (process.env.NODE_ENV !== 'test') {
+      console.error(`Error with IEEE API:\n${cause.message}`);
+      process.exit(3);
+    }
+    if (!cause.response) throw cause;
+    const error = new Error(cause.message, { cause });
+    error.stack = `${cause.message}\n${cause.stack.split('\n').slice(1).join('\n')}`;
+    throw error;
   }
   if (verbose) console.log('REQUEST PATH:\t%s\n', response.request.path);
   if (verbose >= 2) console.log('RESPONSE:\t%o', response);
