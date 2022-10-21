@@ -21,8 +21,8 @@ async function scrap(queryText, rangeYear, verbose) {
   let lineStack; // stack message with line info
 
   const ieeeSearchUrl = 'https://ieeexplore.ieee.org/search/searchresult.jsp';
-  // TODO: use 'div.Dashboard-header.col-12 > span:nth-child(1)' text to check number of results or no results
   const ELEMENTS = 'xpl-results-item > div.hide-mobile';
+  const RESULTS = 'div.Dashboard-header.col-12 > span:nth-child(1)';
   const NO_RESULTS = 'div.List-results-message.List-results-none';
   const NEXT = 'div.ng-SearchResults.row > div.main-section > xpl-paginator > div.pagination-bar.hide-mobile > ul '
     + '> li.next-btn > a';
@@ -42,6 +42,7 @@ async function scrap(queryText, rangeYear, verbose) {
   }
 
   let totalPages = 1; // counter for total number of pages
+  let TOTAL_PAGES; // calculated number of pages
   let browser;
   let results;
   try {
@@ -56,8 +57,12 @@ async function scrap(queryText, rangeYear, verbose) {
       throw new Error(`IEEE redirected, probably maintenance is happening.\n${page.url()}`);
     }
 
+    // Wait for the records string, either has no results or "showing x of y"
+    await page.waitForSelector(RESULTS);
+    const records = await page.$eval(RESULTS, (el) => el.innerText);
+
     // Check if there are no results
-    if (await page.$(NO_RESULTS)) {
+    if (await page.$(NO_RESULTS) || records === 'No results found') {
       await browser.close();
       return { total_records: 0, articles: [] };
     }
@@ -68,9 +73,13 @@ async function scrap(queryText, rangeYear, verbose) {
     }); // Add all selectors as variables to window
     results = await page.evaluate(createJSON); // create JSON with results of first page
 
-    // TODO: check what happens when a single page of results or no results happen
+    // All the records
+    const totalRecords = parseInt(records.split(' ').pop(), 10);
+    const recordsPerPage = parseInt(records.split(/[ -]/)[2], 10);
+    TOTAL_PAGES = Math.ceil(totalRecords / recordsPerPage);
+
     /* eslint-disable no-await-in-loop */
-    while (await page.$(NEXT)) {
+    while (await page.$(NEXT) && totalPages <= TOTAL_PAGES) {
       await page.click(NEXT); // go to next page of results
       lineStack = getLineStack(18); await page.waitForSelector(ELEMENTS); // wait for results to load
       const pageResult = await page.evaluate(createJSON);
@@ -91,7 +100,7 @@ async function scrap(queryText, rangeYear, verbose) {
     }
     throw error;
   }
-  if (verbose) { console.log('Total number of pages: %s\n', totalPages); }
+  if (verbose) { console.log('Total number of pages: %s (of %s calculated)\n', totalPages, TOTAL_PAGES); }
   return { total_records: results.length, articles: results };
 }
 
