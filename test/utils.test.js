@@ -1,4 +1,6 @@
-const { changeFileExtension, testFileExtension, testYear } = require('../src/lib/utils');
+const {
+  changeFileExtension, testFileExtension, testYear, getLineStack,
+} = require('../src/lib/utils');
 
 const path = 'this/file.ext';
 const out1 = 'this/file.new';
@@ -34,4 +36,8 @@ test('testYear throws before 1900', () => {
 
 test('testYear throws after current year', () => {
   expect(() => testYear(1e14)).toThrow('Year option has to be before current year');
+});
+
+test('getLineStack returns message with line', () => {
+  expect(getLineStack()).toBe(`    at ${__filename}:42:10`); // the numbers need to change if this line moves
 });
