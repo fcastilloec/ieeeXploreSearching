@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.8](https://github.com/fcastilloec/ieeeXploreSearching/compare/v4.0.7...v4.0.8) (2022-10-21)
+
+
+### Bug Fixes
+
+* **api:** better error messaging ([#421](https://github.com/fcastilloec/ieeeXploreSearching/issues/421)) ([bba3388](https://github.com/fcastilloec/ieeeXploreSearching/commit/bba3388273fa15bf4747b6d69dafc1a3bdd6cabb))
+* **api:** remove unnecessary serealized function ([bd2f1cc](https://github.com/fcastilloec/ieeeXploreSearching/commit/bd2f1cc5a3003cde89e0ade7237dc6166cb9a5c0))
+* error messaging for tests ([#423](https://github.com/fcastilloec/ieeeXploreSearching/issues/423)) ([ae9402c](https://github.com/fcastilloec/ieeeXploreSearching/commit/ae9402c8b46cf61a6c3dd5d80d7db70f5dbbc27e))
+* **scrap:** additional check for no results ([#424](https://github.com/fcastilloec/ieeeXploreSearching/issues/424)) ([d222444](https://github.com/fcastilloec/ieeeXploreSearching/commit/d22244464acf40a55d94cd85239081a83559029f))
+
+
+### Dependencies
+
+* bump `axios` to `1.1.3`
+* bump `puppeteer-core` to `19.0.0`
+
 ### [4.0.7](https://github.com/fcastilloec/ieeeXploreSearching/compare/v4.0.6...v4.0.7) (2022-10-12)
 
 
