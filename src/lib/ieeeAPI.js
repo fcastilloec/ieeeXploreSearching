@@ -22,7 +22,7 @@ async function scrap(queryText, rangeYear, verbose) {
 
   const ieeeSearchUrl = 'https://ieeexplore.ieee.org/search/searchresult.jsp';
   const ELEMENTS = 'xpl-results-item > div.hide-mobile';
-  const RESULTS = 'div.Dashboard-header.col-12 > span:nth-child(1)';
+  const RESULTS = 'h1.Dashboard-header.col-12 > span:nth-child(1)';
   const NO_RESULTS = 'div.List-results-message.List-results-none';
   const NEXT = 'div.ng-SearchResults.row > div.main-section > xpl-paginator > div.pagination-bar.hide-mobile > ul '
     + '> li.next-btn > a';
