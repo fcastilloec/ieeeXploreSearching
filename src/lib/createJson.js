@@ -24,6 +24,7 @@ function createJSON() {
     ICONS,
     AUTHORS,
     TITLE,
+    NO_TITLE,
     PUBLICATION,
     DESCRIPTION,
     ABSTRACT,
@@ -43,7 +44,7 @@ function createJSON() {
     if (description.length === 1) [volume, issue] = description.shift().split(',').map((el) => el.trim());
 
     // Retrieve elements
-    const title = (item.querySelector(TITLE) || item.querySelector('h2 > span')).innerText;
+    const title = (item.querySelector(TITLE) || item.querySelector(NO_TITLE)).innerText;
     const authors = item.querySelector(AUTHORS);
     const abstract = item.querySelector(ABSTRACT);
     const abstract_url = item.querySelector(ABSTRACT_URL);

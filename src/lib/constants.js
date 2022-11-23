@@ -11,7 +11,8 @@ const icons = 'div.row.doc-access-tools-container';
 
 // Elements inside MAIN
 const AUTHORS = `${main} > xpl-authors-name-list > p.author`;
-const TITLE = `${main} > h2 > a`;
+const TITLE = `${main} > h3 > a`;
+const NO_TITLE = 'h3 > span';
 const PUBLICATION = `${main} > div.description > a`;
 const DESCRIPTION = `${main} > div.description > div.publisher-info-container`;
 
@@ -23,6 +24,7 @@ window.DATA = {
   ELEMENTS,
   AUTHORS,
   TITLE,
+  NO_TITLE,
   ICONS: `${icons} > ul > li`,
   PUBLICATION,
   DESCRIPTION,
