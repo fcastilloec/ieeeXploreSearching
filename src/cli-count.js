@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const yargs = require('yargs');
-const fs = require('fs-extra');
+const { readJsonSync } = require('fs-extra');
 
 const { argv } = yargs
   .wrap(null)
@@ -12,7 +12,7 @@ const { argv } = yargs
 
 argv._.forEach((filename) => {
   try {
-    const file = fs.readJsonSync(filename);
+    const file = readJsonSync(filename);
     console.log('Records inside %s: %s', filename, file.length);
   } catch (error) {
     console.error(`Error reading JSON file:\n${error.message}`);

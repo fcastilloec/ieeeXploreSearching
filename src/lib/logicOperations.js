@@ -1,5 +1,5 @@
 const _ = require('lodash');
-const fs = require('fs-extra');
+const { readJsonSync } = require('fs-extra');
 
 /**
  * Compares if array elements (results) are equal. Scrapping ONLY
@@ -29,7 +29,7 @@ function logicOperations(options) {
   let files;
 
   try {
-    files = options._.map((file) => fs.readJsonSync(file));
+    files = options._.map((file) => readJsonSync(file));
   } catch (error) {
     console.error(`Error reading JSON file:\n${error.message}`);
     process.exit(4);
@@ -45,7 +45,7 @@ function logicOperations(options) {
   if (options.not) {
     let notFile;
     try {
-      notFile = fs.readJsonSync(options.not);
+      notFile = readJsonSync(options.not);
     } catch (error) {
       console.error(`Error reading JSON file:\n${error.message}`);
       process.exit(4);

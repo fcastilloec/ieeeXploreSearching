@@ -1,4 +1,4 @@
-const fs = require('fs-extra');
+const { pathExistsSync } = require('fs-extra');
 const { join } = require('path');
 const pkg = require('../../package.json');
 
@@ -9,7 +9,7 @@ const pkg = require('../../package.json');
  */
 function configDir() {
   if (process.env.CONFIG_DIR) {
-    if (!fs.pathExistsSync(process.env.CONFIG_DIR)) {
+    if (!pathExistsSync(process.env.CONFIG_DIR)) {
       console.error('Configuration directory does not exist');
       throw new Error('Configuration directory does not exist');
     }
