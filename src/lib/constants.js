@@ -5,9 +5,9 @@ const ELEMENTS = 'xpl-results-item > div.hide-mobile';
  * Selectors relative to each ELEMENT
  */
 // Holds the main information, used to make selectors shorter
-const main = 'div.row.result-item > div.col.result-item-align';
+const main = 'div.result-item > div.col.result-item-align';
 // Holds the abstract and various urls. (All the icons)
-const icons = 'div.row.doc-access-tools-container';
+const icons = 'div.doc-access-tools-container';
 
 // Elements inside MAIN
 const AUTHORS = `${main} > xpl-authors-name-list > p.author`;
