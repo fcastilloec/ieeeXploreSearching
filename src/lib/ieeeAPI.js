@@ -1,6 +1,6 @@
 const axios = require('axios');
 const https = require('https');
-const locateChrome = require('locate-chrome');
+const { locateChrome, locateFirefox } = require('locate-app');
 const path = require('path');
 const puppeteer = require('puppeteer-core');
 const createJSON = require('./createJson');
@@ -35,18 +35,30 @@ async function scrap(queryText, rangeYear, verbose) {
   // Test for redirects
   const regex = new RegExp(`${escapeRegExp(ieeeSearchUrl)}(;jsessionid=[a-zA-Z0-9!-_]*)?${escapeRegExp(query)}.*`);
 
-  const browserPath = await locateChrome();
-  if (!browserPath) {
-    console.error('Can\'t find a valid installation of Chrome');
-    process.exit(2);
-  }
-
+  let browserPath; // path to either Chrome (preferred) or Firefox
+  let product; // Which browser to launch
   let totalPages = 1; // counter for total number of pages
   let TOTAL_PAGES; // calculated number of pages
   let browser;
   let results;
+
+  try {
+    // Prefer Chrome over Firefox
+    browserPath = await locateChrome();
+    product = 'chrome';
+  } catch (errorChrome) {
+    try {
+      browserPath = await locateFirefox();
+      product = 'firefox';
+    } catch (errorFirefox) {
+      console.error("Can't find a valid installation of Chrome or Firefox");
+      process.exit(2);
+    }
+  }
+
   try {
     browser = await puppeteer.launch({
+      product,
       executablePath: browserPath,
       headless: true,
     });
