@@ -2,21 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-### [4.0.8](https://github.com/fcastilloec/ieeeXploreSearching/compare/v4.0.7...v4.0.8) (2022-10-21)
+## [4.1.0](https://github.com/fcastilloec/ieeeXploreSearching/compare/v4.0.8...v4.1.0) (2023-04-04)
+
+
+### Features
+
+* **scrap:** add support for using Firefox ([#519](https://github.com/fcastilloec/ieeeXploreSearching/issues/519)) ([ef9dc85](https://github.com/fcastilloec/ieeeXploreSearching/commit/ef9dc851ff1195750b377ef8468e6c3a49626843))
 
 
 ### Bug Fixes
 
-* **api:** better error messaging ([#421](https://github.com/fcastilloec/ieeeXploreSearching/issues/421)) ([bba3388](https://github.com/fcastilloec/ieeeXploreSearching/commit/bba3388273fa15bf4747b6d69dafc1a3bdd6cabb))
-* **api:** remove unnecessary serealized function ([bd2f1cc](https://github.com/fcastilloec/ieeeXploreSearching/commit/bd2f1cc5a3003cde89e0ade7237dc6166cb9a5c0))
-* error messaging for tests ([#423](https://github.com/fcastilloec/ieeeXploreSearching/issues/423)) ([ae9402c](https://github.com/fcastilloec/ieeeXploreSearching/commit/ae9402c8b46cf61a6c3dd5d80d7db70f5dbbc27e))
-* **scrap:** additional check for no results ([#424](https://github.com/fcastilloec/ieeeXploreSearching/issues/424)) ([d222444](https://github.com/fcastilloec/ieeeXploreSearching/commit/d22244464acf40a55d94cd85239081a83559029f))
+* **scrap:** adapt to IEEE changes ([#510](https://github.com/fcastilloec/ieeeXploreSearching/issues/510)) ([2b6dc7d](https://github.com/fcastilloec/ieeeXploreSearching/commit/2b6dc7dd144e6cf27f2f4cb0ad9728b1078fa039))
+* **scrap:** adapt to new IEEE changes ([#448](https://github.com/fcastilloec/ieeeXploreSearching/issues/448)) ([b23f3c4](https://github.com/fcastilloec/ieeeXploreSearching/commit/b23f3c45b5810028d7b44fdb35d8a06b1d20f4d8))
 
 
 ### Dependencies
 
-* bump `axios` to `1.1.3`
-* bump `puppeteer-core` to `19.0.0`
+* bump `axios` to `1.3.4`
+* bump `excel4node` to `1.8.1`
+* bump `fs-extra` to `11.1.1`
+* bump `locate-app` to `2.0.0`
+* bump `puppeteer-core` to `19.8.3`
+* bump `yargs` to `17.7.1`
 
 ### [4.0.7](https://github.com/fcastilloec/ieeeXploreSearching/compare/v4.0.6...v4.0.7) (2022-10-12)
 
