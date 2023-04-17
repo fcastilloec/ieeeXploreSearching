@@ -29,13 +29,13 @@
     "fs-extra": "^11.1.1",
     "locate-app": "^2.0.0",
     "lodash": "^4.17.21",
-    "puppeteer-core": "^19.8.5",
+    "puppeteer-core": "^19.9.1",
     "readline-sync": "^1.4.10",
     "yargs": "^17.7.1"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.5.1",
-    "@commitlint/config-conventional": "^17.4.4",
+    "@commitlint/cli": "^17.6.1",
+    "@commitlint/config-conventional": "^17.6.1",
     "eslint": "^8.38.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-plugin-import": "^2.27.5",
