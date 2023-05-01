@@ -35,8 +35,9 @@ async function scrap(queryText, rangeYear, verbose) {
   // Test for redirects
   const regex = new RegExp(`${escapeRegExp(ieeeSearchUrl)}(;jsessionid=[a-zA-Z0-9!-_]*)?${escapeRegExp(query)}.*`);
 
-  let browserPath; // path to either Chrome (preferred) or Firefox
+  let executablePath; // path to either Chrome (preferred) or Firefox
   let product; // Which browser to launch
+  let headless; // Chrome uses a different type
   let totalPages = 1; // counter for total number of pages
   let TOTAL_PAGES; // calculated number of pages
   let browser;
@@ -44,12 +45,14 @@ async function scrap(queryText, rangeYear, verbose) {
 
   try {
     // Prefer Chrome over Firefox
-    browserPath = await locateChrome();
+    executablePath = await locateChrome();
     product = 'chrome';
+    headless = 'new';
   } catch (errorChrome) {
     try {
-      browserPath = await locateFirefox();
+      executablePath = await locateFirefox();
       product = 'firefox';
+      headless = true;
     } catch (errorFirefox) {
       console.error("Can't find a valid installation of Chrome or Firefox");
       process.exit(2);
@@ -59,8 +62,8 @@ async function scrap(queryText, rangeYear, verbose) {
   try {
     browser = await puppeteer.launch({
       product,
-      executablePath: browserPath,
-      headless: true,
+      executablePath,
+      headless,
     });
     const page = await browser.newPage();
     page.setDefaultTimeout(timeout);
