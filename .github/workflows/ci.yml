@@ -96,6 +96,8 @@ jobs:
     - name: Move artifacts
       working-directory: build/
       run: find . -type f -exec mv -v '{}' . \;
+    - name: Generate release body
+      run: bin/github_release_body.sh
     - name: Create a release
       uses: ncipollo/release-action@v1
       with:
@@ -103,3 +105,4 @@ jobs:
         artifacts: build/*.tar.xz
         draft: true
         token: ${{ secrets.GITHUB_TOKEN }}
+        bodyFile: RELEASE.md
