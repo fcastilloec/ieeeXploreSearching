@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.1.1](https://github.com/fcastilloec/ieeeXploreSearching/compare/v4.1.0...v4.1.1) (2023-05-08)
+
+
+### Bug Fixes
+
+* **scrap:** conference test no longer includes volume information ([#524](https://github.com/fcastilloec/ieeeXploreSearching/issues/524)) ([b1443dd](https://github.com/fcastilloec/ieeeXploreSearching/commit/b1443ddaeb5a9e31783fa5a96656c02fe22c4b88))
+
+
+### Dependencies
+
+* bump `axios` to `1.4.0`
+* bump `excel4node` to `1.8.2`
+* bump `puppeteer-core` to `20.1.2`
+* bump `yargs` to `17.7.2`
+
 ## [4.1.0](https://github.com/fcastilloec/ieeeXploreSearching/compare/v4.0.8...v4.1.0) (2023-04-04)
 
 
