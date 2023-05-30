@@ -87,7 +87,7 @@ function createJSON() {
       publication_title,
       authors: {
         authors: authors
-          ? Array.from(authors.querySelectorAll('a')).map((value, index) => {
+          ? Array.from(authors.querySelectorAll('[data-tealium_data]')).map((value, index) => {
             const author = { full_name: value.innerText, author_order: index + 1 };
             const url = value.href;
             if (url) {
