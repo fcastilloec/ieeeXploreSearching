@@ -73,6 +73,15 @@ describe('Scrapping', () => {
   );
 });
 
+describe('Scrapping', () => {
+  testIf()(
+    'Results in multiple pages',
+    async () => {
+      await expect(scrap('nack', [2000, 2002], false)).resolves.not.toThrow();
+    },
+  );
+});
+
 describe.each(testArray)(
   'Official API',
   ({ label, query, expected }) => {

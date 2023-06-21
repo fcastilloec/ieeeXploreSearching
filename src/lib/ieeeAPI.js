@@ -24,8 +24,7 @@ async function scrap(queryText, rangeYear, verbose) {
   const ELEMENTS = 'xpl-results-item > div.hide-mobile';
   const RESULTS = 'h1.Dashboard-header.col-12 > span:nth-child(1)';
   const NO_RESULTS = 'div.List-results-message.List-results-none';
-  const NEXT = 'div.ng-SearchResults.row > div.main-section > xpl-paginator > div.pagination-bar.hide-mobile > ul '
-    + '> li.next-btn > a';
+  const NEXT = '.stats-Pagination_arrow_next_2';
 
   if (verbose) console.log('Query: \t%s\n', queryText);
   const query = `?queryText=(${encodeURI(queryText).replace(/\?/g, '%3F').replace(/\//g, '%2F')})`
@@ -96,6 +95,11 @@ async function scrap(queryText, rangeYear, verbose) {
     const totalRecords = parseInt(recordsNums[2], 10);
     const recordsPerPage = parseInt(recordsNums[1], 10);
     TOTAL_PAGES = Math.ceil(totalRecords / recordsPerPage);
+
+    // Check that NEXT selector is present if there are multiple pages
+    if (TOTAL_PAGES > 1 && !await page.$(NEXT)) {
+      throw new Error("There's multiple pages of results, but couldn't find the NEXT button");
+    }
 
     /* eslint-disable no-await-in-loop */
     while (await page.$(NEXT) && totalPages <= TOTAL_PAGES) {
