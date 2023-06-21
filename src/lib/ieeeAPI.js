@@ -89,8 +89,12 @@ async function scrap(queryText, rangeYear, verbose) {
     results = await page.evaluate(createJSON); // create JSON with results of first page
 
     // All the records
-    const totalRecords = parseInt(records.split(' ').pop(), 10);
-    const recordsPerPage = parseInt(records.split(/[ -]/)[2], 10);
+    const recordsNums = records.match(/(\d+)/g);
+    if (!Array.isArray(recordsNums)) { // it has to be an Array, and it can be of length 2 or 3
+      throw new Error("Couldn't find the total number of records");
+    }
+    const totalRecords = parseInt(recordsNums[2], 10);
+    const recordsPerPage = parseInt(recordsNums[1], 10);
     TOTAL_PAGES = Math.ceil(totalRecords / recordsPerPage);
 
     /* eslint-disable no-await-in-loop */
