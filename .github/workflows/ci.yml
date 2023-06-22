@@ -72,7 +72,7 @@ jobs:
     - name: Create executables
       run: |
         TARGET=node${{ env.node-version }}-${{ matrix.platform }}-x64
-        npm run pkg -- -t ${TARGET} src/cli-search.js --output build/ieeeSearch
+        npm run pkg -- -t ${TARGET} src/cli-search.js --output build/ieeeSearch --no-bytecode --public-packages "*" --config .pkg.json
         npm run pkg -- -t ${TARGET} src/cli-logic.js --output build/ieeeLogic
         npm run pkg -- -t ${TARGET} src/cli-count.js --output build/ieeeCount
     - name: Tar files
