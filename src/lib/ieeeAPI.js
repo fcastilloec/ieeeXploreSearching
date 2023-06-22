@@ -21,10 +21,10 @@ async function scrap(queryText, rangeYear, verbose) {
   let lineStack; // stack message with line info
 
   const ieeeSearchUrl = 'https://ieeexplore.ieee.org/search/searchresult.jsp';
-  const ELEMENTS = 'xpl-results-item > div.hide-mobile';
+  const ELEMENTS = '.List-results-items'; // change in constants.js
   const RESULTS = 'h1.Dashboard-header.col-12 > span:nth-child(1)';
   const NO_RESULTS = 'div.List-results-message.List-results-none';
-  const NEXT = '.stats-Pagination_arrow_next_2';
+  const NEXT = '.next-btn';
 
   if (verbose) console.log('Query: \t%s\n', queryText);
   const query = `?queryText=(${encodeURI(queryText).replace(/\?/g, '%3F').replace(/\//g, '%2F')})`
