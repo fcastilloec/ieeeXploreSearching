@@ -10,6 +10,7 @@ const expectedJson = {
   magazineArticle: require('./fixtures/scrap/magazineArticle.json'),
   journalArticle: require('./fixtures/scrap/journalArticle.json'),
   standard: require('./fixtures/scrap/standard.json'),
+  multiple: require('./fixtures/scrap/multiple.json'),
 };
 
 const labels = {
@@ -77,7 +78,9 @@ describe('Scrapping', () => {
   testIf()(
     'Results in multiple pages',
     async () => {
-      await expect(scrap('nack', [2000, 2002], false)).resolves.not.toThrow();
+      await expect(
+        scrap('nack', [2000, 2003], false),
+      ).resolves.toMatchObject(expectedJson.multiple);
     },
   );
 });
