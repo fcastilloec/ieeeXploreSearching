@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.1.2](https://github.com/fcastilloec/ieeeXploreSearching/compare/v4.1.1...v4.1.2) (2023-06-22)
+
+
+### Bug Fixes
+
+* **scrap:** adapt to IEEE change to author fields ([#550](https://github.com/fcastilloec/ieeeXploreSearching/issues/550)) ([8cdeec6](https://github.com/fcastilloec/ieeeXploreSearching/commit/8cdeec67edc28f5f86404e723423ce3fcab34308))
+* **scrap:** retrieving total number of records ([#558](https://github.com/fcastilloec/ieeeXploreSearching/issues/558)) ([4d6aeec](https://github.com/fcastilloec/ieeeXploreSearching/commit/4d6aeec019bd8a33b6015d345fc91df7607b5f40))
+* **scrap:** the NEXT page selector ([#559](https://github.com/fcastilloec/ieeeXploreSearching/issues/559)) ([1cd1fc7](https://github.com/fcastilloec/ieeeXploreSearching/commit/1cd1fc76ffcfc4e2599967e32443fbbbe9f95b9b))
+* **scrap:** the selector for next page ([#560](https://github.com/fcastilloec/ieeeXploreSearching/issues/560)) ([5c07cda](https://github.com/fcastilloec/ieeeXploreSearching/commit/5c07cda252fac3e0bef24b6e74c93c120bdfb945))
+
+
+### Dependencies
+
+* bump `puppeteer-core` to `20.7.3`
+
 ### [4.1.1](https://github.com/fcastilloec/ieeeXploreSearching/compare/v4.1.0...v4.1.1) (2023-05-08)
 
 
