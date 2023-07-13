@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.1.3](https://github.com/fcastilloec/ieeeXploreSearching/compare/v4.1.2...v4.1.3) (2023-07-13)
+
+
+### Bug Fixes
+
+* correctly add data fields to search query ([#568](https://github.com/fcastilloec/ieeeXploreSearching/issues/568)) ([2d59f06](https://github.com/fcastilloec/ieeeXploreSearching/commit/2d59f06acaf7758afd3e58d2bd060af2a6b78d18))
+
+
+### Dependencies
+
+* bump `puppeteer-core` to `20.8.0`
+
 ### [4.1.2](https://github.com/fcastilloec/ieeeXploreSearching/compare/v4.1.1...v4.1.2) (2023-06-22)
 
 
