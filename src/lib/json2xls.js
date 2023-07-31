@@ -1,5 +1,5 @@
-const xl = require('excel4node');
 const { promisify } = require('util');
+const xl = require('excel4node');
 
 const fontType = process.env.IEEE_font;
 

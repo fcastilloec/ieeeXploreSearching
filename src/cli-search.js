@@ -1,7 +1,7 @@
 #!/usr/bin/env node
+const path = require('path');
 const _ = require('lodash');
 const fs = require('fs-extra');
-const path = require('path');
 const yargs = require('yargs');
 const checkAPIKey = require('./lib/apiKey');
 const configDir = require('./lib/configDirectory');

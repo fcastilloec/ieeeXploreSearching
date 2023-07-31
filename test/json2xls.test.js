@@ -1,5 +1,5 @@
-const fs = require('fs-extra');
 const path = require('path');
+const fs = require('fs-extra');
 const { authorsString, fromResults } = require('../src/lib/json2xls');
 
 test('authorsString with empty array', () => {
