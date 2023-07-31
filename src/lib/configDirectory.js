@@ -1,5 +1,5 @@
-const { pathExistsSync } = require('fs-extra');
 const { join } = require('path');
+const { pathExistsSync } = require('fs-extra');
 const pkg = require('../../package.json');
 
 /**

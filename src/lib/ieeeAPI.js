@@ -1,7 +1,7 @@
-const axios = require('axios');
 const https = require('https');
-const { locateChrome, locateFirefox } = require('locate-app');
 const path = require('path');
+const axios = require('axios');
+const { locateChrome, locateFirefox } = require('locate-app');
 const puppeteer = require('puppeteer-core');
 const createJSON = require('./createJson');
 const { escapeRegExp, getLineStack } = require('./utils');
