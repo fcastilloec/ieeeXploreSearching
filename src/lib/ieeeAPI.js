@@ -20,6 +20,9 @@ async function scrap(queryText, rangeYear, verbose) {
   const timeout = 20000;
   let lineStack; // stack message with line info
 
+  const userAgentChrome = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko)'
+    + 'Chrome/117.0.0.0 Safari/537.36';
+  const userAgentFirefox = 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/118.0';
   const ieeeSearchUrl = 'https://ieeexplore.ieee.org/search/searchresult.jsp';
   const ELEMENTS = '.List-results-items'; // change in constants.js
   const RESULTS = 'h1.Dashboard-header.col-12 > span:nth-child(1)';
@@ -34,6 +37,7 @@ async function scrap(queryText, rangeYear, verbose) {
   // Test for redirects
   const regex = new RegExp(`${escapeRegExp(ieeeSearchUrl)}(;jsessionid=[a-zA-Z0-9!-_]*)?${escapeRegExp(query)}.*`);
 
+  let userAgent;
   let executablePath; // path to either Chrome (preferred) or Firefox
   let product; // Which browser to launch
   let headless; // Chrome uses a different type
@@ -47,11 +51,13 @@ async function scrap(queryText, rangeYear, verbose) {
     executablePath = await locateChrome();
     product = 'chrome';
     headless = 'new';
+    userAgent = userAgentChrome;
   } catch (errorChrome) {
     try {
       executablePath = await locateFirefox();
       product = 'firefox';
       headless = true;
+      userAgent = userAgentFirefox;
     } catch (errorFirefox) {
       console.error("Can't find a valid installation of Chrome or Firefox");
       process.exit(2);
@@ -66,6 +72,7 @@ async function scrap(queryText, rangeYear, verbose) {
     });
     const page = await browser.newPage();
     page.setDefaultTimeout(timeout);
+    page.setUserAgent(userAgent);
     await page.goto(ieeeSearchUrl + query);
     if (!regex.test(page.url())) {
       throw new Error(`IEEE redirected, probably maintenance is happening.\n${page.url()}`);
