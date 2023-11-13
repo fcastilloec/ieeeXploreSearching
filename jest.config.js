@@ -1,5 +1,5 @@
 const config = {
-  testTimeout: 25000,
+  testTimeout: process.env.CI ? 45000 : 25000,
   verbose: true,
   collectCoverage: true,
   coverageReporters: ['text', 'text-summary'],
