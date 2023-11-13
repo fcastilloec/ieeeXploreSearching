@@ -53,17 +53,20 @@ function testIf() {
 describe.each(testArray)(
   'Scrapping',
   ({ label, query, expected }) => {
-    testIf()(label, async () => {
-      const results = await scrap(query, rangeYear, false);
-      const result = results.articles[0];
-      delete result.abstract;
-      expect(result).toMatchObject(expected);
-    });
+    test(
+      label,
+      async () => {
+        const results = await scrap(query, rangeYear, false);
+        const result = results.articles[0];
+        delete result.abstract;
+        expect(result).toMatchObject(expected);
+      },
+    );
   },
 );
 
 describe('Scrapping', () => {
-  testIf()(
+  test(
     'Title without link',
     async () => {
       const results = await scrap('optics AND nano AND QELS', [2000, 2000], false);
@@ -75,7 +78,7 @@ describe('Scrapping', () => {
 });
 
 describe('Scrapping', () => {
-  testIf()(
+  test(
     'Results in multiple pages',
     async () => {
       await expect(
@@ -88,11 +91,14 @@ describe('Scrapping', () => {
 describe.each(testArray)(
   'Official API',
   ({ label, query, expected }) => {
-    testIf()(label, async () => {
-      const results = await api(process.env.APIKEY, query, rangeYear, false);
-      const result = results.articles[0];
-      delete result.abstract;
-      expect(result).toMatchObject(expected);
-    });
+    testIf()(
+      label,
+      async () => {
+        const results = await api(process.env.APIKEY, query, rangeYear, false);
+        const result = results.articles[0];
+        delete result.abstract;
+        expect(result).toMatchObject(expected);
+      },
+    );
   },
 );

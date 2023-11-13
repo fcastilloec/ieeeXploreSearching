@@ -17,7 +17,7 @@ const { escapeRegExp, getLineStack } = require('./utils');
  */
 async function scrap(queryText, rangeYear, verbose) {
   // only wait this amount of milliseconds, any longer and it means there's no results
-  const timeout = 20000;
+  const timeout = process.env.CI ? 40000 : 20000;
   let lineStack; // stack message with line info
 
   const userAgentChrome = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko)'
@@ -99,8 +99,9 @@ async function scrap(queryText, rangeYear, verbose) {
     if (!Array.isArray(recordsNums)) { // it has to be an Array, and it can be of length 2 or 3
       throw new Error("Couldn't find the total number of records");
     }
-    const totalRecords = parseInt(recordsNums[2], 10);
-    const recordsPerPage = parseInt(recordsNums[1], 10);
+    if (recordsNums.length === 3) recordsNums.shift(); // remove unneeded number
+    const totalRecords = parseInt(recordsNums[1], 10);
+    const recordsPerPage = parseInt(recordsNums[0], 10);
     TOTAL_PAGES = Math.ceil(totalRecords / recordsPerPage);
 
     // Check that NEXT selector is present if there are multiple pages
