@@ -70,9 +70,9 @@ describe('Scrapping', () => {
     'Title without link',
     async () => {
       const results = await scrap('optics AND nano AND QELS', [2000, 2000], false);
-      const result = results.articles[1];
+      const result = results.articles[0];
       delete result.abstract;
-      expect(result).toMatchObject(untitled[1]);
+      expect(result).toMatchObject(untitled[0]);
     },
   );
 });

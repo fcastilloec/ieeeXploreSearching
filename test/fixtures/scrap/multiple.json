@@ -59,35 +59,6 @@
       "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1179605"
     },
     {
-      "article_number": "965854",
-      "title": "A TCP friendly, rate-based mechanism for NACK-oriented reliable multicast congestion control",
-      "publication_year": 2001,
-      "publisher": "IEEE",
-      "content_type": "Conferences",
-      "publication_title": "GLOBECOM'01. IEEE Global Telecommunications Conference (Cat. No.01CH37270)",
-      "authors": {
-        "authors": [
-          {
-            "full_name": "J.P. Macker",
-            "author_order": 1,
-            "authorUrl": "https://ieeexplore.ieee.org/author/37371700700",
-            "id": 37371700700
-          },
-          {
-            "full_name": "R.B. Adamson",
-            "author_order": 2,
-            "authorUrl": "https://ieeexplore.ieee.org/author/38557573700",
-            "id": 38557573700
-          }
-        ]
-      },
-      "abstract": "We describe ongoing work in adding congestion control extensions to an existing negative acknowledgement (NACK) oriented reliable multicast protocol. Our previous work adopted and used the concept of a dynamic worst path representative (WPR) receiver for equation-based rate adaptation at the multicast source. We have further refined this approach. We present a design overview and simulation ...",
-      "abstract_url": "https://ieeexplore.ieee.org/document/965854/",
-      "publication_number": 7633,
-      "html_url": "https://ieeexplore.ieee.org/document/965854/",
-      "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=965854"
-    },
-    {
       "article_number": "959093",
       "title": "Computational media aesthetics: finding meaning beautiful",
       "publication_year": 2001,
@@ -402,33 +373,33 @@
       "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=852883"
     },
     {
-      "article_number": "1019297",
-      "title": "Increase-decrease congestion control for real-time streaming: scalability",
-      "publication_year": 2002,
+      "article_number": "965854",
+      "title": "A TCP friendly, rate-based mechanism for NACK-oriented reliable multicast congestion control",
+      "publication_year": 2001,
       "publisher": "IEEE",
       "content_type": "Conferences",
-      "publication_title": "Proceedings.Twenty-First Annual Joint Conference of the IEEE Computer and Communications Societies",
+      "publication_title": "GLOBECOM'01. IEEE Global Telecommunications Conference (Cat. No.01CH37270)",
       "authors": {
         "authors": [
           {
-            "full_name": "D. Loguinov",
+            "full_name": "J.P. Macker",
             "author_order": 1,
-            "authorUrl": "https://ieeexplore.ieee.org/author/37273699200",
-            "id": 37273699200
+            "authorUrl": "https://ieeexplore.ieee.org/author/37371700700",
+            "id": 37371700700
           },
           {
-            "full_name": "H. Radha",
+            "full_name": "R.B. Adamson",
             "author_order": 2,
-            "authorUrl": "https://ieeexplore.ieee.org/author/37269513400",
-            "id": 37269513400
+            "authorUrl": "https://ieeexplore.ieee.org/author/38557573700",
+            "id": 38557573700
           }
         ]
       },
-      "abstract": "Typically, NACK-based congestion control is dismissed as being not viable due to the common notion that \"open-loop\" congestion control is simply \"difficult.\" Emerging real-time streaming applications, however, often rely on rate-based flow control and would benefit greatly from scalable NACK-based congestion control. This paper sheds new light on the performance of NACK-based con...",
-      "abstract_url": "https://ieeexplore.ieee.org/document/1019297/",
-      "publication_number": 7943,
-      "html_url": "https://ieeexplore.ieee.org/document/1019297/",
-      "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1019297"
+      "abstract": "We describe ongoing work in adding congestion control extensions to an existing negative acknowledgement (NACK) oriented reliable multicast protocol. Our previous work adopted and used the concept of a dynamic worst path representative (WPR) receiver for equation-based rate adaptation at the multicast source. We have further refined this approach. We present a design overview and simulation ...",
+      "abstract_url": "https://ieeexplore.ieee.org/document/965854/",
+      "publication_number": 7633,
+      "html_url": "https://ieeexplore.ieee.org/document/965854/",
+      "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=965854"
     },
     {
       "article_number": "1188437",
@@ -466,39 +437,62 @@
       "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1188437"
     },
     {
-      "article_number": "1207821",
-      "title": "Reliable wireless multicast using fast low-density codes",
+      "article_number": "1286038",
+      "title": "Improving packet loss probability in the UMTS high-speed downlink",
       "publication_year": 2003,
       "publisher": "IEEE",
       "content_type": "Conferences",
-      "publication_title": "The 57th IEEE Semiannual Vehicular Technology Conference, 2003. VTC 2003-Spring.",
+      "publication_title": "2003 IEEE 58th Vehicular Technology Conference. VTC 2003-Fall (IEEE Cat. No.03CH37484)",
       "authors": {
         "authors": [
           {
-            "full_name": "Jin-Hwan Chung",
+            "full_name": "C. Herrmann",
             "author_order": 1,
-            "authorUrl": "https://ieeexplore.ieee.org/author/37088173092",
-            "id": 37088173092
+            "authorUrl": "https://ieeexplore.ieee.org/author/37285833600",
+            "id": 37285833600
           },
           {
-            "full_name": "Sung-Eun Kim",
+            "full_name": "M.P.J. Baker",
             "author_order": 2,
-            "authorUrl": "https://ieeexplore.ieee.org/author/37087257740",
-            "id": 37087257740
-          },
-          {
-            "full_name": "J. Copeland",
-            "author_order": 3,
-            "authorUrl": "https://ieeexplore.ieee.org/author/37284806600",
-            "id": 37284806600
+            "authorUrl": "https://ieeexplore.ieee.org/author/38074912600",
+            "id": 38074912600
           }
         ]
       },
-      "abstract": "Recently, there has been the high demand for one-to-many reliable multicast distribution under wireless environments. The characteristics of multicast protocol combined with the inherent wireless channel impairment make the network performance drastically degrade as the group size or packet loss rate increases. Although the conventional Reed-Solomon FEC (forward error correction)-based scheme can ...",
-      "abstract_url": "https://ieeexplore.ieee.org/document/1207821/",
-      "publication_number": 8574,
-      "html_url": "https://ieeexplore.ieee.org/document/1207821/",
-      "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1207821"
+      "abstract": "According to the current design of the hybrid automatic repeat request (HARQ) protocol which is used in UMTS release 5 for the high speed downlink shared channel (HS-DSCH), a mobile terminal which fails to decode a packet will transmit a physical-layer negative acknowledgement (NACK). If the base station misinterprets this NACK as a positive acknowledgement (ACK), there is no further o...",
+      "abstract_url": "https://ieeexplore.ieee.org/document/1286038/",
+      "publication_number": 9004,
+      "html_url": "https://ieeexplore.ieee.org/document/1286038/",
+      "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1286038"
+    },
+    {
+      "article_number": "1019297",
+      "title": "Increase-decrease congestion control for real-time streaming: scalability",
+      "publication_year": 2002,
+      "publisher": "IEEE",
+      "content_type": "Conferences",
+      "publication_title": "Proceedings.Twenty-First Annual Joint Conference of the IEEE Computer and Communications Societies",
+      "authors": {
+        "authors": [
+          {
+            "full_name": "D. Loguinov",
+            "author_order": 1,
+            "authorUrl": "https://ieeexplore.ieee.org/author/37273699200",
+            "id": 37273699200
+          },
+          {
+            "full_name": "H. Radha",
+            "author_order": 2,
+            "authorUrl": "https://ieeexplore.ieee.org/author/37269513400",
+            "id": 37269513400
+          }
+        ]
+      },
+      "abstract": "Typically, NACK-based congestion control is dismissed as being not viable due to the common notion that \"open-loop\" congestion control is simply \"difficult.\" Emerging real-time streaming applications, however, often rely on rate-based flow control and would benefit greatly from scalable NACK-based congestion control. This paper sheds new light on the performance of NACK-based con...",
+      "abstract_url": "https://ieeexplore.ieee.org/document/1019297/",
+      "publication_number": 7943,
+      "html_url": "https://ieeexplore.ieee.org/document/1019297/",
+      "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1019297"
     },
     {
       "article_number": "945078",
@@ -606,6 +600,35 @@
       "publication_number": 8154,
       "html_url": "https://ieeexplore.ieee.org/document/1088198/",
       "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1088198"
+    },
+    {
+      "article_number": "916626",
+      "title": "On retransmission schemes for real-time streaming in the Internet",
+      "publication_year": 2001,
+      "publisher": "IEEE",
+      "content_type": "Conferences",
+      "publication_title": "Proceedings IEEE INFOCOM 2001. Conference on Computer Communications. Twentieth Annual Joint Conference of the IEEE Computer and Communications Society (Cat. No.01CH37213)",
+      "authors": {
+        "authors": [
+          {
+            "full_name": "D. Loguinov",
+            "author_order": 1,
+            "authorUrl": "https://ieeexplore.ieee.org/author/37273699200",
+            "id": 37273699200
+          },
+          {
+            "full_name": "H. Radha",
+            "author_order": 2,
+            "authorUrl": "https://ieeexplore.ieee.org/author/37269513400",
+            "id": 37269513400
+          }
+        ]
+      },
+      "abstract": "This paper presents a trace-driven simulation study of three classes of retransmission timeout (RTO) estimators in the context of low-bitrate real-time streaming over the Internet. We explore the viability of employing retransmission timeouts in NACK-based real-time streaming applications that support multiple retransmission attempts per lost packet. In such applications, real-time RTO estim...",
+      "abstract_url": "https://ieeexplore.ieee.org/document/916626/",
+      "publication_number": 7321,
+      "html_url": "https://ieeexplore.ieee.org/document/916626/",
+      "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=916626"
     },
     {
       "article_number": "933603",
@@ -742,6 +765,35 @@
       "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1203335"
     },
     {
+      "article_number": "1204559",
+      "title": "Reliability-based hybrid ARQ using convolutional codes",
+      "publication_year": 2003,
+      "publisher": "IEEE",
+      "content_type": "Conferences",
+      "publication_title": "IEEE International Conference on Communications, 2003. ICC '03.",
+      "authors": {
+        "authors": [
+          {
+            "full_name": "A. Roongta",
+            "author_order": 1,
+            "authorUrl": "https://ieeexplore.ieee.org/author/37279133800",
+            "id": 37279133800
+          },
+          {
+            "full_name": "J.M. Shea",
+            "author_order": 2,
+            "authorUrl": "https://ieeexplore.ieee.org/author/37279127500",
+            "id": 37279127500
+          }
+        ]
+      },
+      "abstract": "Reliability-based hybrid ARQ (RB-HARQ) is a recently introduced approach to incremental-redundancy ARQ. In RB-HARQ, the bits that are to be retransmitted are adaptively selected at the receiver based on the estimated bit reliabilities. This technique has the potential to improve performance and minimize retransmission size by targeting those bits that are likely to be in error. However, previous v...",
+      "abstract_url": "https://ieeexplore.ieee.org/document/1204559/",
+      "publication_number": 8564,
+      "html_url": "https://ieeexplore.ieee.org/document/1204559/",
+      "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1204559"
+    },
+    {
       "article_number": "1204516",
       "title": "Reliable adaptive lightweight multicast protocol",
       "publication_year": 2003,
@@ -781,6 +833,41 @@
       "publication_number": 8564,
       "html_url": "https://ieeexplore.ieee.org/document/1204516/",
       "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1204516"
+    },
+    {
+      "article_number": "1258857",
+      "title": "Exact statistics of ARQ packet delivery delay over Markov channels with finite round-trip delay",
+      "publication_year": 2003,
+      "publisher": "IEEE",
+      "content_type": "Conferences",
+      "publication_title": "GLOBECOM '03. IEEE Global Telecommunications Conference (IEEE Cat. No.03CH37489)",
+      "authors": {
+        "authors": [
+          {
+            "full_name": "M. Rossi",
+            "author_order": 1,
+            "authorUrl": "https://ieeexplore.ieee.org/author/37271350900",
+            "id": 37271350900
+          },
+          {
+            "full_name": "L. Badia",
+            "author_order": 2,
+            "authorUrl": "https://ieeexplore.ieee.org/author/37275350000",
+            "id": 37275350000
+          },
+          {
+            "full_name": "M. Zorzi",
+            "author_order": 3,
+            "authorUrl": "https://ieeexplore.ieee.org/author/37278668800",
+            "id": 37278668800
+          }
+        ]
+      },
+      "abstract": "In this paper the packet delay statistics of a fully reliable selective-repeat ARQ scheme is investigated. It is assumed that the sender continuously transmits packets whose error process is characterized by means of a two-state discrete time Markov channel. At the receiver these packets are checked for errors and ACK/NACK messages (assumed error-free) are sent back to the sender accordingly...",
+      "abstract_url": "https://ieeexplore.ieee.org/document/1258857/",
+      "publication_number": 8900,
+      "html_url": "https://ieeexplore.ieee.org/document/1258857/",
+      "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1258857"
     },
     {
       "article_number": "875810",
@@ -839,6 +926,41 @@
       "publication_number": 8180,
       "html_url": "https://ieeexplore.ieee.org/document/1115403/",
       "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1115403"
+    },
+    {
+      "article_number": "1200655",
+      "title": "On the delay statistics of an aggregate of SR-ARQ packets over Markov channels with finite round-trip delay",
+      "publication_year": 2003,
+      "publisher": "IEEE",
+      "content_type": "Conferences",
+      "publication_title": "2003 IEEE Wireless Communications and Networking, 2003. WCNC 2003.",
+      "authors": {
+        "authors": [
+          {
+            "full_name": "M. Rossi",
+            "author_order": 1,
+            "authorUrl": "https://ieeexplore.ieee.org/author/37271350900",
+            "id": 37271350900
+          },
+          {
+            "full_name": "L. Badia",
+            "author_order": 2,
+            "authorUrl": "https://ieeexplore.ieee.org/author/37275350000",
+            "id": 37275350000
+          },
+          {
+            "full_name": "M. Zorzi",
+            "author_order": 3,
+            "authorUrl": "https://ieeexplore.ieee.org/author/37278668800",
+            "id": 37278668800
+          }
+        ]
+      },
+      "abstract": "In this paper, we investigate the delay statistics of an aggregate of fully reliable selective-repeat ARQ packets. The sender transmits packets whose error process is characterized by means of a two-state discrete time Markov channel (DTMC). At the receiver, these packets are checked for errors and ACK/NACK messages are sent back to the sender accordingly. No errors are accounted for in the ...",
+      "abstract_url": "https://ieeexplore.ieee.org/document/1200655/",
+      "publication_number": 8546,
+      "html_url": "https://ieeexplore.ieee.org/document/1200655/",
+      "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1200655"
     },
     {
       "article_number": "853754",
@@ -905,6 +1027,41 @@
       "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1038938"
     },
     {
+      "article_number": "1200654",
+      "title": "Accurate approximation of ARQ packet delay statistics over Markov channels with finite round-trip delay",
+      "publication_year": 2003,
+      "publisher": "IEEE",
+      "content_type": "Conferences",
+      "publication_title": "2003 IEEE Wireless Communications and Networking, 2003. WCNC 2003.",
+      "authors": {
+        "authors": [
+          {
+            "full_name": "M. Rossi",
+            "author_order": 1,
+            "authorUrl": "https://ieeexplore.ieee.org/author/37271350900",
+            "id": 37271350900
+          },
+          {
+            "full_name": "L. Badia",
+            "author_order": 2,
+            "authorUrl": "https://ieeexplore.ieee.org/author/37275350000",
+            "id": 37275350000
+          },
+          {
+            "full_name": "M. Zorzi",
+            "author_order": 3,
+            "authorUrl": "https://ieeexplore.ieee.org/author/37278668800",
+            "id": 37278668800
+          }
+        ]
+      },
+      "abstract": "In this paper the packet delay statistics of a fully reliable selective-repeat ARQ scheme is investigated. The sender transmits packets whose error process is characterized by means of a two-state discrete time Markov channel (DTMC). At the receiver, these packets are checked for errors and ACK/NACK messages are sent back to the sender accordingly. It is assumed that the feedback message is ...",
+      "abstract_url": "https://ieeexplore.ieee.org/document/1200654/",
+      "publication_number": 8546,
+      "html_url": "https://ieeexplore.ieee.org/document/1200654/",
+      "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1200654"
+    },
+    {
       "article_number": "1009856",
       "title": "Dynamic throughput estimation for wireless multimedia transmission",
       "publication_year": 2002,
@@ -932,6 +1089,29 @@
       "publication_number": 7897,
       "html_url": "https://ieeexplore.ieee.org/document/1009856/",
       "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1009856"
+    },
+    {
+      "article_number": "1290152",
+      "title": "Data throughput on MILSATCOM channels using military standard 188-184 and 188-181B",
+      "publication_year": 2003,
+      "publisher": "IEEE",
+      "content_type": "Conferences",
+      "publication_title": "IEEE Military Communications Conference, 2003. MILCOM 2003.",
+      "authors": {
+        "authors": [
+          {
+            "full_name": "J.A. Norris",
+            "author_order": 1,
+            "authorUrl": "https://ieeexplore.ieee.org/author/37414745900",
+            "id": 37414745900
+          }
+        ]
+      },
+      "abstract": "The physical layer continuous phase modulated (CPM) waveforms that are defined in Mil-Std-188-181B can now be used with network layer protocols such as those defined in Mil-Std-188-184 and the UHF SATCOM high performance waveform (HPW). These CPM waveforms provide higher throughput than the standard, ubiquitous 16 kbps FSK waveform and this paper documents the performance of the combination of the...",
+      "abstract_url": "https://ieeexplore.ieee.org/document/1290152/",
+      "publication_number": 9057,
+      "html_url": "https://ieeexplore.ieee.org/document/1290152/",
+      "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1290152"
     },
     {
       "article_number": "962792",
@@ -1074,6 +1254,41 @@
       "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=997297"
     },
     {
+      "article_number": "1207821",
+      "title": "Reliable wireless multicast using fast low-density codes",
+      "publication_year": 2003,
+      "publisher": "IEEE",
+      "content_type": "Conferences",
+      "publication_title": "The 57th IEEE Semiannual Vehicular Technology Conference, 2003. VTC 2003-Spring.",
+      "authors": {
+        "authors": [
+          {
+            "full_name": "Jin-Hwan Chung",
+            "author_order": 1,
+            "authorUrl": "https://ieeexplore.ieee.org/author/37088173092",
+            "id": 37088173092
+          },
+          {
+            "full_name": "Sung-Eun Kim",
+            "author_order": 2,
+            "authorUrl": "https://ieeexplore.ieee.org/author/37087257740",
+            "id": 37087257740
+          },
+          {
+            "full_name": "J. Copeland",
+            "author_order": 3,
+            "authorUrl": "https://ieeexplore.ieee.org/author/37284806600",
+            "id": 37284806600
+          }
+        ]
+      },
+      "abstract": "Recently, there has been the high demand for one-to-many reliable multicast distribution under wireless environments. The characteristics of multicast protocol combined with the inherent wireless channel impairment make the network performance drastically degrade as the group size or packet loss rate increases. Although the conventional Reed-Solomon FEC (forward error correction)-based scheme can ...",
+      "abstract_url": "https://ieeexplore.ieee.org/document/1207821/",
+      "publication_number": 8574,
+      "html_url": "https://ieeexplore.ieee.org/document/1207821/",
+      "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1207821"
+    },
+    {
       "article_number": "893685",
       "title": "Feedback control using representatives and timer in reliable multicast protocols",
       "publication_year": 2000,
@@ -1107,35 +1322,6 @@
       "publication_number": 7129,
       "html_url": "https://ieeexplore.ieee.org/document/893685/",
       "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=893685"
-    },
-    {
-      "article_number": "916626",
-      "title": "On retransmission schemes for real-time streaming in the Internet",
-      "publication_year": 2001,
-      "publisher": "IEEE",
-      "content_type": "Conferences",
-      "publication_title": "Proceedings IEEE INFOCOM 2001. Conference on Computer Communications. Twentieth Annual Joint Conference of the IEEE Computer and Communications Society (Cat. No.01CH37213)",
-      "authors": {
-        "authors": [
-          {
-            "full_name": "D. Loguinov",
-            "author_order": 1,
-            "authorUrl": "https://ieeexplore.ieee.org/author/37273699200",
-            "id": 37273699200
-          },
-          {
-            "full_name": "H. Radha",
-            "author_order": 2,
-            "authorUrl": "https://ieeexplore.ieee.org/author/37269513400",
-            "id": 37269513400
-          }
-        ]
-      },
-      "abstract": "This paper presents a trace-driven simulation study of three classes of retransmission timeout (RTO) estimators in the context of low-bitrate real-time streaming over the Internet. We explore the viability of employing retransmission timeouts in NACK-based real-time streaming applications that support multiple retransmission attempts per lost packet. In such applications, real-time RTO estim...",
-      "abstract_url": "https://ieeexplore.ieee.org/document/916626/",
-      "publication_number": 7321,
-      "html_url": "https://ieeexplore.ieee.org/document/916626/",
-      "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=916626"
     },
     {
       "article_number": "1203361",
@@ -1198,6 +1384,49 @@
       "issue": "1"
     },
     {
+      "article_number": "1255429",
+      "title": "Protocol design for scalable and reliable group rekeying",
+      "publication_year": 2003,
+      "publisher": "IEEE",
+      "content_type": "Journals",
+      "publication_title": "IEEE/ACM Transactions on Networking",
+      "authors": {
+        "authors": [
+          {
+            "full_name": "X.B. Zhang",
+            "author_order": 1,
+            "authorUrl": "https://ieeexplore.ieee.org/author/38200444400",
+            "id": 38200444400
+          },
+          {
+            "full_name": "S.S. Lam",
+            "author_order": 2,
+            "authorUrl": "https://ieeexplore.ieee.org/author/37274085200",
+            "id": 37274085200
+          },
+          {
+            "full_name": "Dong-Young Lee",
+            "author_order": 3,
+            "authorUrl": "https://ieeexplore.ieee.org/author/37087163115",
+            "id": 37087163115
+          },
+          {
+            "full_name": "Y.R. Yang",
+            "author_order": 4,
+            "authorUrl": "https://ieeexplore.ieee.org/author/37086404212",
+            "id": 37086404212
+          }
+        ]
+      },
+      "abstract": "We present the design and specification of a protocol for scalable and reliable group rekeying together with performance evaluation results. The protocol is based upon the use of key trees for secure groups and periodic batch rekeying. At the beginning of each rekey interval, the key server sends a rekey message to all users consisting of encrypted new keys (encryptions, in short) carried in a seq...",
+      "abstract_url": "https://ieeexplore.ieee.org/document/1255429/",
+      "publication_number": 90,
+      "html_url": "https://ieeexplore.ieee.org/document/1255429/",
+      "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1255429",
+      "volume": "11",
+      "issue": "6"
+    },
+    {
       "article_number": "1019318",
       "title": "End-to-end Internet video traffic dynamics: statistical study and analysis",
       "publication_year": 2002,
@@ -1256,6 +1485,43 @@
       "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1026011",
       "volume": "10",
       "issue": "4"
+    },
+    {
+      "article_number": "819172",
+      "title": "Fcast multicast file distribution",
+      "publication_year": 2000,
+      "publisher": "IEEE",
+      "content_type": "Magazines",
+      "publication_title": "IEEE Network",
+      "authors": {
+        "authors": [
+          {
+            "full_name": "J. Gemmell",
+            "author_order": 1,
+            "authorUrl": "https://ieeexplore.ieee.org/author/37332037800",
+            "id": 37332037800
+          },
+          {
+            "full_name": "J. Gray",
+            "author_order": 2,
+            "authorUrl": "https://ieeexplore.ieee.org/author/37277429300",
+            "id": 37277429300
+          },
+          {
+            "full_name": "E. Schooler",
+            "author_order": 3,
+            "authorUrl": "https://ieeexplore.ieee.org/author/38570967600",
+            "id": 38570967600
+          }
+        ]
+      },
+      "abstract": "Reliable data multicast is problematic. ACK/NACK schemes do not scale to large audiences, and simple data replication wastes network bandwidth. Fcast, \"file multicasting\", combines multicast with forward error correction to address both these problems. Like classic multicast, Fcast scales to large audiences, and like other FEC schemes, it uses bandwidth very efficiently. Some of the benefits...",
+      "abstract_url": "https://ieeexplore.ieee.org/document/819172/",
+      "publication_number": 65,
+      "html_url": "https://ieeexplore.ieee.org/document/819172/",
+      "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=819172",
+      "volume": "14",
+      "issue": "1"
     },
     {
       "article_number": "935368",
@@ -1345,6 +1611,70 @@
       "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=904848"
     },
     {
+      "article_number": "965182",
+      "title": "Link adaptation policies for wireless broadband networks",
+      "publication_year": 2001,
+      "publisher": "IEEE",
+      "content_type": "Conferences",
+      "publication_title": "GLOBECOM'01. IEEE Global Telecommunications Conference (Cat. No.01CH37270)",
+      "authors": {
+        "authors": [
+          {
+            "full_name": "I. Koutsopoulos",
+            "author_order": 1,
+            "authorUrl": "https://ieeexplore.ieee.org/author/37284280000",
+            "id": 37284280000
+          },
+          {
+            "full_name": "L. Tassiulas",
+            "author_order": 2,
+            "authorUrl": "https://ieeexplore.ieee.org/author/37273302500",
+            "id": 37273302500
+          }
+        ]
+      },
+      "abstract": "Wireless broadband access is becoming increasingly popular in the telecommunications market due to the projected demand for high data-rate connections. Given the inherent volatility of the wireless channel, the accurate estimation of channel conditions and the adoption of sophisticated adaptation techniques is required, so that transmission parameters are selected based on link quality, and user t...",
+      "abstract_url": "https://ieeexplore.ieee.org/document/965182/",
+      "publication_number": 7633,
+      "html_url": "https://ieeexplore.ieee.org/document/965182/",
+      "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=965182"
+    },
+    {
+      "article_number": "1191516",
+      "title": "Robust connections for TCP transfers over ATM through an active protocol in a multiagent architecture",
+      "publication_year": 2003,
+      "publisher": "IEEE",
+      "content_type": "Conferences",
+      "publication_title": "10th International Conference on Telecommunications, 2003. ICT 2003.",
+      "authors": {
+        "authors": [
+          {
+            "full_name": "J.L. Gonzalez-Sanchez",
+            "author_order": 1,
+            "authorUrl": "https://ieeexplore.ieee.org/author/38274771000",
+            "id": 38274771000
+          },
+          {
+            "full_name": "J. Domingo-Pascual",
+            "author_order": 2,
+            "authorUrl": "https://ieeexplore.ieee.org/author/38270620600",
+            "id": 38270620600
+          },
+          {
+            "full_name": "A.G. Cervero",
+            "author_order": 3,
+            "authorUrl": "https://ieeexplore.ieee.org/author/37087714218",
+            "id": 37087714218
+          }
+        ]
+      },
+      "abstract": "TAP (Trusted and Active PDU transfers) is a new distributed architecture and a protocol for ATM networks that provides assured transfers to a set of privileged VPI/VCI. The distributed architecture manages the privileged connections and offers an improvement In performance when network connections cause some cell loss. Our AcTMs (Active ATM switch) model supports the trusted protocol. This researc...",
+      "abstract_url": "https://ieeexplore.ieee.org/document/1191516/",
+      "publication_number": 8474,
+      "html_url": "https://ieeexplore.ieee.org/document/1191516/",
+      "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1191516"
+    },
+    {
       "article_number": "1203682",
       "title": "TMRCC: a congestion control mechanism for tree-based many-to-many reliable multicast protocols",
       "publication_year": 2003,
@@ -1431,336 +1761,6 @@
       "publication_number": 7943,
       "html_url": "https://ieeexplore.ieee.org/document/1019384/",
       "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1019384"
-    },
-    {
-      "article_number": "1286038",
-      "title": "Improving packet loss probability in the UMTS high-speed downlink",
-      "publication_year": 2003,
-      "publisher": "IEEE",
-      "content_type": "Conferences",
-      "publication_title": "2003 IEEE 58th Vehicular Technology Conference. VTC 2003-Fall (IEEE Cat. No.03CH37484)",
-      "authors": {
-        "authors": [
-          {
-            "full_name": "C. Herrmann",
-            "author_order": 1,
-            "authorUrl": "https://ieeexplore.ieee.org/author/37285833600",
-            "id": 37285833600
-          },
-          {
-            "full_name": "M.P.J. Baker",
-            "author_order": 2,
-            "authorUrl": "https://ieeexplore.ieee.org/author/38074912600",
-            "id": 38074912600
-          }
-        ]
-      },
-      "abstract": "According to the current design of the hybrid automatic repeat request (HARQ) protocol which is used in UMTS release 5 for the high speed downlink shared channel (HS-DSCH), a mobile terminal which fails to decode a packet will transmit a physical-layer negative acknowledgement (NACK). If the base station misinterprets this NACK as a positive acknowledgement (ACK), there is no further o...",
-      "abstract_url": "https://ieeexplore.ieee.org/document/1286038/",
-      "publication_number": 9004,
-      "html_url": "https://ieeexplore.ieee.org/document/1286038/",
-      "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1286038"
-    },
-    {
-      "article_number": "1204559",
-      "title": "Reliability-based hybrid ARQ using convolutional codes",
-      "publication_year": 2003,
-      "publisher": "IEEE",
-      "content_type": "Conferences",
-      "publication_title": "IEEE International Conference on Communications, 2003. ICC '03.",
-      "authors": {
-        "authors": [
-          {
-            "full_name": "A. Roongta",
-            "author_order": 1,
-            "authorUrl": "https://ieeexplore.ieee.org/author/37279133800",
-            "id": 37279133800
-          },
-          {
-            "full_name": "J.M. Shea",
-            "author_order": 2,
-            "authorUrl": "https://ieeexplore.ieee.org/author/37279127500",
-            "id": 37279127500
-          }
-        ]
-      },
-      "abstract": "Reliability-based hybrid ARQ (RB-HARQ) is a recently introduced approach to incremental-redundancy ARQ. In RB-HARQ, the bits that are to be retransmitted are adaptively selected at the receiver based on the estimated bit reliabilities. This technique has the potential to improve performance and minimize retransmission size by targeting those bits that are likely to be in error. However, previous v...",
-      "abstract_url": "https://ieeexplore.ieee.org/document/1204559/",
-      "publication_number": 8564,
-      "html_url": "https://ieeexplore.ieee.org/document/1204559/",
-      "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1204559"
-    },
-    {
-      "article_number": "1258857",
-      "title": "Exact statistics of ARQ packet delivery delay over Markov channels with finite round-trip delay",
-      "publication_year": 2003,
-      "publisher": "IEEE",
-      "content_type": "Conferences",
-      "publication_title": "GLOBECOM '03. IEEE Global Telecommunications Conference (IEEE Cat. No.03CH37489)",
-      "authors": {
-        "authors": [
-          {
-            "full_name": "M. Rossi",
-            "author_order": 1,
-            "authorUrl": "https://ieeexplore.ieee.org/author/37271350900",
-            "id": 37271350900
-          },
-          {
-            "full_name": "L. Badia",
-            "author_order": 2,
-            "authorUrl": "https://ieeexplore.ieee.org/author/37275350000",
-            "id": 37275350000
-          },
-          {
-            "full_name": "M. Zorzi",
-            "author_order": 3,
-            "authorUrl": "https://ieeexplore.ieee.org/author/37278668800",
-            "id": 37278668800
-          }
-        ]
-      },
-      "abstract": "In this paper the packet delay statistics of a fully reliable selective-repeat ARQ scheme is investigated. It is assumed that the sender continuously transmits packets whose error process is characterized by means of a two-state discrete time Markov channel. At the receiver these packets are checked for errors and ACK/NACK messages (assumed error-free) are sent back to the sender accordingly...",
-      "abstract_url": "https://ieeexplore.ieee.org/document/1258857/",
-      "publication_number": 8900,
-      "html_url": "https://ieeexplore.ieee.org/document/1258857/",
-      "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1258857"
-    },
-    {
-      "article_number": "1200655",
-      "title": "On the delay statistics of an aggregate of SR-ARQ packets over Markov channels with finite round-trip delay",
-      "publication_year": 2003,
-      "publisher": "IEEE",
-      "content_type": "Conferences",
-      "publication_title": "2003 IEEE Wireless Communications and Networking, 2003. WCNC 2003.",
-      "authors": {
-        "authors": [
-          {
-            "full_name": "M. Rossi",
-            "author_order": 1,
-            "authorUrl": "https://ieeexplore.ieee.org/author/37271350900",
-            "id": 37271350900
-          },
-          {
-            "full_name": "L. Badia",
-            "author_order": 2,
-            "authorUrl": "https://ieeexplore.ieee.org/author/37275350000",
-            "id": 37275350000
-          },
-          {
-            "full_name": "M. Zorzi",
-            "author_order": 3,
-            "authorUrl": "https://ieeexplore.ieee.org/author/37278668800",
-            "id": 37278668800
-          }
-        ]
-      },
-      "abstract": "In this paper, we investigate the delay statistics of an aggregate of fully reliable selective-repeat ARQ packets. The sender transmits packets whose error process is characterized by means of a two-state discrete time Markov channel (DTMC). At the receiver, these packets are checked for errors and ACK/NACK messages are sent back to the sender accordingly. No errors are accounted for in the ...",
-      "abstract_url": "https://ieeexplore.ieee.org/document/1200655/",
-      "publication_number": 8546,
-      "html_url": "https://ieeexplore.ieee.org/document/1200655/",
-      "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1200655"
-    },
-    {
-      "article_number": "1200654",
-      "title": "Accurate approximation of ARQ packet delay statistics over Markov channels with finite round-trip delay",
-      "publication_year": 2003,
-      "publisher": "IEEE",
-      "content_type": "Conferences",
-      "publication_title": "2003 IEEE Wireless Communications and Networking, 2003. WCNC 2003.",
-      "authors": {
-        "authors": [
-          {
-            "full_name": "M. Rossi",
-            "author_order": 1,
-            "authorUrl": "https://ieeexplore.ieee.org/author/37271350900",
-            "id": 37271350900
-          },
-          {
-            "full_name": "L. Badia",
-            "author_order": 2,
-            "authorUrl": "https://ieeexplore.ieee.org/author/37275350000",
-            "id": 37275350000
-          },
-          {
-            "full_name": "M. Zorzi",
-            "author_order": 3,
-            "authorUrl": "https://ieeexplore.ieee.org/author/37278668800",
-            "id": 37278668800
-          }
-        ]
-      },
-      "abstract": "In this paper the packet delay statistics of a fully reliable selective-repeat ARQ scheme is investigated. The sender transmits packets whose error process is characterized by means of a two-state discrete time Markov channel (DTMC). At the receiver, these packets are checked for errors and ACK/NACK messages are sent back to the sender accordingly. It is assumed that the feedback message is ...",
-      "abstract_url": "https://ieeexplore.ieee.org/document/1200654/",
-      "publication_number": 8546,
-      "html_url": "https://ieeexplore.ieee.org/document/1200654/",
-      "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1200654"
-    },
-    {
-      "article_number": "1290152",
-      "title": "Data throughput on MILSATCOM channels using military standard 188-184 and 188-181B",
-      "publication_year": 2003,
-      "publisher": "IEEE",
-      "content_type": "Conferences",
-      "publication_title": "IEEE Military Communications Conference, 2003. MILCOM 2003.",
-      "authors": {
-        "authors": [
-          {
-            "full_name": "J.A. Norris",
-            "author_order": 1,
-            "authorUrl": "https://ieeexplore.ieee.org/author/37414745900",
-            "id": 37414745900
-          }
-        ]
-      },
-      "abstract": "The physical layer continuous phase modulated (CPM) waveforms that are defined in Mil-Std-188-181B can now be used with network layer protocols such as those defined in Mil-Std-188-184 and the UHF SATCOM high performance waveform (HPW). These CPM waveforms provide higher throughput than the standard, ubiquitous 16 kbps FSK waveform and this paper documents the performance of the combination of the...",
-      "abstract_url": "https://ieeexplore.ieee.org/document/1290152/",
-      "publication_number": 9057,
-      "html_url": "https://ieeexplore.ieee.org/document/1290152/",
-      "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1290152"
-    },
-    {
-      "article_number": "1255429",
-      "title": "Protocol design for scalable and reliable group rekeying",
-      "publication_year": 2003,
-      "publisher": "IEEE",
-      "content_type": "Journals",
-      "publication_title": "IEEE/ACM Transactions on Networking",
-      "authors": {
-        "authors": [
-          {
-            "full_name": "X.B. Zhang",
-            "author_order": 1,
-            "authorUrl": "https://ieeexplore.ieee.org/author/38200444400",
-            "id": 38200444400
-          },
-          {
-            "full_name": "S.S. Lam",
-            "author_order": 2,
-            "authorUrl": "https://ieeexplore.ieee.org/author/37274085200",
-            "id": 37274085200
-          },
-          {
-            "full_name": "Dong-Young Lee",
-            "author_order": 3,
-            "authorUrl": "https://ieeexplore.ieee.org/author/37087163115",
-            "id": 37087163115
-          },
-          {
-            "full_name": "Y.R. Yang",
-            "author_order": 4,
-            "authorUrl": "https://ieeexplore.ieee.org/author/37086404212",
-            "id": 37086404212
-          }
-        ]
-      },
-      "abstract": "We present the design and specification of a protocol for scalable and reliable group rekeying together with performance evaluation results. The protocol is based upon the use of key trees for secure groups and periodic batch rekeying. At the beginning of each rekey interval, the key server sends a rekey message to all users consisting of encrypted new keys (encryptions, in short) carried in a seq...",
-      "abstract_url": "https://ieeexplore.ieee.org/document/1255429/",
-      "publication_number": 90,
-      "html_url": "https://ieeexplore.ieee.org/document/1255429/",
-      "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1255429",
-      "volume": "11",
-      "issue": "6"
-    },
-    {
-      "article_number": "819172",
-      "title": "Fcast multicast file distribution",
-      "publication_year": 2000,
-      "publisher": "IEEE",
-      "content_type": "Magazines",
-      "publication_title": "IEEE Network",
-      "authors": {
-        "authors": [
-          {
-            "full_name": "J. Gemmell",
-            "author_order": 1,
-            "authorUrl": "https://ieeexplore.ieee.org/author/37332037800",
-            "id": 37332037800
-          },
-          {
-            "full_name": "J. Gray",
-            "author_order": 2,
-            "authorUrl": "https://ieeexplore.ieee.org/author/37277429300",
-            "id": 37277429300
-          },
-          {
-            "full_name": "E. Schooler",
-            "author_order": 3,
-            "authorUrl": "https://ieeexplore.ieee.org/author/38570967600",
-            "id": 38570967600
-          }
-        ]
-      },
-      "abstract": "Reliable data multicast is problematic. ACK/NACK schemes do not scale to large audiences, and simple data replication wastes network bandwidth. Fcast, \"file multicasting\", combines multicast with forward error correction to address both these problems. Like classic multicast, Fcast scales to large audiences, and like other FEC schemes, it uses bandwidth very efficiently. Some of the benefits...",
-      "abstract_url": "https://ieeexplore.ieee.org/document/819172/",
-      "publication_number": 65,
-      "html_url": "https://ieeexplore.ieee.org/document/819172/",
-      "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=819172",
-      "volume": "14",
-      "issue": "1"
-    },
-    {
-      "article_number": "965182",
-      "title": "Link adaptation policies for wireless broadband networks",
-      "publication_year": 2001,
-      "publisher": "IEEE",
-      "content_type": "Conferences",
-      "publication_title": "GLOBECOM'01. IEEE Global Telecommunications Conference (Cat. No.01CH37270)",
-      "authors": {
-        "authors": [
-          {
-            "full_name": "I. Koutsopoulos",
-            "author_order": 1,
-            "authorUrl": "https://ieeexplore.ieee.org/author/37284280000",
-            "id": 37284280000
-          },
-          {
-            "full_name": "L. Tassiulas",
-            "author_order": 2,
-            "authorUrl": "https://ieeexplore.ieee.org/author/37273302500",
-            "id": 37273302500
-          }
-        ]
-      },
-      "abstract": "Wireless broadband access is becoming increasingly popular in the telecommunications market due to the projected demand for high data-rate connections. Given the inherent volatility of the wireless channel, the accurate estimation of channel conditions and the adoption of sophisticated adaptation techniques is required, so that transmission parameters are selected based on link quality, and user t...",
-      "abstract_url": "https://ieeexplore.ieee.org/document/965182/",
-      "publication_number": 7633,
-      "html_url": "https://ieeexplore.ieee.org/document/965182/",
-      "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=965182"
-    },
-    {
-      "article_number": "1191516",
-      "title": "Robust connections for TCP transfers over ATM through an active protocol in a multiagent architecture",
-      "publication_year": 2003,
-      "publisher": "IEEE",
-      "content_type": "Conferences",
-      "publication_title": "10th International Conference on Telecommunications, 2003. ICT 2003.",
-      "authors": {
-        "authors": [
-          {
-            "full_name": "J.L. Gonzalez-Sanchez",
-            "author_order": 1,
-            "authorUrl": "https://ieeexplore.ieee.org/author/38274771000",
-            "id": 38274771000
-          },
-          {
-            "full_name": "J. Domingo-Pascual",
-            "author_order": 2,
-            "authorUrl": "https://ieeexplore.ieee.org/author/38270620600",
-            "id": 38270620600
-          },
-          {
-            "full_name": "A.G. Cervero",
-            "author_order": 3,
-            "authorUrl": "https://ieeexplore.ieee.org/author/37087714218",
-            "id": 37087714218
-          }
-        ]
-      },
-      "abstract": "TAP (Trusted and Active PDU transfers) is a new distributed architecture and a protocol for ATM networks that provides assured transfers to a set of privileged VPI/VCI. The distributed architecture manages the privileged connections and offers an improvement In performance when network connections cause some cell loss. Our AcTMs (Active ATM switch) model supports the trusted protocol. This researc...",
-      "abstract_url": "https://ieeexplore.ieee.org/document/1191516/",
-      "publication_number": 8474,
-      "html_url": "https://ieeexplore.ieee.org/document/1191516/",
-      "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1191516"
     }
   ],
   "total_records": 54
