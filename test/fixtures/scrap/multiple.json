@@ -30,6 +30,35 @@
       "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1191281"
     },
     {
+      "article_number": "965854",
+      "title": "A TCP friendly, rate-based mechanism for NACK-oriented reliable multicast congestion control",
+      "publication_year": 2001,
+      "publisher": "IEEE",
+      "content_type": "Conferences",
+      "publication_title": "GLOBECOM'01. IEEE Global Telecommunications Conference (Cat. No.01CH37270)",
+      "authors": {
+        "authors": [
+          {
+            "full_name": "J.P. Macker",
+            "author_order": 1,
+            "authorUrl": "https://ieeexplore.ieee.org/author/37371700700",
+            "id": 37371700700
+          },
+          {
+            "full_name": "R.B. Adamson",
+            "author_order": 2,
+            "authorUrl": "https://ieeexplore.ieee.org/author/38557573700",
+            "id": 38557573700
+          }
+        ]
+      },
+      "abstract": "We describe ongoing work in adding congestion control extensions to an existing negative acknowledgement (NACK) oriented reliable multicast protocol. Our previous work adopted and used the concept of a dynamic worst path representative (WPR) receiver for equation-based rate adaptation at the multicast source. We have further refined this approach. We present a design overview and simulation ...",
+      "abstract_url": "https://ieeexplore.ieee.org/document/965854/",
+      "publication_number": 7633,
+      "html_url": "https://ieeexplore.ieee.org/document/965854/",
+      "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=965854"
+    },
+    {
       "article_number": "1179605",
       "title": "Quantitative prediction of NACK-oriented reliable multicast (norm) feedback",
       "publication_year": 2002,
@@ -371,35 +400,6 @@
       "publication_number": 6880,
       "html_url": "https://ieeexplore.ieee.org/document/852883/",
       "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=852883"
-    },
-    {
-      "article_number": "965854",
-      "title": "A TCP friendly, rate-based mechanism for NACK-oriented reliable multicast congestion control",
-      "publication_year": 2001,
-      "publisher": "IEEE",
-      "content_type": "Conferences",
-      "publication_title": "GLOBECOM'01. IEEE Global Telecommunications Conference (Cat. No.01CH37270)",
-      "authors": {
-        "authors": [
-          {
-            "full_name": "J.P. Macker",
-            "author_order": 1,
-            "authorUrl": "https://ieeexplore.ieee.org/author/37371700700",
-            "id": 37371700700
-          },
-          {
-            "full_name": "R.B. Adamson",
-            "author_order": 2,
-            "authorUrl": "https://ieeexplore.ieee.org/author/38557573700",
-            "id": 38557573700
-          }
-        ]
-      },
-      "abstract": "We describe ongoing work in adding congestion control extensions to an existing negative acknowledgement (NACK) oriented reliable multicast protocol. Our previous work adopted and used the concept of a dynamic worst path representative (WPR) receiver for equation-based rate adaptation at the multicast source. We have further refined this approach. We present a design overview and simulation ...",
-      "abstract_url": "https://ieeexplore.ieee.org/document/965854/",
-      "publication_number": 7633,
-      "html_url": "https://ieeexplore.ieee.org/document/965854/",
-      "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=965854"
     },
     {
       "article_number": "1188437",
@@ -870,6 +870,35 @@
       "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1258857"
     },
     {
+      "article_number": "935368",
+      "title": "A throughput analysis of reliable multicast protocols in an active networking environment",
+      "publication_year": 2001,
+      "publisher": "IEEE",
+      "content_type": "Conferences",
+      "publication_title": "Proceedings. Sixth IEEE Symposium on Computers and Communications",
+      "authors": {
+        "authors": [
+          {
+            "full_name": "M. Maimour",
+            "author_order": 1,
+            "authorUrl": "https://ieeexplore.ieee.org/author/37324450300",
+            "id": 37324450300
+          },
+          {
+            "full_name": "C.D. Pham",
+            "author_order": 2,
+            "authorUrl": "https://ieeexplore.ieee.org/author/37287149600",
+            "id": 37287149600
+          }
+        ]
+      },
+      "abstract": "Reliable multicast protocols have gained popularity with active services contribution where routers implement additional functionalities. Contributing mainly to feedback implosion problems, retransmission scoping and cache of data, these active protocols open new perspectives for achieving high throughput and low latencies on wide-area networks. We define generic protocols with active services and...",
+      "abstract_url": "https://ieeexplore.ieee.org/document/935368/",
+      "publication_number": 7446,
+      "html_url": "https://ieeexplore.ieee.org/document/935368/",
+      "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=935368"
+    },
+    {
       "article_number": "875810",
       "title": "XOR retransmission in multicast error recovery",
       "publication_year": 2000,
@@ -998,6 +1027,64 @@
       "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=853754"
     },
     {
+      "article_number": "904848",
+      "title": "Multiresolution-multicast video distribution over the Internet",
+      "publication_year": 2000,
+      "publisher": "IEEE",
+      "content_type": "Conferences",
+      "publication_title": "2000 IEEE Wireless Communications and Networking Conference. Conference Record (Cat. No.00TH8540)",
+      "authors": {
+        "authors": [
+          {
+            "full_name": "J. Vass",
+            "author_order": 1,
+            "authorUrl": "https://ieeexplore.ieee.org/author/37368235900",
+            "id": 37368235900
+          },
+          {
+            "full_name": "Xinhua Zhuang",
+            "author_order": 2,
+            "authorUrl": "https://ieeexplore.ieee.org/author/37086981104",
+            "id": 37086981104
+          }
+        ]
+      },
+      "abstract": "Multimedia distribution over the Internet is becoming increasingly popular. Since the Internet was designed for computer data communication, satisfying the different characteristics and requirements of multimedia streams poses significant challenges. For effective and efficient Internet video streaming, many issues (e.g., multiresolution representation, multicast transmission, error control, synch...",
+      "abstract_url": "https://ieeexplore.ieee.org/document/904848/",
+      "publication_number": 7252,
+      "html_url": "https://ieeexplore.ieee.org/document/904848/",
+      "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=904848"
+    },
+    {
+      "article_number": "965182",
+      "title": "Link adaptation policies for wireless broadband networks",
+      "publication_year": 2001,
+      "publisher": "IEEE",
+      "content_type": "Conferences",
+      "publication_title": "GLOBECOM'01. IEEE Global Telecommunications Conference (Cat. No.01CH37270)",
+      "authors": {
+        "authors": [
+          {
+            "full_name": "I. Koutsopoulos",
+            "author_order": 1,
+            "authorUrl": "https://ieeexplore.ieee.org/author/37284280000",
+            "id": 37284280000
+          },
+          {
+            "full_name": "L. Tassiulas",
+            "author_order": 2,
+            "authorUrl": "https://ieeexplore.ieee.org/author/37273302500",
+            "id": 37273302500
+          }
+        ]
+      },
+      "abstract": "Wireless broadband access is becoming increasingly popular in the telecommunications market due to the projected demand for high data-rate connections. Given the inherent volatility of the wireless channel, the accurate estimation of channel conditions and the adoption of sophisticated adaptation techniques is required, so that transmission parameters are selected based on link quality, and user t...",
+      "abstract_url": "https://ieeexplore.ieee.org/document/965182/",
+      "publication_number": 7633,
+      "html_url": "https://ieeexplore.ieee.org/document/965182/",
+      "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=965182"
+    },
+    {
       "article_number": "1038938",
       "title": "Open-loop rate control for real-time video streaming: analysis of binomial algorithms",
       "publication_year": 2002,
@@ -1060,6 +1147,41 @@
       "publication_number": 8546,
       "html_url": "https://ieeexplore.ieee.org/document/1200654/",
       "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1200654"
+    },
+    {
+      "article_number": "1191516",
+      "title": "Robust connections for TCP transfers over ATM through an active protocol in a multiagent architecture",
+      "publication_year": 2003,
+      "publisher": "IEEE",
+      "content_type": "Conferences",
+      "publication_title": "10th International Conference on Telecommunications, 2003. ICT 2003.",
+      "authors": {
+        "authors": [
+          {
+            "full_name": "J.L. Gonzalez-Sanchez",
+            "author_order": 1,
+            "authorUrl": "https://ieeexplore.ieee.org/author/38274771000",
+            "id": 38274771000
+          },
+          {
+            "full_name": "J. Domingo-Pascual",
+            "author_order": 2,
+            "authorUrl": "https://ieeexplore.ieee.org/author/38270620600",
+            "id": 38270620600
+          },
+          {
+            "full_name": "A.G. Cervero",
+            "author_order": 3,
+            "authorUrl": "https://ieeexplore.ieee.org/author/37087714218",
+            "id": 37087714218
+          }
+        ]
+      },
+      "abstract": "TAP (Trusted and Active PDU transfers) is a new distributed architecture and a protocol for ATM networks that provides assured transfers to a set of privileged VPI/VCI. The distributed architecture manages the privileged connections and offers an improvement In performance when network connections cause some cell loss. Our AcTMs (Active ATM switch) model supports the trusted protocol. This researc...",
+      "abstract_url": "https://ieeexplore.ieee.org/document/1191516/",
+      "publication_number": 8474,
+      "html_url": "https://ieeexplore.ieee.org/document/1191516/",
+      "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1191516"
     },
     {
       "article_number": "1009856",
@@ -1524,35 +1646,6 @@
       "issue": "1"
     },
     {
-      "article_number": "935368",
-      "title": "A throughput analysis of reliable multicast protocols in an active networking environment",
-      "publication_year": 2001,
-      "publisher": "IEEE",
-      "content_type": "Conferences",
-      "publication_title": "Proceedings. Sixth IEEE Symposium on Computers and Communications",
-      "authors": {
-        "authors": [
-          {
-            "full_name": "M. Maimour",
-            "author_order": 1,
-            "authorUrl": "https://ieeexplore.ieee.org/author/37324450300",
-            "id": 37324450300
-          },
-          {
-            "full_name": "C.D. Pham",
-            "author_order": 2,
-            "authorUrl": "https://ieeexplore.ieee.org/author/37287149600",
-            "id": 37287149600
-          }
-        ]
-      },
-      "abstract": "Reliable multicast protocols have gained popularity with active services contribution where routers implement additional functionalities. Contributing mainly to feedback implosion problems, retransmission scoping and cache of data, these active protocols open new perspectives for achieving high throughput and low latencies on wide-area networks. We define generic protocols with active services and...",
-      "abstract_url": "https://ieeexplore.ieee.org/document/935368/",
-      "publication_number": 7446,
-      "html_url": "https://ieeexplore.ieee.org/document/935368/",
-      "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=935368"
-    },
-    {
       "article_number": "856653",
       "title": "TAP: architecture for trusted transfers in ATM networks with active switches",
       "publication_year": 2000,
@@ -1580,99 +1673,6 @@
       "publication_number": 6916,
       "html_url": "https://ieeexplore.ieee.org/document/856653/",
       "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=856653"
-    },
-    {
-      "article_number": "904848",
-      "title": "Multiresolution-multicast video distribution over the Internet",
-      "publication_year": 2000,
-      "publisher": "IEEE",
-      "content_type": "Conferences",
-      "publication_title": "2000 IEEE Wireless Communications and Networking Conference. Conference Record (Cat. No.00TH8540)",
-      "authors": {
-        "authors": [
-          {
-            "full_name": "J. Vass",
-            "author_order": 1,
-            "authorUrl": "https://ieeexplore.ieee.org/author/37368235900",
-            "id": 37368235900
-          },
-          {
-            "full_name": "Xinhua Zhuang",
-            "author_order": 2,
-            "authorUrl": "https://ieeexplore.ieee.org/author/37086981104",
-            "id": 37086981104
-          }
-        ]
-      },
-      "abstract": "Multimedia distribution over the Internet is becoming increasingly popular. Since the Internet was designed for computer data communication, satisfying the different characteristics and requirements of multimedia streams poses significant challenges. For effective and efficient Internet video streaming, many issues (e.g., multiresolution representation, multicast transmission, error control, synch...",
-      "abstract_url": "https://ieeexplore.ieee.org/document/904848/",
-      "publication_number": 7252,
-      "html_url": "https://ieeexplore.ieee.org/document/904848/",
-      "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=904848"
-    },
-    {
-      "article_number": "965182",
-      "title": "Link adaptation policies for wireless broadband networks",
-      "publication_year": 2001,
-      "publisher": "IEEE",
-      "content_type": "Conferences",
-      "publication_title": "GLOBECOM'01. IEEE Global Telecommunications Conference (Cat. No.01CH37270)",
-      "authors": {
-        "authors": [
-          {
-            "full_name": "I. Koutsopoulos",
-            "author_order": 1,
-            "authorUrl": "https://ieeexplore.ieee.org/author/37284280000",
-            "id": 37284280000
-          },
-          {
-            "full_name": "L. Tassiulas",
-            "author_order": 2,
-            "authorUrl": "https://ieeexplore.ieee.org/author/37273302500",
-            "id": 37273302500
-          }
-        ]
-      },
-      "abstract": "Wireless broadband access is becoming increasingly popular in the telecommunications market due to the projected demand for high data-rate connections. Given the inherent volatility of the wireless channel, the accurate estimation of channel conditions and the adoption of sophisticated adaptation techniques is required, so that transmission parameters are selected based on link quality, and user t...",
-      "abstract_url": "https://ieeexplore.ieee.org/document/965182/",
-      "publication_number": 7633,
-      "html_url": "https://ieeexplore.ieee.org/document/965182/",
-      "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=965182"
-    },
-    {
-      "article_number": "1191516",
-      "title": "Robust connections for TCP transfers over ATM through an active protocol in a multiagent architecture",
-      "publication_year": 2003,
-      "publisher": "IEEE",
-      "content_type": "Conferences",
-      "publication_title": "10th International Conference on Telecommunications, 2003. ICT 2003.",
-      "authors": {
-        "authors": [
-          {
-            "full_name": "J.L. Gonzalez-Sanchez",
-            "author_order": 1,
-            "authorUrl": "https://ieeexplore.ieee.org/author/38274771000",
-            "id": 38274771000
-          },
-          {
-            "full_name": "J. Domingo-Pascual",
-            "author_order": 2,
-            "authorUrl": "https://ieeexplore.ieee.org/author/38270620600",
-            "id": 38270620600
-          },
-          {
-            "full_name": "A.G. Cervero",
-            "author_order": 3,
-            "authorUrl": "https://ieeexplore.ieee.org/author/37087714218",
-            "id": 37087714218
-          }
-        ]
-      },
-      "abstract": "TAP (Trusted and Active PDU transfers) is a new distributed architecture and a protocol for ATM networks that provides assured transfers to a set of privileged VPI/VCI. The distributed architecture manages the privileged connections and offers an improvement In performance when network connections cause some cell loss. Our AcTMs (Active ATM switch) model supports the trusted protocol. This researc...",
-      "abstract_url": "https://ieeexplore.ieee.org/document/1191516/",
-      "publication_number": 8474,
-      "html_url": "https://ieeexplore.ieee.org/document/1191516/",
-      "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1191516"
     },
     {
       "article_number": "1203682",
