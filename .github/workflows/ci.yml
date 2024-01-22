@@ -15,7 +15,7 @@ jobs:
     name: Testing
     runs-on: 'ubuntu-latest'
     steps:
-    - uses: actions/cache@v3
+    - uses: actions/cache@v4
       with:
         path: ~/.npm
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
@@ -52,7 +52,7 @@ jobs:
             runner: macos-latest
     runs-on: ${{ matrix.runner }}
     steps:
-    - uses: actions/cache@v3
+    - uses: actions/cache@v4
       with:
         path: ~/.npm
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
