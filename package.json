@@ -34,7 +34,7 @@
     "yargs": "^17.7.2"
   },
   "devDependencies": {
-    "@commitlint/cli": "^18.4.4",
+    "@commitlint/cli": "^18.5.0",
     "@commitlint/config-conventional": "^18.4.4",
     "eslint": "^8.56.0",
     "eslint-config-airbnb": "^19.0.4",
