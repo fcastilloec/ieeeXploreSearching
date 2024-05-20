@@ -49,7 +49,7 @@ const { argv } = yargs
         })
         .option('not', {
           alias: 'N',
-          describe: 'Logical OR operator',
+          describe: 'Logical NOT operator',
           nargs: 1,
           type: 'string',
         })
