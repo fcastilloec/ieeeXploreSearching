@@ -59,6 +59,35 @@
       "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=965854"
     },
     {
+      "article_number": "1179605",
+      "title": "Quantitative prediction of NACK-oriented reliable multicast (norm) feedback",
+      "publication_year": 2002,
+      "publisher": "IEEE",
+      "content_type": "Conferences",
+      "publication_title": "MILCOM 2002. Proceedings",
+      "authors": {
+        "authors": [
+          {
+            "full_name": "R.B. Adamson",
+            "author_order": 1,
+            "authorUrl": "https://ieeexplore.ieee.org/author/38557573700",
+            "id": 38557573700
+          },
+          {
+            "full_name": "J.P. Macker",
+            "author_order": 2,
+            "authorUrl": "https://ieeexplore.ieee.org/author/37371700700",
+            "id": 37371700700
+          }
+        ]
+      },
+      "abstract": "We have applied the concept of truncated exponential timers for efficient reliable multicast feedback suppression for cases of both multicast and unicast feedback channels. Unicast feedback operation for multicast transport is becoming a more prevalent concern with the advent of source specific multicast routing and asymmetric networks of offering forward-based multicast (e.g., satellite distribut...",
+      "abstract_url": "https://ieeexplore.ieee.org/document/1179605/",
+      "publication_number": 8404,
+      "html_url": "https://ieeexplore.ieee.org/document/1179605/",
+      "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1179605"
+    },
+    {
       "article_number": "959093",
       "title": "Computational media aesthetics: finding meaning beautiful",
       "publication_year": 2001,
@@ -371,35 +400,6 @@
       "publication_number": 6880,
       "html_url": "https://ieeexplore.ieee.org/document/852883/",
       "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=852883"
-    },
-    {
-      "article_number": "1179605",
-      "title": "Quantitative prediction of NACK-oriented reliable multicast (norm) feedback",
-      "publication_year": 2002,
-      "publisher": "IEEE",
-      "content_type": "Conferences",
-      "publication_title": "MILCOM 2002. Proceedings",
-      "authors": {
-        "authors": [
-          {
-            "full_name": "R.B. Adamson",
-            "author_order": 1,
-            "authorUrl": "https://ieeexplore.ieee.org/author/38557573700",
-            "id": 38557573700
-          },
-          {
-            "full_name": "J.P. Macker",
-            "author_order": 2,
-            "authorUrl": "https://ieeexplore.ieee.org/author/37371700700",
-            "id": 37371700700
-          }
-        ]
-      },
-      "abstract": "We have applied the concept of truncated exponential timers for efficient reliable multicast feedback suppression for cases of both multicast and unicast feedback channels. Unicast feedback operation for multicast transport is becoming a more prevalent concern with the advent of source specific multicast routing and asymmetric networks of offering forward-based multicast (e.g., satellite distribut...",
-      "abstract_url": "https://ieeexplore.ieee.org/document/1179605/",
-      "publication_number": 8404,
-      "html_url": "https://ieeexplore.ieee.org/document/1179605/",
-      "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1179605"
     },
     {
       "article_number": "1188437",
