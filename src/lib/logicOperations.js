@@ -50,6 +50,7 @@ function logicOperations(options) {
       console.error(`Error reading JSON file:\n${error.message}`);
       process.exit(4);
     }
+    console.log(`Excluding content from: ${options.not}`);
     result = options.merge || options.or || options.and
       ? _.differenceWith(result, notFile, isEqual) // use previous results
       : _.differenceWith(...files, notFile, isEqual); // only use provided files
