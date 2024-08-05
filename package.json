@@ -27,7 +27,7 @@
     "axios": "^1.7.2",
     "excel4node": "^1.8.2",
     "fs-extra": "^11.2.0",
-    "locate-app": "^2.4.21",
+    "locate-app": "^2.4.22",
     "lodash": "^4.17.21",
     "puppeteer-core": "^22.14.0",
     "readline-sync": "^1.4.10",
