@@ -1,4 +1,4 @@
-const { isEqual } = require('../src/lib/logicOperations');
+const { isEqual } = require('../src/lib/logic-operations');
 
 test('isEqual with article_number', () => {
   const value1 = { article_number: 1 };

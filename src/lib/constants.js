@@ -20,7 +20,7 @@ const DESCRIPTION = `${main} > div.description > div.publisher-info-container`;
 const ABSTRACT = `${icons} > div.js-displayer-content.u-mt-1.stats-SearchResults_DocResult_ViewMore > span`;
 const ABSTRACT_URL = `${icons} > div.js-displayer-content.u-mt-1.stats-SearchResults_DocResult_ViewMore > a`;
 
-window.DATA = {
+globalThis.DATA = {
   ELEMENTS,
   AUTHORS,
   TITLE,

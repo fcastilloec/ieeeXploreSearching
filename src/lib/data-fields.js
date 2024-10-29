@@ -22,7 +22,7 @@ function addDataField(queryText, field) {
 
   const operators = /( O?NEAR[/0-9]* | AND | OR | NOT |[()]+)/g; // IEEE search operators and parenthesis
   return queryText.toString().split(operators).map((term) => {
-    if (term.match(operators) || term === '') return term; // checks if it's an IEEE operator, parenthesis or empty
+    if (operators.test(term) || term === '') return term; // checks if it's an IEEE operator, parenthesis or empty
     return `${field}:${term}`;
   }).join('');
 }

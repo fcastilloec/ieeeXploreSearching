@@ -1,23 +1,23 @@
 #!/usr/bin/env node
-const path = require('path');
+const path = require('node:path');
 const _ = require('lodash');
 const fs = require('fs-extra');
 const yargs = require('yargs');
-const checkAPIKey = require('./lib/apiKey');
-const configDir = require('./lib/configDirectory');
+const checkAPIKey = require('./lib/api-key');
+const configDirectory = require('./lib/config-directory');
 const { testYear } = require('./lib/utils');
-const { FIELDS, addDataField } = require('./lib/dataFields');
-const ieee = require('./lib/ieeeAPI');
+const { FIELDS, addDataField } = require('./lib/data-fields');
+const ieee = require('./lib/ieee-api');
 const { fromResults: json2xls } = require('./lib/json2xls');
 const { testFileExtension } = require('./lib/utils');
 
 if (process.platform === 'win32') {
   console.warn("You're running on a Windows system");
-  console.warn('\x1b[4m%s\x1b[0m\x1b[31;1m%s\x1b[0m\n\n', 'Make sure you escape double quotes using:', ' \\"');
+  console.warn('\u001B[4m%s\u001B[0m\u001B[31;1m%s\u001B[0m\n\n', 'Make sure you escape double quotes using:', String.raw` \"`);
 }
 
 const { argv } = yargs
-  .wrap(null)
+  .wrap(yargs.terminalWidth())
   .version(require('../package.json').version)
   .usage('Usage: $0 <query> [options] [IEEE Data Fields]')
   .strict()
@@ -94,9 +94,9 @@ const { argv } = yargs
     // Transform the year into an array if only one was specified
     year: (year) => (Array.isArray(year) ? year : [year, year]),
   })
-  .check((args) => {
-    if (args.year.length > 2) throw new Error('Only start and/or finish year are accepted');
-    args.year.forEach(testYear);
+  .check((arguments_) => {
+    if (arguments_.year.length > 2) throw new Error('Only start and/or finish year are accepted');
+    for (const year of arguments_.year) testYear(year);
     return true;
   })
   .group(['full-text-and-metadata', 'text-only', 'publication-title', 'metadata', 'ieee-terms'], 'IEEE Data Fields')
@@ -119,13 +119,13 @@ console.log('Using: %s', FIELDS[dataField] || 'No data fields');
 async function search() {
   let results;
   if (argv.api) {
-    const configFile = path.join(configDir(), 'config.json');
+    const configFile = path.join(configDirectory(), 'config.json');
     checkAPIKey(configFile);
     try {
       const config = fs.readJSONSync(configFile); // Read the APIKEY
       results = await ieee.api(config.APIKEY, addDataField(argv._[0], FIELDS[dataField]), argv.year, argv.verbose);
     } catch (error) {
-      console.error('Error reading the APIKEY: ', error.message);
+      console.error('Error reading the APIKEY:', error.message);
       process.exit(1);
     }
   } else {

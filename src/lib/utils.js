@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require('node:path');
 
 /**
  * Changes the extension of a filename
@@ -9,13 +9,13 @@ const path = require('path');
  *
  * @return  {string}            The new path with the proper extension.
  */
-function changeFileExtension(filename, ext) {
+function changeFileExtension(filename, extension) {
   const orgFilename = path.parse(filename);
 
   return path.format({
     ...orgFilename,
     name: path.basename(orgFilename.base, orgFilename.ext),
-    ext: ext.startsWith('.') ? ext : `.${ext}`,
+    ext: extension.startsWith('.') ? extension : `.${extension}`,
     base: undefined,
   });
 }
@@ -28,9 +28,9 @@ function changeFileExtension(filename, ext) {
  *
  * @return  {string}            The new path with the proper extension.
  */
-function testFileExtension(filename, ext) {
-  const tmpExt = ext.startsWith('.') ? ext : `.${ext}`;
-  return path.parse(filename).ext === tmpExt ? filename : filename + tmpExt;
+function testFileExtension(filename, extension) {
+  const temporaryExtension = extension.startsWith('.') ? extension : `.${extension}`;
+  return path.parse(filename).ext === temporaryExtension ? filename : filename + temporaryExtension;
 }
 
 /**
@@ -54,7 +54,7 @@ function testYear(year) {
  * @returns  {string}          The escaped string.
  */
 function escapeRegExp(string) {
-  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return string.replaceAll(/[.*+?^${}()|[\]\\]/g, String.raw`\$&`);
 }
 
 /**
@@ -64,10 +64,10 @@ function escapeRegExp(string) {
  * @returns {string}    A formatted line ready to be added to an error stack.
  */
 function getLineStack(column = 0) {
-  let e = new Error();
-  e = e.stack.split('\n')[2].split(/[():]/);
-  e.pop(); e.shift(); // remove unneeded elements
-  return column === 0 ? `    at ${e.join(':')}` : `    at ${e[0]}:${e[1]}:${parseInt(e[2], 10) + column}`;
+  let error_ = new Error(); // eslint-disable-line unicorn/error-message
+  error_ = error_.stack.split('\n')[2].split(/[():]/);
+  error_.pop(); error_.shift(); // remove unneeded elements
+  return column === 0 ? `    at ${error_.join(':')}` : `    at ${error_[0]}:${error_[1]}:${Number.parseInt(error_[2], 10) + column}`;
 }
 
 module.exports = {

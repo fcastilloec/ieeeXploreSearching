@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require('node:path');
 const fs = require('fs-extra');
 const { authorsString, fromResults } = require('../src/lib/json2xls');
 

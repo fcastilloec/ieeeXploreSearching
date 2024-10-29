@@ -12,7 +12,7 @@ const { readJsonSync } = require('fs-extra');
 function isEqual(value, other) {
   if (value.article_number && other.article_number) return value.article_number === other.article_number;
   return (value.title === other.title)
-    && (parseInt(value.publication_year, 10) === parseInt(other.publication_year, 10))
+    && (Number.parseInt(value.publication_year, 10) === Number.parseInt(other.publication_year, 10))
     && (value.content_type === other.content_type)
     && (value.publisher === other.publisher);
 }

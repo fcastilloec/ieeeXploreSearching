@@ -1,5 +1,5 @@
 const config = {
-  testTimeout: process.env.CI ? 45000 : 25000,
+  testTimeout: process.env.CI ? 45_000 : 25_000,
   verbose: true,
   collectCoverage: true,
   coverageReporters: ['text', 'text-summary'],
@@ -7,11 +7,11 @@ const config = {
     'src/lib/*.js',
   ],
   coveragePathIgnorePatterns: [
-    'src/lib/apiKey.js',
-    'src/lib/configDirectory.js',
+    'src/lib/api-key.js',
+    'src/lib/config-directory.js',
     'src/lib/constants.js',
-    'src/lib/createJson.js',
-    'src/lib/ieeeAPI.js',
+    'src/lib/create-json.js',
+    'src/lib/ieee-api.js',
   ],
 };
 

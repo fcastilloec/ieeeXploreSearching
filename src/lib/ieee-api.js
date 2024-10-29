@@ -1,9 +1,9 @@
-const https = require('https');
-const path = require('path');
+const https = require('node:https');
+const path = require('node:path');
 const axios = require('axios');
 const { locateChrome, locateFirefox } = require('locate-app');
 const puppeteer = require('puppeteer-core');
-const createJSON = require('./createJson');
+const createJSON = require('./create-json');
 const { escapeRegExp, getLineStack } = require('./utils');
 
 /**
@@ -17,7 +17,7 @@ const { escapeRegExp, getLineStack } = require('./utils');
  */
 async function scrap(queryText, rangeYear, verbose) {
   // only wait this amount of milliseconds, any longer and it means there's no results
-  const timeout = process.env.CI ? 40000 : 20000;
+  const timeout = process.env.CI ? 40_000 : 20_000;
   let lineStack; // stack message with line info
 
   const userAgentChrome = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko)'
@@ -30,7 +30,7 @@ async function scrap(queryText, rangeYear, verbose) {
   const NEXT = '.next-btn';
 
   if (verbose) console.log('Query: \t%s\n', queryText);
-  const query = `?queryText=(${encodeURI(queryText).replace(/\?/g, '%3F').replace(/\//g, '%2F')})`
+  const query = `?queryText=(${encodeURI(queryText).replaceAll('?', '%3F').replaceAll('/', '%2F')})`
               + `&ranges=${rangeYear[0]}_${rangeYear[1]}_Year`;
   if (verbose) console.log('Encoded Query:\t%s\n', query);
 
@@ -52,13 +52,13 @@ async function scrap(queryText, rangeYear, verbose) {
     product = 'chrome';
     headless = 'new';
     userAgent = userAgentChrome;
-  } catch (errorChrome) {
+  } catch {
     try {
       executablePath = await locateFirefox();
       product = 'firefox';
       headless = true;
       userAgent = userAgentFirefox;
-    } catch (errorFirefox) {
+    } catch {
       console.error("Can't find a valid installation of Chrome or Firefox");
       process.exit(2);
     }
@@ -80,7 +80,7 @@ async function scrap(queryText, rangeYear, verbose) {
 
     // Wait for the records string, either has no results or "showing x of y"
     await page.waitForSelector(RESULTS);
-    const records = await page.$eval(RESULTS, (el) => el.innerText);
+    const records = await page.$eval(RESULTS, (element) => element.textContent);
 
     // Check if there are no results
     if (await page.$(NO_RESULTS) || records === 'No results found') {
@@ -97,11 +97,11 @@ async function scrap(queryText, rangeYear, verbose) {
     // All the records
     const recordsNums = records.match(/(\d+)/g);
     if (!Array.isArray(recordsNums)) { // it has to be an Array, and it can be of length 2 or 3
-      throw new Error("Couldn't find the total number of records");
+      throw new TypeError("Couldn't find the total number of records");
     }
     if (recordsNums.length === 3) recordsNums.shift(); // remove unneeded number
-    const totalRecords = parseInt(recordsNums[1], 10);
-    const recordsPerPage = parseInt(recordsNums[0], 10);
+    const totalRecords = Number.parseInt(recordsNums[1], 10);
+    const recordsPerPage = Number.parseInt(recordsNums[0], 10);
     TOTAL_PAGES = Math.ceil(totalRecords / recordsPerPage);
 
     // Check that NEXT selector is present if there are multiple pages
@@ -109,7 +109,7 @@ async function scrap(queryText, rangeYear, verbose) {
       throw new Error("There's multiple pages of results, but couldn't find the NEXT button");
     }
 
-    /* eslint-disable no-await-in-loop */
+
     while (await page.$(NEXT) && totalPages <= TOTAL_PAGES) {
       await page.click(NEXT); // go to next page of results
       lineStack = getLineStack(18); await page.waitForSelector(ELEMENTS); // wait for results to load
@@ -118,7 +118,7 @@ async function scrap(queryText, rangeYear, verbose) {
 
       totalPages += 1;
     }
-    /* eslint-enable no-await-in-loop */
+
     await browser.close(); // close browser
   } catch (error) {
     if (browser) await browser.close();
@@ -169,14 +169,14 @@ async function api(apiKey, queryText, rangeYear, verbose) {
   let response;
   try {
     response = await axios(config);
-  } catch (cause) {
+  } catch (error_) {
     if (process.env.NODE_ENV !== 'test') {
-      console.error(`Error with IEEE API:\n${cause.message}`);
+      console.error(`Error with IEEE API:\n${error_.message}`);
       process.exit(3);
     }
-    if (!cause.response) throw cause;
-    const error = new Error(cause.message, { cause });
-    error.stack = `${cause.message}\n${cause.stack.split('\n').slice(1).join('\n')}`;
+    if (!error_.response) throw error_;
+    const error = new Error(error_.message, { cause: error_ });
+    error.stack = `${error_.message}\n${error_.stack.split('\n').slice(1).join('\n')}`;
     throw error;
   }
   if (verbose) console.log('REQUEST PATH:\t%s\n', response.request.path);

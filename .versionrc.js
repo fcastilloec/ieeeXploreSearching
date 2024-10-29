@@ -8,4 +8,4 @@ module.exports = {
     postchangelog: './bin/dependencies.sh',
   },
   releaseCommitMessageFormat: 'build(release): {{currentTag}}'
-}
+};
