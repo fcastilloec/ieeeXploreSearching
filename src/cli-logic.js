@@ -2,12 +2,12 @@
 const yargs = require('yargs');
 const fs = require('fs-extra');
 const { fromResults } = require('./lib/json2xls');
-const { logicOperations } = require('./lib/logicOperations');
+const { logicOperations } = require('./lib/logic-operations');
 const { changeFileExtension, testFileExtension } = require('./lib/utils');
 
 const { argv } = yargs
   .version(require('../package.json').version)
-  .wrap(null)
+  .wrap(yargs.terminalWidth())
   .alias('help', 'h')
   .group(['help', 'version'], 'Global options')
   .parserConfiguration({
@@ -20,8 +20,8 @@ const { argv } = yargs
   .command({
     command: '$0',
     desc: 'Perform logic operations between JSON files',
-    builder: (args) => {
-      args
+    builder: (arguments_) => {
+      arguments_
         .option('output', {
           alias: 'o',
           describe: 'Output file of the operation',
@@ -59,14 +59,14 @@ const { argv } = yargs
           default: false,
           type: 'boolean',
         })
-        .check((arg) => {
-          if (!(arg.merge || arg.and || arg.or || arg.not)) {
+        .check((argument) => {
+          if (!(argument.merge || argument.and || argument.or || argument.not)) {
             throw new Error('At least one command is needed');
           }
-          if ((arg.merge || arg.and || arg.or) && arg._.length < 2) {
+          if ((argument.merge || argument.and || argument.or) && argument._.length < 2) {
             throw new Error('Command needs at least two files to operate on');
           }
-          if (arg.not && !(arg.merge || arg.and || arg.or) && arg._.length !== 1) {
+          if (argument.not && !(argument.merge || argument.and || argument.or) && argument._.length !== 1) {
             throw new Error('Operator NOT by itself requires only one additional file to operate on');
           }
           return true;
@@ -86,8 +86,8 @@ const { argv } = yargs
     command: 'json2xls <jsonFile>',
     aliases: 'j2x',
     desc: 'Converts a JSON into xls',
-    builder: (args) => {
-      args
+    builder: (arguments_) => {
+      arguments_
         .strict()
         .positional('jsonFile', {
           describe: 'The JSON file to convert',

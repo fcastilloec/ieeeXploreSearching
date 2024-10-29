@@ -10,7 +10,7 @@ function checkAPIKey(configFile) {
       fs.writeJsonSync(configFile, { APIKEY: key }, { spaces: 2 });
       console.log('API key was saved');
     } catch (error) {
-      console.error('Error saving the API key: ', error.message);
+      console.error('Error saving the API key:', error.message);
       process.exit(1);
     }
   }

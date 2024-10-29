@@ -1,4 +1,4 @@
-const { promisify } = require('util');
+const { promisify } = require('node:util');
 const xl = require('excel4node');
 
 const fontType = process.env.IEEE_font;
@@ -105,25 +105,25 @@ async function fromResults(results, xlsFilename) {
   ws.cell(1, COLUMNS.content_type).string('TYPE').style({ font: { bold: true } });
   ws.cell(1, COLUMNS.sciHubBaseUrl).string(sciHubUrl); // baseUrl that can be modified is Sci-Hub domain moves
 
-  results.forEach((result, i) => {
-    ws.row(i + 2).setHeight(97);
-    ws.cell(i + 2, COLUMNS.publication_year).number(parseInt(result.publication_year, 10)).style(noWrapStyle);
-    ws.cell(i + 2, COLUMNS.article_number).string(result.article_number).style(noWrapStyle);
+  for (const [index, result] of results.entries()) {
+    ws.row(index + 2).setHeight(97);
+    ws.cell(index + 2, COLUMNS.publication_year).number(Number.parseInt(result.publication_year, 10)).style(noWrapStyle);
+    ws.cell(index + 2, COLUMNS.article_number).string(result.article_number).style(noWrapStyle);
     if (result.publication_date) {
       pubDateHide = false;
-      ws.cell(i + 2, COLUMNS.publication_date).string(result.publication_date).style(noWrapStyle);
+      ws.cell(index + 2, COLUMNS.publication_date).string(result.publication_date).style(noWrapStyle);
     }
-    ws.cell(i + 2, COLUMNS.title).string(result.title).style(wrapStyle).style(wrapStyle);
-    ws.cell(i + 2, COLUMNS.authors).string(authorsString(result.authors.authors)).style(wrapStyle);
-    ws.cell(i + 2, COLUMNS.publication_title).string(result.publication_title || '').style(wrapStyle);
-    ws.cell(i + 2, COLUMNS.abstract).string(result.abstract || '').style(wrapStyle);
-    ws.cell(i + 2, COLUMNS.pdf_url).link(result.pdf_url || result.abstract_url || '').style(linkStyle);
+    ws.cell(index + 2, COLUMNS.title).string(result.title).style(wrapStyle).style(wrapStyle);
+    ws.cell(index + 2, COLUMNS.authors).string(authorsString(result.authors.authors)).style(wrapStyle);
+    ws.cell(index + 2, COLUMNS.publication_title).string(result.publication_title || '').style(wrapStyle);
+    ws.cell(index + 2, COLUMNS.abstract).string(result.abstract || '').style(wrapStyle);
+    ws.cell(index + 2, COLUMNS.pdf_url).link(result.pdf_url || result.abstract_url || '').style(linkStyle);
     if (result.doi) {
       doiHide = false;
-      ws.cell(i + 2, COLUMNS.sci_hub).formula(`HYPERLINK(CONCATENATE($K$1,"${result.doi}"))`).style(linkStyle);
+      ws.cell(index + 2, COLUMNS.sci_hub).formula(`HYPERLINK(CONCATENATE($K$1,"${result.doi}"))`).style(linkStyle);
     }
-    ws.cell(i + 2, COLUMNS.content_type).string(result.content_type).style(noWrapStyle);
-  });
+    ws.cell(index + 2, COLUMNS.content_type).string(result.content_type).style(noWrapStyle);
+  }
 
   /* istanbul ignore next */
   if (pubDateHide) ws.column(COLUMNS.publication_date).hide();

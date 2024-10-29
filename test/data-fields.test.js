@@ -1,4 +1,4 @@
-const { addDataField } = require('../src/lib/dataFields');
+const { addDataField } = require('../src/lib/data-fields');
 
 test('addDataField without field', () => {
   const query = 'optics AND nano';

@@ -1,13 +1,13 @@
-const { join } = require('path');
+const path = require('node:path');
 const { pathExistsSync } = require('fs-extra');
-const pkg = require('../../package.json');
+const package_ = require('../../package.json');
 
 /**
  * Finds the configuration directory for this app.
  *
  * @returns {String} The path to the configuration directory, or undefined for unknown platforms.
  */
-function configDir() {
+function configDirectory() {
   if (process.env.CONFIG_DIR) {
     if (!pathExistsSync(process.env.CONFIG_DIR)) {
       console.error('Configuration directory does not exist');
@@ -16,21 +16,24 @@ function configDir() {
     return process.env.CONFIG_DIR;
   }
 
-  let dir;
+  let directory_;
   switch (process.platform) {
     case 'linux':
-    case 'darwin':
-      dir = process.env.XDG_CONFIG_HOME
-        ? join(process.env.XDG_CONFIG_HOME, pkg.name)
-        : join(process.env.HOME, '.config', pkg.name);
+    case 'darwin': {
+      directory_ = process.env.XDG_CONFIG_HOME
+        ? path.join(process.env.XDG_CONFIG_HOME, package_.name)
+        : path.join(process.env.HOME, '.config', package_.name);
       break;
-    case 'win32':
-      dir = join(process.env.APPDATA, pkg.name);
+    }
+    case 'win32': {
+      directory_ = path.join(process.env.APPDATA, package_.name);
       break;
-    default:
+    }
+    default: {
       break;
+    }
   }
-  return dir;
+  return directory_;
 }
 
-module.exports = configDir;
+module.exports = configDirectory;
