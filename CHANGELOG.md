@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.1.5](https://github.com/fcastilloec/ieeeXploreSearching/compare/v4.1.4...v4.1.5) (2024-10-29)
+
+### Bug Fixes
+
+* add description when using NOT ([#747](https://github.com/fcastilloec/ieeeXploreSearching/issues/747)) ([072f054](https://github.com/fcastilloec/ieeeXploreSearching/commit/072f05403a5b501b7360b5c8ec33510e902bb1de))
+* bump packages' versions for vulnerability fixing ([#679](https://github.com/fcastilloec/ieeeXploreSearching/issues/679)) ([cfa87fb](https://github.com/fcastilloec/ieeeXploreSearching/commit/cfa87fbbc51bc1cb99eb473e0fb0e10e1abedab7))
+
+### Dependencies
+
+* bump `axios` to `1.7.7`
+* bump `fs-extra` to `11.2.0`
+* bump `locate-app` to `2.5.0`
+* bump `puppeteer-core` to `23.6.1`
+
 ### [4.1.4](https://github.com/fcastilloec/ieeeXploreSearching/compare/v4.1.3...v4.1.4) (2023-09-25)
 
 ### Bug Fixes
