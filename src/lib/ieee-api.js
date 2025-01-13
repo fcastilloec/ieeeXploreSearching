@@ -49,13 +49,13 @@ async function scrap(queryText, rangeYear, verbose) {
   try {
     // Prefer Chrome over Firefox
     executablePath = await locateChrome();
-    product = 'chrome';
-    headless = 'new';
+    browser = 'chrome';
+    headless = true;
     userAgent = userAgentChrome;
   } catch {
     try {
       executablePath = await locateFirefox();
-      product = 'firefox';
+      browser = 'firefox';
       headless = true;
       userAgent = userAgentFirefox;
     } catch {
@@ -66,7 +66,7 @@ async function scrap(queryText, rangeYear, verbose) {
 
   try {
     browser = await puppeteer.launch({
-      product,
+      browser,
       executablePath,
       headless,
     });
