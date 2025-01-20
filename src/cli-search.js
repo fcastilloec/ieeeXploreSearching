@@ -28,7 +28,7 @@ const { argv } = yargs
     describe: 'Filename where to save results as JSON',
     nargs: 1,
     type: 'string',
-    demandOption: true,
+    demandOption: !process.env.OUT,
     normalize: true,
   })
   .option('full-text-and-metadata', {
@@ -70,14 +70,15 @@ const { argv } = yargs
   .option('year', {
     alias: 'y',
     nargs: 1,
-    demandOption: true,
+    demandOption: !(process.env.YEAR_START || process.env.YEAR_END),
     describe: 'Calling it once will search only on that year. Calling twice will search on the range',
     // array will consume all arguments after -y, including the query. No way to make array nargs variable
     type: 'number',
+    coerce: (year) => (Array.isArray(year) ? year : [year, year]),
   })
-  .option('api', {
-    alias: 'a',
-    describe: 'Whether to use the IEEE API or scrapping',
+  .option('scrap', {
+    alias: 's',
+    describe: 'Scrap the IEEE website instead of using the default search API',
     default: false,
     type: 'boolean',
   })
@@ -90,13 +91,11 @@ const { argv } = yargs
     'strip-aliased': true,
     'strip-dashed': true,
   })
-  .coerce({
-    // Transform the year into an array if only one was specified
-    year: (year) => (Array.isArray(year) ? year : [year, year]),
-  })
   .check((arguments_) => {
-    if (arguments_.year.length > 2) throw new Error('Only start and/or finish year are accepted');
-    for (const year of arguments_.year) testYear(year);
+    if (arguments_.year) {
+      if (arguments_.year.length > 2) throw new Error('Only start and/or finish year are accepted');
+      for (const year of arguments_.year) testYear(year);
+    }
     return true;
   })
   .group(['full-text-and-metadata', 'text-only', 'publication-title', 'metadata', 'ieee-terms'], 'IEEE Data Fields')
@@ -109,8 +108,17 @@ const { argv } = yargs
     'searches for "h264 NEAR/3 cellular" only on 2005, and save the results in search2.json',
   );
 
-// Selects the enabled key of the specified data field. _.pick is faster than _.omit
-const dataField = Object.keys(_.pick(argv, Object.keys(FIELDS)))[0];
+/* Assigns environmental variables if present */
+// Sets year from env variables 'YEAR_START' and/or 'YEAR_END'
+if (process.env.YEAR_START && process.env.YEAR_END) {
+  argv.year = [Number.parseInt(process.env.YEAR_START, 10), Number.parseInt(process.env.YEAR_END, 10)];
+} else if (process.env.YEAR_START || process.env.YEAR_END) {
+  argv.year = [Number.parseInt(process.env.YEAR_START || process.env.YEAR_END, 10), Number.parseInt(process.env.YEAR_START || process.env.YEAR_END, 10)];
+}
+// Sets output name based on env variable 'OUT'
+if (process.env.OUT) argv.output = `search${process.env.OUT}`;
+// Set the data field to 'fullTextAndMetadata' based on env variable 'FULL'
+const dataField = process.env.FULL ? 'fullTextAndMetadata' : Object.keys(_.pick(argv, Object.keys(FIELDS)))[0];
 
 console.log('Searching for: %s', argv._[0]);
 console.log('Between %s and %s', argv.year[0], argv.year[1]);
@@ -118,7 +126,9 @@ console.log('Using: %s', FIELDS[dataField] || 'No data fields');
 
 async function search() {
   let results;
-  if (argv.api) {
+  if (argv.scrap) {
+    results = await ieee.scrap(addDataField(argv._[0], FIELDS[dataField]), argv.year, argv.verbose);
+  } else {
     const configFile = path.join(configDirectory(), 'config.json');
     checkAPIKey(configFile);
     try {
@@ -128,12 +138,10 @@ async function search() {
       console.error('Error reading the APIKEY:', error.message);
       process.exit(1);
     }
-  } else {
-    results = await ieee.scrap(addDataField(argv._[0], FIELDS[dataField]), argv.year, argv.verbose);
   }
 
   console.log('Found %s results', results.total_records);
-  if (argv.api && results.total_records > 200) {
+  if (!argv.scrap && results.total_records > 200) {
     console.warn('WARNING: API searches are limited to fetching 200 results');
     console.warn('\t Consider using scraping or narrowing your search');
   }
