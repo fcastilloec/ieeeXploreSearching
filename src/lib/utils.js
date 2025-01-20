@@ -34,17 +34,20 @@ function testFileExtension(filename, extension) {
 }
 
 /**
- * Test if year cli option is valid.
+ * Test if years are valid.
  *
- * @param   {number}  year  The number to check if it's valid.
+ * @param   {number[]}  years  The array of years to check with max length of 2.
  *
  * @throws  {TypeError}     Argument has to be an integer.
  * @throws  {RangeError}    Argument has to be between 1900 and current year.
  */
-function testYear(year) {
-  if (!Number.isInteger(year)) throw new TypeError('Year has to be an integer');
-  if (year < 1900) throw new RangeError('Year option has to be after 1900');
-  if (year > new Date().getFullYear()) throw new RangeError('Year option has to be before current year');
+function testYears(years) {
+  if (years.length > 2) throw new TypeError(`Only provide up to two years to specify a range (user ${years})`);
+  for (const year of years) {
+    if (!Number.isInteger(year)) throw new TypeError(`Year has to be an integer (user: ${years})`);
+    if (year < 1900) throw new RangeError(`Year has to be after 1900 (user: ${year})`);
+    if (year > new Date().getFullYear()) throw new RangeError(`Year has to be the current year or earlier (user: ${year})`);
+  }
 }
 
 /**
@@ -75,5 +78,5 @@ module.exports = {
   escapeRegExp,
   getLineStack,
   testFileExtension,
-  testYear,
+  testYears,
 };
