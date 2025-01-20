@@ -2,6 +2,39 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.0.0](https://github.com/fcastilloec/ieeeXploreSearching/compare/v4.1.4...v5.0.0) (2025-01-20)
+
+
+### ⚠ BREAKING CHANGES
+
+* New defaults for searching. Use environmental variables for some options.
+
+API is the default now, use new '-s', '--srap' to use website scrapping.
+'YEAR_START', 'YEAR_END': environmental variables use to set the range of years.
+You can provide only one of them (either), just like the argument option, to search only that year.
+'OUT': environmental variable use to name the default output file as: 'search${OUT}'
+'FULL': environmental variable use to assign/override the IEEE data fields to 'fullTextAndMetadata'
+Its value is not important, only that it's not empty.
+
+### Features
+
+* searching uses new defaults and env variables ([#833](https://github.com/fcastilloec/ieeeXploreSearching/issues/833)) ([c29881b](https://github.com/fcastilloec/ieeeXploreSearching/commit/c29881b9a14f44d57ebc8edf68661d5893c47269))
+
+
+### Bug Fixes
+
+* add description when using NOT ([#747](https://github.com/fcastilloec/ieeeXploreSearching/issues/747)) ([072f054](https://github.com/fcastilloec/ieeeXploreSearching/commit/072f05403a5b501b7360b5c8ec33510e902bb1de))
+* bump packages' versions for vulnerability fixing ([#679](https://github.com/fcastilloec/ieeeXploreSearching/issues/679)) ([cfa87fb](https://github.com/fcastilloec/ieeeXploreSearching/commit/cfa87fbbc51bc1cb99eb473e0fb0e10e1abedab7))
+* make sure that Firefox keeps working ([#830](https://github.com/fcastilloec/ieeeXploreSearching/issues/830)) ([7818fa3](https://github.com/fcastilloec/ieeeXploreSearching/commit/7818fa3326bfae66eb58bb5a5dd9e5305e561eff))
+
+
+### Dependencies
+
+* bump `axios` to `1.7.9`
+* bump `fs-extra` to `11.3.0`
+* bump `locate-app` to `2.5.0`
+* bump `puppeteer-core` to `24.1.0`
+
 ### [4.1.6](https://github.com/fcastilloec/ieeeXploreSearching/compare/v4.1.4...v4.1.6) (2024-11-26)
 
 
