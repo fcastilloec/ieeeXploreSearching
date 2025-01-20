@@ -4,10 +4,9 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## [5.0.0](https://github.com/fcastilloec/ieeeXploreSearching/compare/v4.1.4...v5.0.0) (2025-01-21)
 
-
 ### ⚠ BREAKING CHANGES
 
-* New defaults for searching. Use environmental variables for some options.
+- New defaults for searching. Use environmental variables for some options.
 
 API is the default now, use new '-s', '--scrap' to use website scrapping.
 'YEAR_START', 'YEAR_END': environmental variables use for setting the range of years.
@@ -18,52 +17,48 @@ Its value is not important, only that it's not empty.
 
 ### Features
 
-* searching uses new defaults and env variables ([#833](https://github.com/fcastilloec/ieeeXploreSearching/issues/833)) ([3ac6d69](https://github.com/fcastilloec/ieeeXploreSearching/commit/3ac6d69a9a5e2d4b00896aa94ac49d1d74f19bd1))
-
+- searching uses new defaults and env variables ([#833](https://github.com/fcastilloec/ieeeXploreSearching/issues/833)) ([3ac6d69](https://github.com/fcastilloec/ieeeXploreSearching/commit/3ac6d69a9a5e2d4b00896aa94ac49d1d74f19bd1))
 
 ### Bug Fixes
 
-* add description when using NOT ([#747](https://github.com/fcastilloec/ieeeXploreSearching/issues/747)) ([072f054](https://github.com/fcastilloec/ieeeXploreSearching/commit/072f05403a5b501b7360b5c8ec33510e902bb1de))
-* bump packages' versions for vulnerability fixing ([#679](https://github.com/fcastilloec/ieeeXploreSearching/issues/679)) ([cfa87fb](https://github.com/fcastilloec/ieeeXploreSearching/commit/cfa87fbbc51bc1cb99eb473e0fb0e10e1abedab7))
-* make sure that Firefox keeps working ([#830](https://github.com/fcastilloec/ieeeXploreSearching/issues/830)) ([7818fa3](https://github.com/fcastilloec/ieeeXploreSearching/commit/7818fa3326bfae66eb58bb5a5dd9e5305e561eff))
-
+- add description when using NOT ([#747](https://github.com/fcastilloec/ieeeXploreSearching/issues/747)) ([072f054](https://github.com/fcastilloec/ieeeXploreSearching/commit/072f05403a5b501b7360b5c8ec33510e902bb1de))
+- bump packages' versions for vulnerability fixing ([#679](https://github.com/fcastilloec/ieeeXploreSearching/issues/679)) ([cfa87fb](https://github.com/fcastilloec/ieeeXploreSearching/commit/cfa87fbbc51bc1cb99eb473e0fb0e10e1abedab7))
+- make sure that Firefox keeps working ([#830](https://github.com/fcastilloec/ieeeXploreSearching/issues/830)) ([7818fa3](https://github.com/fcastilloec/ieeeXploreSearching/commit/7818fa3326bfae66eb58bb5a5dd9e5305e561eff))
 
 ### Dependencies
 
-* bump `axios` to `1.7.9`
-* bump `fs-extra` to `11.3.0`
-* bump `locate-app` to `2.5.0`
-* bump `puppeteer-core` to `24.1.0`
+- bump `axios` to `1.7.9`
+- bump `fs-extra` to `11.3.0`
+- bump `locate-app` to `2.5.0`
+- bump `puppeteer-core` to `24.1.0`
 
 ### [4.1.6](https://github.com/fcastilloec/ieeeXploreSearching/compare/v4.1.4...v4.1.6) (2024-11-26)
 
-
 ### Bug Fixes
 
-* add description when using NOT ([#747](https://github.com/fcastilloec/ieeeXploreSearching/issues/747)) ([072f054](https://github.com/fcastilloec/ieeeXploreSearching/commit/072f05403a5b501b7360b5c8ec33510e902bb1de))
-* bump packages' versions for vulnerability fixing ([#679](https://github.com/fcastilloec/ieeeXploreSearching/issues/679)) ([cfa87fb](https://github.com/fcastilloec/ieeeXploreSearching/commit/cfa87fbbc51bc1cb99eb473e0fb0e10e1abedab7))
-
+- add description when using NOT ([#747](https://github.com/fcastilloec/ieeeXploreSearching/issues/747)) ([072f054](https://github.com/fcastilloec/ieeeXploreSearching/commit/072f05403a5b501b7360b5c8ec33510e902bb1de))
+- bump packages' versions for vulnerability fixing ([#679](https://github.com/fcastilloec/ieeeXploreSearching/issues/679)) ([cfa87fb](https://github.com/fcastilloec/ieeeXploreSearching/commit/cfa87fbbc51bc1cb99eb473e0fb0e10e1abedab7))
 
 ### Dependencies
 
-* bump `axios` to `1.7.8`
-* bump `fs-extra` to `11.2.0`
-* bump `locate-app` to `2.5.0`
-* bump `puppeteer-core` to `23.9.0`
+- bump `axios` to `1.7.8`
+- bump `fs-extra` to `11.2.0`
+- bump `locate-app` to `2.5.0`
+- bump `puppeteer-core` to `23.9.0`
 
 ### [4.1.5](https://github.com/fcastilloec/ieeeXploreSearching/compare/v4.1.4...v4.1.5) (2024-10-29)
 
 ### Bug Fixes
 
-* add description when using NOT ([#747](https://github.com/fcastilloec/ieeeXploreSearching/issues/747)) ([072f054](https://github.com/fcastilloec/ieeeXploreSearching/commit/072f05403a5b501b7360b5c8ec33510e902bb1de))
-* bump packages' versions for vulnerability fixing ([#679](https://github.com/fcastilloec/ieeeXploreSearching/issues/679)) ([cfa87fb](https://github.com/fcastilloec/ieeeXploreSearching/commit/cfa87fbbc51bc1cb99eb473e0fb0e10e1abedab7))
+- add description when using NOT ([#747](https://github.com/fcastilloec/ieeeXploreSearching/issues/747)) ([072f054](https://github.com/fcastilloec/ieeeXploreSearching/commit/072f05403a5b501b7360b5c8ec33510e902bb1de))
+- bump packages' versions for vulnerability fixing ([#679](https://github.com/fcastilloec/ieeeXploreSearching/issues/679)) ([cfa87fb](https://github.com/fcastilloec/ieeeXploreSearching/commit/cfa87fbbc51bc1cb99eb473e0fb0e10e1abedab7))
 
 ### Dependencies
 
-* bump `axios` to `1.7.7`
-* bump `fs-extra` to `11.2.0`
-* bump `locate-app` to `2.5.0`
-* bump `puppeteer-core` to `23.6.1`
+- bump `axios` to `1.7.7`
+- bump `fs-extra` to `11.2.0`
+- bump `locate-app` to `2.5.0`
+- bump `puppeteer-core` to `23.6.1`
 
 ### [4.1.4](https://github.com/fcastilloec/ieeeXploreSearching/compare/v4.1.3...v4.1.4) (2023-09-25)
 
