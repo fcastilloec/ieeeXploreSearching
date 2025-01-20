@@ -16,6 +16,8 @@ if (process.platform === 'win32') {
   console.warn('\u001B[4m%s\u001B[0m\u001B[31;1m%s\u001B[0m\n\n', 'Make sure you escape double quotes using:', String.raw` \"`);
 }
 
+require('dotenv').config({ path: ['.env', 'env'] }); // read env variables from both '.env' and 'env'
+
 const { argv } = yargs
   .wrap(yargs.terminalWidth())
   .version(require('../package.json').version)
@@ -70,7 +72,7 @@ const { argv } = yargs
   .option('year', {
     alias: 'y',
     nargs: 1,
-    demandOption: !(process.env.YEAR_START || process.env.YEAR_END),
+    demandOption: !process.env.YEARS,
     describe: 'Calling it once will search only on that year. Calling twice will search on the range',
     // array will consume all arguments after -y, including the query. No way to make array nargs variable
     type: 'number',
@@ -95,7 +97,7 @@ const { argv } = yargs
     year: (year) => (year.length == 1 ? [year[0], year[0]] : year),
   })
   .check((arguments_) => {
-    if (!(process.env.YEAR_START || process.env.YEAR_END)) testYears(arguments_.year);
+    if (!process.env.YEARS) testYears(arguments_.year);
     return true;
   })
   .group(['full-text-and-metadata', 'text-only', 'publication-title', 'metadata', 'ieee-terms'], 'IEEE Data Fields')
@@ -109,23 +111,19 @@ const { argv } = yargs
   );
 
 /* Assigns environmental variables if present */
-// Sets year from env variables 'YEAR_START' and/or 'YEAR_END'
-let years;
-if (process.env.YEAR_START && process.env.YEAR_END) {
-  years = [Number.parseInt(process.env.YEAR_START, 10), Number.parseInt(process.env.YEAR_END, 10)];
-} else if (process.env.YEAR_START || process.env.YEAR_END) {
-  years = [Number.parseInt(process.env.YEAR_START || process.env.YEAR_END, 10), Number.parseInt(process.env.YEAR_START || process.env.YEAR_END, 10)];
+// Sets year from env variable 'YEARS'
+if (process.env.YEARS) {
+  if (argv.verbose) console.log(`Using env YEARS (${process.env.YEARS})`);
+  const years = process.env.YEARS.split(':').map(year => Number.parseInt(year, 10)); // creates an array of years
+  try { testYears(years); } catch (error) { console.error(`YEARS env variable: ${error.message}`); process.exit(1); }
+  argv.year = years.length === 1 ? [years[0], years[0]] : years;
 }
-if (process.env.YEAR_START || process.env.YEAR_END) {
-  try {
-    testYears(years);
-    argv.year = years;
-  } catch (error) {
-    console.error(error.message); process.exit(1);
-  } // test env years
-}
+
 // Sets output name based on env variable 'OUT'
-if (process.env.OUT) argv.output = `search${process.env.OUT}`;
+if (process.env.OUT) {
+  if (argv.verbose) console.log(`Using env OUT (${process.env.OUT})`);
+  argv.output = `search${process.env.OUT}`;
+}
 // Set the data field to 'fullTextAndMetadata' based on env variable 'FULL'
 const dataField = process.env.FULL ? 'fullTextAndMetadata' : Object.keys(_.pick(argv, Object.keys(FIELDS)))[0];
 
