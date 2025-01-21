@@ -1,6 +1,24 @@
 # Changelog
 
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
+
+## [6.0.0](https://github.com/fcastilloec/ieeeXploreSearching/compare/v5.0.0...v6.0.0) (2025-01-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* YEAR_START and YEAR_END have been replaces by YEARS.
+Use YEARS separated by a colon (:), or a single year.
+
+
+### Features
+
+* use dotenv to load environmental variables from file ([#836](https://github.com/fcastilloec/ieeeXploreSearching/issues/836)) ([65dea5d](https://github.com/fcastilloec/ieeeXploreSearching/commit/65dea5dcbf64e9a730cd305f17522ddc8e511fc8))
+
+
+### Bug Fixes
+
+* **utils:** better year testing for both arguments and environmental variables ([#835](https://github.com/fcastilloec/ieeeXploreSearching/issues/835)) ([3e24f2c](https://github.com/fcastilloec/ieeeXploreSearching/commit/3e24f2c54aa36957ac6c379e0f7e24c4fc452697))
 
 ## [5.0.0](https://github.com/fcastilloec/ieeeXploreSearching/compare/v4.1.4...v5.0.0) (2025-01-21)
 
@@ -30,7 +48,8 @@ Its value is not important, only that it's not empty.
 
 ### Dependencies
 
-* bump `axios` to `1.7.9`
+* bump `dotenv` to `16.4.7`
+
 * bump `fs-extra` to `11.3.0`
 * bump `locate-app` to `2.5.0`
 * bump `puppeteer-core` to `24.1.0`
