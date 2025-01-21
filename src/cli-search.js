@@ -5,7 +5,7 @@ const fs = require('fs-extra');
 const yargs = require('yargs');
 const checkAPIKey = require('./lib/api-key');
 const configDirectory = require('./lib/config-directory');
-const { testYear } = require('./lib/utils');
+const { testYears } = require('./lib/utils');
 const { FIELDS, addDataField } = require('./lib/data-fields');
 const ieee = require('./lib/ieee-api');
 const { fromResults: json2xls } = require('./lib/json2xls');
@@ -74,7 +74,7 @@ const { argv } = yargs
     describe: 'Calling it once will search only on that year. Calling twice will search on the range',
     // array will consume all arguments after -y, including the query. No way to make array nargs variable
     type: 'number',
-    coerce: (year) => (Array.isArray(year) ? year : [year, year]),
+    array: true,
   })
   .option('scrap', {
     alias: 's',
@@ -91,11 +91,11 @@ const { argv } = yargs
     'strip-aliased': true,
     'strip-dashed': true,
   })
+  .coerce({
+    year: (year) => (year.length == 1 ? [year[0], year[0]] : year),
+  })
   .check((arguments_) => {
-    if (arguments_.year) {
-      if (arguments_.year.length > 2) throw new Error('Only start and/or finish year are accepted');
-      for (const year of arguments_.year) testYear(year);
-    }
+    if (!(process.env.YEAR_START || process.env.YEAR_END)) testYears(arguments_.year);
     return true;
   })
   .group(['full-text-and-metadata', 'text-only', 'publication-title', 'metadata', 'ieee-terms'], 'IEEE Data Fields')
@@ -110,10 +110,19 @@ const { argv } = yargs
 
 /* Assigns environmental variables if present */
 // Sets year from env variables 'YEAR_START' and/or 'YEAR_END'
+let years;
 if (process.env.YEAR_START && process.env.YEAR_END) {
-  argv.year = [Number.parseInt(process.env.YEAR_START, 10), Number.parseInt(process.env.YEAR_END, 10)];
+  years = [Number.parseInt(process.env.YEAR_START, 10), Number.parseInt(process.env.YEAR_END, 10)];
 } else if (process.env.YEAR_START || process.env.YEAR_END) {
-  argv.year = [Number.parseInt(process.env.YEAR_START || process.env.YEAR_END, 10), Number.parseInt(process.env.YEAR_START || process.env.YEAR_END, 10)];
+  years = [Number.parseInt(process.env.YEAR_START || process.env.YEAR_END, 10), Number.parseInt(process.env.YEAR_START || process.env.YEAR_END, 10)];
+}
+if (process.env.YEAR_START || process.env.YEAR_END) {
+  try {
+    testYears(years);
+    argv.year = years;
+  } catch (error) {
+    console.error(error.message); process.exit(1);
+  } // test env years
 }
 // Sets output name based on env variable 'OUT'
 if (process.env.OUT) argv.output = `search${process.env.OUT}`;
