@@ -27,7 +27,7 @@ const { argv } = yargs
   .demandCommand(1, 1, 'No search query specified')
   .option('output', {
     alias: 'o',
-    describe: 'Filename where to save results as JSON',
+    describe: 'Filename where to save results as JSON.\nUse env "OUT=num", where the output will be "search{num}"',
     nargs: 1,
     type: 'string',
     demandOption: !process.env.OUT,
@@ -36,7 +36,7 @@ const { argv } = yargs
   .option('full-text-and-metadata', {
     alias: 'f',
     conflicts: ['text-only', 'publication-title', 'metadata', 'ieee-terms'],
-    describe: '"Full Text & Metadata"',
+    describe: '"Full Text & Metadata".\nUse env "FULL=true"',
     type: 'boolean',
   })
   .option('text-only', {
@@ -73,7 +73,8 @@ const { argv } = yargs
     alias: 'y',
     nargs: 1,
     demandOption: !process.env.YEARS,
-    describe: 'Calling it once will search only on that year. Calling twice will search on the range',
+    describe: 'Calling it once will search only on that year. Calling twice will search on the range.\n' +
+    'Use env "YEARS=2000:2001"',
     // array will consume all arguments after -y, including the query. No way to make array nargs variable
     type: 'number',
     array: true,
