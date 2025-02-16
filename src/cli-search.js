@@ -123,7 +123,8 @@ if (process.env.YEARS) {
 // Sets output name based on env variable 'OUT'
 if (process.env.OUT) {
   if (argv.verbose) console.log(`Using env OUT (${process.env.OUT})`);
-  argv.output = `search${process.env.OUT}`;
+  argv.output = /^[1-9]\d*$/.test(process.env.OUT) ? `search${process.env.OUT}` : process.env.OUT;
+  if (argv.verbose) console.log(`OUT: ${argv.output}`);
 }
 // Set the data field to 'fullTextAndMetadata' based on env variable 'FULL'
 const dataField = process.env.FULL ? 'fullTextAndMetadata' : Object.keys(_.pick(argv, Object.keys(FIELDS)))[0];
