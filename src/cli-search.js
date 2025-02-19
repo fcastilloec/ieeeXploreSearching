@@ -27,7 +27,7 @@ const { argv } = yargs
   .demandCommand(1, 1, 'No search query specified')
   .option('output', {
     alias: 'o',
-    describe: 'Filename where to save results as JSON.\nUse env "OUT=num", where the output will be "search{num}"',
+    describe: 'Filename where results are saved as JSON.\nCan use env variable OUT.\nIt OUT is an integer, the output will be "search{num}"',
     nargs: 1,
     type: 'string',
     demandOption: !process.env.OUT,
