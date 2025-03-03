@@ -37,7 +37,7 @@
   "devDependencies": {
     "@commitlint/cli": "^19.7.1",
     "@commitlint/config-conventional": "^19.7.1",
-    "@yao-pkg/pkg": "^6.3.0",
+    "@yao-pkg/pkg": "^6.3.2",
     "commit-and-tag-version": "^12.5.0",
     "eslint": "^9.16.0",
     "eslint-plugin-unicorn": "^56.0.1",
