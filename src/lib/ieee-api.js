@@ -29,10 +29,10 @@ async function scrap(queryText, rangeYear, verbose) {
   const NO_RESULTS = 'div.List-results-message.List-results-none';
   const NEXT = '.next-btn';
 
-  if (verbose) console.log('Query: \t%s\n', queryText);
+  if (verbose) console.log('Query: %s\n', queryText);
   const query = `?queryText=(${encodeURI(queryText).replaceAll('?', '%3F').replaceAll('/', '%2F')})`
               + `&ranges=${rangeYear[0]}_${rangeYear[1]}_Year`;
-  if (verbose) console.log('Encoded Query:\t%s\n', query);
+  if (verbose) console.log('Encoded Query: %s\n', query);
 
   // Test for redirects
   const regex = new RegExp(`${escapeRegExp(ieeeSearchUrl)}(;jsessionid=[a-zA-Z0-9!-_]*)?${escapeRegExp(query)}.*`);
@@ -147,8 +147,8 @@ async function scrap(queryText, rangeYear, verbose) {
 async function api(apiKey, queryText, rangeYear, verbose) {
   const API_URL = 'https://ieeexploreapi.ieee.org/api/v1/search/articles';
 
-  if (verbose) console.log('Query: \t%s\n', queryText);
-  if (verbose >= 2) console.log('ApiKey:\t%s', apiKey);
+  if (verbose) console.log('Query: %s\n', queryText);
+  if (verbose >= 2) console.log('ApiKey: %s', apiKey);
 
   const config = {
     method: 'get',
