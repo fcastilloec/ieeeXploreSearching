@@ -1,5 +1,5 @@
 const {
-  changeFileExtension, testFileExtension, testYears, getLineStack,
+  changeFileExtension, testFileExtension, testYears, getLineStack, checkQueryText, escapeRegExp,
 } = require('../src/lib/utils');
 
 const path = 'this/file.ext';
@@ -9,6 +9,26 @@ const out2 = 'this/file.ext.new';
 test('getLineStack returns message with line', () => {
   // the numbers need to change if the next line moves
   expect(getLineStack()).toBe(`    at ${__filename}:11:10`);
+});
+
+test('checkQueryText throws if more than two wildcards', () => {
+  const query = 'search1* AND search2* AND search3*';
+  expect(() => checkQueryText(query)).toThrow('Query contains more than two wildcards.');
+});
+
+test('checkQueryText throws if wildcard is preceded by less than 3 characters', () => {
+  const query = 'ab*';
+  expect(() => checkQueryText(query)).toThrow(`Wildcard '${query}' does not have at least 3 preceding characters.`);
+});
+
+test('checkQueryText not throws for valid query without wildcards', () => {
+  const query = 'search1 AND search2';
+  expect(() => checkQueryText(query)).not.toThrow();
+});
+
+test('checkQueryText not throws for valid query with wildcards', () => {
+  const query = 'search1 AND search2*';
+  expect(() => checkQueryText(query)).not.toThrow();
 });
 
 test('changeFileExtension without period', () => {

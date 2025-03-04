@@ -5,7 +5,7 @@ const fs = require('fs-extra');
 const yargs = require('yargs');
 const checkAPIKey = require('./lib/api-key');
 const configDirectory = require('./lib/config-directory');
-const { testYears } = require('./lib/utils');
+const { testYears, checkQueryText } = require('./lib/utils');
 const { FIELDS, addDataField } = require('./lib/data-fields');
 const ieee = require('./lib/ieee-api');
 const { fromResults: json2xls } = require('./lib/json2xls');
@@ -99,6 +99,7 @@ const { argv } = yargs
   })
   .check((arguments_) => {
     if (!process.env.YEARS) testYears(arguments_.year);
+    checkQueryText(arguments_._[0]);
     return true;
   })
   .group(['full-text-and-metadata', 'text-only', 'publication-title', 'metadata', 'ieee-terms'], 'IEEE Data Fields')

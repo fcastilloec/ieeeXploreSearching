@@ -57,6 +57,12 @@ function testYears(years) {
  * @returns  {string}          The escaped string.
  */
 function escapeRegExp(string) {
+  /*
+  Find all the following characters: (some are escaped in the final expression)
+  .*+?^${}()[]\
+  And escapes them, by adding '\' before each of those characters in a string
+  The next line won't be tested (issues with coverage and regex)
+  */
   return string.replaceAll(/[.*+?^${}()|[\]\\]/g, String.raw`\$&`);
 }
 
@@ -73,8 +79,31 @@ function getLineStack(column = 0) {
   return column === 0 ? `    at ${error_.join(':')}` : `    at ${error_[0]}:${error_[1]}:${Number.parseInt(error_[2], 10) + column}`;
 }
 
+/**
+ * Test if query is valid.
+ *
+ * @param   {string} queryText  The search query.
+ *
+ * @throws  {RangeError}        There can't be more than two wildcards (*) in a query.
+ * @throws  {Error}             If there's a wildcard, it has to be preceded by at least 3 characters
+ */
+function checkQueryText(queryText) {
+  // count wildcards, 'String' function is needed when queryText is a number (i.e. article number)
+  const wildcardMatches = String(queryText).match(/\w*\*/g) || [];
+  if (wildcardMatches.length > 2) { // maximum two wildcards
+    throw new RangeError("Query contains more than two wildcards.");
+  }
+
+  for (const match of wildcardMatches) {
+    if (match.length < 4) { // minimum 3 characters + 1 wildcard
+      throw new Error(`Wildcard '${match}' does not have at least 3 preceding characters.`);
+    }
+  }
+}
+
 module.exports = {
   changeFileExtension,
+  checkQueryText,
   escapeRegExp,
   getLineStack,
   testFileExtension,
