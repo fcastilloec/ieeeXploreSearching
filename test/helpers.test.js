@@ -1,6 +1,6 @@
 const {
   changeFileExtension, testFileExtension, testYears, getLineStack, checkQueryText, escapeRegExp,
-} = require('../src/lib/utils');
+} = require('../src/lib/helpers');
 
 const path = 'this/file.ext';
 const out1 = 'this/file.new';

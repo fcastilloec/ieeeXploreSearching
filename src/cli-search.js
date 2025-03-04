@@ -5,11 +5,10 @@ const fs = require('fs-extra');
 const yargs = require('yargs');
 const checkAPIKey = require('./lib/api-key');
 const configDirectory = require('./lib/config-directory');
-const { testYears, checkQueryText } = require('./lib/utils');
+const { testYears, checkQueryText, testFileExtension } = require('./lib/helpers');
 const { FIELDS, addDataField } = require('./lib/data-fields');
 const ieee = require('./lib/ieee-api');
 const { fromResults: json2xls } = require('./lib/json2xls');
-const { testFileExtension } = require('./lib/utils');
 
 if (process.platform === 'win32') {
   console.warn("You're running on a Windows system");
