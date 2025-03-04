@@ -57,6 +57,12 @@ function testYears(years) {
  * @returns  {string}          The escaped string.
  */
 function escapeRegExp(string) {
+  /*
+  Find all the following characters: (some are escaped in the final expression)
+  .*+?^${}()[]\
+  And escapes them, by adding '\' before each of those characters in a string
+  The next line won't be tested (issues with coverage and regex)
+  */
   return string.replaceAll(/[.*+?^${}()|[\]\\]/g, String.raw`\$&`);
 }
 
@@ -82,7 +88,7 @@ function getLineStack(column = 0) {
  * @throws  {Error}             If there's a wildcard, it has to be preceded by at least 3 characters
  */
 function checkQueryText(queryText) {
-  // count wildcards, String works when queryText is just numbers (for article number case)
+  // count wildcards, 'String' function is needed when queryText is a number (i.e. article number)
   const wildcardMatches = String(queryText).match(/\w*\*/g) || [];
   if (wildcardMatches.length > 2) { // maximum two wildcards
     throw new RangeError("Query contains more than two wildcards.");

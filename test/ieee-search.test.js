@@ -1,4 +1,3 @@
- 
 const { api, scrap } = require('../src/lib/ieee-api');
 const untitled = require('./fixtures/scrap/untitled.json');
 
@@ -28,8 +27,8 @@ const queries = {
   bookChapter: '"An Evolving and Developing Cellular Electronic Circuit"',
   conferencePaper: '"Robust two-camera tracking using homography"',
   course: '"Challenges Near the Limit of CMOS Scaling"',
-  magazineArticle: '"Applying the Web ontology language to management information definitions"',
   journalArticle: '"Characterization of adaptive modulators in fixed wireless ATM networks"',
+  magazineArticle: '"Applying the Web ontology language to management information definitions"',
   standard: '"IEEE Guide to the Installation of Overhead Transmission Line Conductors"',
 };
 
