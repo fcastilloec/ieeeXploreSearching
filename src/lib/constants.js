@@ -17,8 +17,8 @@ const PUBLICATION = `${main} > div.description > a`;
 const DESCRIPTION = `${main} > div.description > div.publisher-info-container`;
 
 // Elements inside ICONS
-const ABSTRACT = `${icons} > div.js-displayer-content.u-mt-1.stats-SearchResults_DocResult_ViewMore > span`;
-const ABSTRACT_URL = `${icons} > div.js-displayer-content.u-mt-1.stats-SearchResults_DocResult_ViewMore > a`;
+const ABSTRACT = `${icons} > .hide > span`;
+const ABSTRACT_URL = `${icons} > .hide > a`;
 
 globalThis.DATA = {
   ELEMENTS,
