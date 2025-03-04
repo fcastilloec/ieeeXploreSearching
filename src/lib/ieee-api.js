@@ -4,7 +4,7 @@ const axios = require('axios');
 const { locateChrome, locateFirefox } = require('locate-app');
 const puppeteer = require('puppeteer-core');
 const createJSON = require('./create-json');
-const { escapeRegExp, getLineStack } = require('./utils');
+const { escapeRegExp, getLineStack } = require('./helpers');
 
 /**
  * Search by scrapping the results from the IEEE search page.
