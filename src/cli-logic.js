@@ -3,7 +3,7 @@ const yargs = require('yargs');
 const fs = require('fs-extra');
 const { fromResults } = require('./lib/json2xls');
 const { logicOperations } = require('./lib/logic-operations');
-const { changeFileExtension, testFileExtension } = require('./lib/utils');
+const { changeFileExtension, testFileExtension } = require('./lib/helpers');
 
 const { argv } = yargs
   .version(require('../package.json').version)
