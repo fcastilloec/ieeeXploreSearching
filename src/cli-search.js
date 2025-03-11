@@ -34,32 +34,38 @@ const { argv } = yargs
   })
   .option('full-text-and-metadata', {
     alias: 'f',
-    conflicts: ['text-only', 'publication-title', 'metadata', 'ieee-terms'],
+    conflicts: ['text-only', 'publication-title', 'document-title', 'metadata', 'ieee-terms'],
     describe: '"Full Text & Metadata".\nUse env "FULL=true"',
     type: 'boolean',
   })
   .option('text-only', {
     alias: 't',
-    conflicts: ['full-text-and-metadata', 'publication-title', 'metadata', 'ieee-terms'],
+    conflicts: ['full-text-and-metadata', 'publication-title', 'document-title', 'metadata', 'ieee-terms'],
     describe: '"Full Text Only"',
     type: 'boolean',
   })
   .option('publication-title', {
     alias: 'p',
-    conflicts: ['text-only', 'full-text-and-metadata', 'metadata', 'ieee-terms'],
+    conflicts: ['text-only', 'full-text-and-metadata', 'document-title', 'metadata', 'ieee-terms'],
     describe: '"Publication Title"',
+    type: 'boolean',
+  })
+  .option('document-title', {
+    alias: 'd',
+    conflicts: ['text-only', 'full-text-and-metadata', 'metadata', 'ieee-terms', 'publication-title'],
+    describe: '"Document Title"',
     type: 'boolean',
   })
   .option('metadata', {
     alias: 'm',
     describe: '"All Metadata"',
-    conflicts: ['text-only', 'full-text-and-metadata', 'publication-title', 'ieee-terms'],
+    conflicts: ['text-only', 'full-text-and-metadata', 'publication-title', 'document-title', 'ieee-terms'],
     type: 'boolean',
   })
   .option('ieee-terms', {
     alias: 'i',
     describe: '"IEEE Terms"',
-    conflicts: ['text-only', 'full-text-and-metadata', 'publication-title', 'metadata'],
+    conflicts: ['text-only', 'full-text-and-metadata', 'publication-title', 'document-title', 'metadata'],
     type: 'boolean',
   })
   .option('excel', {
@@ -101,7 +107,7 @@ const { argv } = yargs
     checkQueryText(arguments_._[0]);
     return true;
   })
-  .group(['full-text-and-metadata', 'text-only', 'publication-title', 'metadata', 'ieee-terms'], 'IEEE Data Fields')
+  .group(['full-text-and-metadata', 'text-only', 'publication-title', 'document-title', 'metadata', 'ieee-terms'], 'IEEE Data Fields')
   .example(
     "$0 'optics AND nano' -o search1 -y 1990 -y 2000 -e",
     'searches for "optics AND nano" between 1990-2000 and save the results in search1.json and search1.xls',
@@ -127,7 +133,7 @@ if (process.env.OUT) {
   if (argv.verbose) console.log(`OUT: ${argv.output}`);
 }
 // Set the data field to 'fullTextAndMetadata' based on env variable 'FULL'
-const dataField = process.env.FULL ? 'fullTextAndMetadata' : Object.keys(_.pick(argv, Object.keys(FIELDS)))[0];
+const dataField = process.env.FULL == 'true' ? 'fullTextAndMetadata' : Object.keys(_.pick(argv, Object.keys(FIELDS)))[0];
 
 console.log('Searching for: %s', argv._[0]);
 console.log('Between %s and %s', argv.year[0], argv.year[1]);
