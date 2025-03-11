@@ -2,6 +2,7 @@
  * IEEE Data Fields
  */
 const FIELDS = {
+  documentTitle: '"Document Title"',
   fullTextAndMetadata: '"Full Text .AND. Metadata"',
   textOnly: '"Full Text Only"',
   publicationTitle: '"Publication Title"',
