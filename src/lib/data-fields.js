@@ -28,7 +28,23 @@ function addDataField(queryText, field) {
   }).join('');
 }
 
+/**
+ * Checks if a query string already has IEEE fields.
+ *
+ * @param   {string}  queryText   the search string.
+ * @returns {boolean}             if the search string contains a FIELD or not.
+ */
+function queryContainsField(queryText) {
+  for (const fieldValue of Object.values(FIELDS)) {
+    if (queryText.includes(fieldValue)) {
+      return true;
+    }
+  }
+  return false;
+}
+
 module.exports = {
   FIELDS,
   addDataField,
+  queryContainsField,
 };

@@ -6,7 +6,7 @@ const yargs = require('yargs');
 const checkAPIKey = require('./lib/api-key');
 const configDirectory = require('./lib/config-directory');
 const { testYears, checkQueryText, testFileExtension } = require('./lib/helpers');
-const { FIELDS, addDataField } = require('./lib/data-fields');
+const { FIELDS, addDataField, queryContainsField } = require('./lib/data-fields');
 const ieee = require('./lib/ieee-api');
 const { fromResults: json2xls } = require('./lib/json2xls');
 
@@ -132,8 +132,13 @@ if (process.env.OUT) {
   argv.output = /^[1-9]\d*$/.test(process.env.OUT) ? `search${process.env.OUT}` : process.env.OUT;
   if (argv.verbose) console.log(`OUT: ${argv.output}`);
 }
-// Set the data field to 'fullTextAndMetadata' based on env variable 'FULL'
-const dataField = process.env.FULL == 'true' ? 'fullTextAndMetadata' : Object.keys(_.pick(argv, Object.keys(FIELDS)))[0];
+
+let queryText = argv._[0];
+if (!queryNoFields(argv._[0])) {
+  const dataFieldKey = process.env.FULL === 'true' ? 'fullTextAndMetadata' : Object.keys(FIELDS).find(key => argv[key]);
+
+  if (dataFieldKey) queryText = addDataField(queryText, FIELDS[dataFieldKey]);
+}
 
 console.log('Searching for: %s', argv._[0]);
 console.log('Between %s and %s', argv.year[0], argv.year[1]);
@@ -142,13 +147,13 @@ console.log('Using: %s', FIELDS[dataField] || 'No data fields');
 async function search() {
   let results;
   if (argv.scrap) {
-    results = await ieee.scrap(addDataField(argv._[0], FIELDS[dataField]), argv.year, argv.verbose);
+    results = await ieee.scrap(queryText, argv.year, argv.verbose);
   } else {
     const configFile = path.join(configDirectory(), 'config.json');
     checkAPIKey(configFile);
     try {
       const config = fs.readJSONSync(configFile); // Read the APIKEY
-      results = await ieee.api(config.APIKEY, addDataField(argv._[0], FIELDS[dataField]), argv.year, argv.verbose);
+      results = await ieee.api(config.APIKEY, queryText, argv.year, argv.verbose);
     } catch (error) {
       console.error('Error reading the APIKEY:', error.message);
       process.exit(1);
