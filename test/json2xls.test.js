@@ -7,12 +7,7 @@ test('authorsString with empty array', () => {
 });
 
 test('authorsString with valid array', () => {
-  expect(
-    authorsString([
-      { full_name: 'John Smith' },
-      { full_name: 'Jane Doe' },
-    ]),
-  ).toBe('John Smith; Jane Doe');
+  expect(authorsString([{ full_name: 'John Smith' }, { full_name: 'Jane Doe' }])).toBe('John Smith; Jane Doe');
 });
 
 test('fromResults', async () => {

@@ -93,36 +93,77 @@ async function fromResults(results, xlsFilename) {
   let doiHide = true;
 
   // ws.cell(row, col)
-  ws.cell(1, COLUMNS.publication_year).string('YEAR').style({ font: { bold: true } });
-  ws.cell(1, COLUMNS.article_number).string('ARTICLE').style({ font: { bold: true } });
-  ws.cell(1, COLUMNS.publication_date).string('DATE').style({ font: { bold: true } });
-  ws.cell(1, COLUMNS.title).string('TITLE').style({ font: { bold: true } });
-  ws.cell(1, COLUMNS.authors).string('AUTHORS').style({ font: { bold: true } });
-  ws.cell(1, COLUMNS.publication_title).string('JOURNAL').style({ font: { bold: true } });
-  ws.cell(1, COLUMNS.abstract).string('ABSTRACT').style({ font: { bold: true } });
-  ws.cell(1, COLUMNS.sci_hub).string('SCI-HUB URL').style({ font: { bold: true } });
-  ws.cell(1, COLUMNS.pdf_url).string('IEEE URL').style({ font: { bold: true } });
-  ws.cell(1, COLUMNS.content_type).string('TYPE').style({ font: { bold: true } });
+  ws.cell(1, COLUMNS.publication_year)
+    .string('YEAR')
+    .style({ font: { bold: true } });
+  ws.cell(1, COLUMNS.article_number)
+    .string('ARTICLE')
+    .style({ font: { bold: true } });
+  ws.cell(1, COLUMNS.publication_date)
+    .string('DATE')
+    .style({ font: { bold: true } });
+  ws.cell(1, COLUMNS.title)
+    .string('TITLE')
+    .style({ font: { bold: true } });
+  ws.cell(1, COLUMNS.authors)
+    .string('AUTHORS')
+    .style({ font: { bold: true } });
+  ws.cell(1, COLUMNS.publication_title)
+    .string('JOURNAL')
+    .style({ font: { bold: true } });
+  ws.cell(1, COLUMNS.abstract)
+    .string('ABSTRACT')
+    .style({ font: { bold: true } });
+  ws.cell(1, COLUMNS.sci_hub)
+    .string('SCI-HUB URL')
+    .style({ font: { bold: true } });
+  ws.cell(1, COLUMNS.pdf_url)
+    .string('IEEE URL')
+    .style({ font: { bold: true } });
+  ws.cell(1, COLUMNS.content_type)
+    .string('TYPE')
+    .style({ font: { bold: true } });
   ws.cell(1, COLUMNS.sciHubBaseUrl).string(sciHubUrl); // baseUrl that can be modified is Sci-Hub domain moves
 
   for (const [index, result] of results.entries()) {
     ws.row(index + 2).setHeight(97);
-    ws.cell(index + 2, COLUMNS.publication_year).number(Number.parseInt(result.publication_year, 10)).style(noWrapStyle);
-    ws.cell(index + 2, COLUMNS.article_number).string(result.article_number).style(noWrapStyle);
+    ws.cell(index + 2, COLUMNS.publication_year)
+      .number(Number.parseInt(result.publication_year, 10))
+      .style(noWrapStyle);
+    ws.cell(index + 2, COLUMNS.article_number)
+      .string(result.article_number)
+      .style(noWrapStyle);
     if (result.publication_date) {
       pubDateHide = false;
-      ws.cell(index + 2, COLUMNS.publication_date).string(result.publication_date).style(noWrapStyle);
+      ws.cell(index + 2, COLUMNS.publication_date)
+        .string(result.publication_date)
+        .style(noWrapStyle);
     }
-    ws.cell(index + 2, COLUMNS.title).string(result.title).style(wrapStyle).style(wrapStyle);
-    ws.cell(index + 2, COLUMNS.authors).string(authorsString(result.authors.authors)).style(wrapStyle);
-    ws.cell(index + 2, COLUMNS.publication_title).string(result.publication_title || '').style(wrapStyle);
-    ws.cell(index + 2, COLUMNS.abstract).string(result.abstract || '').style(wrapStyle);
-    ws.cell(index + 2, COLUMNS.pdf_url).link(result.pdf_url || result.abstract_url || '').style(linkStyle);
+    ws.cell(index + 2, COLUMNS.title)
+      .string(result.title)
+      .style(wrapStyle)
+      .style(wrapStyle);
+    ws.cell(index + 2, COLUMNS.authors)
+      .string(authorsString(result.authors.authors))
+      .style(wrapStyle);
+    ws.cell(index + 2, COLUMNS.publication_title)
+      .string(result.publication_title || '')
+      .style(wrapStyle);
+    ws.cell(index + 2, COLUMNS.abstract)
+      .string(result.abstract || '')
+      .style(wrapStyle);
+    ws.cell(index + 2, COLUMNS.pdf_url)
+      .link(result.pdf_url || result.abstract_url || '')
+      .style(linkStyle);
     if (result.doi) {
       doiHide = false;
-      ws.cell(index + 2, COLUMNS.sci_hub).formula(`HYPERLINK(CONCATENATE($K$1,"${result.doi}"))`).style(linkStyle);
+      ws.cell(index + 2, COLUMNS.sci_hub)
+        .formula(`HYPERLINK(CONCATENATE($K$1,"${result.doi}"))`)
+        .style(linkStyle);
     }
-    ws.cell(index + 2, COLUMNS.content_type).string(result.content_type).style(noWrapStyle);
+    ws.cell(index + 2, COLUMNS.content_type)
+      .string(result.content_type)
+      .style(noWrapStyle);
   }
 
   /* istanbul ignore next */

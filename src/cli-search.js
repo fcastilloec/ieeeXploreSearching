@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 const path = require('node:path');
-const _ = require('lodash');
 const fs = require('fs-extra');
 const yargs = require('yargs');
 const checkAPIKey = require('./lib/api-key');
@@ -12,7 +11,11 @@ const { fromResults: json2xls } = require('./lib/json2xls');
 
 if (process.platform === 'win32') {
   console.warn("You're running on a Windows system");
-  console.warn('\u001B[4m%s\u001B[0m\u001B[31;1m%s\u001B[0m\n\n', 'Make sure you escape double quotes using:', String.raw` \"`);
+  console.warn(
+    '\u001B[4m%s\u001B[0m\u001B[31;1m%s\u001B[0m\n\n',
+    'Make sure you escape double quotes using:',
+    String.raw` \"`,
+  );
 }
 
 require('dotenv').config({ path: ['.env', 'env'] }); // read env variables from both '.env' and 'env'
@@ -26,7 +29,8 @@ const { argv } = yargs
   .demandCommand(1, 1, 'No search query specified')
   .option('output', {
     alias: 'o',
-    describe: 'Filename where results are saved as JSON.\nCan use env variable OUT.\nIt OUT is an integer, the output will be "search{num}"',
+    describe:
+      'Filename where results are saved as JSON.\nCan use env variable OUT.\nIt OUT is an integer, the output will be "search{num}"',
     nargs: 1,
     type: 'string',
     demandOption: !process.env.OUT,
@@ -78,8 +82,9 @@ const { argv } = yargs
     alias: 'y',
     nargs: 1,
     demandOption: !process.env.YEARS,
-    describe: 'Calling it once will search only on that year. Calling twice will search on the range.\n' +
-    'Use env "YEARS=2000:2001"',
+    describe:
+      'Calling it once will search only on that year. Calling twice will search on the range.\n' +
+      'Use env "YEARS=2000:2001"',
     // array will consume all arguments after -y, including the query. No way to make array nargs variable
     type: 'number',
     array: true,
@@ -107,7 +112,10 @@ const { argv } = yargs
     checkQueryText(arguments_._[0]);
     return true;
   })
-  .group(['full-text-and-metadata', 'text-only', 'publication-title', 'document-title', 'metadata', 'ieee-terms'], 'IEEE Data Fields')
+  .group(
+    ['full-text-and-metadata', 'text-only', 'publication-title', 'document-title', 'metadata', 'ieee-terms'],
+    'IEEE Data Fields',
+  )
   .example(
     "$0 'optics AND nano' -o search1 -y 1990 -y 2000 -e",
     'searches for "optics AND nano" between 1990-2000 and save the results in search1.json and search1.xls',
@@ -121,8 +129,13 @@ const { argv } = yargs
 // Sets year from env variable 'YEARS'
 if (process.env.YEARS) {
   if (argv.verbose) console.log(`Using env YEARS (${process.env.YEARS})`);
-  const years = process.env.YEARS.split(':').map(year => Number.parseInt(year, 10)); // creates an array of years
-  try { testYears(years); } catch (error) { console.error(`YEARS env variable: ${error.message}`); process.exit(1); }
+  const years = process.env.YEARS.split(':').map((year) => Number.parseInt(year, 10)); // creates an array of years
+  try {
+    testYears(years);
+  } catch (error) {
+    console.error(`YEARS env variable: ${error.message}`);
+    process.exit(1);
+  }
   argv.year = years.length === 1 ? [years[0], years[0]] : years;
 }
 
@@ -133,16 +146,17 @@ if (process.env.OUT) {
   if (argv.verbose) console.log(`OUT: ${argv.output}`);
 }
 
-let queryText = argv._[0];
-if (!queryNoFields(argv._[0])) {
-  const dataFieldKey = process.env.FULL === 'true' ? 'fullTextAndMetadata' : Object.keys(FIELDS).find(key => argv[key]);
-
-  if (dataFieldKey) queryText = addDataField(queryText, FIELDS[dataFieldKey]);
-}
-
 console.log('Searching for: %s', argv._[0]);
 console.log('Between %s and %s', argv.year[0], argv.year[1]);
-console.log('Using: %s', FIELDS[dataField] || 'No data fields');
+
+let queryText = argv._[0];
+if (!queryContainsField(argv._[0])) {
+  const dataFieldKey =
+    process.env.FULL === 'true' ? 'fullTextAndMetadata' : Object.keys(FIELDS).find((key) => argv[key]);
+
+  if (dataFieldKey) queryText = addDataField(queryText, FIELDS[dataFieldKey]);
+  console.log('Using: %s', FIELDS[dataFieldKey] || 'No data fields');
+}
 
 async function search() {
   let results;

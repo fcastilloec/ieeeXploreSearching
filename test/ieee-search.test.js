@@ -36,68 +36,46 @@ const rangeYear = [2004, 2004];
 
 const testArray = [];
 for (const query of Object.keys(queries)) {
-  testArray.push(
-    {
-      label: labels[query],
-      query: queries[query],
-      expected: expectedJson[query][0],
-    },
-  );
+  testArray.push({
+    label: labels[query],
+    query: queries[query],
+    expected: expectedJson[query][0],
+  });
 }
 
 function testIf() {
   return process.env.CI ? test.skip : test;
 }
 
-describe.each(testArray)(
-  'Scrapping',
-  ({ label, query, expected }) => {
-    test(
-      label,
-      async () => {
-        const results = await scrap(query, rangeYear, false);
-        const result = results.articles[0];
-        delete result.abstract;
-        expect(result).toMatchObject(expected);
-      },
-    );
-  },
-);
-
-describe('Scrapping', () => {
-  test(
-    'Title without link',
-    async () => {
-      const results = await scrap('optics AND nano AND QELS', [2000, 2000], false);
-      const result = results.articles[0];
-      delete result.abstract;
-      expect(result).toMatchObject(untitled[0]);
-    },
-  );
+describe.each(testArray)('Scrapping', ({ label, query, expected }) => {
+  test(label, async () => {
+    const results = await scrap(query, rangeYear, false);
+    const result = results.articles[0];
+    delete result.abstract;
+    expect(result).toMatchObject(expected);
+  });
 });
 
 describe('Scrapping', () => {
-  test(
-    'Results in multiple pages',
-    async () => {
-      await expect(
-        scrap('nack', [2000, 2003], false),
-      ).resolves.toMatchObject(expectedJson.multiple);
-    },
-  );
+  test('Title without link', async () => {
+    const results = await scrap('optics AND nano AND QELS', [2000, 2000], false);
+    const result = results.articles[0];
+    delete result.abstract;
+    expect(result).toMatchObject(untitled[0]);
+  });
 });
 
-describe.each(testArray)(
-  'Official API',
-  ({ label, query, expected }) => {
-    testIf()(
-      label,
-      async () => {
-        const results = await api(process.env.APIKEY, query, rangeYear, false);
-        const result = results.articles[0];
-        delete result.abstract;
-        expect(result).toMatchObject(expected);
-      },
-    );
-  },
-);
+describe('Scrapping', () => {
+  test('Results in multiple pages', async () => {
+    await expect(scrap('nack', [2000, 2003], false)).resolves.toMatchObject(expectedJson.multiple);
+  });
+});
+
+describe.each(testArray)('Official API', ({ label, query, expected }) => {
+  testIf()(label, async () => {
+    const results = await api(process.env.APIKEY, query, rangeYear, false);
+    const result = results.articles[0];
+    delete result.abstract;
+    expect(result).toMatchObject(expected);
+  });
+});

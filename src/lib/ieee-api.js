@@ -17,11 +17,11 @@ const { escapeRegExp, getLineStack } = require('./helpers');
  */
 async function scrap(queryText, rangeYear, verbose) {
   // only wait this amount of milliseconds, any longer and it means there's no results
-  const timeout = process.env.CI ? 40_000 : 20_000;
+  const timeout = process.env.CI ? 40000 : 20000;
   let lineStack; // stack message with line info
 
-  const userAgentChrome = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko)'
-    + 'Chrome/117.0.0.0 Safari/537.36';
+  const userAgentChrome =
+    'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko)' + 'Chrome/117.0.0.0 Safari/537.36';
   const userAgentFirefox = 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/118.0';
   const ieeeSearchUrl = 'https://ieeexplore.ieee.org/search/searchresult.jsp';
   const ELEMENTS = '.List-results-items'; // change in constants.js
@@ -30,8 +30,9 @@ async function scrap(queryText, rangeYear, verbose) {
   const NEXT = '.next-btn';
 
   if (verbose) console.log('Query: %s\n', queryText);
-  const query = `?queryText=(${encodeURI(queryText).replaceAll('?', '%3F').replaceAll('/', '%2F')})`
-              + `&ranges=${rangeYear[0]}_${rangeYear[1]}_Year`;
+  const query =
+    `?queryText=(${encodeURI(queryText).replaceAll('?', '%3F').replaceAll('/', '%2F')})` +
+    `&ranges=${rangeYear[0]}_${rangeYear[1]}_Year`;
   if (verbose) console.log('Encoded Query: %s\n', query);
 
   // Test for redirects
@@ -39,7 +40,6 @@ async function scrap(queryText, rangeYear, verbose) {
 
   let userAgent;
   let executablePath; // path to either Chrome (preferred) or Firefox
-  let product; // Which browser to launch
   let headless; // Chrome uses a different type
   let totalPages = 1; // counter for total number of pages
   let TOTAL_PAGES; // calculated number of pages
@@ -83,12 +83,14 @@ async function scrap(queryText, rangeYear, verbose) {
     const records = await page.$eval(RESULTS, (element) => element.textContent);
 
     // Check if there are no results
-    if (await page.$(NO_RESULTS) || records === 'No results found') {
+    if ((await page.$(NO_RESULTS)) || records === 'No results found') {
       await browser.close();
       return { total_records: 0, articles: [] };
     }
 
-    lineStack = getLineStack(18); await page.waitForSelector(ELEMENTS); // Wait until javascript loads all results
+    // prettier-ignore
+    { lineStack = getLineStack(18); await page.waitForSelector(ELEMENTS); } // Wait until javascript loads all results
+
     await page.addScriptTag({
       path: path.join(__dirname, 'constants.js'),
     }); // Add all selectors as variables to window
@@ -96,7 +98,8 @@ async function scrap(queryText, rangeYear, verbose) {
 
     // All the records
     const recordsNums = records.match(/(\d+)/g);
-    if (!Array.isArray(recordsNums)) { // it has to be an Array, and it can be of length 2 or 3
+    if (!Array.isArray(recordsNums)) {
+      // it has to be an Array, and it can be of length 2 or 3
       throw new TypeError("Couldn't find the total number of records");
     }
     if (recordsNums.length === 3) recordsNums.shift(); // remove unneeded number
@@ -105,14 +108,14 @@ async function scrap(queryText, rangeYear, verbose) {
     TOTAL_PAGES = Math.ceil(totalRecords / recordsPerPage);
 
     // Check that NEXT selector is present if there are multiple pages
-    if (TOTAL_PAGES > 1 && !await page.$(NEXT)) {
+    if (TOTAL_PAGES > 1 && !(await page.$(NEXT))) {
       throw new Error("There's multiple pages of results, but couldn't find the NEXT button");
     }
 
-
-    while (await page.$(NEXT) && totalPages <= TOTAL_PAGES) {
+    while ((await page.$(NEXT)) && totalPages <= TOTAL_PAGES) {
       await page.click(NEXT); // go to next page of results
-      lineStack = getLineStack(18); await page.waitForSelector(ELEMENTS); // wait for results to load
+      // prettier-ignore
+      { lineStack = getLineStack(18); await page.waitForSelector(ELEMENTS); } // wait for results to load
       const pageResult = await page.evaluate(createJSON);
       results.push(...pageResult); // add page results to original object
 
@@ -131,7 +134,9 @@ async function scrap(queryText, rangeYear, verbose) {
     }
     throw error;
   }
-  if (verbose) { console.log('Total number of pages: %s (of %s calculated)\n', totalPages, TOTAL_PAGES); }
+  if (verbose) {
+    console.log('Total number of pages: %s (of %s calculated)\n', totalPages, TOTAL_PAGES);
+  }
   return { total_records: results.length, articles: results };
 }
 

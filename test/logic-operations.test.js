@@ -7,7 +7,10 @@ test('isEqual with article_number', () => {
 
 test('isEqual without article_number', () => {
   const value2 = {
-    title: 'title', publication_year: 2000, content_type: 'type', publisher: 'publisher',
+    title: 'title',
+    publication_year: 2000,
+    content_type: 'type',
+    publisher: 'publisher',
   };
   expect(isEqual(value2, value2)).toBeTruthy();
 });
