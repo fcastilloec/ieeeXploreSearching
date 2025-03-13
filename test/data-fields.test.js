@@ -18,8 +18,9 @@ test('addDataField with field and parentheses', () => {
 
 test('addDataField with a multi-word phase', () => {
   const query = 'encod* AND ("real time" OR (real ONEAR/2 time)) AND "rate" AND (different NEAR/5 quality)';
-  expect(addDataField(query, 'F'))
-    .toBe('F:encod* AND (F:"real time" OR (F:real ONEAR/2 F:time)) AND F:"rate" AND (F:different NEAR/5 F:quality)');
+  expect(addDataField(query, 'F')).toBe(
+    'F:encod* AND (F:"real time" OR (F:real ONEAR/2 F:time)) AND F:"rate" AND (F:different NEAR/5 F:quality)',
+  );
 });
 
 test('queryContainsField has a field', () => {

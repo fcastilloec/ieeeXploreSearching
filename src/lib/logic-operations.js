@@ -11,10 +11,12 @@ const { readJsonSync } = require('fs-extra');
  */
 function isEqual(value, other) {
   if (value.article_number && other.article_number) return value.article_number === other.article_number;
-  return (value.title === other.title)
-    && (Number.parseInt(value.publication_year, 10) === Number.parseInt(other.publication_year, 10))
-    && (value.content_type === other.content_type)
-    && (value.publisher === other.publisher);
+  return (
+    value.title === other.title &&
+    Number.parseInt(value.publication_year, 10) === Number.parseInt(other.publication_year, 10) &&
+    value.content_type === other.content_type &&
+    value.publisher === other.publisher
+  );
 }
 
 /**
@@ -51,8 +53,9 @@ function logicOperations(options) {
       process.exit(4);
     }
     console.log(`Excluding content from: ${options.not}`);
-    result = options.merge || options.or || options.and
-      ? _.differenceWith(result, notFile, isEqual) // use previous results
+    result =
+      options.merge || options.or || options.and ?
+        _.differenceWith(result, notFile, isEqual) // use previous results
       : _.differenceWith(...files, notFile, isEqual); // only use provided files
   }
 

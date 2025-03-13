@@ -16,6 +16,11 @@
   "bugs": {
     "url": "https://github.com/fcastilloec/ieeeXploreSearching/issues"
   },
+  "bin": {
+    "search": "./src/cli-search.js",
+    "logic": "./src/cli-logic.js",
+    "count": "./src/cli-count.js"
+  },
   "scripts": {
     "lint": "eslint .",
     "release": "commit-and-tag-version --sign",
@@ -37,12 +42,16 @@
   "devDependencies": {
     "@commitlint/cli": "^19.8.0",
     "@commitlint/config-conventional": "^19.8.0",
+    "@eslint/js": "^9.22.0",
     "@yao-pkg/pkg": "^6.3.2",
     "commit-and-tag-version": "^12.5.0",
-    "eslint": "^9.21.0",
-    "eslint-plugin-unicorn": "^57.0.0",
+    "eslint": "^9.22.0",
+    "eslint-config-prettier": "^10.1.1",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-n": "^17.16.2",
     "globals": "^16.0.0",
     "husky": "^9.1.7",
-    "jest": "^29.7.0"
+    "jest": "^29.7.0",
+    "lint-staged": "^15.5.0"
   }
 }
