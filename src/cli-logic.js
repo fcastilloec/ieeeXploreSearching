@@ -117,7 +117,9 @@ async function logic() {
   console.log('Operation returned %s results', result.length);
   try {
     await fs.ensureFile(testFileExtension(argv.output, '.json')); // create the parent directory if it doesn't exist
-    await fs.writeJson(testFileExtension(argv.output, '.json'), result, { spaces: 1 });
+    await fs.writeJson(testFileExtension(argv.output, '.json'), result, {
+      spaces: 1,
+    });
     if (argv.excel) await fromResults(result, testFileExtension(argv.output, '.xls'));
   } catch (error) {
     console.error(`Error writing JSON or XLS file:\n${error.message}`);
@@ -125,6 +127,6 @@ async function logic() {
   }
 }
 
-argv.jsonFile
-  ? convert() // Converts JSON to XLS
-  : logic(); // Run logic operations on JSON files
+argv.jsonFile ?
+  convert() // Converts JSON to XLS
+: logic(); // Run logic operations on JSON files

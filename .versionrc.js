@@ -7,5 +7,5 @@ module.exports = {
   scripts: {
     postchangelog: './bin/dependencies.sh',
   },
-  releaseCommitMessageFormat: 'build(release): {{currentTag}}'
+  releaseCommitMessageFormat: 'build(release): {{currentTag}}',
 };

@@ -46,7 +46,8 @@ function testYears(years) {
   for (const year of years) {
     if (!Number.isInteger(year)) throw new TypeError(`Year has to be an integer (user: ${years})`);
     if (year < 1900) throw new RangeError(`Year has to be after 1900 (user: ${year})`);
-    if (year > new Date().getFullYear()) throw new RangeError(`Year has to be the current year or earlier (user: ${year})`);
+    if (year > new Date().getFullYear())
+      throw new RangeError(`Year has to be the current year or earlier (user: ${year})`);
   }
 }
 
@@ -73,10 +74,13 @@ function escapeRegExp(string) {
  * @returns {string}    A formatted line ready to be added to an error stack.
  */
 function getLineStack(column = 0) {
-  let error_ = new Error(); // eslint-disable-line unicorn/error-message
+  let error_ = new Error();
   error_ = error_.stack.split('\n')[2].split(/[():]/);
-  error_.pop(); error_.shift(); // remove unneeded elements
-  return column === 0 ? `    at ${error_.join(':')}` : `    at ${error_[0]}:${error_[1]}:${Number.parseInt(error_[2], 10) + column}`;
+  error_.pop();
+  error_.shift(); // remove unneeded elements
+  return column === 0 ?
+      `    at ${error_.join(':')}`
+    : `    at ${error_[0]}:${error_[1]}:${Number.parseInt(error_[2], 10) + column}`;
 }
 
 /**
@@ -90,12 +94,14 @@ function getLineStack(column = 0) {
 function checkQueryText(queryText) {
   // count wildcards, 'String' function is needed when queryText is a number (i.e. article number)
   const wildcardMatches = String(queryText).match(/\w*\*/g) || [];
-  if (wildcardMatches.length > 2) { // maximum two wildcards
-    throw new RangeError("Query contains more than two wildcards.");
+  if (wildcardMatches.length > 2) {
+    // maximum two wildcards
+    throw new RangeError('Query contains more than two wildcards.');
   }
 
   for (const match of wildcardMatches) {
-    if (match.length < 4) { // minimum 3 characters + 1 wildcard
+    if (match.length < 4) {
+      // minimum 3 characters + 1 wildcard
       throw new Error(`Wildcard '${match}' does not have at least 3 preceding characters.`);
     }
   }

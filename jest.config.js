@@ -1,11 +1,9 @@
 const config = {
-  testTimeout: process.env.CI ? 45_000 : 25_000,
+  testTimeout: process.env.CI ? 45000 : 25000,
   verbose: true,
   collectCoverage: true,
   coverageReporters: ['text', 'text-summary'],
-  collectCoverageFrom: [
-    'src/lib/*.js',
-  ],
+  collectCoverageFrom: ['src/lib/*.js'],
   coveragePathIgnorePatterns: [
     'src/lib/api-key.js',
     'src/lib/config-directory.js',

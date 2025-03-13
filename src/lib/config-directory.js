@@ -20,8 +20,9 @@ function configDirectory() {
   switch (process.platform) {
     case 'linux':
     case 'darwin': {
-      directory_ = process.env.XDG_CONFIG_HOME
-        ? path.join(process.env.XDG_CONFIG_HOME, package_.name)
+      directory_ =
+        process.env.XDG_CONFIG_HOME ?
+          path.join(process.env.XDG_CONFIG_HOME, package_.name)
         : path.join(process.env.HOME, '.config', package_.name);
       break;
     }

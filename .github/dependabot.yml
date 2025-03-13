@@ -1,17 +1,17 @@
 version: 2
 updates:
-- package-ecosystem: npm
-  directory: "/"
-  schedule:
-    interval: weekly
-    time: "17:00"
-  open-pull-requests-limit: 10
-  # Maintain dependencies for GitHub Actions
-- package-ecosystem: github-actions
-  directory: "/"
-  commit-message:
-    prefix: chore
-    include: scope
-  schedule:
-    interval: weekly
-    time: "15:45"
+  - package-ecosystem: npm
+    directory: '/'
+    schedule:
+      interval: weekly
+      time: '17:00'
+    open-pull-requests-limit: 10
+    # Maintain dependencies for GitHub Actions
+  - package-ecosystem: github-actions
+    directory: '/'
+    commit-message:
+      prefix: chore
+      include: scope
+    schedule:
+      interval: weekly
+      time: '15:45'
