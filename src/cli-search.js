@@ -166,7 +166,7 @@ async function search() {
     const configFile = path.join(configDirectory(), 'config.json');
     checkAPIKey(configFile);
     try {
-      const config = fs.readJSONSync(configFile); // Read the APIKEY
+      const config = fs.readJSONSync(configFile); // Read the API_KEY
       results = await ieee.api(config.APIKEY, queryText, argv.year, argv.verbose);
     } catch (error) {
       console.error('Error reading the APIKEY:', error.message);
