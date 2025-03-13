@@ -40,7 +40,7 @@ function addDataField(queryText, field) {
  */
 function queryContainsField(queryText) {
   for (const fieldValue of Object.values(FIELDS)) {
-    if (queryText.includes(fieldValue)) {
+    if (queryText.toString().includes(fieldValue)) {
       return true;
     }
   }
