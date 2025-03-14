@@ -49,7 +49,7 @@ function testIf() {
 
 describe.each(testArray)('Scrapping', ({ label, query, expected }) => {
   test(label, async () => {
-    const results = await scrap(query, rangeYear, false);
+    const results = await scrap(query, rangeYear, true, false);
     const result = results.articles[0];
     delete result.abstract;
     expect(result).toMatchObject(expected);
@@ -58,7 +58,7 @@ describe.each(testArray)('Scrapping', ({ label, query, expected }) => {
 
 describe('Scrapping', () => {
   test('Title without link', async () => {
-    const results = await scrap('optics AND nano AND QELS', [2000, 2000], false);
+    const results = await scrap('optics AND nano AND QELS', [2000, 2000], true, false);
     const result = results.articles[0];
     delete result.abstract;
     expect(result).toMatchObject(untitled[0]);
@@ -67,15 +67,32 @@ describe('Scrapping', () => {
 
 describe('Scrapping', () => {
   test('Results in multiple pages', async () => {
-    await expect(scrap('nack', [2000, 2003], false)).resolves.toMatchObject(expectedJson.multiple);
+    await expect(scrap('nack', [2000, 2003], true, false)).resolves.toMatchObject(expectedJson.multiple);
+  });
+});
+
+describe('Scrapping', () => {
+  test("Don't search all content types", async () => {
+    await expect(scrap(queries.standard, [2000, 2000], false, false)).resolves.toMatchObject({
+      articles: [],
+      total_records: 0,
+    });
   });
 });
 
 describe.each(testArray)('Official API', ({ label, query, expected }) => {
   testIf()(label, async () => {
-    const results = await api(process.env.APIKEY, query, rangeYear, false);
+    const results = await api(process.env.APIKEY, query, rangeYear, true, false);
     const result = results.articles[0];
     delete result.abstract;
     expect(result).toMatchObject(expected);
+  });
+});
+
+describe('Official API', () => {
+  testIf()("Don't search all content types", async () => {
+    await expect(api(process.env.APIKEY, queries.standard, [2000, 2000], false, false)).resolves.toMatchObject({
+      total_records: 0,
+    });
   });
 });
