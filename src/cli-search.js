@@ -100,6 +100,15 @@ const { argv } = yargs
     describe: 'Show extra info',
     type: 'count',
   })
+  .option('all-content-types', {
+    alias: 'a',
+    describe:
+      'Search across all content types.\n' +
+      'Default content types: Magazines, Conferences, Journals.\n' +
+      'Excluded: Courses, Early Access, Books, Standards',
+    default: false,
+    type: 'boolean',
+  })
   .parserConfiguration({
     'strip-aliased': true,
     'strip-dashed': true,
@@ -161,13 +170,13 @@ if (!queryContainsField(argv._[0])) {
 async function search() {
   let results;
   if (argv.scrap) {
-    results = await ieee.scrap(queryText, argv.year, argv.verbose);
+    results = await ieee.scrap(queryText, argv.year, argv.allContentType, argv.verbose);
   } else {
     const configFile = path.join(configDirectory(), 'config.json');
     checkAPIKey(configFile);
     try {
       const config = fs.readJSONSync(configFile); // Read the API_KEY
-      results = await ieee.api(config.APIKEY, queryText, argv.year, argv.verbose);
+      results = await ieee.api(config.APIKEY, queryText, argv.year, argv.allContentType, argv.verbose);
     } catch (error) {
       console.error('Error reading the APIKEY:', error.message);
       process.exit(1);
