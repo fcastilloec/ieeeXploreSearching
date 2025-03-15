@@ -1,1 +1,4 @@
-npx --no-install commitlint --edit ""
+MESSAGE_FILE=$1
+
+npx --no-install commitlint --edit "${MESSAGE_FILE}"
+cspell --no-progress "${MESSAGE_FILE}"
