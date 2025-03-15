@@ -15,7 +15,7 @@ Use YEARS separated by a colon (:), or a single year.
 Use YEARS separated by a colon (:), or a single year.
 * New defaults for searching. Use environmental variables for some options.
 
-API is the default now, use new '-s', '--srap' to use website scrapping.
+API is the default now, use new '-s', '--scrap' to use website scrapping.
 'YEAR_START', 'YEAR_END': environmental variables use to set the range of years.
 You can provide only one of them (either), just like the argument option, to search only that year.
 'OUT': environmental variable use to name the default output file as: 'search${OUT}'
