@@ -157,6 +157,8 @@ if (process.env.OUT) {
 
 console.log('Searching for: %s', argv._[0]);
 console.log('Between %s and %s', argv.year[0], argv.year[1]);
+const content = argv.allContentType ? 'All' : 'Journals, Magazines, Conferences';
+console.log(`Searching for type: ${content}`);
 
 let queryText = argv._[0];
 if (!queryContainsField(argv._[0])) {
