@@ -24,7 +24,7 @@
   "scripts": {
     "lint": "eslint . && cspell .",
     "release": "commit-and-tag-version --sign",
-    "test": "jest",
+    "test": "node --experimental-vm-modules node_modules/.bin/jest",
     "pkg": "pkg --compress GZip --public",
     "prepare": "husky"
   },
