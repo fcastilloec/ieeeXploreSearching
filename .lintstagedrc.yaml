@@ -1,4 +1,4 @@
 '*.{js,mjs}': 'eslint'
 '**/*':
   - 'prettier --write --ignore-unknown'
-  - 'cspell'
+  - 'cspell --no-must-find-files'
