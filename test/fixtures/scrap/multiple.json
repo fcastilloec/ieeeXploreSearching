@@ -893,41 +893,6 @@
       "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1115403"
     },
     {
-      "article_number": "1200655",
-      "title": "On the delay statistics of an aggregate of SR-ARQ packets over Markov channels with finite round-trip delay",
-      "publication_year": 2003,
-      "publisher": "IEEE",
-      "content_type": "Conferences",
-      "publication_title": "2003 IEEE Wireless Communications and Networking, 2003. WCNC 2003.",
-      "authors": {
-        "authors": [
-          {
-            "full_name": "M. Rossi",
-            "author_order": 1,
-            "authorUrl": "https://ieeexplore.ieee.org/author/37271350900",
-            "id": 37271350900
-          },
-          {
-            "full_name": "L. Badia",
-            "author_order": 2,
-            "authorUrl": "https://ieeexplore.ieee.org/author/37275350000",
-            "id": 37275350000
-          },
-          {
-            "full_name": "M. Zorzi",
-            "author_order": 3,
-            "authorUrl": "https://ieeexplore.ieee.org/author/37278668800",
-            "id": 37278668800
-          }
-        ]
-      },
-      "abstract": "In this paper, we investigate the delay statistics of an aggregate of fully reliable selective-repeat ARQ packets. The sender transmits packets whose error process is characterized by means of a two-state discrete time Markov channel (DTMC). At the receiver, these packets are checked for errors and ACK/NACK messages are sent back to the sender accordingly. No errors are accounted for in the ...",
-      "abstract_url": "https://ieeexplore.ieee.org/document/1200655/",
-      "publication_number": 8546,
-      "html_url": "https://ieeexplore.ieee.org/document/1200655/",
-      "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1200655"
-    },
-    {
       "article_number": "853754",
       "title": "Adaptive reliable multicast",
       "publication_year": 2000,
@@ -961,6 +926,41 @@
       "publication_number": 6882,
       "html_url": "https://ieeexplore.ieee.org/document/853754/",
       "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=853754"
+    },
+    {
+      "article_number": "1200655",
+      "title": "On the delay statistics of an aggregate of SR-ARQ packets over Markov channels with finite round-trip delay",
+      "publication_year": 2003,
+      "publisher": "IEEE",
+      "content_type": "Conferences",
+      "publication_title": "2003 IEEE Wireless Communications and Networking, 2003. WCNC 2003.",
+      "authors": {
+        "authors": [
+          {
+            "full_name": "M. Rossi",
+            "author_order": 1,
+            "authorUrl": "https://ieeexplore.ieee.org/author/37271350900",
+            "id": 37271350900
+          },
+          {
+            "full_name": "L. Badia",
+            "author_order": 2,
+            "authorUrl": "https://ieeexplore.ieee.org/author/37275350000",
+            "id": 37275350000
+          },
+          {
+            "full_name": "M. Zorzi",
+            "author_order": 3,
+            "authorUrl": "https://ieeexplore.ieee.org/author/37278668800",
+            "id": 37278668800
+          }
+        ]
+      },
+      "abstract": "In this paper, we investigate the delay statistics of an aggregate of fully reliable selective-repeat ARQ packets. The sender transmits packets whose error process is characterized by means of a two-state discrete time Markov channel (DTMC). At the receiver, these packets are checked for errors and ACK/NACK messages are sent back to the sender accordingly. No errors are accounted for in the ...",
+      "abstract_url": "https://ieeexplore.ieee.org/document/1200655/",
+      "publication_number": 8546,
+      "html_url": "https://ieeexplore.ieee.org/document/1200655/",
+      "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1200655"
     },
     {
       "article_number": "1038938",
