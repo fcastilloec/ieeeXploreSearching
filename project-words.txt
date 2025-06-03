@@ -21,6 +21,7 @@ yargs
 commitlint
 gtar
 ncipollo
+cli
 # Needs fixing from here
 Nums # needs fixing
 Xplore # needs fixing

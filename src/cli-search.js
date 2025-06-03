@@ -20,7 +20,7 @@ if (process.platform === 'win32') {
 
 require('dotenv').config({ path: ['.env', 'env'] }); // read env variables from both '.env' and 'env'
 
-const { argv } = yargs
+const yargsInstance = yargs
   .wrap(yargs.terminalWidth())
   .version(require('../package.json').version)
   .usage('Usage: $0 <query> [options] [IEEE Data Fields]')
@@ -85,7 +85,6 @@ const { argv } = yargs
     describe:
       'Calling it once will search only on that year. Calling twice will search on the range.\n' +
       'Use env "YEARS=2000:2001"',
-    // array will consume all arguments after -y, including the query. No way to make array nargs variable
     type: 'number',
     array: true,
   })
@@ -134,9 +133,13 @@ const { argv } = yargs
     'searches for "h264 NEAR/3 cellular" only on 2005, and save the results in search2.json',
   );
 
+// Parse the arguments immediately
+const argv = yargsInstance.parse(process.argv.slice(2));
+
 /* Assigns environmental variables if present */
 // Sets year from env variable 'YEARS'
 if (process.env.YEARS) {
+  /* istanbul ignore if */
   if (argv.verbose) console.log(`Using env YEARS (${process.env.YEARS})`);
   const years = process.env.YEARS.split(':').map((year) => Number.parseInt(year, 10)); // creates an array of years
   try {
@@ -150,55 +153,66 @@ if (process.env.YEARS) {
 
 // Sets output name based on env variable 'OUT'
 if (process.env.OUT) {
+  /* istanbul ignore if */
   if (argv.verbose) console.log(`Using env OUT (${process.env.OUT})`);
   argv.output = /^[1-9]\d*$/.test(process.env.OUT) ? `search${process.env.OUT}` : process.env.OUT;
+  /* istanbul ignore if */
   if (argv.verbose) console.log(`OUT: ${argv.output}`);
 }
 
-console.log('Searching for: %s', argv._[0]);
-console.log('Between %s and %s', argv.year[0], argv.year[1]);
-const content = argv.allContentType ? 'All' : 'Journals, Magazines, Conferences';
-console.log(`Searching for type: ${content}`);
+// Only run search if not in a test environment
+/* istanbul ignore if */
+if (typeof jest === 'undefined') {
+  console.log('Searching for: %s', argv._[0]);
+  console.log('Between %s and %s', argv.year[0], argv.year[1]);
+  const content = argv.allContentType ? 'All' : 'Journals, Magazines, Conferences';
+  console.log(`Searching for type: ${content}`);
+  let queryText = argv._[0];
+  if (!queryContainsField(argv._[0])) {
+    const dataFieldKey =
+      process.env.FULL === 'true' ? 'fullTextAndMetadata' : Object.keys(FIELDS).find((key) => argv[key]);
 
-let queryText = argv._[0];
-if (!queryContainsField(argv._[0])) {
-  const dataFieldKey =
-    process.env.FULL === 'true' ? 'fullTextAndMetadata' : Object.keys(FIELDS).find((key) => argv[key]);
+    if (dataFieldKey) queryText = addDataField(queryText, FIELDS[dataFieldKey]);
+    console.log('Using: %s', FIELDS[dataFieldKey] || 'No data fields');
+  }
 
-  if (dataFieldKey) queryText = addDataField(queryText, FIELDS[dataFieldKey]);
-  console.log('Using: %s', FIELDS[dataFieldKey] || 'No data fields');
-}
+  async function search() {
+    let results;
+    if (argv.scrap) {
+      results = await ieee.scrap(queryText, argv.year, argv.allContentType, argv.verbose);
+    } else {
+      const configFile = path.join(configDirectory(), 'config.json');
+      checkAPIKey(configFile);
+      try {
+        const config = fs.readJSONSync(configFile); // Read the API_KEY
+        results = await ieee.api(config.APIKEY, queryText, argv.year, argv.allContentType, argv.verbose);
+      } catch (error) {
+        console.error('Error reading the APIKEY:', error.message);
+        process.exit(1);
+      }
+    }
 
-async function search() {
-  let results;
-  if (argv.scrap) {
-    results = await ieee.scrap(queryText, argv.year, argv.allContentType, argv.verbose);
-  } else {
-    const configFile = path.join(configDirectory(), 'config.json');
-    checkAPIKey(configFile);
-    try {
-      const config = fs.readJSONSync(configFile); // Read the API_KEY
-      results = await ieee.api(config.APIKEY, queryText, argv.year, argv.allContentType, argv.verbose);
-    } catch (error) {
-      console.error('Error reading the APIKEY:', error.message);
-      process.exit(1);
+    console.log('Found %s results', results.total_records);
+    if (!argv.scrap && results.total_records > 200) {
+      console.warn('WARNING: API searches are limited to fetching 200 results');
+      console.warn('\t Consider using scraping or narrowing your search');
+    }
+    if (results.total_records > 0) {
+      try {
+        await fs.ensureFile(testFileExtension(argv.output, '.json')); // create the parent directory if it doesn't exist
+        await fs.writeJson(testFileExtension(argv.output, '.json'), results.articles, { spaces: 1 });
+        if (argv.excel) await json2xls(results.articles, testFileExtension(argv.output, '.xls'));
+      } catch (error) {
+        console.error(`Error writing JSON or XLS file:\n${error.message}`);
+        process.exit(4);
+      }
     }
   }
-
-  console.log('Found %s results', results.total_records);
-  if (!argv.scrap && results.total_records > 200) {
-    console.warn('WARNING: API searches are limited to fetching 200 results');
-    console.warn('\t Consider using scraping or narrowing your search');
-  }
-  if (results.total_records > 0) {
-    try {
-      await fs.ensureFile(testFileExtension(argv.output, '.json')); // create the parent directory if it doesn't exist
-      await fs.writeJson(testFileExtension(argv.output, '.json'), results.articles, { spaces: 1 });
-      if (argv.excel) await json2xls(results.articles, testFileExtension(argv.output, '.xls'));
-    } catch (error) {
-      console.error(`Error writing JSON or XLS file:\n${error.message}`);
-      process.exit(4);
-    }
-  }
+  search();
 }
-search();
+
+// Export argv for testing
+/* istanbul ignore if */
+if (typeof jest !== 'undefined') {
+  module.exports = { argv: argv };
+}
