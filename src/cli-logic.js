@@ -97,6 +97,7 @@ const { argv } = yargs
     },
   });
 
+/* istanbul ignore next */
 async function convert() {
   try {
     const json = await fs.readJson(argv.jsonFile);
@@ -107,6 +108,7 @@ async function convert() {
   }
 }
 
+/* istanbul ignore next */
 async function logic() {
   const result = logicOperations(argv);
   if (result.length === 0) {
@@ -127,6 +129,15 @@ async function logic() {
   }
 }
 
-argv.jsonFile ?
-  convert() // Converts JSON to XLS
-: logic(); // Run logic operations on JSON files
+/* istanbul ignore if */
+if (typeof jest === 'undefined') {
+  argv.jsonFile ?
+    convert() // Converts JSON to XLS
+  : logic(); // Run logic operations on JSON files
+}
+
+// Export argv for testing
+/* istanbul ignore next */
+if (typeof jest !== 'undefined') {
+  module.exports = { argv };
+}

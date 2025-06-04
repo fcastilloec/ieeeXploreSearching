@@ -3,7 +3,7 @@ const config = {
   verbose: true,
   collectCoverage: true,
   coverageReporters: ['text', 'text-summary'],
-  collectCoverageFrom: ['src/lib/*.js', 'src/cli-search.js'],
+  collectCoverageFrom: ['src/lib/*.js', 'src/cli-*.js'],
   coveragePathIgnorePatterns: [
     'src/lib/api-key.js',
     'src/lib/config-directory.js',
