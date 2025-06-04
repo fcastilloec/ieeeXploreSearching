@@ -12,7 +12,11 @@ const { argv } = yargs
 
 for (const filename of argv._) {
   try {
+    /* istanbul ignore next */
     const file = readJsonSync(filename);
+    if (!Array.isArray(file)) {
+      throw new Error('JSON file must contain an array');
+    }
     console.log('Records inside %s: %s', filename, file.length);
   } catch (error) {
     console.error(`Error reading JSON file:\n${error.message}`);
