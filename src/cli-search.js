@@ -212,7 +212,7 @@ if (typeof jest === 'undefined') {
 }
 
 // Export argv for testing
-/* istanbul ignore if */
+/* istanbul ignore next */
 if (typeof jest !== 'undefined') {
   module.exports = { argv: argv };
 }
