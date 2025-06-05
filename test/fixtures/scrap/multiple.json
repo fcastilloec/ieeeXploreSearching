@@ -1487,6 +1487,35 @@
       "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1258857"
     },
     {
+      "article_number": "935368",
+      "title": "A throughput analysis of reliable multicast protocols in an active networking environment",
+      "publication_year": 2001,
+      "publisher": "IEEE",
+      "content_type": "Conferences",
+      "publication_title": "Proceedings. Sixth IEEE Symposium on Computers and Communications",
+      "authors": {
+        "authors": [
+          {
+            "full_name": "M. Maimour",
+            "author_order": 1,
+            "authorUrl": "https://ieeexplore.ieee.org/author/37324450300",
+            "id": 37324450300
+          },
+          {
+            "full_name": "C.D. Pham",
+            "author_order": 2,
+            "authorUrl": "https://ieeexplore.ieee.org/author/37287149600",
+            "id": 37287149600
+          }
+        ]
+      },
+      "abstract": "Reliable multicast protocols have gained popularity with active services contribution where routers implement additional functionalities. Contributing mainly to feedback implosion problems, retransmission scoping and cache of data, these active protocols open new perspectives for achieving high throughput and low latencies on wide-area networks. We define generic protocols with active services and...",
+      "abstract_url": "https://ieeexplore.ieee.org/document/935368/",
+      "publication_number": 7446,
+      "html_url": "https://ieeexplore.ieee.org/document/935368/",
+      "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=935368"
+    },
+    {
       "article_number": "819172",
       "title": "Fcast multicast file distribution",
       "publication_year": 2000,
@@ -1524,35 +1553,6 @@
       "issue": "1"
     },
     {
-      "article_number": "935368",
-      "title": "A throughput analysis of reliable multicast protocols in an active networking environment",
-      "publication_year": 2001,
-      "publisher": "IEEE",
-      "content_type": "Conferences",
-      "publication_title": "Proceedings. Sixth IEEE Symposium on Computers and Communications",
-      "authors": {
-        "authors": [
-          {
-            "full_name": "M. Maimour",
-            "author_order": 1,
-            "authorUrl": "https://ieeexplore.ieee.org/author/37324450300",
-            "id": 37324450300
-          },
-          {
-            "full_name": "C.D. Pham",
-            "author_order": 2,
-            "authorUrl": "https://ieeexplore.ieee.org/author/37287149600",
-            "id": 37287149600
-          }
-        ]
-      },
-      "abstract": "Reliable multicast protocols have gained popularity with active services contribution where routers implement additional functionalities. Contributing mainly to feedback implosion problems, retransmission scoping and cache of data, these active protocols open new perspectives for achieving high throughput and low latencies on wide-area networks. We define generic protocols with active services and...",
-      "abstract_url": "https://ieeexplore.ieee.org/document/935368/",
-      "publication_number": 7446,
-      "html_url": "https://ieeexplore.ieee.org/document/935368/",
-      "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=935368"
-    },
-    {
       "article_number": "856653",
       "title": "TAP: architecture for trusted transfers in ATM networks with active switches",
       "publication_year": 2000,
@@ -1581,7 +1581,41 @@
       "html_url": "https://ieeexplore.ieee.org/document/856653/",
       "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=856653"
     },
-
+    {
+      "article_number": "1191516",
+      "title": "Robust connections for TCP transfers over ATM through an active protocol in a multiagent architecture",
+      "publication_year": 2003,
+      "publisher": "IEEE",
+      "content_type": "Conferences",
+      "publication_title": "10th International Conference on Telecommunications, 2003. ICT 2003.",
+      "authors": {
+        "authors": [
+          {
+            "full_name": "J.L. Gonzalez-Sanchez",
+            "author_order": 1,
+            "authorUrl": "https://ieeexplore.ieee.org/author/38274771000",
+            "id": 38274771000
+          },
+          {
+            "full_name": "J. Domingo-Pascual",
+            "author_order": 2,
+            "authorUrl": "https://ieeexplore.ieee.org/author/38270620600",
+            "id": 38270620600
+          },
+          {
+            "full_name": "A.G. Cervero",
+            "author_order": 3,
+            "authorUrl": "https://ieeexplore.ieee.org/author/37087714218",
+            "id": 37087714218
+          }
+        ]
+      },
+      "abstract": "TAP (Trusted and Active PDU transfers) is a new distributed architecture and a protocol for ATM networks that provides assured transfers to a set of privileged VPI/VCI. The distributed architecture manages the privileged connections and offers an improvement In performance when network connections cause some cell loss. Our AcTMs (Active ATM switch) model supports the trusted protocol. This researc...",
+      "abstract_url": "https://ieeexplore.ieee.org/document/1191516/",
+      "publication_number": 8474,
+      "html_url": "https://ieeexplore.ieee.org/document/1191516/",
+      "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1191516"
+    },
     {
       "article_number": "904848",
       "title": "Multiresolution-multicast video distribution over the Internet",
@@ -1639,41 +1673,6 @@
       "publication_number": 7633,
       "html_url": "https://ieeexplore.ieee.org/document/965182/",
       "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=965182"
-    },
-    {
-      "article_number": "1191516",
-      "title": "Robust connections for TCP transfers over ATM through an active protocol in a multiagent architecture",
-      "publication_year": 2003,
-      "publisher": "IEEE",
-      "content_type": "Conferences",
-      "publication_title": "10th International Conference on Telecommunications, 2003. ICT 2003.",
-      "authors": {
-        "authors": [
-          {
-            "full_name": "J.L. Gonzalez-Sanchez",
-            "author_order": 1,
-            "authorUrl": "https://ieeexplore.ieee.org/author/38274771000",
-            "id": 38274771000
-          },
-          {
-            "full_name": "J. Domingo-Pascual",
-            "author_order": 2,
-            "authorUrl": "https://ieeexplore.ieee.org/author/38270620600",
-            "id": 38270620600
-          },
-          {
-            "full_name": "A.G. Cervero",
-            "author_order": 3,
-            "authorUrl": "https://ieeexplore.ieee.org/author/37087714218",
-            "id": 37087714218
-          }
-        ]
-      },
-      "abstract": "TAP (Trusted and Active PDU transfers) is a new distributed architecture and a protocol for ATM networks that provides assured transfers to a set of privileged VPI/VCI. The distributed architecture manages the privileged connections and offers an improvement In performance when network connections cause some cell loss. Our AcTMs (Active ATM switch) model supports the trusted protocol. This researc...",
-      "abstract_url": "https://ieeexplore.ieee.org/document/1191516/",
-      "publication_number": 8474,
-      "html_url": "https://ieeexplore.ieee.org/document/1191516/",
-      "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1191516"
     },
     {
       "article_number": "1203682",
