@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`yargs configuration snapshot tests applies coercion and checks 1`] = `
+"processChild.js start
+
+Start the server
+
+Server Options
+      --host  Server host  [default: "localhost"]
+      --port  Port number  [number]
+
+Options:
+  -h, --help     Show help  [boolean]
+  -v, --version  Show version number  [boolean]
+
+Port out of range"
+`;
+
+exports[`yargs configuration snapshot tests generates consistent help output 1`] = `
+"Usage: processChild.js <command> [options]
+
+Commands:
+  processChild.js start  Start the server
+
+Server Options
+      --host
+      --port
+
+Options:
+  -h, --help     Show help  [boolean]
+  -v, --version  Show version number  [boolean]
+
+Examples:
+  processChild.js start --port 3000  Start server on port 3000"
+`;
+
+exports[`yargs configuration snapshot tests handles invalid commands correctly 1`] = `
+"Usage: processChild.js <command> [options]
+
+Commands:
+  processChild.js start  Start the server
+
+Server Options
+      --host
+      --port
+
+Options:
+  -h, --help     Show help  [boolean]
+  -v, --version  Show version number  [boolean]
+
+Examples:
+  processChild.js start --port 3000  Start server on port 3000
+
+Unknown argument: invalid-command"
+`;
+
+exports[`yargs configuration snapshot tests parses valid arguments correctly 1`] = `
+{
+  "$0": "node_modules/jest-worker/build/workers/processChild.js",
+  "_": [
+    "start",
+  ],
+  "host": "localhost",
+  "port": 3000,
+}
+`;
+
+exports[`yargs configuration snapshot tests shows version information 1`] = `"1.0.0"`;
+
+exports[`yargs configuration snapshot tests validates options correctly 1`] = `
+"processChild.js start
+
+Start the server
+
+Server Options
+      --host  Server host  [default: "localhost"]
+      --port  Port number  [number]
+
+Options:
+  -h, --help     Show help  [boolean]
+  -v, --version  Show version number  [boolean]
+
+Invalid port"
+`;
