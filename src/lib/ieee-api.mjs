@@ -1,12 +1,13 @@
 import https from 'node:https';
-import path from 'node:path';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import axios from 'axios';
 import { locateChrome, locateFirefox } from 'locate-app';
 import { launch } from 'puppeteer-core';
 import createJSON from './create-json.mjs';
 import { escapeRegExp, getLineStack } from './helpers.mjs';
 
-const __dirname = import.meta.dirname;
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 /**
  * Search by scrapping the results from the IEEE search page.
@@ -98,7 +99,7 @@ async function scrap(queryText, rangeYear, allContentType, verbose) {
     { lineStack = getLineStack(18); await page.waitForSelector(ELEMENTS); } // Wait until javascript loads all results
 
     await page.addScriptTag({
-      path: path.join(__dirname, 'constants.mjs'),
+      path: join(__dirname, 'constants.mjs'),
     }); // Add all selectors as variables to window
     results = await page.evaluate(createJSON); // create JSON with results of first page
 

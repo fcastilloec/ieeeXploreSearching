@@ -19,16 +19,6 @@ export default [
     },
   },
   {
-    files: ['**/*.cjs'],
-    languageOptions: {
-      sourceType: 'commonjs',
-      ecmaVersion: 2024,
-      globals: {
-        ...globals.browser,
-      },
-    },
-  },
-  {
     files: ['**/*.mjs'],
     languageOptions: {
       sourceType: 'module',

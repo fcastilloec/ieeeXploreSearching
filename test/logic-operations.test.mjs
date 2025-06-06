@@ -1,4 +1,4 @@
-const { isEqual } = require('../src/lib/logic-operations');
+import { isEqual } from '../src/lib/logic-operations.mjs';
 
 test('isEqual with article_number', () => {
   const value1 = { article_number: 1 };
