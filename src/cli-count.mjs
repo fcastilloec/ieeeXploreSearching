@@ -1,11 +1,10 @@
 #!/usr/bin/env node
 import yargs from 'yargs';
-import { hideBin } from 'yargs/helpers';
 import { readJsonSync } from 'fs-extra/esm';
 import { createRequire } from 'module';
 
 const require = createRequire(import.meta.url);
-const yargsInstance = yargs(hideBin(process.argv));
+const yargsInstance = yargs(process.argv.slice(2));
 
 const { argv } = yargsInstance
   .wrap(yargsInstance.terminalWidth())

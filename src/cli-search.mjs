@@ -2,7 +2,6 @@
 import path from 'node:path';
 import fs from 'fs-extra';
 import yargs from 'yargs';
-import { hideBin } from 'yargs/helpers';
 import { createRequire } from 'module';
 import { checkAPIKey } from './lib/api-key.mjs';
 import { configDirectory } from './lib/config-directory.mjs';
@@ -12,7 +11,7 @@ import { scrap, api } from './lib/ieee-api.mjs';
 import { fromResults as json2xls } from './lib/json2xls.mjs';
 
 const require = createRequire(import.meta.url);
-const yargsInstance = yargs(hideBin(process.argv));
+const yargsInstance = yargs(process.argv.slice(2));
 
 if (process.platform === 'win32') {
   console.warn("You're running on a Windows system");
