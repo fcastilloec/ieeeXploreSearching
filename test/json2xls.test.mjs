@@ -1,6 +1,9 @@
-const path = require('node:path');
-const fs = require('fs-extra');
-const { authorsString, fromResults } = require('../src/lib/json2xls');
+import { join, dirname } from 'node:path';
+import fs from 'fs-extra';
+import { fileURLToPath } from 'node:url';
+import { authorsString, fromResults } from '../src/lib/json2xls';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 test('authorsString with empty array', () => {
   expect(authorsString([])).toBe('');
@@ -11,7 +14,7 @@ test('authorsString with valid array', () => {
 });
 
 test('fromResults', async () => {
-  const file = path.join(__dirname, 'fixtures', 'result2.json');
+  const file = join(__dirname, 'fixtures', 'result2.json');
   const output = `${file}.xls`;
   await fromResults(fs.readJsonSync(file), output);
   expect(() => fs.access(output)).not.toThrow();

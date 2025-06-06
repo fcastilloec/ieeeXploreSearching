@@ -1,4 +1,4 @@
-const { addDataField, queryContainsField } = require('../src/lib/data-fields');
+import { addDataField, queryContainsField } from '../src/lib/data-fields';
 
 test('addDataField without field', () => {
   const query = 'optics AND nano';
