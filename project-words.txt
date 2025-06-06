@@ -1,28 +1,5 @@
-gron
-ungron
-redirections
-ieee
-jsessionid
-KHTML
-arnumber
-ieeexplore
-workfile
-Xplorer
-nargs
-tealium
-CDMA
-CMOS
-encod
-homography
-ONEAR
-QELS
-workfiles
-yargs
-commitlint
-gtar
-ncipollo
-esm
 # Needs fixing from here
-Nums # needs fixing
-Xplore # needs fixing
 apikey # needs fixing
+Nums # needs fixing
+postchangelog
+Xplore # needs fixing
