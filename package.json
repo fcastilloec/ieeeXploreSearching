@@ -38,7 +38,7 @@
     "lodash": "^4.17.21",
     "puppeteer-core": "^24.10.0",
     "readline-sync": "^1.4.10",
-    "yargs": "^17.7.2"
+    "yargs": "^18.0.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
