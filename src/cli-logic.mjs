@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 import yargs from 'yargs';
-import { hideBin } from 'yargs/helpers';
 import fs from 'fs-extra';
 import { fromResults } from './lib/json2xls.mjs';
 import { logicOperations } from './lib/logic-operations.mjs';
@@ -9,7 +8,7 @@ import { changeFileExtension, testFileExtension } from './lib/helpers.mjs';
 import { createRequire } from 'module';
 
 const require = createRequire(import.meta.url);
-const yargsInstance = yargs(hideBin(process.argv));
+const yargsInstance = yargs(process.argv.slice(2));
 
 const { argv } = yargsInstance
   .version(require('../package.json').version)
