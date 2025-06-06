@@ -18,6 +18,9 @@ ONEAR
 QELS
 workfiles
 yargs
+commitlint
+gtar
+ncipollo
 # Needs fixing from here
 Nums # needs fixing
 Xplore # needs fixing

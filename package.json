@@ -22,7 +22,7 @@
     "count": "./src/cli-count.js"
   },
   "scripts": {
-    "lint": "eslint .",
+    "lint": "eslint . && cspell .",
     "release": "commit-and-tag-version --sign",
     "test": "jest",
     "pkg": "pkg --compress GZip --public",
