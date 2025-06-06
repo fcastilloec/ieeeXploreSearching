@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [8.0.0](https://github.com/fcastilloec/ieeeXploreSearching/compare/v7.0.0...v8.0.0) (2025-06-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* move project to esm
+
+### Dependencies
+
+* bump `axios` to `1.9.0`
+* bump `dotenv` to `16.5.0`
+* bump `puppeteer-core` to `24.10.0`
+* bump `yargs` to `18.0.0`
+
 ## [7.0.0](https://github.com/fcastilloec/ieeeXploreSearching/compare/v5.0.0...v7.0.0) (2025-03-15)
 
 
