@@ -1,10 +1,7 @@
-const {
-  changeFileExtension,
-  testFileExtension,
-  testYears,
-  getLineStack,
-  checkQueryText,
-} = require('../src/lib/helpers');
+import { changeFileExtension, testFileExtension, testYears, getLineStack, checkQueryText } from '../src/lib/helpers';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
 
 const path = 'this/file.ext';
 const out1 = 'this/file.new';
@@ -12,7 +9,7 @@ const out2 = 'this/file.ext.new';
 
 test('getLineStack returns message with line', () => {
   // the numbers need to change if the next line moves
-  expect(getLineStack()).toBe(`    at ${__filename}:15:10`);
+  expect(getLineStack()).toBe(`    at ${__filename}:12:10`);
 });
 
 test('checkQueryText throws if more than two wildcards', () => {

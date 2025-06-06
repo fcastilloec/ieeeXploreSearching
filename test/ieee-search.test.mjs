@@ -1,15 +1,23 @@
-const { api, scrap } = require('../src/lib/ieee-api');
-const untitled = require('./fixtures/scrap/untitled.json');
+import { api, scrap } from '../src/lib/ieee-api';
+import untitled from './fixtures/scrap/untitled.json';
+import book from './fixtures/scrap/book.json';
+import bookChapter from './fixtures/scrap/bookChapter.json';
+import conferencePaper from './fixtures/scrap/conferencePaper.json';
+import course from './fixtures/scrap/course.json';
+import magazineArticle from './fixtures/scrap/magazineArticle.json';
+import journalArticle from './fixtures/scrap/journalArticle.json';
+import standard from './fixtures/scrap/standard.json';
+import multiple from './fixtures/scrap/multiple.json';
 
 const expectedJson = {
-  book: require('./fixtures/scrap/book.json'),
-  bookChapter: require('./fixtures/scrap/bookChapter.json'),
-  conferencePaper: require('./fixtures/scrap/conferencePaper.json'),
-  course: require('./fixtures/scrap/course.json'),
-  magazineArticle: require('./fixtures/scrap/magazineArticle.json'),
-  journalArticle: require('./fixtures/scrap/journalArticle.json'),
-  standard: require('./fixtures/scrap/standard.json'),
-  multiple: require('./fixtures/scrap/multiple.json'),
+  book,
+  bookChapter,
+  conferencePaper,
+  course,
+  magazineArticle,
+  journalArticle,
+  standard,
+  multiple,
 };
 
 const labels = {
