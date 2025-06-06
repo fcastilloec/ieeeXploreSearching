@@ -1,13 +1,18 @@
 #!/usr/bin/env node
-const path = require('node:path');
-const fs = require('fs-extra');
-const yargs = require('yargs');
-const checkAPIKey = require('./lib/api-key');
-const configDirectory = require('./lib/config-directory');
-const { testYears, checkQueryText, testFileExtension } = require('./lib/helpers');
-const { FIELDS, addDataField, queryContainsField } = require('./lib/data-fields');
-const ieee = require('./lib/ieee-api');
-const { fromResults: json2xls } = require('./lib/json2xls');
+import path from 'node:path';
+import fs from 'fs-extra';
+import yargs from 'yargs';
+import { hideBin } from 'yargs/helpers';
+import { createRequire } from 'module';
+import { checkAPIKey } from './lib/api-key.mjs';
+import { configDirectory } from './lib/config-directory.mjs';
+import { testYears, checkQueryText, testFileExtension } from './lib/helpers.mjs';
+import { FIELDS, addDataField, queryContainsField } from './lib/data-fields.mjs';
+import { scrap, api } from './lib/ieee-api.mjs';
+import { fromResults as json2xls } from './lib/json2xls.mjs';
+
+const require = createRequire(import.meta.url);
+const yargsInstance = yargs(hideBin(process.argv));
 
 if (process.platform === 'win32') {
   console.warn("You're running on a Windows system");
@@ -20,8 +25,8 @@ if (process.platform === 'win32') {
 
 require('dotenv').config({ path: ['.env', 'env'] }); // read env variables from both '.env' and 'env'
 
-const { argv } = yargs
-  .wrap(yargs.terminalWidth())
+const { argv } = yargsInstance
+  .wrap(yargsInstance.terminalWidth())
   .version(require('../package.json').version)
   .usage('Usage: $0 <query> [options] [IEEE Data Fields]')
   .strict()
@@ -172,13 +177,13 @@ if (!queryContainsField(argv._[0])) {
 async function search() {
   let results;
   if (argv.scrap) {
-    results = await ieee.scrap(queryText, argv.year, argv.allContentType, argv.verbose);
+    results = await scrap(queryText, argv.year, argv.allContentType, argv.verbose);
   } else {
     const configFile = path.join(configDirectory(), 'config.json');
     checkAPIKey(configFile);
     try {
       const config = fs.readJSONSync(configFile); // Read the API_KEY
-      results = await ieee.api(config.APIKEY, queryText, argv.year, argv.allContentType, argv.verbose);
+      results = await api(config.APIKEY, queryText, argv.year, argv.allContentType, argv.verbose);
     } catch (error) {
       console.error('Error reading the APIKEY:', error.message);
       process.exit(1);

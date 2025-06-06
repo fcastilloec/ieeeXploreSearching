@@ -1,5 +1,5 @@
-const { promisify } = require('node:util');
-const xl = require('excel4node');
+import { promisify } from 'node:util';
+import xl from 'excel4node';
 
 const fontType = process.env.IEEE_font;
 
@@ -179,7 +179,4 @@ async function fromResults(results, xlsFilename) {
   return write(xlsFilename);
 }
 
-module.exports = {
-  authorsString,
-  fromResults,
-};
+export { authorsString, fromResults };
