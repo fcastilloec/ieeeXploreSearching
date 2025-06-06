@@ -11,9 +11,27 @@ export default [
   importPlugin.flatConfigs.recommended,
   eslintConfigPrettier,
   {
-    files: ['**/*.js'],
+    rules: {
+      'import/no-unresolved': ['error', { ignore: ['^fs-extra/esm$'] }],
+    },
+    settings: {
+      node: { version: '>=22' },
+    },
+  },
+  {
+    files: ['**/*.cjs'],
     languageOptions: {
       sourceType: 'commonjs',
+      ecmaVersion: 2024,
+      globals: {
+        ...globals.browser,
+      },
+    },
+  },
+  {
+    files: ['**/*.mjs'],
+    languageOptions: {
+      sourceType: 'module',
       ecmaVersion: 2024,
       globals: {
         ...globals.browser,
@@ -21,15 +39,12 @@ export default [
         ...globals.jest,
       },
     },
-    settings: {
-      node: { version: '>=22' },
-    },
     rules: {
       'n/no-process-exit': 'off',
     },
   },
   {
-    files: ['eslint.config.mjs'], // Or whatever your config file is named
+    files: ['eslint.config.mjs'],
     rules: {
       'n/no-unpublished-import': 'off',
     },

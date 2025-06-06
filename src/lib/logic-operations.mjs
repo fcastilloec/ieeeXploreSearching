@@ -1,5 +1,5 @@
-const _ = require('lodash');
-const { readJsonSync } = require('fs-extra');
+import _ from 'lodash';
+import { readJsonSync } from 'fs-extra/esm';
 
 /**
  * Compares if array elements (results) are equal. Scrapping ONLY
@@ -62,7 +62,4 @@ function logicOperations(options) {
   return result;
 }
 
-module.exports = {
-  logicOperations,
-  isEqual,
-};
+export { logicOperations, isEqual };

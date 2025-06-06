@@ -113,4 +113,4 @@ function createJSON() {
   });
 }
 
-module.exports = createJSON;
+export default createJSON;

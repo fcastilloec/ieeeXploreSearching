@@ -47,8 +47,4 @@ function queryContainsField(queryText) {
   return false;
 }
 
-module.exports = {
-  FIELDS,
-  addDataField,
-  queryContainsField,
-};
+export { FIELDS, addDataField, queryContainsField };

@@ -1,13 +1,19 @@
 #!/usr/bin/env node
-const yargs = require('yargs');
-const fs = require('fs-extra');
-const { fromResults } = require('./lib/json2xls');
-const { logicOperations } = require('./lib/logic-operations');
-const { changeFileExtension, testFileExtension } = require('./lib/helpers');
+import yargs from 'yargs';
+import { hideBin } from 'yargs/helpers';
+import fs from 'fs-extra';
+import { fromResults } from './lib/json2xls.mjs';
+import { logicOperations } from './lib/logic-operations.mjs';
+import { changeFileExtension, testFileExtension } from './lib/helpers.mjs';
 
-const { argv } = yargs
+import { createRequire } from 'module';
+
+const require = createRequire(import.meta.url);
+const yargsInstance = yargs(hideBin(process.argv));
+
+const { argv } = yargsInstance
   .version(require('../package.json').version)
-  .wrap(yargs.terminalWidth())
+  .wrap(yargsInstance.terminalWidth())
   .alias('help', 'h')
   .group(['help', 'version'], 'Global options')
   .parserConfiguration({

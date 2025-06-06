@@ -1,4 +1,4 @@
-const path = require('node:path');
+import path from 'node:path';
 
 /**
  * Changes the extension of a filename
@@ -107,11 +107,4 @@ function checkQueryText(queryText) {
   }
 }
 
-module.exports = {
-  changeFileExtension,
-  checkQueryText,
-  escapeRegExp,
-  getLineStack,
-  testFileExtension,
-  testYears,
-};
+export { changeFileExtension, checkQueryText, escapeRegExp, getLineStack, testFileExtension, testYears };

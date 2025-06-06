@@ -1,5 +1,5 @@
-const fs = require('fs-extra');
-const readlineSync = require('readline-sync');
+import fs from 'fs-extra';
+import readlineSync from 'readline-sync';
 
 function checkAPIKey(configFile) {
   if (!fs.existsSync(configFile)) {
@@ -16,4 +16,4 @@ function checkAPIKey(configFile) {
   }
 }
 
-module.exports = checkAPIKey;
+export { checkAPIKey };

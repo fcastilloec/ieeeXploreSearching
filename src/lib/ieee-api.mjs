@@ -1,10 +1,12 @@
-const https = require('node:https');
-const path = require('node:path');
-const axios = require('axios');
-const { locateChrome, locateFirefox } = require('locate-app');
-const puppeteer = require('puppeteer-core');
-const createJSON = require('./create-json');
-const { escapeRegExp, getLineStack } = require('./helpers');
+import https from 'node:https';
+import path from 'node:path';
+import axios from 'axios';
+import { locateChrome, locateFirefox } from 'locate-app';
+import { launch } from 'puppeteer-core';
+import createJSON from './create-json.mjs';
+import { escapeRegExp, getLineStack } from './helpers.mjs';
+
+const __dirname = import.meta.dirname;
 
 /**
  * Search by scrapping the results from the IEEE search page.
@@ -25,7 +27,7 @@ async function scrap(queryText, rangeYear, allContentType, verbose) {
     'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko)' + 'Chrome/117.0.0.0 Safari/537.36';
   const userAgentFirefox = 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/118.0';
   const ieeeSearchUrl = 'https://ieeexplore.ieee.org/search/searchresult.jsp';
-  const ELEMENTS = '.List-results-items'; // change in constants.js
+  const ELEMENTS = '.List-results-items'; // change in constants.mjs
   const RESULTS = 'h1.Dashboard-header.col-12 > span:nth-child(1)';
   const NO_RESULTS = 'div.List-results-message.List-results-none';
   const NEXT = '.next-btn';
@@ -69,7 +71,7 @@ async function scrap(queryText, rangeYear, allContentType, verbose) {
   }
 
   try {
-    browser = await puppeteer.launch({
+    browser = await launch({
       browser,
       executablePath,
       headless,
@@ -96,7 +98,7 @@ async function scrap(queryText, rangeYear, allContentType, verbose) {
     { lineStack = getLineStack(18); await page.waitForSelector(ELEMENTS); } // Wait until javascript loads all results
 
     await page.addScriptTag({
-      path: path.join(__dirname, 'constants.js'),
+      path: path.join(__dirname, 'constants.mjs'),
     }); // Add all selectors as variables to window
     results = await page.evaluate(createJSON); // create JSON with results of first page
 
@@ -129,9 +131,13 @@ async function scrap(queryText, rangeYear, allContentType, verbose) {
     await browser.close(); // close browser
   } catch (error) {
     if (browser) await browser.close();
-    if (error instanceof puppeteer.errors.TimeoutError && error.message.includes('Waiting for selector')) {
+    if (
+      (error.name === 'TimeoutError' && error.message.includes('Waiting for selector')) ||
+      (error.name === 'TypeError' && error.message.includes('Cannot read properties of null'))
+    ) {
       error.stack = `${error.message}\n${lineStack}\n${error.stack.split('\n').slice(1).join('\n')}`;
     }
+
     if (process.env.NODE_ENV !== 'test') {
       console.error(`Error scrapping results:\n${error.message}`);
       process.exit(2);
@@ -195,7 +201,4 @@ async function api(apiKey, queryText, rangeYear, allContentType, verbose) {
   return response.data;
 }
 
-module.exports = {
-  scrap,
-  api,
-};
+export { scrap, api };
