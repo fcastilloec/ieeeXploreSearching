@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [7.0.0](https://github.com/fcastilloec/ieeeXploreSearching/compare/v5.0.0...v7.0.0) (2025-03-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* The default only searches for Journals, Magazines, and Conferences.
+Use the --all-content-types option to search for all types.
+* YEAR_START and YEAR_END have been replaces by YEARS.
+Use YEARS separated by a colon (:), or a single year.
+* YEAR_START and YEAR_END have been replaces by YEARS.
+Use YEARS separated by a colon (:), or a single year.
+* New defaults for searching. Use environmental variables for some options.
+
+API is the default now, use new '-s', '--scrap' to use website scrapping.
+'YEAR_START', 'YEAR_END': environmental variables use to set the range of years.
+You can provide only one of them (either), just like the argument option, to search only that year.
+'OUT': environmental variable use to name the default output file as: 'search${OUT}'
+'FULL': environmental variable use to assign/override the IEEE data fields to 'fullTextAndMetadata'
+Its value is not important, only that it's not empty.
+
+### Dependencies
+
+* bump `axios` to `1.8.3`
+* bump `dotenv` to `16.4.7`
+* bump `puppeteer-core` to `24.4.0`
+
 ## [6.0.0](https://github.com/fcastilloec/ieeeXploreSearching/compare/v5.0.0...v6.0.0) (2025-01-21)
 
 ### ⚠ BREAKING CHANGES
