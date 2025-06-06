@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [7.0.0](https://github.com/fcastilloec/ieeeXploreSearching/compare/v5.0.0...v7.0.0) (2025-03-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* The default only searches for Journals, Magazines, and Conferences.
+Use the --all-content-types option to search for all types.
+* New defaults for searching. Use environmental variables for some options.
+
+### Dependencies
+
+* bump `axios` to `1.8.3`
+* bump `dotenv` to `16.4.7`
+* bump `puppeteer-core` to `24.4.0`
+
 ## [6.0.0](https://github.com/fcastilloec/ieeeXploreSearching/compare/v5.0.0...v6.0.0) (2025-01-21)
 
 ### ⚠ BREAKING CHANGES
