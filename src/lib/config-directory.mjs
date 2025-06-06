@@ -1,5 +1,8 @@
-const path = require('node:path');
-const { pathExistsSync } = require('fs-extra');
+import path from 'node:path';
+import { pathExistsSync } from 'fs-extra/esm';
+import { createRequire } from 'module';
+
+const require = createRequire(import.meta.url);
 const package_ = require('../../package.json');
 
 /**
@@ -37,4 +40,4 @@ function configDirectory() {
   return directory_;
 }
 
-module.exports = configDirectory;
+export { configDirectory };
