@@ -16,10 +16,11 @@
   "bugs": {
     "url": "https://github.com/fcastilloec/ieeeXploreSearching/issues"
   },
+  "type": "module",
   "bin": {
-    "search": "./src/cli-search.js",
-    "logic": "./src/cli-logic.js",
-    "count": "./src/cli-count.js"
+    "search": "./src/cli-search.mjs",
+    "logic": "./src/cli-logic.mjs",
+    "count": "./src/cli-count.mjs"
   },
   "scripts": {
     "lint": "eslint . && cspell .",
