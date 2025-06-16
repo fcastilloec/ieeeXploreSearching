@@ -12,6 +12,7 @@ on:
 
 jobs:
   test:
+    if: ${{ !github.event.act }}
     name: Testing
     runs-on: 'ubuntu-latest'
     steps:
@@ -36,83 +37,19 @@ jobs:
       - name: Testing
         run: npm run test
 
-  pack:
-    name: Packaging
-    needs: test
-    if: startsWith(github.ref, 'refs/tags/')
-    defaults:
-      run:
-        shell: bash
-    strategy:
-      matrix:
-        include:
-          - platform: linux
-            runner: ubuntu-latest
-          - platform: win
-            runner: windows-latest
-          - platform: macos
-            runner: macos-latest
-    runs-on: ${{ matrix.runner }}
-    steps:
-      - uses: actions/cache@v4
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-      - name: Get source
-        uses: actions/checkout@v4
-      - name: Use Node.js ${{ env.node-version }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.node-version }}
-      - name: Install npm dependencies
-        run: npm ci
-      - name: Generate release body
-        if: matrix.platform == 'linux'
-        run: bin/github_release_body.sh
-      - name: Create executables
-        run: |
-          TARGET=node${{ env.node-version }}-${{ matrix.platform }}-x64
-          npm run pkg -- -t ${TARGET} src/cli-search.js --output build/ieeeSearch --no-bytecode --public-packages "*" --config .pkg.json
-          npm run pkg -- -t ${TARGET} src/cli-logic.js --output build/ieeeLogic
-          npm run pkg -- -t ${TARGET} src/cli-count.js --output build/ieeeCount
-      - name: Tar files
-        working-directory: ./build
-        run: |
-          [[ "${{ matrix.platform }}" == "macos" ]] && TAR=gtar || TAR=tar
-          XZ_OPT=-0 ${TAR} -cJvf ../${{ runner.os }}-x64.tar.xz *
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ runner.os }}
-          path: ${{ runner.os }}-x64.tar.xz
-      - name: Upload RELEASE.md
-        if: matrix.platform == 'linux'
-        uses: actions/upload-artifact@v4
-        with:
-          name: release.md
-          path: RELEASE.md
-          retention-days: 5
-
   publish:
     name: Publish to Github Releases
-    needs: pack
     runs-on: 'ubuntu-latest'
     if: startsWith(github.ref, 'refs/tags/')
     steps:
-      - name: Download artifacts
-        uses: actions/download-artifact@v4
-        with:
-          path: build/
-      - name: Move artifacts
-        working-directory: build/
-        run: find . -type f -exec mv -v '{}' . \;
+      - name: Get source
+        uses: actions/checkout@v4
+      - name: Generate release body
+        run: bin/github_release_body.sh
       - name: Create a release
         uses: ncipollo/release-action@v1
         with:
           allowUpdates: true
-          artifacts: build/*.tar.xz
           draft: true
           token: ${{ secrets.GITHUB_TOKEN }}
-          bodyFile: build/RELEASE.md
+          bodyFile: RELEASE.md
