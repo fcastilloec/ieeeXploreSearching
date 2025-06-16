@@ -9,7 +9,7 @@ export default [
   js.configs.recommended,
   nodePlugin.configs['flat/recommended-script'],
   importPlugin.flatConfigs.recommended,
-  eslintConfigPrettier,
+  { ignores: ['build/'] },
   {
     rules: {
       'import/no-unresolved': ['error', { ignore: ['^fs-extra/esm$'] }],
@@ -39,4 +39,5 @@ export default [
       'n/no-unpublished-import': 'off',
     },
   },
+  eslintConfigPrettier,
 ];

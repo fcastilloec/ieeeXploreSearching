@@ -139,8 +139,8 @@ const { argv } = yargsInstance
   );
 
 /* Assigns environmental variables if present */
-// Sets year from env variable 'YEARS'
-if (process.env.YEARS) {
+// Sets year from env variable 'YEARS' if an argument wasn't explicitly pass
+if (process.env.YEARS && !argv.year) {
   if (argv.verbose) console.log(`Using env YEARS (${process.env.YEARS})`);
   const years = process.env.YEARS.split(':').map((year) => Number.parseInt(year, 10)); // creates an array of years
   try {
