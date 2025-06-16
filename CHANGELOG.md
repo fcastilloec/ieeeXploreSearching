@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [8.0.0](https://github.com/fcastilloec/ieeeXploreSearching/compare/v7.0.0...v8.0.0) (2025-06-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* When both argument and environmental variables are present, prioritize the argument
+* disable building artifacts (#916)
+* move project to esm
+
+### ci
+
+* disable building artifacts ([#916](https://github.com/fcastilloec/ieeeXploreSearching/issues/916)) ([a180a43](https://github.com/fcastilloec/ieeeXploreSearching/commit/a180a43c1565b80a61dec0dd237d5edae675d711))
+
+
+### Dependencies
+
+* bump `axios` to `1.10.0`
+* bump `dotenv` to `16.5.0`
+* bump `puppeteer-core` to `24.10.1`
+* bump `yargs` to `18.0.0`
+
 ## [7.0.0](https://github.com/fcastilloec/ieeeXploreSearching/compare/v5.0.0...v7.0.0) (2025-03-15)
 
 
