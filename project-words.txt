@@ -1,5 +1,6 @@
 apikey # needs fixing
 arnumber
+autobuild
 CDMA
 CMOS
 commitlint
