@@ -1,9 +1,6 @@
 import path from 'node:path';
 import { pathExistsSync } from 'fs-extra/esm';
-import { createRequire } from 'module';
-
-const require = createRequire(import.meta.url);
-const package_ = require('../../package.json');
+import pkg_ from '../../package.json' with { type: 'json' };
 
 /**
  * Finds the configuration directory for this app.
@@ -25,12 +22,12 @@ function configDirectory() {
     case 'darwin': {
       directory_ =
         process.env.XDG_CONFIG_HOME ?
-          path.join(process.env.XDG_CONFIG_HOME, package_.name)
-        : path.join(process.env.HOME, '.config', package_.name);
+          path.join(process.env.XDG_CONFIG_HOME, pkg_.name)
+        : path.join(process.env.HOME, '.config', pkg_.name);
       break;
     }
     case 'win32': {
-      directory_ = path.join(process.env.APPDATA, package_.name);
+      directory_ = path.join(process.env.APPDATA, pkg_.name);
       break;
     }
     default: {

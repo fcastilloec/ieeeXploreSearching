@@ -1,14 +1,13 @@
 #!/usr/bin/env node
 import yargs from 'yargs';
 import { readJsonSync } from 'fs-extra/esm';
-import { createRequire } from 'module';
+import pkg_ from '../package.json' with { type: 'json' };
 
-const require = createRequire(import.meta.url);
 const yargsInstance = yargs(process.argv.slice(2));
 
 const { argv } = yargsInstance
   .wrap(yargsInstance.terminalWidth())
-  .version(require('../package.json').version)
+  .version(pkg_.version)
   .usage('Usage: $0 <filename>')
   .strict()
   .alias('help', 'h')
