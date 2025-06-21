@@ -15,11 +15,11 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
  * @param   {string}   queryText  The search terms.
  *                                See queryText from https://developer.ieee.org/docs/read/Metadata_API_details
  * @param   {number[]} rangeYear  A two-element array containing the range of years to filter results
- * @param   {boolean}  allContentType Whether to search all content types, or just Magazines, Conferences, and Journals
+ * @param   {boolean}  allContentTypes Whether to search all content types, or just Magazines, Conferences, and Journals
  *
  * @return  {object[]}            All the IEEE results from each page, from 'createJson' function.
  */
-async function scrap(queryText, rangeYear, allContentType, verbose) {
+async function scrap(queryText, rangeYear, allContentTypes, verbose) {
   // only wait this amount of milliseconds, any longer and it means there's no results
   const timeout = process.env.CI ? 40000 : 20000;
   let lineStack; // stack message with line info
@@ -37,7 +37,7 @@ async function scrap(queryText, rangeYear, allContentType, verbose) {
   let query =
     `?queryText=(${encodeURI(queryText).replaceAll('?', '%3F').replaceAll('/', '%2F')})` +
     `&ranges=${rangeYear[0]}_${rangeYear[1]}_Year`;
-  if (!allContentType) {
+  if (!allContentTypes) {
     query += '&refinements=ContentType:Conferences&refinements=ContentType:Journals&refinements=ContentType:Magazines';
   }
   if (verbose) console.log('Encoded Query: %s\n', query);
@@ -157,11 +157,11 @@ async function scrap(queryText, rangeYear, allContentType, verbose) {
  * @param {string}   apiKey       The API key
  * @param {string}   queryText    The query string
  * @param {number[]} rangeYear    A two-element array containing the range of years to filter results
- * @param {boolean}  allContentType  Whether to search all content types, or just Magazines, Conferences, and Journals
+ * @param {boolean}  allContentTypes  Whether to search all content types, or just Magazines, Conferences, and Journals
  *
  * @return  {object}              The results, it has three keys: total_records, total_searched, articles
  */
-async function api(apiKey, queryText, rangeYear, allContentType, verbose) {
+async function api(apiKey, queryText, rangeYear, allContentTypes, verbose) {
   const API_URL = 'https://ieeexploreapi.ieee.org/api/v1/search/articles';
 
   if (verbose) console.log('Query: %s\n', queryText);
@@ -180,7 +180,7 @@ async function api(apiKey, queryText, rangeYear, allContentType, verbose) {
       apikey: apiKey,
       start_year: rangeYear[0],
       end_year: rangeYear[1],
-      ...(allContentType ? {} : { content_type: 'Journals,Magazines,Conferences' }),
+      ...(allContentTypes ? {} : { content_type: 'Journals,Magazines,Conferences' }),
     },
   };
 
