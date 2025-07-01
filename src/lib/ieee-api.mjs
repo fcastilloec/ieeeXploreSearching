@@ -202,4 +202,15 @@ async function api(apiKey, queryText, rangeYear, allContentTypes, verbose) {
   return response.data;
 }
 
-export { scrap, api };
+function scrapLink(queryText, rangeYear, allContentTypes) {
+  const ieeeSearchUrl = 'https://ieeexplore.ieee.org/search/searchresult.jsp';
+  let query =
+    `?queryText=(${encodeURI(queryText).replaceAll('?', '%3F').replaceAll('/', '%2F')})` +
+    `&ranges=${rangeYear[0]}_${rangeYear[1]}_Year`;
+  if (!allContentTypes) {
+    query += '&refinements=ContentType:Conferences&refinements=ContentType:Journals&refinements=ContentType:Magazines';
+  }
+  return ieeeSearchUrl + query;
+}
+
+export { scrap, api, scrapLink };
