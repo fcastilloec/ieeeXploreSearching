@@ -4,14 +4,12 @@ import fs from 'fs-extra';
 import { fromResults } from './lib/json2xls.mjs';
 import { logicOperations } from './lib/logic-operations.mjs';
 import { changeFileExtension, testFileExtension } from './lib/helpers.mjs';
+import pkg_ from '../package.json' with { type: 'json' };
 
-import { createRequire } from 'module';
-
-const require = createRequire(import.meta.url);
 const yargsInstance = yargs(process.argv.slice(2));
 
 const { argv } = yargsInstance
-  .version(require('../package.json').version)
+  .version(pkg_.version)
   .wrap(yargsInstance.terminalWidth())
   .alias('help', 'h')
   .group(['help', 'version'], 'Global options')

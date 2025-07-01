@@ -2,7 +2,8 @@
 import path from 'node:path';
 import fs from 'fs-extra';
 import yargs from 'yargs';
-import { createRequire } from 'module';
+import dotenv from 'dotenv';
+import pkg_ from '../package.json' with { type: 'json' };
 import { checkAPIKey } from './lib/api-key.mjs';
 import { configDirectory } from './lib/config-directory.mjs';
 import { testYears, checkQueryText, testFileExtension } from './lib/helpers.mjs';
@@ -10,7 +11,6 @@ import { FIELDS, addDataField, queryContainsField } from './lib/data-fields.mjs'
 import { scrap, api } from './lib/ieee-api.mjs';
 import { fromResults as json2xls } from './lib/json2xls.mjs';
 
-const require = createRequire(import.meta.url);
 const yargsInstance = yargs(process.argv.slice(2));
 
 if (process.platform === 'win32') {
@@ -22,11 +22,11 @@ if (process.platform === 'win32') {
   );
 }
 
-require('dotenv').config({ path: ['.env', 'env'] }); // read env variables from both '.env' and 'env'
+dotenv.config({ path: ['.env', 'env'] }); // read env variables from both '.env' and 'env'
 
 const { argv } = yargsInstance
   .wrap(yargsInstance.terminalWidth())
-  .version(require('../package.json').version)
+  .version(pkg_.version)
   .usage('Usage: $0 <query> [options] [IEEE Data Fields]')
   .strict()
   .alias('help', 'h')
