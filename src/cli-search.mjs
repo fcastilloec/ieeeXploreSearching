@@ -8,7 +8,7 @@ import { checkAPIKey } from './lib/api-key.mjs';
 import { configDirectory } from './lib/config-directory.mjs';
 import { testYears, checkQueryText, testFileExtension } from './lib/helpers.mjs';
 import { FIELDS, addDataField, queryContainsField } from './lib/data-fields.mjs';
-import { scrap, api } from './lib/ieee-api.mjs';
+import { scrap, api, scrapLink } from './lib/ieee-api.mjs';
 import { fromResults as json2xls } from './lib/json2xls.mjs';
 
 const yargsInstance = yargs(process.argv.slice(2));
@@ -113,6 +113,12 @@ const { argv } = yargsInstance
     default: false,
     type: 'boolean',
   })
+  .option('link-only', {
+    alias: 'l',
+    describe: 'Show the IEEE search link only, like verbose\n' + 'This is useful to check the list of publishers',
+    default: false,
+    type: 'boolean',
+  })
   .parserConfiguration({
     'strip-aliased': true,
     'strip-dashed': true,
@@ -205,4 +211,9 @@ async function search() {
     }
   }
 }
-search();
+if (argv.linkOnly) {
+  const query = scrapLink(queryText, argv.year, argv.allContentTypes);
+  console.log('Encoded Query: %s\n', query);
+} else {
+  search();
+}
