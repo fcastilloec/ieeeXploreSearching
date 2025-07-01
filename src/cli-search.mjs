@@ -161,7 +161,7 @@ if (process.env.OUT) {
 
 console.log('Searching for: %s', argv._[0]);
 console.log('Between %s and %s', argv.year[0], argv.year[1]);
-const content = argv.allContentType ? 'All' : 'Journals, Magazines, Conferences';
+const content = argv.allContentTypes ? 'All' : 'Journals, Magazines, Conferences';
 console.log(`Searching for type: ${content}`);
 
 let queryText = argv._[0];
@@ -176,13 +176,13 @@ if (!queryContainsField(argv._[0])) {
 async function search() {
   let results;
   if (argv.scrap) {
-    results = await scrap(queryText, argv.year, argv.allContentType, argv.verbose);
+    results = await scrap(queryText, argv.year, argv.allContentTypes, argv.verbose);
   } else {
     const configFile = path.join(configDirectory(), 'config.json');
     checkAPIKey(configFile);
     try {
       const config = fs.readJSONSync(configFile); // Read the API_KEY
-      results = await api(config.APIKEY, queryText, argv.year, argv.allContentType, argv.verbose);
+      results = await api(config.APIKEY, queryText, argv.year, argv.allContentTypes, argv.verbose);
     } catch (error) {
       console.error('Error reading the APIKEY:', error.message);
       process.exit(1);
