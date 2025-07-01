@@ -4,6 +4,7 @@ autobuild
 CDMA
 CMOS
 commitlint
+dotenv
 encod
 esm
 gron

@@ -22,7 +22,7 @@ if (process.platform === 'win32') {
   );
 }
 
-dotenv.config({ path: ['.env', 'env'] }); // read env variables from both '.env' and 'env'
+dotenv.config({ quiet: true, path: ['.env', 'env'] }); // read env variables from both '.env' and 'env'
 
 const { argv } = yargsInstance
   .wrap(yargsInstance.terminalWidth())
