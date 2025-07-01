@@ -36,7 +36,7 @@
     "fs-extra": "^11.3.0",
     "locate-app": "^2.5.0",
     "lodash": "^4.17.21",
-    "puppeteer-core": "^24.10.2",
+    "puppeteer-core": "^24.11.2",
     "readline-sync": "^1.4.10",
     "yargs": "^18.0.0"
   },
@@ -44,16 +44,16 @@
     "@babel/eslint-parser": "^7.27.5",
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
-    "@eslint/js": "^9.29.0",
+    "@eslint/js": "^9.30.0",
     "@yao-pkg/pkg": "^6.5.1",
     "commit-and-tag-version": "^12.5.1",
-    "eslint": "^9.29.0",
+    "eslint": "^9.30.0",
     "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-n": "^17.20.0",
-    "globals": "^16.2.0",
+    "globals": "^16.3.0",
     "husky": "^9.1.7",
-    "jest": "^30.0.2",
+    "jest": "^30.0.3",
     "lint-staged": "^16.1.2"
   }
 }
