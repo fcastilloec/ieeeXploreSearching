@@ -1,4 +1,4 @@
-import { addDataField, queryContainsField } from '../src/lib/data-fields';
+import { addDataField, removeConflict, queryContainsField } from '../src/lib/data-fields';
 
 test('addDataField without field', () => {
   const query = 'optics AND nano';
@@ -31,4 +31,16 @@ test('queryContainsField has a field', () => {
 test('queryContainsField does not have a field', () => {
   const queryText = 'this has "not a":field';
   expect(queryContainsField(queryText)).toBeFalsy();
+});
+
+test('removeConflict removes the string', () => {
+  const output = [
+    'document-title',
+    'full-text-and-metadata',
+    'ieee-terms',
+    'metadata',
+    'publication-title',
+    'text-only',
+  ];
+  expect(removeConflict('abstract')).toStrictEqual(output);
 });

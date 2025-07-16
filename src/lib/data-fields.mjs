@@ -2,13 +2,27 @@
  * IEEE Data Fields
  */
 const FIELDS = {
+  abstract: '"Abstract"',
   documentTitle: '"Document Title"',
   fullTextAndMetadata: '"Full Text .AND. Metadata"',
-  textOnly: '"Full Text Only"',
-  publicationTitle: '"Publication Title"',
-  metadata: '"All Metadata"',
   ieeeTerms: '"IEEE Terms"',
+  metadata: '"All Metadata"',
+  publicationTitle: '"Publication Title"',
+  textOnly: '"Full Text Only"',
 };
+
+/**
+ * Command line argument Data Fields
+ */
+const YARGS_FIELDS = [
+  'abstract',
+  'document-title',
+  'full-text-and-metadata',
+  'ieee-terms',
+  'metadata',
+  'publication-title',
+  'text-only',
+];
 
 /**
  * Appends an specific data field to each search term.
@@ -47,4 +61,13 @@ function queryContainsField(queryText) {
   return false;
 }
 
-export { FIELDS, addDataField, queryContainsField };
+/**
+ *
+ * @param {string} argument   the argument to remove from the array.
+ * @returns {string[]}  a new array without the string.
+ */
+function removeConflict(argument) {
+  return YARGS_FIELDS.filter((field) => field !== argument);
+}
+
+export { FIELDS, removeConflict, addDataField, queryContainsField };
