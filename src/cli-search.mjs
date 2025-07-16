@@ -133,7 +133,7 @@ const { argv } = yargsInstance
   })
   .group(
     ['full-text-and-metadata', 'text-only', 'publication-title', 'document-title', 'metadata', 'ieee-terms'],
-    'IEEE Data Fields',
+    'IEEE Data Fields', // name of the group
   )
   .example(
     "$0 'optics AND nano' -o search1 -y 1990 -y 2000 -e",
@@ -165,15 +165,19 @@ if (process.env.OUT) {
   if (argv.verbose) console.log(`OUT: ${argv.output}`);
 }
 
+if (argv.verbose >= 2) console.log(argv);
 console.log('Searching for: %s', argv._[0]);
 console.log('Between %s and %s', argv.year[0], argv.year[1]);
 const content = argv.allContentTypes ? 'All' : 'Journals, Magazines, Conferences';
 console.log(`Searching for type: ${content}`);
 
 let queryText = argv._[0];
+
+// Don't add fields if they're already there
 if (!queryContainsField(argv._[0])) {
+  // Prioritize command line arguments over environmental variables
   const dataFieldKey =
-    process.env.FULL === 'true' ? 'fullTextAndMetadata' : Object.keys(FIELDS).find((key) => argv[key]);
+    Object.keys(FIELDS).find((key) => argv[key]) || (process.env.FULL === 'true' ? 'fullTextAndMetadata' : null);
 
   if (dataFieldKey) queryText = addDataField(queryText, FIELDS[dataFieldKey]);
   console.log('Using: %s', FIELDS[dataFieldKey] || 'No data fields');
