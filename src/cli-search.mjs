@@ -7,7 +7,7 @@ import pkg_ from '../package.json' with { type: 'json' };
 import { checkAPIKey } from './lib/api-key.mjs';
 import { configDirectory } from './lib/config-directory.mjs';
 import { testYears, checkQueryText, testFileExtension } from './lib/helpers.mjs';
-import { FIELDS, addDataField, queryContainsField } from './lib/data-fields.mjs';
+import { FIELDS, removeConflict, addDataField, queryContainsField } from './lib/data-fields.mjs';
 import { scrap, api, scrapLink } from './lib/ieee-api.mjs';
 import { fromResults as json2xls } from './lib/json2xls.mjs';
 
@@ -40,40 +40,46 @@ const { argv } = yargsInstance
     demandOption: !process.env.OUT,
     normalize: true,
   })
+  .option('abstract', {
+    alias: 'b',
+    conflicts: removeConflict('abstract'),
+    describe: 'Abstract only',
+    type: 'boolean',
+  })
   .option('full-text-and-metadata', {
     alias: 'f',
-    conflicts: ['text-only', 'publication-title', 'document-title', 'metadata', 'ieee-terms'],
+    conflicts: removeConflict('full-text-and-metadata'),
     describe: '"Full Text & Metadata".\nUse env "FULL=true"',
     type: 'boolean',
   })
   .option('text-only', {
     alias: 't',
-    conflicts: ['full-text-and-metadata', 'publication-title', 'document-title', 'metadata', 'ieee-terms'],
+    conflicts: removeConflict('text-only'),
     describe: '"Full Text Only"',
     type: 'boolean',
   })
   .option('publication-title', {
     alias: 'p',
-    conflicts: ['text-only', 'full-text-and-metadata', 'document-title', 'metadata', 'ieee-terms'],
+    conflicts: removeConflict('publication-title'),
     describe: '"Publication Title"',
     type: 'boolean',
   })
   .option('document-title', {
     alias: 'd',
-    conflicts: ['text-only', 'full-text-and-metadata', 'metadata', 'ieee-terms', 'publication-title'],
+    conflicts: removeConflict('document-title'),
     describe: '"Document Title"',
     type: 'boolean',
   })
   .option('metadata', {
     alias: 'm',
     describe: '"All Metadata"',
-    conflicts: ['text-only', 'full-text-and-metadata', 'publication-title', 'document-title', 'ieee-terms'],
+    conflicts: removeConflict('metadata'),
     type: 'boolean',
   })
   .option('ieee-terms', {
     alias: 'i',
     describe: '"IEEE Terms"',
-    conflicts: ['text-only', 'full-text-and-metadata', 'publication-title', 'document-title', 'metadata'],
+    conflicts: removeConflict('ieee-terms'),
     type: 'boolean',
   })
   .option('excel', {
