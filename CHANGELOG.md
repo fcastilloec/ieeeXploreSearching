@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [9.0.0](https://github.com/fcastilloec/ieeeXploreSearching/compare/v8.0.0...v9.0.0) (2025-07-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* don't use data field arguments if you want to use the environmental variable FULL
+
+### Dependencies
+
+* bump `dotenv` to `17.2.0`
+* bump `puppeteer-core` to `24.12.1`
+
 ## [8.0.0](https://github.com/fcastilloec/ieeeXploreSearching/compare/v7.0.0...v8.0.0) (2025-06-16)
 
 
