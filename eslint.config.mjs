@@ -16,7 +16,7 @@ export default [
       'import/no-unresolved': ['error', { ignore: ['^fs-extra/esm$'] }],
     },
     settings: {
-      node: { version: '>=22' },
+      node: { version: '>=24' },
     },
   },
   {
