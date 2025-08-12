@@ -33,10 +33,10 @@
     "axios": "^1.11.0",
     "dotenv": "^17.2.1",
     "excel4node": "^1.8.2",
-    "fs-extra": "^11.3.0",
+    "fs-extra": "^11.3.1",
     "locate-app": "^2.5.0",
     "lodash": "^4.17.21",
-    "puppeteer-core": "^24.15.0",
+    "puppeteer-core": "^24.16.1",
     "readline-sync": "^1.4.10",
     "yargs": "^18.0.0"
   },
@@ -44,16 +44,16 @@
     "@babel/eslint-parser": "^7.28.0",
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
-    "@eslint/js": "^9.32.0",
+    "@eslint/js": "^9.33.0",
     "@yao-pkg/pkg": "^6.6.0",
     "commit-and-tag-version": "^12.5.2",
-    "eslint": "^9.32.0",
+    "eslint": "^9.33.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-n": "^17.21.3",
     "globals": "^16.3.0",
     "husky": "^9.1.7",
     "jest": "^30.0.5",
-    "lint-staged": "^16.1.4"
+    "lint-staged": "^16.1.5"
   }
 }
