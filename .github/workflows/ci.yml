@@ -1,6 +1,6 @@
 name: CI
 env:
-  node-version: 24
+  node-version: 22
 
 on:
   push:
@@ -12,7 +12,6 @@ on:
 
 jobs:
   test:
-    if: ${{ !github.event.act }}
     name: Testing
     runs-on: 'ubuntu-latest'
     steps:
@@ -31,7 +30,7 @@ jobs:
       - name: Install npm dependencies
         run: npm ci
       - name: Install cspell
-        run: npm install -g cspell
+        run: npm install cspell
       - name: Linting
         run: npm run lint
       - name: Testing
