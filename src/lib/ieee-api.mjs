@@ -76,6 +76,7 @@ async function scrap(queryText, rangeYear, allContentTypes, verbose) {
       browser,
       executablePath,
       headless,
+      ...(process.env.CI && { args: ['--no-sandbox'] }),
     });
     const page = await browser.newPage();
     page.setDefaultTimeout(timeout);
