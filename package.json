@@ -36,7 +36,7 @@
     "fs-extra": "^11.3.1",
     "locate-app": "^2.5.0",
     "lodash": "^4.17.21",
-    "puppeteer-core": "^24.16.2",
+    "puppeteer-core": "^24.17.0",
     "readline-sync": "^1.4.10",
     "yargs": "^18.0.0"
   },
