@@ -730,6 +730,35 @@
       "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=944554"
     },
     {
+      "article_number": "1204559",
+      "title": "Reliability-based hybrid ARQ using convolutional codes",
+      "publication_year": 2003,
+      "publisher": "IEEE",
+      "content_type": "Conferences",
+      "publication_title": "IEEE International Conference on Communications, 2003. ICC '03.",
+      "authors": {
+        "authors": [
+          {
+            "full_name": "A. Roongta",
+            "author_order": 1,
+            "authorUrl": "https://ieeexplore.ieee.org/author/37279133800",
+            "id": 37279133800
+          },
+          {
+            "full_name": "J.M. Shea",
+            "author_order": 2,
+            "authorUrl": "https://ieeexplore.ieee.org/author/37279127500",
+            "id": 37279127500
+          }
+        ]
+      },
+      "abstract": "Reliability-based hybrid ARQ (RB-HARQ) is a recently introduced approach to incremental-redundancy ARQ. In RB-HARQ, the bits that are to be retransmitted are adaptively selected at the receiver based on the estimated bit reliabilities. This technique has the potential to improve performance and minimize retransmission size by targeting those bits that are likely to be in error. However, previous v...",
+      "abstract_url": "https://ieeexplore.ieee.org/document/1204559/",
+      "publication_number": 8564,
+      "html_url": "https://ieeexplore.ieee.org/document/1204559/",
+      "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1204559"
+    },
+    {
       "article_number": "1203335",
       "title": "Channel-adaptive video streaming using packet path diversity and rate-distortion optimized reference picture selection",
       "publication_year": 2002,
@@ -763,35 +792,6 @@
       "publication_number": 8561,
       "html_url": "https://ieeexplore.ieee.org/document/1203335/",
       "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1203335"
-    },
-    {
-      "article_number": "1204559",
-      "title": "Reliability-based hybrid ARQ using convolutional codes",
-      "publication_year": 2003,
-      "publisher": "IEEE",
-      "content_type": "Conferences",
-      "publication_title": "IEEE International Conference on Communications, 2003. ICC '03.",
-      "authors": {
-        "authors": [
-          {
-            "full_name": "A. Roongta",
-            "author_order": 1,
-            "authorUrl": "https://ieeexplore.ieee.org/author/37279133800",
-            "id": 37279133800
-          },
-          {
-            "full_name": "J.M. Shea",
-            "author_order": 2,
-            "authorUrl": "https://ieeexplore.ieee.org/author/37279127500",
-            "id": 37279127500
-          }
-        ]
-      },
-      "abstract": "Reliability-based hybrid ARQ (RB-HARQ) is a recently introduced approach to incremental-redundancy ARQ. In RB-HARQ, the bits that are to be retransmitted are adaptively selected at the receiver based on the estimated bit reliabilities. This technique has the potential to improve performance and minimize retransmission size by targeting those bits that are likely to be in error. However, previous v...",
-      "abstract_url": "https://ieeexplore.ieee.org/document/1204559/",
-      "publication_number": 8564,
-      "html_url": "https://ieeexplore.ieee.org/document/1204559/",
-      "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1204559"
     },
     {
       "article_number": "1204516",
