@@ -6,7 +6,7 @@ import dotenv from 'dotenv';
 import pkg_ from '../package.json' with { type: 'json' };
 import { checkAPIKey } from './lib/api-key.mjs';
 import { configDirectory } from './lib/config-directory.mjs';
-import { testYears, checkQueryText, testFileExtension } from './lib/helpers.mjs';
+import { testYears, checkQueryText, testFileExtension, redError } from './lib/helpers.mjs';
 import { FIELDS, removeConflict, addDataField, queryContainsField } from './lib/data-fields.mjs';
 import { scrap, api, scrapLink } from './lib/ieee-api.mjs';
 import { fromResults as json2xls } from './lib/json2xls.mjs';
@@ -158,7 +158,7 @@ if (process.env.YEARS && !argv.year) {
   try {
     testYears(years);
   } catch (error) {
-    console.error(`YEARS env variable: ${error.message}`);
+    redError(`YEARS env variable: ${error.message}`);
     process.exit(1);
   }
   argv.year = years.length === 1 ? [years[0], years[0]] : years;
@@ -200,7 +200,7 @@ async function search() {
       const config = fs.readJSONSync(configFile); // Read the API_KEY
       results = await api(config.APIKEY, queryText, argv.year, argv.allContentTypes, argv.verbose);
     } catch (error) {
-      console.error('Error reading the APIKEY:', error.message);
+      redError('Error reading the APIKEY:', error.message);
       process.exit(1);
     }
   }
@@ -216,7 +216,7 @@ async function search() {
       await fs.writeJson(testFileExtension(argv.output, '.json'), results.articles, { spaces: 1 });
       if (argv.excel) await json2xls(results.articles, testFileExtension(argv.output, '.xls'));
     } catch (error) {
-      console.error(`Error writing JSON or XLS file:\n${error.message}`);
+      redError(`Error writing JSON or XLS file:\n${error.message}`);
       process.exit(4);
     }
   }

@@ -107,4 +107,16 @@ function checkQueryText(queryText) {
   }
 }
 
-export { changeFileExtension, checkQueryText, escapeRegExp, getLineStack, testFileExtension, testYears };
+/**
+ * Shows an error message in red color
+ *
+ * @param {string} message  Message to be displayed
+ */
+/* istanbul ignore next */
+function redError(message) {
+  const RED_COLOR = '\x1b[31m';
+  const RESET_COLOR = '\x1b[0m';
+  console.error(`${RED_COLOR}${message}${RESET_COLOR}`);
+}
+
+export { changeFileExtension, checkQueryText, escapeRegExp, getLineStack, redError, testFileExtension, testYears };

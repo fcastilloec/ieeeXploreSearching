@@ -3,7 +3,7 @@ import yargs from 'yargs';
 import fs from 'fs-extra';
 import { fromResults } from './lib/json2xls.mjs';
 import { logicOperations } from './lib/logic-operations.mjs';
-import { changeFileExtension, testFileExtension } from './lib/helpers.mjs';
+import { changeFileExtension, testFileExtension, redError } from './lib/helpers.mjs';
 import pkg_ from '../package.json' with { type: 'json' };
 
 const yargsInstance = yargs(process.argv.slice(2));
@@ -105,7 +105,7 @@ async function convert() {
     const json = await fs.readJson(argv.jsonFile);
     await fromResults(json, changeFileExtension(argv.jsonFile, '.xls'));
   } catch (error) {
-    console.error(`Error converting JSON file:\n${error.message}`);
+    redError(`Error converting JSON file:\n${error.message}`);
     process.exit(4);
   }
 }
@@ -125,7 +125,7 @@ async function logic() {
     });
     if (argv.excel) await fromResults(result, testFileExtension(argv.output, '.xls'));
   } catch (error) {
-    console.error(`Error writing JSON or XLS file:\n${error.message}`);
+    redError(`Error writing JSON or XLS file:\n${error.message}`);
     process.exit(4);
   }
 }
