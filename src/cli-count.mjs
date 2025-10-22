@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import yargs from 'yargs';
 import { readJsonSync } from 'fs-extra/esm';
+import { redError } from './lib/helpers.mjs';
 import pkg_ from '../package.json' with { type: 'json' };
 
 const yargsInstance = yargs(process.argv.slice(2));
@@ -18,7 +19,7 @@ for (const filename of argv._) {
     const file = readJsonSync(filename);
     console.log('Records inside %s: %s', filename, file.length);
   } catch (error) {
-    console.error(`Error reading JSON file:\n${error.message}`);
+    redError(`Error reading JSON file:\n${error.message}`);
     process.exit(4);
   }
 }

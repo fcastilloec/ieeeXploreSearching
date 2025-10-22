@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import { readJsonSync } from 'fs-extra/esm';
+import { redError } from './helpers.mjs';
 
 /**
  * Compares if array elements (results) are equal. Scrapping ONLY
@@ -33,7 +34,7 @@ function logicOperations(options) {
   try {
     files = options._.map((file) => readJsonSync(file));
   } catch (error) {
-    console.error(`Error reading JSON file:\n${error.message}`);
+    redError(`Error reading JSON file:\n${error.message}`);
     process.exit(4);
   }
 
@@ -49,7 +50,7 @@ function logicOperations(options) {
     try {
       notFile = readJsonSync(options.not);
     } catch (error) {
-      console.error(`Error reading JSON file:\n${error.message}`);
+      redError(`Error reading JSON file:\n${error.message}`);
       process.exit(4);
     }
     console.log(`Excluding content from: ${options.not}`);

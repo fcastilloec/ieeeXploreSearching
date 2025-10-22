@@ -5,7 +5,7 @@ import axios from 'axios';
 import { locateChrome, locateFirefox } from 'locate-app';
 import { launch } from 'puppeteer-core';
 import createJSON from './create-json.mjs';
-import { escapeRegExp, getLineStack } from './helpers.mjs';
+import { escapeRegExp, getLineStack, redError } from './helpers.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -66,7 +66,7 @@ async function scrap(queryText, rangeYear, allContentTypes, verbose) {
       headless = true;
       userAgent = userAgentFirefox;
     } catch {
-      console.error("Can't find a valid installation of Chrome or Firefox");
+      redError("Can't find a valid installation of Chrome or Firefox");
       process.exit(2);
     }
   }
@@ -141,7 +141,7 @@ async function scrap(queryText, rangeYear, allContentTypes, verbose) {
     }
 
     if (process.env.NODE_ENV !== 'test') {
-      console.error(`Error scrapping results:\n${error.message}`);
+      redError(`Error scrapping results:\n${error.message}`);
       process.exit(2);
     }
     throw error;
@@ -190,7 +190,7 @@ async function api(apiKey, queryText, rangeYear, allContentTypes, verbose) {
     response = await axios(config);
   } catch (error_) {
     if (process.env.NODE_ENV !== 'test') {
-      console.error(`Error with IEEE API:\n${error_.message}`);
+      redError(`Error with IEEE API:\n${error_.message}`);
       process.exit(3);
     }
     if (!error_.response) throw error_;

@@ -1,5 +1,6 @@
 import fs from 'fs-extra';
 import readlineSync from 'readline-sync';
+import { redError } from './helpers.mjs';
 
 function checkAPIKey(configFile) {
   if (!fs.existsSync(configFile)) {
@@ -10,7 +11,7 @@ function checkAPIKey(configFile) {
       fs.writeJsonSync(configFile, { APIKEY: key }, { spaces: 2 });
       console.log('API key was saved');
     } catch (error) {
-      console.error('Error saving the API key:', error.message);
+      redError('Error saving the API key:', error.message);
       process.exit(1);
     }
   }
