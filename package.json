@@ -30,30 +30,30 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "axios": "^1.12.2",
+    "axios": "^1.13.0",
     "dotenv": "^17.2.3",
     "excel4node": "^1.8.2",
     "fs-extra": "^11.3.2",
     "locate-app": "^2.5.0",
     "lodash": "^4.17.21",
-    "puppeteer-core": "^24.26.0",
+    "puppeteer-core": "^24.26.1",
     "readline-sync": "^1.4.10",
     "yargs": "^18.0.0"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.28.4",
+    "@babel/eslint-parser": "^7.28.5",
     "@commitlint/cli": "^20.1.0",
     "@commitlint/config-conventional": "^20.0.0",
     "@eslint/js": "^9.38.0",
     "@yao-pkg/pkg": "^6.9.0",
     "commit-and-tag-version": "^12.6.0",
-    "eslint": "^9.36.0",
+    "eslint": "^9.38.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-n": "^17.23.1",
     "globals": "^16.4.0",
     "husky": "^9.1.7",
     "jest": "^30.2.0",
-    "lint-staged": "^16.2.5"
+    "lint-staged": "^16.2.6"
   }
 }
