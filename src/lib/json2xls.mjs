@@ -2,6 +2,7 @@ import { promisify } from 'node:util';
 import xl from 'excel4node';
 
 const fontType = process.env.IEEE_font;
+const sciHubDomain = process.env.SCIHUBDOMAIN || 'se';
 
 /**
  * Converts an array of authors into a string.
@@ -37,7 +38,7 @@ async function fromResults(results, xlsFilename) {
     sciHubBaseUrl: 11,
   };
 
-  const sciHubUrl = 'https://sci-hub.ee/';
+  const sciHubUrl = `https://sci-hub.${sciHubDomain}/`;
 
   const wb = new xl.Workbook({
     defaultFont: {
