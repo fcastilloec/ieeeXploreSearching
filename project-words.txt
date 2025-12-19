@@ -21,6 +21,7 @@ ONEAR
 postchangelog
 QELS
 redirections
+SCIHUBDOMAIN
 tealium
 ungron
 workfile
