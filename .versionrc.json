@@ -5,7 +5,7 @@
     { "type": "fix", "section": "Bug Fixes" }
   ],
   "scripts": {
-    "postchangelog": "./bin/dependencies.sh"
+    "postchangelog": "node ./bin/dependencies.mjs"
   },
   "releaseCommitMessageFormat": "build(release): {{currentTag}}"
 }
