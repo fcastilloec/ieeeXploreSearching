@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [9.1.0](https://github.com/fcastilloec/ieeeXploreSearching/compare/v9.0.0...v9.1.0) (2025-12-21)
+
+
+### Dependencies
+
+* bump `axios` to `1.13.2`
+* bump `dotenv` to `17.2.3`
+* bump `fs-extra` to `11.3.2`
+* bump `puppeteer-core` to `24.33.0`
+
+### Features
+
+* add sci-hub domain environmental variable ([#1045](https://github.com/fcastilloec/ieeeXploreSearching/issues/1045)) ([c354954](https://github.com/fcastilloec/ieeeXploreSearching/commit/c354954b84074fcaec654311020b3e8b1bd277e7))
+
+
+### Bug Fixes
+
+* show error messages in red ([#1014](https://github.com/fcastilloec/ieeeXploreSearching/issues/1014)) ([f731b02](https://github.com/fcastilloec/ieeeXploreSearching/commit/f731b02628a39c898eed3a573483595bf2255ef3))
+
 ## [9.0.0](https://github.com/fcastilloec/ieeeXploreSearching/compare/v8.0.0...v9.0.0) (2025-07-17)
 
 
