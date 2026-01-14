@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [9.1.1](https://github.com/fcastilloec/ieeeXploreSearching/compare/v9.1.0...v9.1.1) (2026-01-14)
+
+
+### Dependencies
+
+* bump `fs-extra` to `11.3.3`
+* bump `puppeteer-core` to `24.35.0`
+
+### Bug Fixes
+
+* import dotenv in all entry files ([#1058](https://github.com/fcastilloec/ieeeXploreSearching/issues/1058)) ([b94fa71](https://github.com/fcastilloec/ieeeXploreSearching/commit/b94fa71c7efb6e6251c37270e21bb30b73e27d0b))
+
 ## [9.1.0](https://github.com/fcastilloec/ieeeXploreSearching/compare/v9.0.0...v9.1.0) (2025-12-21)
 
 
