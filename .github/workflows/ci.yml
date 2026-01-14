@@ -12,7 +12,7 @@ on:
 
 jobs:
   test:
-    name: Testing
+    name: Testing2
     runs-on: ubuntu-latest
     steps:
       - name: Get source
