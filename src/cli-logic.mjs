@@ -1,12 +1,15 @@
 #!/usr/bin/env node
 import yargs from 'yargs';
 import fs from 'fs-extra';
+import dotenv from 'dotenv';
 import { fromResults } from './lib/json2xls.mjs';
 import { logicOperations } from './lib/logic-operations.mjs';
 import { changeFileExtension, testFileExtension, redError } from './lib/helpers.mjs';
 import pkg_ from '../package.json' with { type: 'json' };
 
 const yargsInstance = yargs(process.argv.slice(2));
+
+dotenv.config({ quiet: true, path: ['.env', 'env'] }); // read env variables from both '.env' and 'env'
 
 const { argv } = yargsInstance
   .version(pkg_.version)
