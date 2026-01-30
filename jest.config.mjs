@@ -7,7 +7,6 @@ const config = {
   coveragePathIgnorePatterns: [
     'src/lib/api-key.mjs',
     'src/lib/config-directory.mjs',
-    'src/lib/constants.mjs',
     'src/lib/create-json.mjs',
     'src/lib/ieee-api.mjs',
   ],
