@@ -76,11 +76,13 @@ async function scrap(queryText, rangeYear, allContentTypes, verbose) {
       browser,
       executablePath,
       headless,
-      ...(process.env.CI && { args: ['--no-sandbox'] }),
+      slowMo: process.env.CI ? 15 : 5, // Extra 10ms on CI
+      args: ['--width=1920', '--height=1080', ...(process.env.CI ? ['--no-sandbox'] : [])],
     });
     const page = await browser.newPage();
+    await page.setViewport({ width: 1920, height: 1080 });
     page.setDefaultTimeout(timeout);
-    page.setUserAgent(userAgent);
+    await page.setUserAgent(userAgent);
     await page.goto(ieeeSearchUrl + query);
     if (!regex.test(page.url())) {
       throw new Error(`IEEE redirected, probably maintenance is happening.\n${page.url()}`);
@@ -121,13 +123,38 @@ async function scrap(queryText, rangeYear, allContentTypes, verbose) {
     }
 
     while ((await page.$(NEXT)) && totalPages <= TOTAL_PAGES) {
+      const firstResultOld = await page.$eval(ELEMENTS, (el) => el.innerText).catch(() => '');
+
+      const nextBtn = await page.$(NEXT);
+      await nextBtn.scrollIntoViewIfNeeded(); // in case the button is hidden because is out of view
       await page.click(NEXT); // go to next page of results
-      // prettier-ignore
-      { lineStack = getLineStack(18); await page.waitForSelector(ELEMENTS); } // wait for results to load
+
+      // Wait for spinner lifecycle (Appear -> Disappear)
+      await page.waitForSelector('xpl-progress-spinner', { visible: true }).catch(() => {});
+      await page.waitForSelector('xpl-progress-spinner', { hidden: true }); // this also catches removals from DOM
+
+      // Wait until the results container actually shows DIFFERENT text
+      await page.waitForFunction(
+        (selector, oldText) => {
+          const el = document.querySelector(selector);
+          return (
+            el && // The element exists
+            el.innerText.trim().length > 0 && // It has text
+            !el.innerText.includes('Getting results') && // The text is not "Getting results"
+            el.innerText !== oldText // Text is not the same as the previous page
+          );
+        },
+        { timeout: 8000, polling: 'mutation' }, // Mutation polling is more sensitive to DOM changes
+        ELEMENTS,
+        firstResultOld,
+      );
+
       const pageResult = await page.evaluate(createJSON);
       results.push(...pageResult); // add page results to original object
 
       totalPages += 1;
+
+      await new Promise((r) => setTimeout(r, 200)); // A tiny breather to prevent "Sustained High Speed" flagging
     }
 
     await browser.close(); // close browser
