@@ -1,13 +1,49 @@
 import https from 'node:https';
-import { dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
 import axios from 'axios';
 import { locateChrome, locateFirefox } from 'locate-app';
 import { launch } from 'puppeteer-core';
 import createJSON from './create-json.mjs';
 import { escapeRegExp, getLineStack, redError } from './helpers.mjs';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
+/**
+ * Used for inserting Javascript code that contains necessary constants
+ * Needed to avoid importing files with __dirname which causes problem with packaging.
+ *
+ * @returns {string}  The Javascript code that includes the constants.
+ */
+function getConstantsScript() {
+  return `
+    // List of all elements
+    const ELEMENTS = 'xpl-results-item > div.hide-mobile';
+
+    // Selectors relative to each ELEMENT
+    const main = 'div.result-item > div.col.result-item-align';
+    const icons = 'div.doc-access-tools-container';
+
+    // Elements inside MAIN
+    const AUTHORS = main + ' > xpl-authors-name-list > p.author';
+    const TITLE = main + ' > h3 > a';
+    const NO_TITLE = 'h3 > span';
+    const PUBLICATION = main + ' > div.description > a';
+    const DESCRIPTION = main + ' > div.description > div.publisher-info-container';
+
+    // Elements inside ICONS
+    const ABSTRACT = icons + ' > .hide > span';
+    const ABSTRACT_URL = icons + ' > .hide > a';
+
+    globalThis.DATA = {
+      ELEMENTS,
+      AUTHORS,
+      TITLE,
+      NO_TITLE,
+      ICONS: icons + ' > ul > li',
+      PUBLICATION,
+      DESCRIPTION,
+      ABSTRACT,
+      ABSTRACT_URL,
+    };
+  `;
+}
 
 /**
  * Search by scrapping the results from the IEEE search page.
@@ -28,7 +64,7 @@ async function scrap(queryText, rangeYear, allContentTypes, verbose) {
     'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko)' + 'Chrome/117.0.0.0 Safari/537.36';
   const userAgentFirefox = 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/118.0';
   const ieeeSearchUrl = 'https://ieeexplore.ieee.org/search/searchresult.jsp';
-  const ELEMENTS = '.List-results-items'; // change in constants.mjs
+  const ELEMENTS = '.List-results-items';
   const RESULTS = 'h1.Dashboard-header.col-12 > span:nth-child(1)';
   const NO_RESULTS = 'div.List-results-message.List-results-none';
   const NEXT = '.next-btn';
@@ -102,7 +138,7 @@ async function scrap(queryText, rangeYear, allContentTypes, verbose) {
     { lineStack = getLineStack(18); await page.waitForSelector(ELEMENTS); } // Wait until javascript loads all results
 
     await page.addScriptTag({
-      path: join(__dirname, 'constants.mjs'),
+      content: getConstantsScript(),
     }); // Add all selectors as variables to window
     results = await page.evaluate(createJSON); // create JSON with results of first page
 
