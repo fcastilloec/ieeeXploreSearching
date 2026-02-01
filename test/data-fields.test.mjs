@@ -34,13 +34,6 @@ test('queryContainsField does not have a field', () => {
 });
 
 test('removeConflict removes the string', () => {
-  const output = [
-    'document-title',
-    'full-text-and-metadata',
-    'ieee-terms',
-    'metadata',
-    'publication-title',
-    'text-only',
-  ];
+  const output = ['documentTitle', 'fullTextAndMetadata', 'ieeeTerms', 'metadata', 'publicationTitle', 'textOnly'];
   expect(removeConflict('abstract')).toStrictEqual(output);
 });

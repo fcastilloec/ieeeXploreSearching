@@ -12,19 +12,6 @@ const FIELDS = {
 };
 
 /**
- * Command line argument Data Fields
- */
-const YARGS_FIELDS = [
-  'abstract',
-  'document-title',
-  'full-text-and-metadata',
-  'ieee-terms',
-  'metadata',
-  'publication-title',
-  'text-only',
-];
-
-/**
  * Appends an specific data field to each search term.
  *
  * @param   {string}  queryText  the search string.
@@ -67,7 +54,7 @@ function queryContainsField(queryText) {
  * @returns {string[]}  a new array without the string.
  */
 function removeConflict(argument) {
-  return YARGS_FIELDS.filter((field) => field !== argument);
+  return Object.keys(FIELDS).filter((field) => field !== argument);
 }
 
 export { FIELDS, removeConflict, addDataField, queryContainsField };

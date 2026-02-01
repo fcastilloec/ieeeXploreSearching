@@ -110,13 +110,19 @@ function checkQueryText(queryText) {
 /**
  * Shows an error message in red color
  *
- * @param {string} message  Message to be displayed
+ * @param {string}  message  Message to be displayed
+ * @param {boolean} toConsole Whether to print directly to console.error or not
  */
 /* istanbul ignore next */
-function redError(message) {
+function redError(message, toConsole = true) {
   const RED_COLOR = '\x1b[31m';
   const RESET_COLOR = '\x1b[0m';
-  console.error(`${RED_COLOR}${message}${RESET_COLOR}`);
+  const OUTPUT = `${RED_COLOR}${message}${RESET_COLOR}`;
+  if (toConsole) {
+    console.error(OUTPUT);
+  } else {
+    return OUTPUT;
+  }
 }
 
 export { changeFileExtension, checkQueryText, escapeRegExp, getLineStack, redError, testFileExtension, testYears };
