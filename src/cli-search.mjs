@@ -25,7 +25,6 @@ dotenv.config({ quiet: true, path: ['.env', 'env'] }); // read env variables fro
 const program = new Command();
 
 program
-  .name('cli-search')
   .usage('<query> [options] [IEEE Data Fields]')
   .version(pkg_.version)
   .showHelpAfterError()
