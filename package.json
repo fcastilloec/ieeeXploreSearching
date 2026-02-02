@@ -38,8 +38,7 @@
     "locate-app": "^2.5.0",
     "lodash": "^4.17.23",
     "puppeteer-core": "^24.36.0",
-    "readline-sync": "^1.4.10",
-    "yargs": "^18.0.0"
+    "readline-sync": "^1.4.10"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.28.6",
