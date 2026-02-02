@@ -1,138 +1,123 @@
 #!/usr/bin/env node
-import yargs from 'yargs';
+import { Command, Option } from 'commander';
 import fs from 'fs-extra';
+import { basename } from 'node:path';
 import dotenv from 'dotenv';
 import { fromResults } from './lib/json2xls.mjs';
 import { logicOperations } from './lib/logic-operations.mjs';
 import { changeFileExtension, testFileExtension, redError } from './lib/helpers.mjs';
 import pkg_ from '../package.json' with { type: 'json' };
 
-const yargsInstance = yargs(process.argv.slice(2));
-
 dotenv.config({ quiet: true, path: ['.env', 'env'] }); // read env variables from both '.env' and 'env'
 
-const { argv } = yargsInstance
+const program = new Command();
+
+program
   .version(pkg_.version)
-  .wrap(yargsInstance.terminalWidth())
-  .alias('help', 'h')
-  .group(['help', 'version'], 'Global options')
-  .parserConfiguration({
-    'duplicate-arguments-array': false,
-    'boolean-negation': false,
-    'strip-aliased': true,
-  })
-  .strictOptions()
-  .usage('Usage: $0 [command] <options>')
-  .command({
-    command: '$0',
-    desc: 'Perform logic operations between JSON files',
-    builder: (arguments_) => {
-      arguments_
-        .option('output', {
-          alias: 'o',
-          describe: 'Output file of the operation',
-          nargs: 1,
-          type: 'string',
-          demandOption: true,
-        })
-        .option('merge', {
-          alias: 'm',
-          describe: 'Combines different files into a single one',
-          conflicts: ['and', 'or'],
-          type: 'boolean',
-        })
-        .option('and', {
-          alias: 'A',
-          conflicts: ['or', 'merge'],
-          describe: 'Logical AND operator',
-          type: 'boolean',
-        })
-        .option('or', {
-          alias: 'O',
-          conflicts: ['and', 'merge'],
-          describe: 'Logical OR operator',
-          type: 'boolean',
-        })
-        .option('not', {
-          alias: 'N',
-          describe: 'Logical NOT operator',
-          nargs: 1,
-          type: 'string',
-        })
-        .option('excel', {
-          alias: 'e',
-          describe: 'Whether to also save results as excel file',
-          default: false,
-          type: 'boolean',
-        })
-        .check((argument) => {
-          if (!(argument.merge || argument.and || argument.or || argument.not)) {
-            throw new Error('At least one command is needed');
-          }
-          if ((argument.merge || argument.and || argument.or) && argument._.length < 2) {
-            throw new Error('Command needs at least two files to operate on');
-          }
-          if (argument.not && !(argument.merge || argument.and || argument.or) && argument._.length !== 1) {
-            throw new Error('Operator NOT by itself requires only one additional file to operate on');
-          }
-          return true;
-        })
-        .example(
-          '$0 --merge file1.json file2.json file3.json --output output.json',
-          'file1.json OR file2.json OR file3.json -> output.json',
-        )
-        .example('$0 --and file1.json file2.json --output output.json', 'file1.json AND file2.json -> output.json')
-        .example(
-          '$0 --or file1.json file2.json -not file3.json --output output.json',
-          '(file1.json OR file2.json) NOT file3.json -> output.json',
-        );
-    },
-  })
-  .command({
-    command: 'json2xls <jsonFile>',
-    aliases: 'j2x',
-    desc: 'Converts a JSON into xls',
-    builder: (arguments_) => {
-      arguments_
-        .strict()
-        .positional('jsonFile', {
-          describe: 'The JSON file to convert',
-          type: 'string',
-        })
-        .example('$0 json2xls file.json', 'Converts file.json into file.xls');
-    },
+  .showHelpAfterError()
+  .configureOutput({
+    outputError: (str, write) => write(redError(str, false)),
   });
 
-async function convert() {
+program
+  .description('Perform logic operations between JSON files')
+  .argument('<files...>', 'JSON files to operate on')
+  .option('-o, --output <filename>', 'Output file of the operation')
+  .addOption(new Option('-A, --and', 'Logical AND operator').conflicts(['or', 'merge']))
+  .addOption(new Option('-O, --or', 'Logical OR operator').conflicts(['and', 'merge']))
+  .option('-N, --not <filename>', 'Logical NOT operator')
+  .option('-e, --excel', 'Whether to also save results as excel file', false)
+  .addOption(
+    new Option('-m, --merge', 'Combines different files into a single one.\nAlias for OR operator').conflicts([
+      'and',
+      'or',
+    ]),
+  )
+  .action(logic)
+  .addHelpText(
+    'after',
+    `
+Examples:
+  $ ${basename(process.argv[1])} --merge file1.json file2.json file3.json --output output.json
+    file1.json OR file2.json OR file3.json -> output.json
+
+  $ ${basename(process.argv[1])} --and file1.json file2.json --output output.json
+    file1.json AND file2.json -> output.json
+
+  $ ${basename(process.argv[1])} --or file1.json file2.json -not file3.json --output output.json
+    (file1.json OR file2.json) NOT file3.json -> output.json
+`,
+  );
+
+// Command for J2X
+program
+  .command('json2xls <jsonFile>')
+  .alias('j2x')
+  .allowExcessArguments()
+  .description('Converts a JSON into xls')
+  .action(convert)
+  .addHelpText(
+    'after',
+    `
+Example:
+  $ ${basename(process.argv[1])} json2xls file.json
+  Converts file.json into file.xls
+`,
+  );
+
+program.parse(process.argv);
+
+/**
+ * Export a JSON to Excel, used for J2X command
+ *
+ * @param {string} jsonFile The file to convert to Excel
+ */
+async function convert(jsonFile) {
   try {
-    const json = await fs.readJson(argv.jsonFile);
-    await fromResults(json, changeFileExtension(argv.jsonFile, '.xls'));
+    const json = await fs.readJson(jsonFile);
+    await fromResults(json, changeFileExtension(jsonFile, '.xls'));
   } catch (error) {
     redError(`Error converting JSON file:\n${error.message}`);
     process.exit(4);
   }
 }
 
-async function logic() {
-  const result = logicOperations(argv);
+/**
+ * Run logic operations
+ *
+ * @param {string[]} files  an array of files to work on
+ * @param {Object}   opts   the Commander options object
+ */
+async function logic(files, opts) {
+  if (!opts.output) {
+    program.error("error: required option '-o, --output <filename>' not specified");
+  }
+  // Checks on options and arguments
+  if (!(opts.merge || opts.and || opts.or || opts.not)) {
+    program.error('error: at least one command option is needed');
+  }
+  if ((opts.merge || opts.and || opts.or) && files.length < 2) {
+    program.error('error: command needs at least two files to operate on');
+  }
+  if (opts.not && !(opts.merge || opts.and || opts.or) && files.length !== 1) {
+    program.error('error: operator NOT by itself requires only one additional file to operate on');
+  }
+
+  // Run the operations
+  const result = logicOperations({ ...opts, files });
   if (result.length === 0) {
     console.log('Logic operation returned zero results. No files will be saved.');
     process.exit(0);
   }
-
   console.log('Operation returned %s results', result.length);
   try {
-    await fs.ensureFile(testFileExtension(argv.output, '.json')); // create the parent directory if it doesn't exist
-    await fs.writeJson(testFileExtension(argv.output, '.json'), result, {
+    await fs.ensureFile(testFileExtension(opts.output, '.json')); // create the parent directory if it doesn't exist
+    await fs.writeJson(testFileExtension(opts.output, '.json'), result, {
       spaces: 1,
     });
-    if (argv.excel) await fromResults(result, testFileExtension(argv.output, '.xls'));
+    if (opts.excel) await fromResults(result, testFileExtension(opts.output, '.xls'));
   } catch (error) {
     redError(`Error writing JSON or XLS file:\n${error.message}`);
     process.exit(4);
   }
 }
-
-argv.jsonFile ?
-  convert() // Converts JSON to XLS
-: logic(); // Run logic operations on JSON files
