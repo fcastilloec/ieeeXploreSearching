@@ -32,7 +32,7 @@ function logicOperations(options) {
   let files;
 
   try {
-    files = options._.map((file) => readJsonSync(file));
+    files = options.files.map((file) => readJsonSync(file));
   } catch (error) {
     redError(`Error reading JSON file:\n${error.message}`);
     process.exit(4);
