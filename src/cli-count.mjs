@@ -7,7 +7,6 @@ import pkg_ from '../package.json' with { type: 'json' };
 const program = new Command();
 
 program
-  .usage('<filename...>')
   .version(pkg_.version)
   .showHelpAfterError()
   .description('Count the number of results in a JSON file')

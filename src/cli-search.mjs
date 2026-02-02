@@ -80,7 +80,7 @@ program
   )
 
   // Other flags
-  .addOption(new Option('-e, --excel', 'Also save results as Excel file in addition to JSON').default(false))
+  .option('-e, --excel', 'Also save results as Excel file in addition to JSON', false)
 
   // --year as REPEATABLE (not variadic) so it doesn't eat the query
   .addOption(
@@ -92,24 +92,22 @@ program
       // First argument needs empty array to start
       .argParser((value, previous) => (previous || []).concat(Number(value))),
   )
-  .addOption(new Option('-s, --scrap', 'Scrap the IEEE website instead of using the default search API').default(false))
+  .option('-s, --scrap', 'Scrap the IEEE website instead of using the default search API', false)
   // Repeatable -v -> count occurrences
   .addOption(
     new Option('-v, --verbose', 'Show extra info')
       .argParser((_, prev) => (typeof prev === 'number' ? prev + 1 : 1))
       .default(0),
   )
-  .addOption(
-    new Option(
-      '-a, --all-content-types',
-      'Search across all content types.\nDefault content types: Magazines, Conferences, Journals.\nExcluded: Courses, Early Access, Books, Standards',
-    ).default(false),
+  .option(
+    '-a, --all-content-types',
+    'Search across all content types.\nDefault content types: Magazines, Conferences, Journals.\nExcluded: Courses, Early Access, Books, Standards',
+    false,
   )
-  .addOption(
-    new Option(
-      '-l, --link-only',
-      'Show the IEEE search link only, like verbose\nThis is useful to check the list of publishers',
-    ).default(false),
+  .option(
+    '-l, --link-only',
+    'Show the IEEE search link only, like verbose\nThis is useful to check the list of publishers',
+    false,
   );
 
 // Examples (keep; data field list is no longer appended manually)
@@ -117,10 +115,10 @@ program.addHelpText(
   'after',
   `
 Examples:
-  $ cli-search 'optics AND nano' -o search1 -y 1990 -y 2000 -e
+  $ ${path.basename(process.argv[1])} 'optics AND nano' -o search1 -y 1990 -y 2000 -e
     searches for "optics AND nano" between 1990-2000 and saves results to search1.json and search1.xls
 
-  $ cli-search 'h264 NEAR/3 cellular' -y 2005 -o search2.json
+  $ ${path.basename(process.argv[1])} 'h264 NEAR/3 cellular' -y 2005 -o search2.json
     searches for "h264 NEAR/3 cellular" only in 2005 and saves results to search2.json
 `,
 );
