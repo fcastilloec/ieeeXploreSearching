@@ -43,7 +43,7 @@ export default [
     },
   },
   {
-    files: ['eslint.config.mjs'],
+    files: ['eslint.config.mjs', 'bin/build-pkg.mjs'],
     rules: {
       'n/no-unpublished-import': 'off',
     },
