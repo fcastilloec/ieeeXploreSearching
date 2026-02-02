@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import path from 'node:path';
 import fs from 'fs-extra';
-import yargs from 'yargs';
+import { Command, Option } from 'commander';
 import dotenv from 'dotenv';
 import pkg_ from '../package.json' with { type: 'json' };
 import { checkAPIKey } from './lib/api-key.mjs';
@@ -10,8 +10,6 @@ import { testYears, checkQueryText, testFileExtension, redError } from './lib/he
 import { FIELDS, removeConflict, addDataField, queryContainsField } from './lib/data-fields.mjs';
 import { scrap, api, scrapLink } from './lib/ieee-api.mjs';
 import { fromResults as json2xls } from './lib/json2xls.mjs';
-
-const yargsInstance = yargs(process.argv.slice(2));
 
 if (process.platform === 'win32') {
   console.warn("You're running on a Windows system");
@@ -24,206 +22,228 @@ if (process.platform === 'win32') {
 
 dotenv.config({ quiet: true, path: ['.env', 'env'] }); // read env variables from both '.env' and 'env'
 
-const { argv } = yargsInstance
-  .wrap(yargsInstance.terminalWidth())
+const program = new Command();
+
+program
+  .name('cli-search')
+  .usage('<query> [options] [IEEE Data Fields]')
   .version(pkg_.version)
-  .usage('Usage: $0 <query> [options] [IEEE Data Fields]')
-  .strict()
-  .alias('help', 'h')
-  .demandCommand(1, 1, 'No search query specified')
-  .option('output', {
-    alias: 'o',
-    describe:
-      'Filename where results are saved as JSON.\nCan use env variable OUT.\nIt OUT is an integer, the output will be "search{num}"',
-    nargs: 1,
-    type: 'string',
-    demandOption: !process.env.OUT,
-    normalize: true,
-  })
-  .option('abstract', {
-    alias: 'b',
-    conflicts: removeConflict('abstract'),
-    describe: 'Abstract only',
-    type: 'boolean',
-  })
-  .option('full-text-and-metadata', {
-    alias: 'f',
-    conflicts: removeConflict('full-text-and-metadata'),
-    describe: '"Full Text & Metadata".\nUse env "FULL=true"',
-    type: 'boolean',
-  })
-  .option('text-only', {
-    alias: 't',
-    conflicts: removeConflict('text-only'),
-    describe: '"Full Text Only"',
-    type: 'boolean',
-  })
-  .option('publication-title', {
-    alias: 'p',
-    conflicts: removeConflict('publication-title'),
-    describe: '"Publication Title"',
-    type: 'boolean',
-  })
-  .option('document-title', {
-    alias: 'd',
-    conflicts: removeConflict('document-title'),
-    describe: '"Document Title"',
-    type: 'boolean',
-  })
-  .option('metadata', {
-    alias: 'm',
-    describe: '"All Metadata"',
-    conflicts: removeConflict('metadata'),
-    type: 'boolean',
-  })
-  .option('ieee-terms', {
-    alias: 'i',
-    describe: '"IEEE Terms"',
-    conflicts: removeConflict('ieee-terms'),
-    type: 'boolean',
-  })
-  .option('excel', {
-    alias: 'e',
-    describe: 'Whether to also save results as excel file in addition to JSON',
-    default: false,
-    type: 'boolean',
-  })
-  .option('year', {
-    alias: 'y',
-    nargs: 1,
-    demandOption: !process.env.YEARS,
-    describe:
-      'Calling it once will search only on that year. Calling twice will search on the range.\n' +
-      'Use env "YEARS=2000:2001"',
-    // array will consume all arguments after -y, including the query. No way to make array nargs variable
-    type: 'number',
-    array: true,
-  })
-  .option('scrap', {
-    alias: 's',
-    describe: 'Scrap the IEEE website instead of using the default search API',
-    default: false,
-    type: 'boolean',
-  })
-  .option('verbose', {
-    alias: 'v',
-    describe: 'Show extra info',
-    type: 'count',
-  })
-  .option('all-content-types', {
-    alias: 'a',
-    describe:
-      'Search across all content types.\n' +
-      'Default content types: Magazines, Conferences, Journals.\n' +
-      'Excluded: Courses, Early Access, Books, Standards',
-    default: false,
-    type: 'boolean',
-  })
-  .option('link-only', {
-    alias: 'l',
-    describe: 'Show the IEEE search link only, like verbose\n' + 'This is useful to check the list of publishers',
-    default: false,
-    type: 'boolean',
-  })
-  .parserConfiguration({
-    'strip-aliased': true,
-    'strip-dashed': true,
-  })
-  .coerce({
-    year: (year) => (year.length == 1 ? [year[0], year[0]] : year),
-  })
-  .check((arguments_) => {
-    if (!process.env.YEARS) testYears(arguments_.year);
-    checkQueryText(arguments_._[0]);
-    return true;
-  })
-  .group(
-    ['full-text-and-metadata', 'text-only', 'publication-title', 'document-title', 'metadata', 'ieee-terms'],
-    'IEEE Data Fields', // name of the group
+  .showHelpAfterError()
+  .description('Search IEEE content with API or scraper and export results')
+  .configureOutput({
+    outputError: (str, write) => write(redError(str, false)),
+  });
+
+// Required positional <query>
+program.argument('<query>', 'Search query');
+
+// Options
+program
+  .option(
+    '-o, --output <filename>',
+    'Filename where results are saved as JSON.\nCan use env variable OUT.\nIf OUT is an integer, the output will be "search{num}"',
   )
-  .example(
-    "$0 'optics AND nano' -o search1 -y 1990 -y 2000 -e",
-    'searches for "optics AND nano" between 1990-2000 and save the results in search1.json and search1.xls',
+  // --- IEEE Data Fields: grouped & mutually exclusive (grouped for help only)
+  .addOption(
+    new Option('-b, --abstract', 'Abstract only')
+      .helpGroup('IEEE Data Fields (mutually exclusive)')
+      .conflicts(removeConflict('abstract')),
   )
-  .example(
-    "$0 'h264 NEAR/3 cellular' -y 2005 -o search2.json",
-    'searches for "h264 NEAR/3 cellular" only on 2005, and save the results in search2.json',
+  .addOption(
+    new Option('-f, --full-text-and-metadata', '"Full Text & Metadata"')
+      .helpGroup('IEEE Data Fields (mutually exclusive)')
+      .conflicts(removeConflict('fullTextAndMetadata')),
+  )
+  .addOption(
+    new Option('-t, --text-only', '"Full Text Only"')
+      .helpGroup('IEEE Data Fields (mutually exclusive)')
+      .conflicts(removeConflict('textOnly')),
+  )
+  .addOption(
+    new Option('-p, --publication-title', '"Publication Title"')
+      .helpGroup('IEEE Data Fields (mutually exclusive)')
+      .conflicts(removeConflict('publicationTitle')),
+  )
+  .addOption(
+    new Option('-d, --document-title', '"Document Title"')
+      .helpGroup('IEEE Data Fields (mutually exclusive)')
+      .conflicts(removeConflict('documentTitle')),
+  )
+  .addOption(
+    new Option('-m, --metadata', '"All Metadata"')
+      .helpGroup('IEEE Data Fields (mutually exclusive)')
+      .conflicts(removeConflict('metadata')),
+  )
+  .addOption(
+    new Option('-i, --ieee-terms', '"IEEE Terms"')
+      .helpGroup('IEEE Data Fields (mutually exclusive)')
+      .conflicts(removeConflict('ieeeTerms')),
+  )
+
+  // Other flags
+  .addOption(new Option('-e, --excel', 'Also save results as Excel file in addition to JSON').default(false))
+
+  // --year as REPEATABLE (not variadic) so it doesn't eat the query
+  .addOption(
+    new Option(
+      '-y, --year <number>',
+      'Calling it once will search only on that year. Calling twice will search on the range.\nUse env "YEARS=2000:2001"',
+    )
+      // creates an array (concat) of all passed 'year' arguments.
+      // First argument needs empty array to start
+      .argParser((value, previous) => (previous || []).concat(Number(value))),
+  )
+  .addOption(new Option('-s, --scrap', 'Scrap the IEEE website instead of using the default search API').default(false))
+  // Repeatable -v -> count occurrences
+  .addOption(
+    new Option('-v, --verbose', 'Show extra info')
+      .argParser((_, prev) => (typeof prev === 'number' ? prev + 1 : 1))
+      .default(0),
+  )
+  .addOption(
+    new Option(
+      '-a, --all-content-types',
+      'Search across all content types.\nDefault content types: Magazines, Conferences, Journals.\nExcluded: Courses, Early Access, Books, Standards',
+    ).default(false),
+  )
+  .addOption(
+    new Option(
+      '-l, --link-only',
+      'Show the IEEE search link only, like verbose\nThis is useful to check the list of publishers',
+    ).default(false),
   );
 
-/* Assigns environmental variables if present */
-// Sets year from env variable 'YEARS' if an argument wasn't explicitly pass
-if (process.env.YEARS && !argv.year) {
-  if (argv.verbose) console.log(`Using env YEARS (${process.env.YEARS})`);
-  const years = process.env.YEARS.split(':').map((year) => Number.parseInt(year, 10)); // creates an array of years
-  try {
-    testYears(years);
-  } catch (error) {
-    redError(`YEARS env variable: ${error.message}`);
-    process.exit(1);
+// Examples (keep; data field list is no longer appended manually)
+program.addHelpText(
+  'after',
+  `
+Examples:
+  $ cli-search 'optics AND nano' -o search1 -y 1990 -y 2000 -e
+    searches for "optics AND nano" between 1990-2000 and saves results to search1.json and search1.xls
+
+  $ cli-search 'h264 NEAR/3 cellular' -y 2005 -o search2.json
+    searches for "h264 NEAR/3 cellular" only in 2005 and saves results to search2.json
+`,
+);
+
+// ------------------------------
+// Parse and validate
+// ------------------------------
+program.parse(process.argv);
+const opts = program.opts();
+const args = program.processedArgs || program.args; // Commander 12 keeps processedArgs
+
+let queryText = args[0];
+let years = opts.year;
+if (!opts.year) {
+  if (process.env.YEARS) {
+    if (opts.verbose) console.log(`Using env YEARS (${process.env.YEARS})`);
+    years = process.env.YEARS.split(':').map((year) => Number.parseInt(year, 10)); // creates an array of years
+  } else {
+    redError('Missing required argument: --year <number...>\n');
+    program.help({ error: true });
   }
-  argv.year = years.length === 1 ? [years[0], years[0]] : years;
+}
+opts.year = years.length == 1 ? [years[0], years[0]] : years;
+try {
+  testYears(opts.year);
+  checkQueryText(queryText);
+} catch (error) {
+  redError(error.message + '\n');
+  program.help({ error: true });
 }
 
-// Sets output name based on env variable 'OUT'
+// --output; allow OUT env override
+let output = opts.output;
 if (process.env.OUT) {
-  if (argv.verbose) console.log(`Using env OUT (${process.env.OUT})`);
-  argv.output = /^[1-9]\d*$/.test(process.env.OUT) ? `search${process.env.OUT}` : process.env.OUT;
-  if (argv.verbose) console.log(`OUT: ${argv.output}`);
+  if (opts.verbose) console.log(`Using env OUT (${process.env.OUT})`);
+  output = /^[1-9]\d*$/.test(process.env.OUT) ? `search${process.env.OUT}` : process.env.OUT;
+  if (opts.verbose) console.log(`OUT: ${output}`);
+}
+if (!output) {
+  redError('Missing required option: --output <filename> (or set OUT env var)\n');
+  program.help({ error: true });
 }
 
-if (argv.verbose >= 2) console.log(argv);
-console.log('Searching for: %s', argv._[0]);
-console.log('Between %s and %s', argv.year[0], argv.year[1]);
-const content = argv.allContentTypes ? 'All' : 'Journals, Magazines, Conferences';
+// Verbosity level
+const verbosity = Number(opts.verbose) || 0;
+if (verbosity >= 2) {
+  // Log parsed state as an object, similarly to yargs argv dump
+  console.log('Arguments: ', {
+    output,
+    abstract: !!opts.abstract,
+    fullTextAndMetadata: !!opts.fullTextAndMetadata,
+    textOnly: !!opts.textOnly,
+    publicationTitle: !!opts.publicationTitle,
+    documentTitle: !!opts.documentTitle,
+    metadata: !!opts.metadata,
+    ieeeTerms: !!opts.ieeeTerms,
+    excel: !!opts.excel,
+    year: opts.year,
+    scrap: !!opts.scrap,
+    verbose: verbosity,
+    allContentTypes: !!opts.allContentTypes,
+    linkOnly: !!opts.linkOnly,
+    query: queryText,
+  });
+}
+
+console.log('Searching for: %s', queryText);
+console.log('Between %s and %s', opts.year[0], opts.year[1]);
+const content = opts.allContentTypes ? 'All' : 'Journals, Magazines, Conferences';
 console.log(`Searching for type: ${content}`);
 
-let queryText = argv._[0];
-
 // Don't add fields if they're already there
-if (!queryContainsField(argv._[0])) {
+if (!queryContainsField(queryText)) {
   // Prioritize command line arguments over environmental variables
   const dataFieldKey =
-    Object.keys(FIELDS).find((key) => argv[key]) || (process.env.FULL === 'true' ? 'fullTextAndMetadata' : null);
+    Object.keys(FIELDS).find((key) => opts[key]) || (process.env.FULL === 'true' ? 'fullTextAndMetadata' : null);
 
   if (dataFieldKey) queryText = addDataField(queryText, FIELDS[dataFieldKey]);
-  console.log('Using: %s', FIELDS[dataFieldKey] || 'No data fields');
+  console.log('Using: %s', dataFieldKey ? FIELDS[dataFieldKey] : 'No data fields');
 }
 
+// ------------------------------
+// Main logic
+// ------------------------------
 async function search() {
   let results;
-  if (argv.scrap) {
-    results = await scrap(queryText, argv.year, argv.allContentTypes, argv.verbose);
+  if (opts.scrap) {
+    results = await scrap(queryText, years, opts.allContentTypes, verbosity);
   } else {
     const configFile = path.join(configDirectory(), 'config.json');
     checkAPIKey(configFile);
     try {
       const config = fs.readJSONSync(configFile); // Read the API_KEY
-      results = await api(config.APIKEY, queryText, argv.year, argv.allContentTypes, argv.verbose);
+      results = await api(config.APIKEY, queryText, years, opts.allContentTypes, verbosity);
     } catch (error) {
-      redError('Error reading the APIKEY:', error.message);
+      redError(`Error reading the APIKEY: ${error.message}`);
       process.exit(1);
     }
   }
 
   console.log('Found %s results', results.total_records);
-  if (!argv.scrap && results.total_records > 200) {
+  if (!opts.scrap && results.total_records > 200) {
     console.warn('WARNING: API searches are limited to fetching 200 results');
     console.warn('\t Consider using scraping or narrowing your search');
   }
+
   if (results.total_records > 0) {
     try {
-      await fs.ensureFile(testFileExtension(argv.output, '.json')); // create the parent directory if it doesn't exist
-      await fs.writeJson(testFileExtension(argv.output, '.json'), results.articles, { spaces: 1 });
-      if (argv.excel) await json2xls(results.articles, testFileExtension(argv.output, '.xls'));
+      const jsonPath = testFileExtension(output, '.json');
+      await fs.ensureFile(jsonPath); // create the parent directory if it doesn't exist
+      await fs.writeJson(jsonPath, results.articles, { spaces: 1 });
+      if (opts.excel) await json2xls(results.articles, testFileExtension(output, '.xls'));
     } catch (error) {
       redError(`Error writing JSON or XLS file:\n${error.message}`);
       process.exit(4);
     }
   }
 }
-if (argv.linkOnly) {
-  const query = scrapLink(queryText, argv.year, argv.allContentTypes);
+
+if (opts.linkOnly) {
+  const query = scrapLink(queryText, years, opts.allContentTypes);
   console.log('Encoded Query: %s\n', query);
-} else {
+} else if (!process.env.CI) {
   search();
 }
