@@ -18,6 +18,8 @@ coverage
 
 # installers
 build
+dist
+artifacts
 
 # TODO files
 scrapping fields

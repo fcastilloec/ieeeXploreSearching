@@ -9,5 +9,15 @@
     }
   ],
   "dictionaries": ["project-words"],
-  "ignorePaths": ["node_modules", "/project-words.txt", "GUI", "TODO", "WORKFLOW", "test/fixtures/**", ".gitignore"]
+  "ignorePaths": [
+    "node_modules",
+    "/project-words.txt",
+    "GUI",
+    "TODO",
+    "WORKFLOW",
+    "test/fixtures/**",
+    ".gitignore",
+    "build",
+    "dist"
+  ]
 }
