@@ -22,11 +22,15 @@ if (process.platform === 'win32') {
 
 dotenv.config({ quiet: true, path: ['.env', 'env'] }); // read env variables from both '.env' and 'env'
 
+const IEEE_FIELD_DESC = `IEEE Data Fields (mutually exclusive).
+Prepends this field to every term and quoted phrase in your query.
+Example: nano AND "fiber cable" → "Field":nano AND "Field":"fiber cable"
+`;
+
 const program = new Command();
 
 program
   .usage('<query> [options] [IEEE Data Fields]')
-  .version(pkg_.version)
   .showHelpAfterError()
   .description('Search IEEE content with API or scraper and export results')
   .configureOutput({
@@ -40,74 +44,68 @@ program.argument('<query>', 'Search query');
 program
   .option(
     '-o, --output <filename>',
-    'Filename where results are saved as JSON.\nCan use env variable OUT.\nIf OUT is an integer, the output will be "search{num}"',
+    `Filename where results are saved, without extension.\nCan use env variable OUT (check '${path.basename(process.argv[1])} --help-env' for more info).`,
   )
-  // --- IEEE Data Fields: grouped & mutually exclusive (grouped for help only)
-  .addOption(
-    new Option('-b, --abstract', 'Abstract only')
-      .helpGroup('IEEE Data Fields (mutually exclusive)')
-      .conflicts(removeConflict('abstract')),
-  )
-  .addOption(
-    new Option('-f, --full-text-and-metadata', '"Full Text & Metadata"')
-      .helpGroup('IEEE Data Fields (mutually exclusive)')
-      .conflicts(removeConflict('fullTextAndMetadata')),
-  )
-  .addOption(
-    new Option('-t, --text-only', '"Full Text Only"')
-      .helpGroup('IEEE Data Fields (mutually exclusive)')
-      .conflicts(removeConflict('textOnly')),
-  )
-  .addOption(
-    new Option('-p, --publication-title', '"Publication Title"')
-      .helpGroup('IEEE Data Fields (mutually exclusive)')
-      .conflicts(removeConflict('publicationTitle')),
-  )
-  .addOption(
-    new Option('-d, --document-title', '"Document Title"')
-      .helpGroup('IEEE Data Fields (mutually exclusive)')
-      .conflicts(removeConflict('documentTitle')),
-  )
-  .addOption(
-    new Option('-m, --metadata', '"All Metadata"')
-      .helpGroup('IEEE Data Fields (mutually exclusive)')
-      .conflicts(removeConflict('metadata')),
-  )
-  .addOption(
-    new Option('-i, --ieee-terms', '"IEEE Terms"')
-      .helpGroup('IEEE Data Fields (mutually exclusive)')
-      .conflicts(removeConflict('ieeeTerms')),
-  )
-
-  // Other flags
-  .option('-e, --excel', 'Also save results as Excel file in addition to JSON', false)
-
   // --year as REPEATABLE (not variadic) so it doesn't eat the query
   .addOption(
     new Option(
       '-y, --year <number>',
-      'Calling it once will search only on that year. Calling twice will search on the range.\nUse env "YEARS=2000:2001"',
+      `Specify a single year (-y 2000) or a range (-y 2000 -y 2005).\nCan use env variable YEARS (check '${path.basename(process.argv[1])} --help-env' for more info).`,
     )
       // creates an array (concat) of all passed 'year' arguments.
       // First argument needs empty array to start
       .argParser((value, previous) => (previous || []).concat(Number(value))),
   )
-  .option('-s, --scrap', 'Scrap the IEEE website instead of using the default search API', false)
+  .option('-s, --scrap', 'Scrap the IEEE website instead of using the default IEEE API', false)
+  .option('-e, --excel', 'Export results as an Excel file in addition to the JSON output', false)
+  .option(
+    '-a, --all-content-types',
+    'Include all content types in the search.\nBy default, only Magazines, Conferences, and Journals are searched; this flag adds Courses, Early Access, Books, and Standards.',
+    false,
+  )
+  .option(
+    '-l, --link-only',
+    'Display the generated search URL without fetching results.\nUse this to debug queries or to open the search directly on the IEEE website for manual filtering.',
+    false,
+  )
+  .option('--help-env', 'show help for user environmental variables')
   // Repeatable -v -> count occurrences
   .addOption(
     new Option('-v, --verbose', 'Show extra info')
       .argParser((_, prev) => (typeof prev === 'number' ? prev + 1 : 1))
       .default(0),
   )
-  .option(
-    '-a, --all-content-types',
-    'Search across all content types.\nDefault content types: Magazines, Conferences, Journals.\nExcluded: Courses, Early Access, Books, Standards',
-    false,
+  .version(pkg_.version)
+  // --- IEEE Data Fields: grouped & mutually exclusive (grouped for help only)
+  .addOption(
+    new Option('-b, --abstract', '"Abstract"').helpGroup(IEEE_FIELD_DESC).conflicts(removeConflict('abstract')),
   )
-  .option(
-    '-l, --link-only',
-    'Show the IEEE search link only, like verbose\nThis is useful to check the list of publishers',
-    false,
+  .addOption(
+    new Option(
+      '-f, --full-text-and-metadata',
+      `"Full Text & Metadata"\nCan use env variable FULL (check '${path.basename(process.argv[1])} --help-env' for more info).`,
+    )
+      .helpGroup(IEEE_FIELD_DESC)
+      .conflicts(removeConflict('fullTextAndMetadata')),
+  )
+  .addOption(
+    new Option('-t, --text-only', '"Full Text Only"').helpGroup(IEEE_FIELD_DESC).conflicts(removeConflict('textOnly')),
+  )
+  .addOption(
+    new Option('-p, --publication-title', '"Publication Title"')
+      .helpGroup(IEEE_FIELD_DESC)
+      .conflicts(removeConflict('publicationTitle')),
+  )
+  .addOption(
+    new Option('-d, --document-title', '"Document Title"')
+      .helpGroup(IEEE_FIELD_DESC)
+      .conflicts(removeConflict('documentTitle')),
+  )
+  .addOption(
+    new Option('-m, --metadata', '"All Metadata"').helpGroup(IEEE_FIELD_DESC).conflicts(removeConflict('metadata')),
+  )
+  .addOption(
+    new Option('-i, --ieee-terms', '"IEEE Terms"').helpGroup(IEEE_FIELD_DESC).conflicts(removeConflict('ieeeTerms')),
   );
 
 // Examples (keep; data field list is no longer appended manually)
@@ -122,6 +120,35 @@ Examples:
     searches for "h264 NEAR/3 cellular" only in 2005 and saves results to search2.json
 `,
 );
+
+program.on('option:help-env', () => {
+  console.log(`
+User Environment Variables:
+  APIKEY        Your secret API key. Required to run searching via the official IEEE API.
+
+  YEAR          A specific year or a colon-separated range to limit the search.
+                Examples: YEAR=2005 or YEAR=1990:2000
+
+  OUT           Filename where results will be saved (without extension).
+                If OUT is an integer, the output will be "search{num}".
+                Examples: OUT=search (Saves as search.json and/or search.xls)
+                OUT=2 (Saves as search2.json and/or search2.xls)
+
+  FULL          Set to 'true' to use the "Full Text & Metadata" data field for searches.
+                Example: FULL=true
+
+  CONFIG_DIR    Path to the directory where configuration is stored.
+                If not set, the default is your OS's standard path (i.e. AppData on Windows)
+                Example: CONFIG_DIR=/home/user/ieeeConfig/
+
+  IEEE_FONT     The font to use for Excel exports. Defaults to 'Liberation Serif'.
+                Example: IEEE_FONT=Arial
+
+  SCIHUBDOMAIN  The Sci-Hub domain to use. Valid values: se, ru, st, red, etc.
+                Example: SCIHUBDOMAIN=se
+    `);
+  process.exit(0); // needed to stop parsing and not throw validation errors
+});
 
 // ------------------------------
 // Parse and validate
@@ -157,8 +184,8 @@ if (process.env.OUT) {
   output = /^[1-9]\d*$/.test(process.env.OUT) ? `search${process.env.OUT}` : process.env.OUT;
   if (opts.verbose) console.log(`OUT: ${output}`);
 }
-if (!output) {
-  redError('Missing required option: --output <filename> (or set OUT env var)\n');
+if (!output && !opts.linkOnly) {
+  redError('Missing required option: --output <filename> (or set OUT env variable)\n');
   program.help({ error: true });
 }
 
