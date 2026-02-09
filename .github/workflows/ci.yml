@@ -73,7 +73,7 @@ jobs:
           [[ "${{ matrix.platform }}" == "macos" ]] && TAR=gtar || TAR=tar
           XZ_OPT=-0 ${TAR} -cJvf ../${{ runner.os }}-x64.tar.xz *
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: ${{ runner.os }}
           path: ${{ runner.os }}-x64.tar.xz
