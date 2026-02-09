@@ -266,6 +266,16 @@ async function api(apiKey, queryText, rangeYear, allContentTypes, verbose) {
   return response.data;
 }
 
+/**
+ * Generate a link that is used when scrapping.
+ * This is useful when checking for publishers or filtering in general using the IEEE website.
+ *
+ * @param {string} queryText          The query string
+ * @param {number[]} rangeYear        A two-element array containing the range of years to filter results
+ * @param {boolean} allContentTypes   Whether to search all content types, or just Magazines, Conferences, and Journals
+ *
+ * @returns {string}  The URL for the results.
+ */
 function scrapLink(queryText, rangeYear, allContentTypes) {
   const ieeeSearchUrl = 'https://ieeexplore.ieee.org/search/searchresult.jsp';
   let query =
