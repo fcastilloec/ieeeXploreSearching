@@ -3,7 +3,6 @@ import js from '@eslint/js';
 import nodePlugin from 'eslint-plugin-n';
 import importPlugin from 'eslint-plugin-import';
 import eslintConfigPrettier from 'eslint-config-prettier/flat';
-import babelParser from '@babel/eslint-parser';
 
 /** @type {import('eslint').Linter.FlatConfig[]} */
 export default [
@@ -22,16 +21,8 @@ export default [
   {
     files: ['**/*.mjs'],
     languageOptions: {
-      parser: babelParser,
-      parserOptions: {
-        sourceType: 'module',
-        ecmaVersion: 'latest',
-        requireConfigFile: false,
-        babelOptions: {
-          // Tell Babel to specifically enable the import attributes plugin
-          plugins: ['@babel/plugin-syntax-import-attributes'],
-        },
-      },
+      sourceType: 'module',
+      ecmaVersion: 'latest',
       globals: {
         ...globals.browser,
         ...globals.node,
