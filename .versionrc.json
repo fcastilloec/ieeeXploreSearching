@@ -1,11 +1,7 @@
 {
   "types": [
-    { "type": "chore", "section": "Dependencies" },
     { "type": "feat", "section": "Features" },
     { "type": "fix", "section": "Bug Fixes" }
   ],
-  "scripts": {
-    "postchangelog": "node ./bin/dependencies.mjs"
-  },
-  "releaseCommitMessageFormat": "build(release): {{currentTag}}"
+  "releaseCommitMessageFormat": "release: {{currentTag}}"
 }
