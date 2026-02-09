@@ -41,7 +41,6 @@
     "readline-sync": "^1.4.10"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.28.6",
     "@commitlint/cli": "^20.3.1",
     "@commitlint/config-conventional": "^20.3.1",
     "@eslint/js": "^9.39.2",
