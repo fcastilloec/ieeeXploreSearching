@@ -51,7 +51,7 @@ jobs:
     runs-on: ${{ matrix.runner }}
     steps:
       - name: Get source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Use Node.js ${{ env.node-version }}
         uses: actions/setup-node@v6
         with:
