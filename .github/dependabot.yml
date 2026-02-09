@@ -8,14 +8,12 @@ updates:
     open-pull-requests-limit: 10
     commit-message:
       prefix: build
-      include: scope
 
     # Maintain dependencies for GitHub Actions
   - package-ecosystem: github-actions
     directory: '/'
     commit-message:
       prefix: ci
-      include: scope
     schedule:
       interval: weekly
       time: '15:45'
