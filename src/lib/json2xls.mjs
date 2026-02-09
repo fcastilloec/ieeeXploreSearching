@@ -34,13 +34,13 @@ async function fromResults(results, xlsFilename) {
     content_type: 10,
     sciHubBaseUrl: 11,
   };
-  const fontType = process.env.IEEE_font;
+  const fontType = process.env.IEEE_FONT || 'Liberation Serif';
   const sciHubDomain = process.env.SCIHUBDOMAIN || 'se';
   const sciHubUrl = `https://sci-hub.${sciHubDomain}/`;
 
   const wb = new xl.Workbook({
     defaultFont: {
-      name: fontType || 'Liberation Serif',
+      name: fontType,
       size: 12,
     },
   });
@@ -67,7 +67,7 @@ async function fromResults(results, xlsFilename) {
       vertical: 'center',
     },
     font: {
-      name: fontType || 'Liberation Sans',
+      name: fontType,
       size: 11,
       underline: true,
       color: '1A73E8',

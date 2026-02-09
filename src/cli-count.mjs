@@ -7,10 +7,13 @@ import pkg_ from '../package.json' with { type: 'json' };
 const program = new Command();
 
 program
-  .version(pkg_.version)
   .showHelpAfterError()
+  .configureOutput({
+    outputError: (str, write) => write(redError(str, false)),
+  })
   .description('Count the number of results in a JSON file')
-  .argument('<filename...>', 'JSON file(s) to read'); // require at least one filename
+  .argument('<filename...>', 'JSON file(s) to read') // require at least one filename
+  .version(pkg_.version);
 
 program.parse(process.argv);
 
