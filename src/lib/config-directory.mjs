@@ -1,5 +1,5 @@
 import path from 'node:path';
-import { pathExistsSync } from 'fs-extra/esm';
+import { existsSync } from 'node:fs';
 import { redError } from './helpers.mjs';
 import pkg_ from '../../package.json' with { type: 'json' };
 
@@ -10,7 +10,7 @@ import pkg_ from '../../package.json' with { type: 'json' };
  */
 function configDirectory() {
   if (process.env.CONFIG_DIR) {
-    if (!pathExistsSync(process.env.CONFIG_DIR)) {
+    if (!existsSync(process.env.CONFIG_DIR)) {
       redError('Configuration directory does not exist');
       throw new Error('Configuration directory does not exist');
     }

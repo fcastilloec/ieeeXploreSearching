@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-import path from 'node:path';
-import fs from 'fs-extra';
+import { basename, dirname, join } from 'node:path';
+import { readFileSync, existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { Command, Option } from 'commander';
 import dotenv from 'dotenv';
 import pkg_ from '../package.json' with { type: 'json' };
@@ -44,13 +44,13 @@ program.argument('<query>', 'Search query');
 program
   .option(
     '-o, --output <filename>',
-    `Filename where results are saved, without extension.\nCan use env variable OUT (check '${path.basename(process.argv[1])} --help-env' for more info).`,
+    `Filename where results are saved, without extension.\nCan use env variable OUT (check '${basename(process.argv[1])} --help-env' for more info).`,
   )
   // --year as REPEATABLE (not variadic) so it doesn't eat the query
   .addOption(
     new Option(
       '-y, --year <number>',
-      `Specify a single year (-y 2000) or a range (-y 2000 -y 2005).\nCan use env variable YEARS (check '${path.basename(process.argv[1])} --help-env' for more info).`,
+      `Specify a single year (-y 2000) or a range (-y 2000 -y 2005).\nCan use env variable YEARS (check '${basename(process.argv[1])} --help-env' for more info).`,
     )
       // creates an array (concat) of all passed 'year' arguments.
       // First argument needs empty array to start
@@ -83,7 +83,7 @@ program
   .addOption(
     new Option(
       '-f, --full-text-and-metadata',
-      `"Full Text & Metadata"\nCan use env variable FULL (check '${path.basename(process.argv[1])} --help-env' for more info).`,
+      `"Full Text & Metadata"\nCan use env variable FULL (check '${basename(process.argv[1])} --help-env' for more info).`,
     )
       .helpGroup(IEEE_FIELD_DESC)
       .conflicts(removeConflict('fullTextAndMetadata')),
@@ -113,10 +113,10 @@ program.addHelpText(
   'after',
   `
 Examples:
-  $ ${path.basename(process.argv[1])} 'optics AND nano' -o search1 -y 1990 -y 2000 -e
+  $ ${basename(process.argv[1])} 'optics AND nano' -o search1 -y 1990 -y 2000 -e
     searches for "optics AND nano" between 1990-2000 and saves results to search1.json and search1.xls
 
-  $ ${path.basename(process.argv[1])} 'h264 NEAR/3 cellular' -y 2005 -o search2.json
+  $ ${basename(process.argv[1])} 'h264 NEAR/3 cellular' -y 2005 -o search2.json
     searches for "h264 NEAR/3 cellular" only in 2005 and saves results to search2.json
 `,
 );
@@ -235,10 +235,10 @@ async function search() {
   if (opts.scrap) {
     results = await scrap(queryText, opts.year, opts.allContentTypes, verbosity);
   } else {
-    const configFile = path.join(configDirectory(), 'config.json');
+    const configFile = join(configDirectory(), 'config.json');
     checkAPIKey(configFile);
     try {
-      const config = fs.readJSONSync(configFile); // Read the API_KEY
+      const config = JSON.parse(readFileSync(configFile, 'utf8')); // Read the API_KEY
       results = await api(config.APIKEY, queryText, opts.year, opts.allContentTypes, verbosity);
     } catch (error) {
       redError(`Error reading the APIKEY: ${error.message}`);
@@ -255,8 +255,13 @@ async function search() {
   if (results.total_records > 0) {
     try {
       const jsonPath = testFileExtension(output, '.json');
-      await fs.ensureFile(jsonPath); // create the parent directory if it doesn't exist
-      await fs.writeJson(jsonPath, results.articles, { spaces: 1 });
+      // create the parent directory if it doesn't exist
+      const dir = dirname(jsonPath);
+      if (!existsSync(dir)) {
+        mkdirSync(dir, { recursive: true });
+      }
+
+      writeFileSync(jsonPath, JSON.stringify(results.articles, null, 1));
       if (opts.excel) await json2xls(results.articles, testFileExtension(output, '.xls'));
     } catch (error) {
       redError(`Error writing JSON or XLS file:\n${error.message}`);

@@ -34,7 +34,6 @@
     "commander": "^14.0.3",
     "dotenv": "^17.3.1",
     "excel4node": "^1.8.2",
-    "fs-extra": "^11.3.3",
     "locate-app": "^2.5.0",
     "lodash": "^4.17.23",
     "puppeteer-core": "^24.37.4",
