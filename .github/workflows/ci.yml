@@ -90,7 +90,7 @@ jobs:
       - name: Generate release body
         run: bin/github_release_body.sh
       - name: Download artifacts
-        uses: actions/download-artifact@v4 # act needs this version pinned
+        uses: actions/download-artifact@v7 # act needs this version pinned
         with:
           path: dist/
       - name: Move artifacts
