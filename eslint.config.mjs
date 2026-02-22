@@ -1,14 +1,14 @@
 import globals from 'globals';
 import js from '@eslint/js';
 import nodePlugin from 'eslint-plugin-n';
-import importPlugin from 'eslint-plugin-import';
+import { importX } from 'eslint-plugin-import-x';
 import eslintConfigPrettier from 'eslint-config-prettier/flat';
 
 /** @type {import('eslint').Linter.FlatConfig[]} */
 export default [
   js.configs.recommended,
   nodePlugin.configs['flat/recommended-module'],
-  importPlugin.flatConfigs.recommended,
+  importX.flatConfigs.recommended,
   { ignores: ['build/'] },
   {
     settings: {
