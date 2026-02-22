@@ -233,13 +233,13 @@ if (!queryContainsField(queryText)) {
 async function search() {
   let results;
   if (opts.scrap) {
-    results = await scrap(queryText, years, opts.allContentTypes, verbosity);
+    results = await scrap(queryText, opts.year, opts.allContentTypes, verbosity);
   } else {
     const configFile = path.join(configDirectory(), 'config.json');
     checkAPIKey(configFile);
     try {
       const config = fs.readJSONSync(configFile); // Read the API_KEY
-      results = await api(config.APIKEY, queryText, years, opts.allContentTypes, verbosity);
+      results = await api(config.APIKEY, queryText, opts.year, opts.allContentTypes, verbosity);
     } catch (error) {
       redError(`Error reading the APIKEY: ${error.message}`);
       process.exit(1);
@@ -266,7 +266,7 @@ async function search() {
 }
 
 if (opts.linkOnly) {
-  const query = scrapLink(queryText, years, opts.allContentTypes);
+  const query = scrapLink(queryText, opts.year, opts.allContentTypes);
   console.log('Encoded Query: %s\n', query);
 } else if (!process.env.CI) {
   search();
