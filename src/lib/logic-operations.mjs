@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { readJsonSync } from 'fs-extra/esm';
+import { readFileSync } from 'node:fs';
 import { redError } from './helpers.mjs';
 
 /**
@@ -32,7 +32,7 @@ function logicOperations(options) {
   let files;
 
   try {
-    files = options.files.map((file) => readJsonSync(file));
+    files = options.files.map((file) => JSON.parse(readFileSync(file, 'utf8')));
   } catch (error) {
     redError(`Error reading JSON file:\n${error.message}`);
     process.exit(4);
@@ -48,7 +48,7 @@ function logicOperations(options) {
   if (options.not) {
     let notFile;
     try {
-      notFile = readJsonSync(options.not);
+      notFile = JSON.parse(readFileSync(options.not, 'utf8'));
     } catch (error) {
       redError(`Error reading JSON file:\n${error.message}`);
       process.exit(4);

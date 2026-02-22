@@ -7,15 +7,12 @@ import eslintConfigPrettier from 'eslint-config-prettier/flat';
 /** @type {import('eslint').Linter.FlatConfig[]} */
 export default [
   js.configs.recommended,
-  nodePlugin.configs['flat/recommended-script'],
+  nodePlugin.configs['flat/recommended-module'],
   importPlugin.flatConfigs.recommended,
   { ignores: ['build/'] },
   {
-    rules: {
-      'import/no-unresolved': ['error', { ignore: ['^fs-extra/esm$'] }],
-    },
     settings: {
-      node: { version: '>=24' },
+      n: { version: '>=24' },
     },
   },
   {

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { Command, Option } from 'commander';
-import fs from 'fs-extra';
-import { basename } from 'node:path';
+import { existsSync, readFileSync, mkdirSync, writeFileSync } from 'node:fs';
+import { basename, dirname } from 'node:path';
 import dotenv from 'dotenv';
 import { fromResults } from './lib/json2xls.mjs';
 import { logicOperations } from './lib/logic-operations.mjs';
@@ -74,7 +74,7 @@ program.parse(process.argv);
  */
 async function convert(jsonFile) {
   try {
-    const json = await fs.readJson(jsonFile);
+    const json = JSON.parse(readFileSync(jsonFile, 'utf8'));
     await fromResults(json, changeFileExtension(jsonFile, '.xls'));
   } catch (error) {
     redError(`Error converting JSON file:\n${error.message}`);
@@ -111,10 +111,13 @@ async function logic(files, opts) {
   }
   console.log('Operation returned %s results', result.length);
   try {
-    await fs.ensureFile(testFileExtension(opts.output, '.json')); // create the parent directory if it doesn't exist
-    await fs.writeJson(testFileExtension(opts.output, '.json'), result, {
-      spaces: 1,
-    });
+    // create the parent directory if it doesn't exist
+    const dir = dirname(testFileExtension(opts.output, '.json'));
+    if (!existsSync(dir)) {
+      mkdirSync(dir, { recursive: true });
+    }
+
+    writeFileSync(testFileExtension(opts.output, '.json'), JSON.stringify(result, null, 1));
     if (opts.excel) await fromResults(result, testFileExtension(opts.output, '.xls'));
   } catch (error) {
     redError(`Error writing JSON or XLS file:\n${error.message}`);
