@@ -2,13 +2,15 @@ apikey # needs fixing
 arnumber
 autobuild
 CDMA
+cli
 CMOS
 commitlint
-cli
 dotenv
 encod
 env
 esm
+firefox
+github
 gron
 gtar
 homography
@@ -16,12 +18,14 @@ ieee
 ieeexplore
 jsessionid
 KHTML
+linux
 nargs
 ncipollo
 Nums # needs fixing
 ONEAR
 postchangelog
 QELS
+querytext
 redirections
 SCIHUBDOMAIN
 tealium

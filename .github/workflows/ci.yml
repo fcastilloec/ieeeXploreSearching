@@ -59,14 +59,12 @@ jobs:
           cache: 'npm'
       - name: Install npm dependencies
         run: npm ci
-      - name: Bundle
-        run: node bin/build-pkg.mjs
       - name: Create executables
         run: |
           TARGET=node${{ env.node-version }}-${{ matrix.platform }}-x64
-          npm run pkg -- -t ${TARGET} build/cli-search.cjs --output dist/ieeeSearch --no-bytecode --public-packages "*" --config .pkg.json
-          npm run pkg -- -t ${TARGET} build/cli-logic.cjs --output dist/ieeeLogic
-          npm run pkg -- -t ${TARGET} build/cli-count.cjs --output dist/ieeeCount
+          npm run pkg -- -t ${TARGET} src/cli-search.mjs --output dist/ieeeSearch
+          npm run pkg -- -t ${TARGET} src/cli-logic.mjs --output dist/ieeeLogic
+          npm run pkg -- -t ${TARGET} src/cli-count.mjs --output dist/ieeeCount
       - name: Tar files
         working-directory: ./dist
         run: |
