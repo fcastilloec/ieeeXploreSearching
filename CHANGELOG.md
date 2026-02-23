@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [9.2.0](https://github.com/fcastilloec/ieeeXploreSearching/compare/v9.1.1...v9.2.0) (2026-02-23)
+
+
+### Features
+
+* replace yargs with commander for cli-count ([#1078](https://github.com/fcastilloec/ieeeXploreSearching/issues/1078)) ([d878df2](https://github.com/fcastilloec/ieeeXploreSearching/commit/d878df23ecacfe17c03f861f87dc6f4ac9dcf902))
+* replace yargs with commander for cli-logic ([#1079](https://github.com/fcastilloec/ieeeXploreSearching/issues/1079)) ([fc478df](https://github.com/fcastilloec/ieeeXploreSearching/commit/fc478df983c8f24e455626a58582b1c9e7201930))
+* replace yargs with commander for cli-search ([#1077](https://github.com/fcastilloec/ieeeXploreSearching/issues/1077)) ([3a4d7c5](https://github.com/fcastilloec/ieeeXploreSearching/commit/3a4d7c587dad6992b3e3e210bf4d62e03c8f2de4))
+
+
+### Bug Fixes
+
+* don't load constants from file ([#1075](https://github.com/fcastilloec/ieeeXploreSearching/issues/1075)) ([abfd15d](https://github.com/fcastilloec/ieeeXploreSearching/commit/abfd15d3a66acdaf41428c3371b17200b3e97a96))
+* make scrapping more reliable ([#1072](https://github.com/fcastilloec/ieeeXploreSearching/issues/1072)) ([d35f69c](https://github.com/fcastilloec/ieeeXploreSearching/commit/d35f69c301383ba646b4d04629b012ea5e55b069))
+* pass correct year argument when searching ([#1107](https://github.com/fcastilloec/ieeeXploreSearching/issues/1107)) ([22d8ab6](https://github.com/fcastilloec/ieeeXploreSearching/commit/22d8ab68849be1a14a6d0cb1b47701cc108d4d33))
+* various improvements ([#1080](https://github.com/fcastilloec/ieeeXploreSearching/issues/1080)) ([d62ba38](https://github.com/fcastilloec/ieeeXploreSearching/commit/d62ba38d64503301ea671da75fb94c30c7ae32af))
+
 ## [9.1.1](https://github.com/fcastilloec/ieeeXploreSearching/compare/v9.1.0...v9.1.1) (2026-01-14)
 
 
