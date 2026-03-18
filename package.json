@@ -36,7 +36,7 @@
     "excel4node": "^1.8.2",
     "locate-app": "^2.5.0",
     "lodash": "^4.17.23",
-    "puppeteer-core": "^24.39.0",
+    "puppeteer-core": "^24.39.1",
     "readline-sync": "^1.4.10"
   },
   "devDependencies": {
