@@ -119,7 +119,11 @@ async function scrap(queryText, rangeYear, allContentTypes, verbose) {
     await page.setViewport({ width: 1920, height: 1080 });
     page.setDefaultTimeout(timeout);
     await page.setUserAgent(userAgent);
-    await page.goto(ieeeSearchUrl + query);
+    const response = await page.goto(ieeeSearchUrl + query);
+    if (!response.ok()) {
+      // covers any non-2xx status
+      throw new Error(`IEEE returned HTTP ${response.status()} - Check if site is under maintenance`);
+    }
     if (!regex.test(page.url())) {
       throw new Error(`IEEE redirected, probably maintenance is happening.\n${page.url()}`);
     }
