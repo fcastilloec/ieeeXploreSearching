@@ -7,7 +7,13 @@ import course from './fixtures/scrap/course.json';
 import magazineArticle from './fixtures/scrap/magazineArticle.json';
 import journalArticle from './fixtures/scrap/journalArticle.json';
 import standard from './fixtures/scrap/standard.json';
-import multiple from './fixtures/scrap/multiple.json';
+import multiple_sorted from './fixtures/scrap/multiple_sorted.json';
+
+// Sorts a scrap result object based on article_number.
+// Used by multiple page scrapping, so ordering of results doesn't affect tests
+const sortByArticleNumber = (articles) => {
+  articles.sort((a, b) => a.article_number.localeCompare(b.article_number));
+};
 
 const expectedJson = {
   book,
@@ -17,7 +23,7 @@ const expectedJson = {
   magazineArticle,
   journalArticle,
   standard,
-  multiple,
+  multiple_sorted,
 };
 
 const labels = {
@@ -75,7 +81,10 @@ describe('Scrapping', () => {
 
 describe('Scrapping', () => {
   test('Results in multiple pages', async () => {
-    await expect(scrap('nack', [2000, 2003], true, false)).resolves.toMatchObject(expectedJson.multiple);
+    const result = await scrap('nack', [2000, 2003], true, false);
+    expect(result.total_records).toBe(expectedJson.multiple_sorted.total_records);
+    sortByArticleNumber(result.articles);
+    expect(result.articles).toEqual(expectedJson.multiple_sorted.articles);
   });
 });
 
