@@ -67,7 +67,6 @@ async function scrap(queryText, rangeYear, allContentTypes, verbose) {
   const ELEMENTS = '.List-results-items';
   const RESULTS = 'h1.Dashboard-header.col-12 > span:nth-child(1)';
   const NO_RESULTS = 'div.List-results-message.List-results-none';
-  const NEXT = '.next-btn';
 
   if (verbose) console.log('Query: %s\n', queryText);
   let query =
@@ -84,7 +83,6 @@ async function scrap(queryText, rangeYear, allContentTypes, verbose) {
   let userAgent;
   let executablePath; // path to either Chrome (preferred) or Firefox
   let headless; // Chrome uses a different type
-  let totalPages = 1; // counter for total number of pages
   let TOTAL_PAGES; // calculated number of pages
   let browser;
   let results;
@@ -113,12 +111,14 @@ async function scrap(queryText, rangeYear, allContentTypes, verbose) {
       executablePath,
       headless,
       slowMo: process.env.CI ? 15 : 5, // Extra 10ms on CI
-      args: ['--width=1920', '--height=1080', ...(process.env.CI ? ['--no-sandbox'] : [])],
+      args: ['--window-size=1920,1080', ...(process.env.CI ? ['--no-sandbox'] : [])],
     });
     const page = await browser.newPage();
     await page.setViewport({ width: 1920, height: 1080 });
     page.setDefaultTimeout(timeout);
     await page.setUserAgent(userAgent);
+
+    // --- Load page 1 ---
     const response = await page.goto(ieeeSearchUrl + query);
     if (!response.ok()) {
       // covers any non-2xx status
@@ -157,42 +157,19 @@ async function scrap(queryText, rangeYear, allContentTypes, verbose) {
     const recordsPerPage = Number.parseInt(recordsNums[0], 10);
     TOTAL_PAGES = Math.ceil(totalRecords / recordsPerPage);
 
-    // Check that NEXT selector is present if there are multiple pages
-    if (TOTAL_PAGES > 1 && !(await page.$(NEXT))) {
-      throw new Error("There's multiple pages of results, but couldn't find the NEXT button");
-    }
+    // --- Load remaining pages by navigating directly to each page URL ---
+    for (let pageNumber = 2; pageNumber <= TOTAL_PAGES; pageNumber++) {
+      const pageUrl = ieeeSearchUrl + query + `&pageNumber=${pageNumber}`;
+      const pageResponse = await page.goto(pageUrl);
 
-    while ((await page.$(NEXT)) && totalPages <= TOTAL_PAGES) {
-      const firstResultOld = await page.$eval(ELEMENTS, (el) => el.innerText).catch(() => '');
+      if (!pageResponse.ok()) throw new Error(`IEEE returned HTTP ${pageResponse.status()} on page ${pageNumber}`);
 
-      const nextBtn = await page.$(NEXT);
-      await nextBtn.scrollIntoViewIfNeeded(); // in case the button is hidden because is out of view
-      await page.click(NEXT); // go to next page of results
+      // prettier-ignore
+      { lineStack = getLineStack(18); await page.waitForSelector(ELEMENTS); }
 
-      // Wait for spinner lifecycle (Appear -> Disappear)
-      await page.waitForSelector('xpl-progress-spinner', { visible: true }).catch(() => {});
-      await page.waitForSelector('xpl-progress-spinner', { hidden: true }); // this also catches removals from DOM
-
-      // Wait until the results container actually shows DIFFERENT text
-      await page.waitForFunction(
-        (selector, oldText) => {
-          const el = document.querySelector(selector);
-          return (
-            el && // The element exists
-            el.innerText.trim().length > 0 && // It has text
-            !el.innerText.includes('Getting results') && // The text is not "Getting results"
-            el.innerText !== oldText // Text is not the same as the previous page
-          );
-        },
-        { timeout: 8000, polling: 'mutation' }, // Mutation polling is more sensitive to DOM changes
-        ELEMENTS,
-        firstResultOld,
-      );
-
+      await page.addScriptTag({ content: getConstantsScript() });
       const pageResult = await page.evaluate(createJSON);
       results.push(...pageResult); // add page results to original object
-
-      totalPages += 1;
 
       await new Promise((r) => setTimeout(r, 200)); // A tiny breather to prevent "Sustained High Speed" flagging
     }
@@ -214,7 +191,7 @@ async function scrap(queryText, rangeYear, allContentTypes, verbose) {
     throw error;
   }
   if (verbose) {
-    console.log('Total number of pages: %s (of %s calculated)\n', totalPages, TOTAL_PAGES);
+    console.log('Total number of pages: %s\n', TOTAL_PAGES);
   }
   return { total_records: results.length, articles: results };
 }
