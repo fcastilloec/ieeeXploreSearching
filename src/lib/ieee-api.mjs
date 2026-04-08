@@ -5,45 +5,26 @@ import { launch } from 'puppeteer-core';
 import createJSON from './create-json.mjs';
 import { escapeRegExp, getLineStack, redError } from './helpers.mjs';
 
-/**
- * Used for inserting Javascript code that contains necessary constants
- * Needed to avoid importing files with __dirname which causes problem with packaging.
- *
- * @returns {string}  The Javascript code that includes the constants.
- */
-function getConstantsScript() {
-  return `
-    // List of all elements
-    const ELEMENTS = 'xpl-results-item > div.hide-mobile';
+// Selectors relative to each ELEMENT
+const main = 'div.result-item > div.col.result-item-align';
+const icons = 'div.doc-access-tools-container';
 
-    // Selectors relative to each ELEMENT
-    const main = 'div.result-item > div.col.result-item-align';
-    const icons = 'div.doc-access-tools-container';
+const DATA = {
+  // List of all elements
+  ELEMENTS: 'xpl-results-item > div.hide-mobile',
 
-    // Elements inside MAIN
-    const AUTHORS = main + ' > xpl-authors-name-list > p.author';
-    const TITLE = main + ' > h3 > a';
-    const NO_TITLE = 'h3 > span';
-    const PUBLICATION = main + ' > div.description > a';
-    const DESCRIPTION = main + ' > div.description > div.publisher-info-container';
+  // Elements inside MAIN
+  AUTHORS: main + ' > xpl-authors-name-list > p.author',
+  TITLE: main + ' > h3 > a',
+  NO_TITLE: 'h3 > span',
+  PUBLICATION: main + ' > div.description > a',
+  DESCRIPTION: main + ' > div.description > div.publisher-info-container',
 
-    // Elements inside ICONS
-    const ABSTRACT = icons + ' > .hide > span';
-    const ABSTRACT_URL = icons + ' > .hide > a';
-
-    globalThis.DATA = {
-      ELEMENTS,
-      AUTHORS,
-      TITLE,
-      NO_TITLE,
-      ICONS: icons + ' > ul > li',
-      PUBLICATION,
-      DESCRIPTION,
-      ABSTRACT,
-      ABSTRACT_URL,
-    };
-  `;
-}
+  // Elements inside ICONS
+  ABSTRACT: icons + ' > .hide > span',
+  ABSTRACT_URL: icons + ' > .hide > a',
+  ICONS: icons + ' > ul > li',
+};
 
 /**
  * Search by scrapping the results from the IEEE search page.
@@ -141,10 +122,7 @@ async function scrap(queryText, rangeYear, allContentTypes, verbose) {
     // prettier-ignore
     { lineStack = getLineStack(18); await page.waitForSelector(ELEMENTS); } // Wait until javascript loads all results
 
-    await page.addScriptTag({
-      content: getConstantsScript(),
-    }); // Add all selectors as variables to window
-    results = await page.evaluate(createJSON); // create JSON with results of first page
+    results = await page.evaluate(createJSON, DATA); // create JSON with results of first page
 
     // All the records
     const recordsNums = records.match(/(\d+)/g);
@@ -167,8 +145,7 @@ async function scrap(queryText, rangeYear, allContentTypes, verbose) {
       // prettier-ignore
       { lineStack = getLineStack(18); await page.waitForSelector(ELEMENTS); }
 
-      await page.addScriptTag({ content: getConstantsScript() });
-      const pageResult = await page.evaluate(createJSON);
+      const pageResult = await page.evaluate(createJSON, DATA);
       results.push(...pageResult); // add page results to original object
 
       await new Promise((r) => setTimeout(r, 200)); // A tiny breather to prevent "Sustained High Speed" flagging

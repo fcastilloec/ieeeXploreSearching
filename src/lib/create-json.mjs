@@ -1,11 +1,9 @@
-/* global DATA */
-
 /**
  * Queries the document/page for IEEE results.
  *
  * @returns {object[]}  Each IEEE result is an Object, which are part of the returned Array
  */
-function createJSON() {
+function createJSON(DATA) {
   // Translate between webpage and API types
   const contentType = {
     Course: 'Courses',
