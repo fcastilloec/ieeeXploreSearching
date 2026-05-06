@@ -40,7 +40,7 @@
     "readline-sync": "^1.4.10"
   },
   "devDependencies": {
-    "@commitlint/cli": "^20.5.2",
+    "@commitlint/cli": "^20.5.3",
     "@commitlint/config-conventional": "^20.5.0",
     "@eslint/js": "^10.0.1",
     "@yao-pkg/pkg": "^6.19.0",
