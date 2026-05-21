@@ -1,13 +1,13 @@
 import { api, scrap } from '../src/lib/ieee-api';
-import untitled from './fixtures/scrap/untitled.json';
-import book from './fixtures/scrap/book.json';
-import bookChapter from './fixtures/scrap/bookChapter.json';
-import conferencePaper from './fixtures/scrap/conferencePaper.json';
-import course from './fixtures/scrap/course.json';
-import magazineArticle from './fixtures/scrap/magazineArticle.json';
-import journalArticle from './fixtures/scrap/journalArticle.json';
-import standard from './fixtures/scrap/standard.json';
-import multiple_sorted from './fixtures/scrap/multiple_sorted.json';
+import untitled from './fixtures/scrap/untitled.json' with { type: 'json' };
+import book from './fixtures/scrap/book.json' with { type: 'json' };
+import bookChapter from './fixtures/scrap/bookChapter.json' with { type: 'json' };
+import conferencePaper from './fixtures/scrap/conferencePaper.json' with { type: 'json' };
+import course from './fixtures/scrap/course.json' with { type: 'json' };
+import magazineArticle from './fixtures/scrap/magazineArticle.json' with { type: 'json' };
+import journalArticle from './fixtures/scrap/journalArticle.json' with { type: 'json' };
+import standard from './fixtures/scrap/standard.json' with { type: 'json' };
+import multiple_sorted from './fixtures/scrap/multiple_sorted.json' with { type: 'json' };
 
 // Sorts a scrap result object based on article_number.
 // Used by multiple page scrapping, so ordering of results doesn't affect tests
