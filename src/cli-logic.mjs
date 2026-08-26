@@ -12,12 +12,12 @@ dotenv.config({ quiet: true, path: ['.env', 'env'] }); // read env variables fro
 
 const program = new Command();
 
-program
-  .version(pkg_.version)
-  .showHelpAfterError()
-  .configureOutput({
-    outputError: (str, write) => write(redError(str, false)),
-  });
+program.version(pkg_.version).configureOutput({
+  outputError: (str, write) => {
+    program.outputHelp({ error: true });
+    write(redError(str, false));
+  },
+});
 
 program
   .description('Perform logic operations between JSON files')

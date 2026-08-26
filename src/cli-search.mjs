@@ -31,10 +31,12 @@ const program = new Command();
 
 program
   .usage('<query> [options] [IEEE Data Fields]')
-  .showHelpAfterError()
   .description('Search IEEE content with API or scraper and export results')
   .configureOutput({
-    outputError: (str, write) => write(redError(str, false)),
+    outputError: (str, write) => {
+      program.outputHelp({ error: true });
+      write(redError(str, false));
+    },
   });
 
 // Required positional <query>
@@ -164,8 +166,7 @@ if (!opts.year) {
     if (opts.verbose) console.log(`Using env YEARS (${process.env.YEARS})`);
     years = process.env.YEARS.split(':').map((year) => Number.parseInt(year, 10)); // creates an array of years
   } else {
-    redError('Missing required argument: --year <number...>\n');
-    program.help({ error: true });
+    program.error('Missing required argument: --year <number...>\n');
   }
 }
 opts.year = years.length == 1 ? [years[0], years[0]] : years;
@@ -173,8 +174,7 @@ try {
   testYears(opts.year);
   checkQueryText(queryText);
 } catch (error) {
-  redError(error.message + '\n');
-  program.help({ error: true });
+  program.error(error.message + '\n');
 }
 
 // --output; allow OUT env override
@@ -185,8 +185,7 @@ if (process.env.OUT) {
   if (opts.verbose) console.log(`OUT: ${output}`);
 }
 if (!output && !opts.linkOnly) {
-  redError('Missing required option: --output <filename> (or set OUT env variable)\n');
-  program.help({ error: true });
+  program.error('Missing required option: --output <filename> (or set OUT env variable)\n');
 }
 
 // Verbosity level

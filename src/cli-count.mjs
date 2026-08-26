@@ -7,9 +7,11 @@ import pkg_ from '../package.json' with { type: 'json' };
 const program = new Command();
 
 program
-  .showHelpAfterError()
   .configureOutput({
-    outputError: (str, write) => write(redError(str, false)),
+    outputError: (str, write) => {
+      program.outputHelp({ error: true });
+      write(redError(str, false));
+    },
   })
   .description('Count the number of results in a JSON file')
   .argument('<filename...>', 'JSON file(s) to read') // require at least one filename
