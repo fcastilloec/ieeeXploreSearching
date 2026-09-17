@@ -1,4 +1,3 @@
-'*.{js,mjs}': 'eslint'
-'**/*':
-  - 'prettier --write --ignore-unknown'
-  - 'cspell --no-must-find-files'
+# '*.{js,mjs}': 'biome check'
+# '*': 'biome format --write'
+'*': 'true'

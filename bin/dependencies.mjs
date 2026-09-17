@@ -1,7 +1,7 @@
-import { execSync } from 'child_process';
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import { execSync } from 'node:child_process';
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 // Get __dirname equivalent in ESM
 const __filename = fileURLToPath(import.meta.url);
@@ -88,7 +88,7 @@ function updateChangelog(changes) {
     return;
   }
 
-  let changelog = fs.readFileSync(CHANGELOG_PATH, 'utf8');
+  const changelog = fs.readFileSync(CHANGELOG_PATH, 'utf8');
 
   // Find the first "### Dependencies" section
   const depsHeaderRegex = /^### Dependencies$/m;
