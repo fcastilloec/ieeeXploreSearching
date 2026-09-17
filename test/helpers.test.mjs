@@ -1,5 +1,5 @@
 import { changeFileExtension, testFileExtension, testYears, getLineStack, checkQueryText } from '../src/lib/helpers';
-import { fileURLToPath } from 'url';
+import { fileURLToPath } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
 

@@ -169,12 +169,12 @@ if (!opts.year) {
     program.error('Missing required argument: --year <number...>\n');
   }
 }
-opts.year = years.length == 1 ? [years[0], years[0]] : years;
+opts.year = years.length === 1 ? [years[0], years[0]] : years;
 try {
   testYears(opts.year);
   checkQueryText(queryText);
 } catch (error) {
-  program.error(error.message + '\n');
+  program.error(`${error.message}\n`);
 }
 
 // --output; allow OUT env override

@@ -14,16 +14,16 @@ const DATA = {
   ELEMENTS: 'xpl-results-item > div.hide-mobile',
 
   // Elements inside MAIN
-  AUTHORS: main + ' > xpl-authors-name-list > p.author',
-  TITLE: main + ' > h3 > a',
+  AUTHORS: `${main} > xpl-authors-name-list > p.author`,
+  TITLE: `${main} > h3 > a`,
   NO_TITLE: 'h3 > span',
-  PUBLICATION: main + ' > div.description > a',
-  DESCRIPTION: main + ' > div.description > div.publisher-info-container',
+  PUBLICATION: `${main} > div.description > a`,
+  DESCRIPTION: `${main} > div.description > div.publisher-info-container`,
 
   // Elements inside ICONS
-  ABSTRACT: icons + ' > .hide > span',
-  ABSTRACT_URL: icons + ' > .hide > a',
-  ICONS: icons + ' > ul > li',
+  ABSTRACT: `${icons} > .hide > span`,
+  ABSTRACT_URL: `${icons} > .hide > a`,
+  ICONS: `${icons} > ul > li`,
 };
 
 /**
@@ -119,7 +119,7 @@ async function scrap(queryText, rangeYear, allContentTypes, verbose) {
       return { total_records: 0, articles: [] };
     }
 
-    // prettier-ignore
+    // biome-ignore lint/complexity/noUselessLoneBlockStatements: getLineStack will point to this line if errors
     { lineStack = getLineStack(18); await page.waitForSelector(ELEMENTS); } // Wait until javascript loads all results
 
     results = await page.evaluate(createJSON, DATA); // create JSON with results of first page
@@ -137,12 +137,12 @@ async function scrap(queryText, rangeYear, allContentTypes, verbose) {
 
     // --- Load remaining pages by navigating directly to each page URL ---
     for (let pageNumber = 2; pageNumber <= TOTAL_PAGES; pageNumber++) {
-      const pageUrl = ieeeSearchUrl + query + `&pageNumber=${pageNumber}`;
+      const pageUrl = `${ieeeSearchUrl}${query}&pageNumber=${pageNumber}`;
       const pageResponse = await page.goto(pageUrl);
 
       if (!pageResponse.ok()) throw new Error(`IEEE returned HTTP ${pageResponse.status()} on page ${pageNumber}`);
 
-      // prettier-ignore
+      // biome-ignore lint/complexity/noUselessLoneBlockStatements: getLineStack needs to run in block
       { lineStack = getLineStack(18); await page.waitForSelector(ELEMENTS); }
 
       const pageResult = await page.evaluate(createJSON, DATA);
