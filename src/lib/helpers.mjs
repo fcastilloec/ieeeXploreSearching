@@ -78,8 +78,8 @@ function getLineStack(column = 0) {
   error_ = error_.stack.split('\n')[2].split(/[():]/);
   error_.pop();
   error_.shift(); // remove unneeded elements
-  return column === 0 ?
-      `    at ${error_.join(':')}`
+  return column === 0
+    ? `    at ${error_.join(':')}`
     : `    at ${error_[0]}:${error_[1]}:${Number.parseInt(error_[2], 10) + column}`;
 }
 

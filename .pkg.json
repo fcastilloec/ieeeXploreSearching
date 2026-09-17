@@ -1,5 +1,8 @@
 {
   "pkg": {
-    "assets": ["node_modules/axios/**", "node_modules/vm2/**"]
+    "assets": [
+      "node_modules/axios/**",
+      "node_modules/vm2/**"
+    ]
   }
 }

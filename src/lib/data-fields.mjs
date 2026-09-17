@@ -57,4 +57,4 @@ function removeConflict(argument) {
   return Object.keys(FIELDS).filter((field) => field !== argument);
 }
 
-export { FIELDS, removeConflict, addDataField, queryContainsField };
+export { addDataField, FIELDS, queryContainsField, removeConflict };

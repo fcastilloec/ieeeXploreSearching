@@ -1,12 +1,12 @@
 #!/usr/bin/env node
-import { Command, Option } from 'commander';
-import { existsSync, readFileSync, mkdirSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { basename, dirname } from 'node:path';
+import { Command, Option } from 'commander';
 import dotenv from 'dotenv';
+import pkg_ from '../package.json' with { type: 'json' };
+import { changeFileExtension, redError, testFileExtension } from './lib/helpers.mjs';
 import { fromResults } from './lib/json2xls.mjs';
 import { logicOperations } from './lib/logic-operations.mjs';
-import { changeFileExtension, testFileExtension, redError } from './lib/helpers.mjs';
-import pkg_ from '../package.json' with { type: 'json' };
 
 dotenv.config({ quiet: true, path: ['.env', 'env'] }); // read env variables from both '.env' and 'env'
 

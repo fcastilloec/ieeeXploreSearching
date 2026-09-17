@@ -1,4 +1,4 @@
-import { addDataField, removeConflict, queryContainsField } from '../src/lib/data-fields';
+import { addDataField, queryContainsField, removeConflict } from '../src/lib/data-fields';
 
 test('addDataField without field', () => {
   const query = 'optics AND nano';

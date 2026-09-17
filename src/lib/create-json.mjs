@@ -48,9 +48,8 @@ function createJSON(DATA) {
     const publication_title = publication ? publication.textContent : title;
 
     // Books publication number is in the title
-    const publication_number =
-      publication ?
-        publication.getAttribute('href').match(/\d+/).shift()
+    const publication_number = publication
+      ? publication.getAttribute('href').match(/\d+/).shift()
       : item.querySelector(TITLE).getAttribute('href').split('/').findLast(Boolean); // For Books only
 
     // URLs
@@ -66,9 +65,8 @@ function createJSON(DATA) {
     if (!html_url && abstract_url) html_url = abstract_url.href; // Some results don't have clickable titles
 
     // article_number get it from title. If title is not a link, get it from PDF.
-    const article_number =
-      item.querySelector(TITLE) ?
-        item.querySelector(TITLE).getAttribute('href').split('/').findLast(Boolean)
+    const article_number = item.querySelector(TITLE)
+      ? item.querySelector(TITLE).getAttribute('href').split('/').findLast(Boolean)
       : new URL(pdf_url).searchParams.get('arnumber');
 
     // The result object will all the must have fields
@@ -80,9 +78,8 @@ function createJSON(DATA) {
       content_type: contentType[type],
       publication_title,
       authors: {
-        authors:
-          authors ?
-            [...authors.querySelectorAll('[data-tealium_data]')].map((value, index) => {
+        authors: authors
+          ? [...authors.querySelectorAll('[data-tealium_data]')].map((value, index) => {
               const author = {
                 full_name: value.textContent,
                 author_order: index + 1,

@@ -1,7 +1,7 @@
-import path from 'node:path';
 import { existsSync } from 'node:fs';
-import { redError } from './helpers.mjs';
+import path from 'node:path';
 import pkg_ from '../../package.json' with { type: 'json' };
+import { redError } from './helpers.mjs';
 
 /**
  * Finds the configuration directory for this app.
@@ -21,9 +21,8 @@ function configDirectory() {
   switch (process.platform) {
     case 'linux':
     case 'darwin': {
-      directory_ =
-        process.env.XDG_CONFIG_HOME ?
-          path.join(process.env.XDG_CONFIG_HOME, pkg_.name)
+      directory_ = process.env.XDG_CONFIG_HOME
+        ? path.join(process.env.XDG_CONFIG_HOME, pkg_.name)
         : path.join(process.env.HOME, '.config', pkg_.name);
       break;
     }

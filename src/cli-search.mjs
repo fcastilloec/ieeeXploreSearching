@@ -1,14 +1,14 @@
 #!/usr/bin/env node
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { basename, dirname, join } from 'node:path';
-import { readFileSync, existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { Command, Option } from 'commander';
 import dotenv from 'dotenv';
 import pkg_ from '../package.json' with { type: 'json' };
 import { checkAPIKey } from './lib/api-key.mjs';
 import { configDirectory } from './lib/config-directory.mjs';
-import { testYears, checkQueryText, testFileExtension, redError } from './lib/helpers.mjs';
-import { FIELDS, removeConflict, addDataField, queryContainsField } from './lib/data-fields.mjs';
-import { scrap, api, scrapLink } from './lib/ieee-api.mjs';
+import { addDataField, FIELDS, queryContainsField, removeConflict } from './lib/data-fields.mjs';
+import { checkQueryText, redError, testFileExtension, testYears } from './lib/helpers.mjs';
+import { api, scrap, scrapLink } from './lib/ieee-api.mjs';
 import { fromResults as json2xls } from './lib/json2xls.mjs';
 
 if (process.platform === 'win32') {
