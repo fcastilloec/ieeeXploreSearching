@@ -1,8 +1,8 @@
 #!/usr/bin/env node
-import { Command } from 'commander';
 import { readFileSync } from 'node:fs';
-import { redError } from './lib/helpers.mjs';
+import { Command } from 'commander';
 import pkg_ from '../package.json' with { type: 'json' };
+import { redError } from './lib/helpers.mjs';
 
 const program = new Command();
 

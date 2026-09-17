@@ -119,8 +119,10 @@ async function scrap(queryText, rangeYear, allContentTypes, verbose) {
       return { total_records: 0, articles: [] };
     }
 
-    // biome-ignore lint/complexity/noUselessLoneBlockStatements: getLineStack will point to this line if errors
+    // biome-ignore-start lint/complexity/noUselessLoneBlockStatements: getLineStack needs to run in block
+    // biome-ignore format: getLineStack need to be in the same line as the command
     { lineStack = getLineStack(18); await page.waitForSelector(ELEMENTS); } // Wait until javascript loads all results
+    // biome-ignore-end lint/complexity/noUselessLoneBlockStatements: getLineStack needs to run in block
 
     results = await page.evaluate(createJSON, DATA); // create JSON with results of first page
 
@@ -142,8 +144,10 @@ async function scrap(queryText, rangeYear, allContentTypes, verbose) {
 
       if (!pageResponse.ok()) throw new Error(`IEEE returned HTTP ${pageResponse.status()} on page ${pageNumber}`);
 
-      // biome-ignore lint/complexity/noUselessLoneBlockStatements: getLineStack needs to run in block
+      // biome-ignore-start lint/complexity/noUselessLoneBlockStatements: getLineStack needs to run in block
+      // biome-ignore format: getLineStack need to be in the same line as the command
       { lineStack = getLineStack(18); await page.waitForSelector(ELEMENTS); }
+      // biome-ignore-end lint/complexity/noUselessLoneBlockStatements: see above
 
       const pageResult = await page.evaluate(createJSON, DATA);
       results.push(...pageResult); // add page results to original object
@@ -245,4 +249,4 @@ function scrapLink(queryText, rangeYear, allContentTypes) {
   return ieeeSearchUrl + query;
 }
 
-export { scrap, api, scrapLink };
+export { api, scrap, scrapLink };

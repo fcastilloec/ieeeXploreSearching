@@ -1,3 +1,2 @@
 # '*.{js,mjs}': 'biome check'
-# '*': 'biome format --write'
-'*': 'true'
+'*': 'biome check'

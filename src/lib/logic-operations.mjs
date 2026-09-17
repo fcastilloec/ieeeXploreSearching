@@ -1,5 +1,5 @@
-import _ from 'lodash';
 import { readFileSync } from 'node:fs';
+import _ from 'lodash';
 import { redError } from './helpers.mjs';
 
 /**
@@ -55,12 +55,12 @@ function logicOperations(options) {
     }
     console.log(`Excluding content from: ${options.not}`);
     result =
-      options.merge || options.or || options.and ?
-        _.differenceWith(result, notFile, isEqual) // use previous results
-      : _.differenceWith(...files, notFile, isEqual); // only use provided files
+      options.merge || options.or || options.and
+        ? _.differenceWith(result, notFile, isEqual) // use previous results
+        : _.differenceWith(...files, notFile, isEqual); // only use provided files
   }
 
   return result;
 }
 
-export { logicOperations, isEqual };
+export { isEqual, logicOperations };

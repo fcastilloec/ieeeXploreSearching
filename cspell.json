@@ -8,7 +8,9 @@
       "addWords": true
     }
   ],
-  "dictionaries": ["project-words"],
+  "dictionaries": [
+    "project-words"
+  ],
   "ignorePaths": [
     "node_modules",
     "/project-words.txt",
