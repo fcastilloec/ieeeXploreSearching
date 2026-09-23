@@ -1,3 +1,7 @@
+import dotenv from 'dotenv';
+
+dotenv.config({ quiet: true, path: ['.env', 'env'] });
+
 const config = {
   testTimeout: process.env.CI ? 45000 : 25000,
   verbose: true,
