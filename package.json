@@ -47,6 +47,6 @@
     "commit-and-tag-version": "^13.2.1",
     "husky": "^9.1.7",
     "jest": "^30.5.2",
-    "lint-staged": "^17.5.1"
+    "lint-staged": "^17.6.0"
   }
 }
