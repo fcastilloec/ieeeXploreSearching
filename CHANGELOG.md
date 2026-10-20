@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [9.2.1](https://github.com/fcastilloec/ieeeXploreSearching/compare/v9.2.0...v9.2.1) (2026-10-20)
+
+### Bug Fixes
+
+* **scrap:** better loading of multiple pages results ([#1156](https://github.com/fcastilloec/ieeeXploreSearching/issues/1156)) ([26ab5a0](https://github.com/fcastilloec/ieeeXploreSearching/commit/26ab5a0607c6d17eab69ad46d174c541c9f72ea6))
+* **scrap:** check response code before continuing ([#1148](https://github.com/fcastilloec/ieeeXploreSearching/issues/1148)) ([3dc7dbe](https://github.com/fcastilloec/ieeeXploreSearching/commit/3dc7dbeeb4eca2c668acc239d129ae8c118a30f1))
+
 ## [9.2.0](https://github.com/fcastilloec/ieeeXploreSearching/compare/v9.1.1...v9.2.0) (2026-02-23)
 
 
