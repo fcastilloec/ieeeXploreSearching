@@ -43,7 +43,7 @@
     "@biomejs/biome": "2.5.15",
     "@commitlint/cli": "^21.2.4",
     "@commitlint/config-conventional": "^21.2.4",
-    "@yao-pkg/pkg": "^6.23.0",
+    "@yao-pkg/pkg": "^6.24.0",
     "commit-and-tag-version": "^13.3.0",
     "husky": "^9.1.7",
     "jest": "^30.5.2",
