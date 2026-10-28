@@ -77,18 +77,14 @@ describe('Scrapping', () => {
     delete result.abstract;
     expect(result).toMatchObject(untitled[0]);
   });
-});
 
-describe('Scrapping', () => {
   test('Results in multiple pages', async () => {
     const result = await scrap('nack', [2000, 2003], true, false);
     expect(result.total_records).toBe(expectedJson.multiple_sorted.total_records);
     sortByArticleNumber(result.articles);
     expect(result.articles).toEqual(expectedJson.multiple_sorted.articles);
   });
-});
 
-describe('Scrapping', () => {
   test("Don't search all content types", async () => {
     await expect(scrap(queries.standard, [2000, 2000], false, false)).resolves.toMatchObject({
       articles: [],
