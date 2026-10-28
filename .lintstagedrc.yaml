@@ -1,2 +1,2 @@
 # '*.{js,mjs}': 'biome check'
-'*': 'biome check'
+'*': 'npx @biomejs/biome check'
