@@ -40,7 +40,7 @@
     "readline-sync": "^1.4.10"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.6.4",
+    "@biomejs/biome": "^2.6.6",
     "@commitlint/cli": "^21.2.4",
     "@commitlint/config-conventional": "^21.2.4",
     "@yao-pkg/pkg": "^6.25.0",
