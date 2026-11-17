@@ -84,7 +84,7 @@ async function fromResults(results, xlsFilename) {
   ws.column(COLUMNS.publication_title).setWidth(20);
   ws.column(COLUMNS.abstract).setWidth(50);
   ws.column(COLUMNS.sci_hub).setWidth(44);
-  ws.column(COLUMNS.pdf_url).setWidth(60);
+  ws.column(COLUMNS.pdf_url).setWidth(38);
   ws.column(COLUMNS.content_type).setWidth(15);
 
   // Which columns should be hidden
@@ -152,7 +152,7 @@ async function fromResults(results, xlsFilename) {
       .string(result.abstract || '')
       .style(wrapStyle);
     ws.cell(index + 2, COLUMNS.pdf_url)
-      .link(result.pdf_url || result.abstract_url || '')
+      .link(result.html_url || result.abstract_url || result.pdf_url || '')
       .style(linkStyle);
     if (result.doi) {
       doiHide = false;
