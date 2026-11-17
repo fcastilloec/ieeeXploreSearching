@@ -9,6 +9,7 @@ commitlint
 dotenv
 encod
 env
+esbuild
 esm
 firefox
 github
